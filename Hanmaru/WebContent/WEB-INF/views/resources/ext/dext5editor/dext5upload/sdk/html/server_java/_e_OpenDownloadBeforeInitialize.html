@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con">
+            <h3 class="title">DEXT5 Upload :: OpenDownloadBeforeInitializeEvent</h3>
+            <p class="ttl">void OpenDownloadBeforeInitializeEventEx<br />(Raonwiz.Dext5.Process.Entity.UploadEventEntity parameterEntity)</p>
+            <p class="txt">
+                파일 열기 또는 다운로드 전에 발생합니다.
+                <br />다운로드 받을 파일에 대한 경로 또는 파일명을 변경해야 하는 경우 사용합니다.
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">parameterEntity</span>&nbsp;&nbsp;다운로드 요청시 정보를 추출할 수 있고 정보를 변경할 수 있는 Object를 의미합니다.<br />
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                dext5handler.jsp에서 서버 이벤트 사용시 반드시 4번째 파라미터의 event 객체를 Setting 해줘야 합니다.<br />"upload.Process(request, response, application, <span class="firebrick">event</span>);"
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+event.addOpenDownloadBeforeInitializeEventListenerEx(new Raonwiz.Dext5.OpenDownloadBeforeInitializeEventListenerEx() {
+    public void OpenDownloadBeforeInitializeEventEx(Raonwiz.Dext5.Process.Entity.UploadEventEntity parameterEntity) {
+        //다운로드 Request 정보를 추출합니다.
+        HttpServletRequest request = parameterEntity.getRequest();
+        //다운로드 Response 정보를 추출합니다.
+        HttpServletResponse response = parameterEntity.getResponse();
+        //다운로드 받을 파일의 물리적 경로를 추출합니다.
+        String[] downloadFilePath = parameterEntity.getDownloadFilePath();
+        //다운로드 받을 파일의 원본파일명을 추출합니다.
+        String[] downloadFileName = parameterEntity.getDownloadFileName();
+        //다운로드 받을 파일의 Custom Value를 추출합니다.
+        String[] downloadCustomValue = parameterEntity.getDownloadCustomValue();
+			
+        //다운로드 받을 파일의 물리적 경로를 변경합니다.
+        parameterEntity.setDownloadFilePath(downloadFilePath);
+        //다운로드 받을 파일의 원본파일명을 변경합니다.
+        parameterEntity.setDownloadFileName(downloadFileName);
+        //DownloadFileName 변경했을 경우 설정해야 합니다.
+        parameterEntity.setUseDownloadServerFileName(true);
+
+        //다운로드 요청시 특정 상황에 에러처리를 할 경우 사용합니다.
+        //Error Code를 설정하실 때에는 900이상의 3자리로 설정
+        parameterEntity.setCustomError("999", "사용자오류");
+    }
+});
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

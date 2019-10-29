@@ -1,0 +1,153 @@
+<div class="workDiaryContainer" ng-controller="workWriteController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarMenu" ng-click="popPage('pg_task_write')">
+			<img src="/resources/image/ic-arrow-left.png">
+		</div>
+		<div class="headerBarTitle diaryDrop">
+			<span>{{translateLanguage('work_task_write')}}</span>
+		</div>
+		<div class="headerBarSend workDiaryWrite" ng-click="btnWriteWork()">
+			<img src="/resources/image/mail/ic_menu_send_normal.png">
+		</div>
+		<div class="headerBarAttach workDiaryAttach">
+			
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	
+	<div class="workWriteBack"></div>
+	<div class="workWriteDiv">
+		<div class="workWriteContents">
+			<div class="workWriteScheduleTitle">
+				<p>{{translateLanguage('subject')}}</p>
+				<div class="workWriteTitleEdit">
+					<input type="text" ng-model="taskTitle" placeholder="제목을 입력해 주세요.">
+				</div>
+			</div>
+			<div class="workWriteScheduleDiv">
+				<p>{{translateLanguage('work_period')}}</p>
+				<div class="workScheduleDateDiv">
+					<div class="workScheduleDateWrap">
+						<div class="workScheduleFirstDate" ng-click="chooseSearchDate('start')">
+							<input type="text" class="txtDateSearch" readonly="readonly" ng-model="txtSearchStart">
+						</div>
+						<div class="workScheduleSwungDash">~</div>
+						<div class="workScheduleSecondDate" ng-click="chooseSearchDate('end')">
+							<input type="text" class="txtDateSearch" readonly="readonly" ng-model="txtSearchEnd">
+						</div>
+					</div>
+				</div>
+					
+			</div>
+			
+			<div class="workOptionContents">
+				<div class="workManagerDiv">
+					<p>{{translateLanguage('work_attendance_users_for_task')}}</p>
+					<div class="workManagerContents">
+						<div class="wrap_selected_user" ng-repeat="user in attendanceUserList">
+							<span ng-if="user.UserName != undefined && user.Type == undefined"> 
+								{{user.UserName}}/{{user.PositionName}}/{{user.DeptName}}/{{user.CompName}}
+							</span>
+							<span ng-if="user.UserName == undefined && user.Type == undefined">
+								{{user.DeptName}}
+							</span>
+							<span ng-if="user.Type != undefined">
+								{{user.Name}}
+							</span>
+							<span ng-if="user.DisplayName != undefined && user.DisplayName != ''">
+								{{user.DisplayName}}
+							</span>
+							<a ng-click="btnRemoveAttendanceUser($index)"><img class="img_rcv_remove" src="/resources/image/icon/ic_x_normal.png"></a>
+						</div>
+						<input type="search" class="txt_rcv_name" ng-model="txt_rcv_name" ng-trim="true" ng-keyup="btnDetectSearch($event)" >
+						<a ng-click="btnCallOrganSelect($event,'workTaskAttendance')"><img src="/resources/image/ic-add-people.png"></a>
+					</div>
+					<!-- <div class="search_user_list" ng-if="search_rcv_result.length > 0">
+						<ul>
+							<li ng-repeat="user in search_rcv_result" ng-click="addRcvSelectedUser(user)">{{user.DisplayName}}</li>
+							<li ng-repeat="user in search_rcv_result" ng-click="addRcvSelectedUser(user)">{{user.DisplayName}}</li>
+						</ul>
+					</div>	자동완성 기능 있다면, 넣어주시면 될거 같습니다. -->				
+				</div>
+				<div class="workSharerDiv">
+					<p>{{translateLanguage('work_share_users')}}</p>
+					<div class="workSharerContents">
+						<div class="wrap_selected_user" ng-repeat="user in shareUserList">
+							<span ng-if="user.UserName != undefined && user.Type == undefined"> 
+								{{user.UserName}}/{{user.PositionName}}/{{user.DeptName}}/{{user.CompName}}
+							</span>
+							<span ng-if="user.UserName == undefined && user.Type == undefined">
+								{{user.DeptName}}
+							</span>
+							<span ng-if="user.Type != undefined">
+								{{user.Name}}
+							</span>
+							<span ng-if="user.DisplayName != undefined && user.DisplayName != ''">
+								{{user.DisplayName}}
+							</span>
+							<a ng-click="btnRemoveShareUser($index)"><img class="img_rcv_remove" src="/resources/image/icon/ic_x_normal.png"></a>
+						</div>
+						<input type="search" class="txt_rcv_name" ng-model="txt_rcv_name" ng-trim="true" ng-keyup="btnDetectSearch($event)" >
+						<a ng-click="btnCallOrganSelect($event,'workTaskShare')"><img src="/resources/image/ic-add-people.png"></a>
+					</div>
+				</div>
+				<div class="workOptionDiv">
+					<p>{{translateLanguage('option')}}</p>
+					<div class="workColorOptionDiv">
+						<ul ng-repeat="color in scheduleColorList">
+							<li class="workColorPickerOption" ng-show="color.isCheck == false" ng-click="OptionColorSelect(color)" style="background:#{{color.Value}}" ><a></a></li>
+							<li class="workColorPickerOption" ng-show="color.isCheck == true" ng-click="OptionColorSelect(color)" style="background:#{{color.Value}};transform:scale(1.2, 1.2);" ><a></a></li>
+							
+						</ul>
+					</div>
+				</div>
+				<!-- <div class="schedulelAttachDiv">
+					<p class="scheduleAttachTitle">첨부파일</p>
+					<div class="scheduleFileAttach">
+						<p class="scheduleFileInfo">참고하세요.txt<span>17.0bytes</span></p>
+						<img src="/resources/image/ic_remove_normal.png">
+					</div>
+				</div> -->
+				<div class="workWriteAttachDiv">
+					<p class="workWriteAttachTitle">{{translateLanguage('attach_files')}}</p>
+					<div class="workWriteFile">
+						<!-- <img class="fileImg" src="/resources/image/ic-attach-file.png">
+						<div class="workWriteFileAttach">
+							<p class="workWriteFileInfo">해당 영역에 에디터 툴 들어옵니다<span>17.0bytes</span></p>
+							<img class="removeImg" src="/resources/image/ic-close.png">
+						</div> -->
+						<div class="wrap_attach_file_list" ng-repeat="attach in attach_list">
+							<div class="file_ext">
+								<img ng-src="{{determineExtension(attach)}}">
+							</div>
+							
+							<div class="file_info">
+								<span>{{attach.name}}</span>
+								<span class="txt_fileSize">{{getFileSizeUnit(attach.size)}}</span>
+							</div>
+							
+							<a class="btn_remove_reserv_attach" ng-click="btnRemoveAttach($index)">
+								<img src="/resources/image/icon/ic_remove_normal.png">
+							</a>
+						</div>
+						<label ng-click="initAttachFile()">
+							<img class="btn_attach_file" src="/resources/image/mail/ic_attach_pressed.png">
+							<input type="file" ng-model="chooser_attach_file" class="reserv_attach_file" work-diary-attach-file-change="changeAttachFile">
+						</label>
+						
+					</div>
+				</div>
+			</div>
+			<div class="workWriteEditorWrap">
+				<!-- <iframe name="workTaskEditor" id="workTaskEditor" frameborder=0 ng-src="{{taskContents}}" width="100%" height="100%"></iframe> -->
+				<!-- <ng-include src="{{taskContents}}"></ng-include> -->
+				<iframe id="workTaskEditor" class="contents" src="{{taskContents}}" frameborder="0"  width="100%" height="100%"></iframe>
+			</div><!-- 해당 영역에 에디터 툴 들어옵니다 -->
+		</div>
+	</div>
+	
+	
+</div>
+	
+	

@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: AutoDestroy</h3>
+    <p class="ttl">
+        XML : &#60;auto_destroy&#62;.....&#60;/auto_destroy&#62;, Config : config.AutoDestroy.Use<br />
+        XML : &#60;auto_destroy move_cursor="....."&#62;&#60;/auto_destroy&#62;, Config : config.AutoDestroy.MoveCursor
+    </p>
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">XML:auto_destroy,Config:AutoDestroy.Use</span>&nbsp;&nbsp;에디터 언로드 시 메모리 해제 여부를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:move_cursor,Config:AutoDestroy.MoveCursor</span>&nbsp;&nbsp;에디터 destroy시 커서를 다른 객체로 옮겨주도록 설정합니다.
+        </span>
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">XML:auto_destroy,Config:AutoDestroy.Use</span>&nbsp;&nbsp;기본값은 0이고, 1로 설정하면 에디터 언로드 시 destroy합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:move_cursor,Config:AutoDestroy.MoveCursor</span>&nbsp;&nbsp;기본값은 0이고, 1로 설정하면 destroy 시 커서를 다른 객체로 옮겨줍니다.
+        </span>
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+<b>에디터 언로드 시 destroy 사용으로 설정, destroy 시 커서를 다른 객체로 옮김으로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;auto_destroy move_cursor="1"&#62;1&#60;/auto_destroy&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+ 
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;    
+    &#60;script type="text/javascript"&#62;
+
+        DEXT5.config.AutoDestroy = {
+            Use: "1",
+            MoveCursor: "1"
+         };
+
+        new Dext5editor("editor1");
+
+    &#60;/script&#62;       
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: XssRemoveEvents</h3>
+    <p class="ttl">XML : &#60;xss_remove_events&#62;.....&#60;/xss_remove_events&#62;, Config : config.XssRemoveEvents</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        에디터에 입력되면 삭제할 이벤트를 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        onclick, onload, onchange 등의 형태로 이벤트를 설정합니다.<br />
+        all 로 입력하면 모든 이벤트 값을 설정합니다.<br /> 
+        사용자가 태그에 해당되는 이벤트를 입력한 경우 에디터에서 삭제합니다.
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+<b>에디터에 onclick이 입력되면 삭제합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;xss_protection&#62;
+    .....
+    &#60;xss_remove_events&#62;onclick&#60;/xss_remove_events&#62;
+    .....
+&#60;/xss_protection&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+ 
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;    
+    &#60;script type="text/javascript"&#62;
+
+        DEXT5.config.XssRemoveEvents = "onclick";
+
+        new Dext5editor("editor1");
+    
+    &#60;/script&#62;       
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

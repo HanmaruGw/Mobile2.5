@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con">
+            <h3 class="title">DEXT5 Upload :: SetAllowExtensionSpecialSymbol</h3>
+            <p class="ttl">upload.SetAllowExtensionSpecialSymbol</p>
+            <p class="txt">
+                서버에서 업로드 또는 다운로드시 파일에 대한 확장자 체크를 할 경우
+                <br />해당 확장자 값 중 특수문자를 모두 빈값으로 치환합니다.(보안상의 이슈로 인하여 치환)
+                <br />특정 특수문자에 대하여 빈값으로 치환되지 않도록 하기 원할 경우 설정합니다.(여러개일 경우 ,로 구분하여 설정)
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                기본값 : 빈값.
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+Raonwiz.Dext5.UploadHandler upload = new Raonwiz.Dext5.UploadHandler();
+
+<b>upload.SetAllowExtensionSpecialSymbol = "_,*";</b>
+
+upload.Process(context);
+        </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

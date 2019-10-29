@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>About</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        function license_loaded_event() {
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+            document.getElementById('dext_dialog_box').className = 'DEXT_fiVe_ED_Popup_Type03 DEXT_fiVe_PUi_' + _skin_name;
+
+            set_license();
+
+            var span_ok = document.getElementById('span_ok');
+            span_ok.innerHTML = LayerWin.dext5_lang.ok_cancel.ok;
+
+            document.getElementById("span_title").innerHTML = document.title;
+            document.title = LayerWin.dext5_lang.about.frame_title;
+
+            //setTimeout(function () { window.focus(); }, 10);
+            var a_ok_obj = document.getElementById('a_ok');
+            setCursorPos(a_ok_obj, false, false);
+            LayerWin.setFocusFirstAndLast(document, a_ok_obj);
+        }
+
+        function set_license() {
+            try {
+                document.getElementById("dext_license_company").innerHTML = ": " + LayerWin._dext_editor.____.l[1];
+                document.getElementById("dext_license_system").innerHTML = ": " + LayerWin._dext_editor.____.l[2];
+                document.getElementById("dext_license_product").innerHTML = ": " + LayerWin._dext_editor.____.l[7];
+                if (LayerWin._dext_editor.____.l[3] == 'S') {
+                    document.getElementById("dext_license_edition").innerHTML = ": " + "Standard Edition";
+                    //document.getElementById("dext_license_edition").innerHTML = ": " + "DEXT5 Editor Standard Edition";
+                } else {
+                    document.getElementById("dext_license_edition").innerHTML = ": " + "Professional Edition";
+                    //document.getElementById("dext_license_edition").innerHTML = ": " + "DEXT5 Editor Professional Edition";
+                }
+                if (LayerWin._dext_editor.____.l[6] == 0)
+                    document.getElementById("dext_license_user").innerHTML = ": " + 'Unlimited.';
+                else
+                    document.getElementById("dext_license_user").innerHTML = ": " + LayerWin._dext_editor.____.l[6];
+
+                document.getElementById("dext_license_ver").innerHTML = ": " + DEXTTOP.DEXT5.ReleaseVer;
+                //document.getElementById("dext_license_ver").innerHTML = ": " + parent.DEXT5.version + " " + parent.DEXT5.ReleaseVer;
+            } catch (e) { }
+
+        }
+    </script>
+</head>
+<body style="margin:0px; padding:0px;" onload="javascript:license_loaded_event();">
+    <div class="DEXT_fiVe_ED_Popup_Type01 DEXT_fiVe_PUi_green" id="dext_dialog_box">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title">DEXT5 About</span><span class="text"></span>
+            <div class="close">
+                <a href="javascript:event_dext_close();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents -->
+        <div class="EdiTor_Popup_contents">
+            <div class="contents" style="height:307px;">
+                <div class="con">
+                    <table cellpadding="0" cellspacing="0" style="color:#2f3845; table-layout:auto !important;">
+                        <tr>
+                            <td colspan="2" style="height:44px; color: #0478e5; width:370px;">
+                                <!-- 다음 사용자의 시스템에 등록되어 있습니다.<br /> -->
+                                This product is registered in the user's system.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="height:20px; width:100px;">
+                                Company(User)
+                            </td>
+                            <td style="height:20px; width:260px;" id="dext_license_company">
+                                :
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="height:20px;">
+                                System
+                            </td>
+                            <td style="height:20px;" id="dext_license_system">
+                                :
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="height:20px;">
+                                Edition
+                            </td>
+                            <td style="height:20px;" id="dext_license_edition">
+                                :
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="height:20px;">
+                                ProductKey
+                            </td>
+                            <td style="height:20px;" id="dext_license_product">
+                                :
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="height:20px;">
+                                Users
+                            </td>
+                            <td style="height:20px;" id="dext_license_user">
+                                :
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="height:20px;">
+                                Version
+                            </td>
+                            <td style="height:20px;" id="dext_license_ver">
+                                :
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="height: 80px; width:370px;">
+                                <br />
+                                This computer program is protected by copyright law and international treaties.
+                                Unauthorized reproduction or distribution of this program, or any portion of it,
+                                may result in severe civil and criminal penalties, and will be prosecuted to the
+                                maximum extent possible under the law.
+                                <br /><br />
+                                Copyrightⓒ RAONWIZ All Right Reserved.
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a href="javascript:event_dext_close();" class="confirm" id="a_ok"><span id="span_ok">확인</span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

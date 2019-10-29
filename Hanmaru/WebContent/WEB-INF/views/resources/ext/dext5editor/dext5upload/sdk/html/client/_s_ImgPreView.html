@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Upload :: ImgPreView</h3>
+    <p class="ttl">XML : &#60;img_preview&#62;.....&#60;/img_preview&#62;, Config : config.ImgPreView<br/>XML : &#60;img_preview width="....."&#62;&#60;/img_preview&#62;, Config : config.ImgPreViewWidth<br />XML : &#60;img_preview height"....."&#62;&#60;/img_preview&#62;, Config : config.ImgPreViewHeight</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        이미지 미리보기 창 기능을 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        기본값은 "0"이고 사용안함, "1"로 설정시 이미지 미리보기 창 사용입니다.<br/><br />
+        <span class="txt">
+            <span class="firebrick">XML:width, Config:ImgPreViewWidth</span>&nbsp;&nbsp;이미지 미리보기 창의 넓이를 설정합니다.<br />
+            <span style="padding-left:204px">기본값은 "320px" 입니다.</span><br />
+            <span style="padding-left:204px;">넓이는 "px"(픽셀)만 가능합니다.</span>
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:height, Config:ImgPreViewHeight</span>&nbsp;&nbsp;이미지 미리보기 창의 높이를 설정합니다.<br />
+            <span style="padding-left:212px">기본값은 "280px" 입니다.</span><br />
+            <span style="padding-left:212px">높이는 "px"(픽셀)만 가능합니다.</span>
+        </span><br />   
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>이미지 미리보기 창 사용으로 설정합니다.</b>
+<b>이미지 미리보기 창 넓이를 250px 로 설정합니다.</b>
+<b>이미지 미리보기 창 넓이를 200px 로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;img_preview width="250px" height="200px"&#62;1&#60;/img_preview&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        DEXT5UPLOAD.config.ImgPreView = '1';
+        DEXT5UPLOAD.config.ImgPreViewWidth = '250px';
+        DEXT5UPLOAD.config.ImgPreViewHeight = '200px';
+
+        new Dext5Upload("upload1");
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

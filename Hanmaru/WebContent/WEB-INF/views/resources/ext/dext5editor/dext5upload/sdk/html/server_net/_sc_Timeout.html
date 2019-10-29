@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con">
+            <h3 class="title">DEXT5 Upload :: Timeout</h3>
+            <p class="ttl">Timeout 설정</p>
+            <p class="txt">
+                업로드 또는 다운로드 요청시 Timeout을 설정하게 되면 해당 시간 후 요청이 강제로 중지됩니다.
+                <br />해당 설정에 따라 업로드할 때의 허용되는 시간이 결정됩니다.
+                <br />업로드 또는 다운로드 요청이 해당 시간보다 오래걸릴 경우 서버에서 에러가 발생됩니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">설정 방법</p>
+            <div class="cord">
+                <pre class="pre">
+<span class="firebrick">Web.config에서 설정</span>
+
+&#60;?xml version="1.0" encoding="UTF-8" ?&#62;
+&#60;configuration&#62;
+.....
+    &#60;system.web&#62;
+    .....
+        &#60;httpruntime <b>executiontimeout="3600"</b> maxrequestlength="2048000" /&#62; <b>&#60;!-- 초단위로 설정 --&#62;</b>
+    .....
+    &#60;/system.web&#62;
+.....
+&#60;/configuration&#62;
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

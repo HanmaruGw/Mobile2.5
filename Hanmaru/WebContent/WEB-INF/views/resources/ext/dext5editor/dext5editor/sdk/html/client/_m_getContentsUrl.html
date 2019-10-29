@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con ">           
+    <h3 class="title">DEXT5 Editor :: getContentsUrl</h3>
+    <p class="ttl">string getContentsUrl(editor_id)</p>
+    <p class="txt">
+        에디터 디자인 영역에 있는 모든 객체(이미지, 영상, 파일 등)의 경로를 가져옵니다.<br />
+	    문서에서 사용중인 모든 객체명을 알기 위하여 사용합니다.<br />
+        문서등록 시 파일명 Guid 형태 변환옵션을 사용하는 것이 좋습니다.
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        아래와 같은 형식으로 객체 개수만큼 나열되어 스트링으로 가져옵니다.<br />
+        <b>객체 전체경로 + (구분자 : 0x0b) + 객체명 + (구분자 : 0x0c) + ... + </b>
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">editor_id</span>&nbsp;&nbsp;객체를 가져올 에디터의 id를 의미합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        에디터를 1개만 생성했을 경우 editor_id를 입력하지 않아도 객체의 경로를 가져올 수 있습니다.<br />
+        예) id가 editor1인 에디터를 생성했을 경우<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEXT5.getContentsUrl('editor1'), DEXT5.getImagesEx() 모두 editor1 에디터 디자인 영역의 객체 경로를 가져옵니다.<br />
+    <br />
+        에디터를 2개 이상 생성했을 경우 editor_id를 <b>반드시</b> 입력해야 합니다.<br />
+        예) id가 editor1, editor2인 에디터를 생성했을 경우<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEXT5.getContentsUrl('editor1') &nbsp;editor1 에디터 디자인 영역의 객체 경로를 가져옵니다.<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEXT5.getContentsUrl('editor2') &nbsp;editor2 에디터 디자인 영역의 객체 경로를 가져옵니다.<br />
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+
+    function dext_editor_loaded_event() {
+        // id가 editor1인 에디터 디자인 영역에서 객체의 경로를 가지고 온 후 '\u000c'로 구분합니다.  
+        var sBodyImage = DEXT5.getContentsUrl('editor1').split('\u000c');
+        var sBodyURL = '';
+        
+        for(var i = 0 ; i < sBodyImage.length; i++) {
+            // 객체당 2개씩 넘어오는 변수를 자릅니다
+            sBodyURL = sBodyImage[i].split('\u000b');
+            // 객체 전체 경로와 객체 명을 얻을 수 있습니다
+            alert(sBodyURL[0] + ' / ' + sBodyURL[1]);
+        }
+    }
+
+&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;  
+
+    &lt;!-- 에디터 생성 --&gt;
+    &#60;script type="text/javascript"&#62;
+        new Dext5editor('editor1');
+    &#60;/script&#62;       
+
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

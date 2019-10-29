@@ -1,0 +1,207 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Upload Sample</title>
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+    <link href="../css/sample.common.css" rel="stylesheet" />    
+    <script src="../vender/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../js/sample.common.js" type="text/javascript"></script>
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+
+    <script src="../../../js/dext5upload.js" type="text/javascript"></script>
+   
+    <script type="text/javascript">
+        var G_UploadID;
+
+        // 생성완료 이벤트
+        function DEXT5UPLOAD_OnCreationComplete(uploadID) {
+            G_UploadID = uploadID;
+
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML = '업로드 생성 완료 : ' + uploadID + '<br/>';
+
+            // 샘플 페이지 동작을 위한 함수로 무시하시면 됩니다. 
+            fn_setting();
+        }
+
+        // 전송시작 이벤트
+        function DEXT5UPLOAD_OnTransfer_Start(uploadID) {
+            G_UploadID = uploadID;
+
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML += '업로드 시작 : ' + uploadID + '<br/>';
+        }
+
+        // 전송완료 이벤트
+        function DEXT5UPLOAD_OnTransfer_Complete(uploadID) {
+            G_UploadID = uploadID;
+
+            var logBox = document.getElementById("logBox");
+
+            // DEXT5 Upload는 json, xml, text delimit 방식으로 결과값을 제공합니다.
+
+            // 신규 업로드된 파일
+            // var jsonNew = DEXT5UPLOAD.GetNewUploadListForJson(G_UploadID);
+            // if (jsonNew) fn_newJsonToString(jsonNew);
+            // var xmlNew = DEXT5UPLOAD.GetNewUploadListForXml(G_UploadID);
+            // if (xmlNew) fn_newXmlToString(xmlNew);
+            var textNew = DEXT5UPLOAD.GetNewUploadListForText(G_UploadID);
+            if (textNew) fn_newTextToString(textNew);
+
+            // 삭제된 파일
+            // var jsonDel = DEXT5UPLOAD.GetDeleteListForJson(G_UploadID);
+            // if (jsonDel) fn_delJsonToString(jsonDel);
+            // var xmlDel = DEXT5UPLOAD.GetDeleteListForXml(G_UploadID);
+            // if (xmlDel) fn_delXmlToString(xmlDel);
+            var textDel = DEXT5UPLOAD.GetDeleteListForText(G_UploadID);
+            if (textDel) fn_delTextToString(textDel);
+
+            // 전체결과
+            // var textAll = DEXT5UPLOAD.GetAllFileListForText(G_UploadID);
+            // var jsonAll = DEXT5UPLOAD.GetAllFileListForJson(G_UploadID);
+            // var xmlAll = DEXT5UPLOAD.GetAllFileListForXml(G_UploadID);
+
+            logBox.innerHTML += '<br/>' + '업로드 완료 : ' + G_UploadID + '<br/>';
+        }
+
+        // 오류 이벤트
+        function DEXT5UPLOAD_OnError(uploadID, code, message, uploadedFileListObj) {
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML += 'Error : ' + code + ', ' + message + '<br/>';
+
+            if (uploadedFileListObj != null && uploadedFileListObj != '') {
+                logBox.innerHTML += '업로드 된 파일 리스트 - <br/>';
+                var uploadedFileLen = uploadedFileListObj.length;
+                for (var i = 0; i < uploadedFileLen; i++) {
+                    logBox.innerHTML += uploadedFileListObj[i].uploadName + ', ' + uploadedFileListObj[i].uploadPath + '</br>';
+
+                    // guid: uploadedFileListObj[i].guid
+                    // originName: uploadedFileListObj[i].originName
+                    // fileSize: uploadedFileListObj[i].fileSize
+                    // uploadName: uploadedFileListObj[i].uploadName
+                    // uploadPath: uploadedFileListObj[i].uploadPath
+                    // logicalPath: uploadedFileListObj[i].logicalPath
+                    // order: uploadedFileListObj[i].order
+                    // status: uploadedFileListObj[i].status
+                    // mark: uploadedFileListObj[i].mark
+                    // responseCustomValue: uploadedFileListObj[i].responseCustomValue
+                }
+            }
+        }
+
+        // 취소 이벤트
+        function DEXT5UPLOAD_UploadingCancel(uploadID, uploadedFileListObj) {
+            G_UploadID = uploadID;
+
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML += '전송 취소 이벤트 : ' + G_UploadID + '<br/>';
+
+            if (uploadedFileListObj != null && uploadedFileListObj != '') {
+                logBox.innerHTML += '업로드 된 파일 리스트 - <br/>';
+                var uploadedFileLen = uploadedFileListObj.length;
+                for (var i = 0; i < uploadedFileLen; i++) {
+                    logBox.innerHTML += uploadedFileListObj[i].uploadName + ', ' + uploadedFileListObj[i].uploadPath + '</br>';
+
+                    // guid: uploadedFileListObj[i].guid
+                    // originName: uploadedFileListObj[i].originName
+                    // fileSize: uploadedFileListObj[i].fileSize
+                    // uploadName: uploadedFileListObj[i].uploadName
+                    // uploadPath: uploadedFileListObj[i].uploadPath
+                    // logicalPath: uploadedFileListObj[i].logicalPath
+                    // order: uploadedFileListObj[i].order
+                    // status: uploadedFileListObj[i].status
+                    // mark: uploadedFileListObj[i].mark
+                    // responseCustomValue: uploadedFileListObj[i].responseCustomValue
+                }
+            }
+        }
+
+        function moveFirstFile() {
+            DEXT5UPLOAD.MoveFirstFile();
+        }
+        function moveForwardFile() {
+            DEXT5UPLOAD.MoveForwardFile();
+        }
+        function moveBackwardFile() {
+            DEXT5UPLOAD.MoveBackwardFile();
+        }
+        function moveEndFile() {
+            DEXT5UPLOAD.MoveEndFile();
+        }
+
+        // 샘플 페이지 동작을 위한 함수로 무시하시면 됩니다. 
+        function fn_setting() {
+            if (DEXT5UPLOAD.GetUserRuntimeMode() == 'html4') {
+                document.getElementById("file_add_btn").style.display = "none";
+                document.getElementById("file_add_nbsp").style.display = "none";
+            }
+        }
+
+    </script>
+</head>
+<body style="text-align:center;">
+    <ul class="info_lst_box">
+        <li>• 업로드를 정렬 / 파일 순서 바꾸기 예제 입니다.</li>        
+    </ul>
+    <div class="btn_lst_box">
+        <p> - 정렬 기능은 <b>파일 이름, 파일 크기 영역 클릭 시 정렬 아이콘이 노출</b> 됩니다.</p><br />
+        <p> - 새로운 파일이 첨부되었을 경우 정렬 대상 필드, 정렬 방법 옵션으로 전체 다시 정렬 가능, <br/>&nbsp;&nbsp;새로 추가되는 파일만을 정렬 대상 필드, 정렬 방법 옵션으로 정렬이 가능합니다.</p><br />
+        <p> - 파일 순서 바꾸기는 전송 완료 시 <b>Order</b>값으로 파일의 순서가 리턴됩니다.</p><br />
+
+        <button type="button" value="파일추가" class="input_image" onclick="fn_openFileDialog()" id="file_add_btn">파일추가</button><span id="file_add_nbsp">&nbsp;</span>
+        <button type="button" value="전송하기" class="input_image" onclick="fn_transfer()">전송하기</button>&nbsp;
+        <button type="button" value="전체삭제" class="input_image" onclick="fn_deleteAllFile()">전체삭제</button>&nbsp;
+        <button type="button" value="항목삭제" class="input_image" onclick="fn_deleteSelectedFile()">항목삭제</button>&nbsp; |&nbsp; 
+        <button type="button" value="맨 앞으로" class="input_image" onclick="moveFirstFile()">맨 앞으로</button>&nbsp;
+        <button type="button" value="앞으로" class="input_image" onclick="moveForwardFile()">앞으로</button>&nbsp;
+        <button type="button" value="뒤로" class="input_image" onclick="moveBackwardFile()">뒤로</button>&nbsp;
+        <button type="button" value="맨 뒤로" class="input_image" onclick="moveEndFile()">맨 뒤로</button>&nbsp;
+    </div>
+    
+    <div style="width: 800px; margin: 0 auto;">
+        <script type="text/javascript">
+            // 해당 config 이외의 설정도 가능합니다. (www.dext5.com > 개발센터 참조)
+            //DEXT5UPLOAD.config.InitXml = 'dext5upload.config.xml';
+            //DEXT5UPLOAD.config.SkinName = 'pink';
+            //DEXT5UPLOAD.config.Width = '200px';
+            //DEXT5UPLOAD.config.Height = '500px';
+            //DEXT5UPLOAD.config.MaxTotalFileSize = '20GB';
+            //DEXT5UPLOAD.config.MaxOneFileSize = '20KB';
+            //DEXT5UPLOAD.config.MaxTotalFileCount = '9';
+            //DEXT5UPLOAD.config.MultiFileSelect = false;
+            //DEXT5UPLOAD.config.ExtensionAllowOrLimit = '0';
+            //DEXT5UPLOAD.config.ExtensionArr = 'png';            
+            //DEXT5UPLOAD.config.FolderNameRule = "/uploadfolder";
+            //DEXT5UPLOAD.config.Mode = 'view'; // edit, view
+            DEXT5UPLOAD.config.ButtonBarEdit = "add,send,remove,remove_all,move_first,move_forward,move_backward,move_end"; 
+            //DEXT5UPLOAD.config.ButtonBarView = "open,download,download_all"; // 0 일경우 버튼바 보이지 않음.
+            //DEXT5UPLOAD.config.Lang = "en-us"; // ko-kr, en-us, ja-jp, zh-cn, zh-tw
+            //DEXT5UPLOAD.config.UploadHolder = "uploadHoder_PlaceHolder";
+            //DEXT5UPLOAD.config.IgnoreSameUploadName = "1";
+
+            DEXT5UPLOAD.config.UseFileSort = '1'; // "0": 정렬 기능 사용 안함, "1": 정렬 기능 사용
+            DEXT5UPLOAD.config.FileSortField = '0'; // 정렬 대상 필드값(0 : 파일 이름, 1 :파일 크기)
+            DEXT5UPLOAD.config.FileSortAscDesc = '0'; // 정렬 방법 (0 : 오름차순, 1: 내림 차순)
+            DEXT5UPLOAD.config.AutoSort = '0'; // "0":자동 정렬기능 사용 안함, "1":새로운 파일이 첨부되었을 경우 정렬 대상 필드, 정렬 방법 옵션으로 전체 다시 정렬, "2": 새로 추가되는 파일만을 정렬 대상 필드, 정렬 방법 옵션으로 정렬.
+
+            //DEXT5UPLOAD.config.Runtimes = ''; // 웹표준모드 : html5, 플러그인모드(IE전용) : ieplugin, version이하 플러그인(IE전용) : versionieplugin
+
+            // 업로드 전송창을 부모창에 띄우기 위한 설정.
+            // 업로드를 iframe 형태로 띄우는 경우 사이즈가 작아서 전송창이 가려질 때 설정하면 유용합니다.
+            //DEXT5UPLOAD.config.DialogWindow = parent.window;
+
+            var upload = new Dext5Upload("dext5upload");
+        </script>
+    </div>
+
+    <br /><br />
+
+    <!-- 로그영역 -->
+    <div id="logBox" class="logBox" style="overflow: auto;"></div>
+    <!-- //로그영역 -->
+</body>
+</html>

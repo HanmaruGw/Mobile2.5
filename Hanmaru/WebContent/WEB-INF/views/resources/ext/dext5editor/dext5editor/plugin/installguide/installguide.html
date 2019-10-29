@@ -1,0 +1,98 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Plugin Install</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="common.css" />
+    <script type="text/javascript">
+        var targetWindow = null;
+        var isPopup = false;
+        function set_page() {
+            if (opener) { targetWindow = opener.DEXTTOP; isPopup = true; }
+            else targetWindow = parent;
+            
+            document.body.style.backgroundColor = '#FFFFFF';
+            document.getElementById('DEXT_fiVe_UP_Popup_wrap').style.height = '210px';
+
+            var contentDiv = document.getElementById('DEXT_fiVe_UP_Popup_content');            
+            var lang = targetWindow.G_CURREDITOR._FRAMEWIN.dext5_lang;
+            
+            var h3Style = '';
+            if (targetWindow.G_CURREDITOR._config.lang.indexOf('ja') > -1) h3Style = 'style="letter-spacing:-2px;"';
+            var _html = '<div class="guide_box">';
+            _html += '<h2>' + lang.plugin_install_guide.header + '</h2>';
+            _html += '<h3 ' + h3Style + '>' + lang.plugin_install_guide.desc1 + '</h3>';
+            _html += '<ul class="guide_lst">';
+            _html += '<li>' + lang.plugin_install_guide.desc2.replace('{0}', getInstallFileName()) + '</li>';
+            _html += '<li>' + lang.plugin_install_guide.desc3 + '</li>';
+            _html += '<li>' + lang.plugin_install_guide.desc4 + '</li>';
+            _html += '</ul>';
+            _html += '</div>';
+            _html += '<div class="info_os_chk">';
+            _html += '<p>' + lang.plugin_install_guide.agent_info + '</p>';
+            _html += '</div>';
+
+            contentDiv.innerHTML = _html;
+
+            if (!isPopup) {
+                _html = '<a href="javascript:;" title="' + lang.plugin_install_guide.close + '"><span><b>X</b></span></a>';
+                var footerDiv = document.getElementById('DEXT_fiVe_UP_Popup_foot');
+                footerDiv.innerHTML = _html;
+
+                targetWindow.DEXTWIN.DEXT5.util.addEvent(footerDiv.firstChild, 'click', targetWindow.G_CURREDITOR._FRAMEWIN.closePluginInstall);
+            }
+            
+            install_ready();
+        }
+
+        function install_ready() {
+            try {
+                var downloadLink = document.getElementById('download_link');
+
+                var downUrl = '';
+
+                if (targetWindow.G_CURREDITOR._config.pluginInstallUrl) {
+                    downUrl = targetWindow.G_CURREDITOR._config.pluginInstallUrl;
+                } else {
+                    downUrl = targetWindow.G_CURREDITOR._config.plugin_root + targetWindow.G_CURREDITOR._config.pluginInstallFileName;
+                }
+                downloadLink.href = downUrl;
+                
+                var fileName = document.getElementById('file_name');
+                fileName.innerHTML = getInstallFileName();
+
+                var osInfo = document.getElementById('os_info');
+                var browserInfo = document.getElementById('browser_info');
+
+                var agentInfo = targetWindow.DEXTWIN.DEXT5.UserAgent;
+                osInfo.innerHTML = agentInfo.os.name + ' ' + agentInfo.os.version;
+                browserInfo.innerHTML = agentInfo.browser.name + agentInfo.browser.major;
+
+                if (!isPopup) targetWindow.DEXTWIN.DEXT5.RequestPluginInstall();
+                else opener.requestPluginInstall(opener, document);
+                
+            } catch (e) {
+                if (isPopup) self.focus();
+            }
+        }
+
+        function getInstallFileName() {
+            var installFileName = '';
+            if (targetWindow.G_CURREDITOR._config.pluginInstallUrl != '') {
+                var tempIdx = targetWindow.G_CURREDITOR._config.pluginInstallUrl.lastIndexOf('/');
+                installFileName = targetWindow.G_CURREDITOR._config.pluginInstallUrl.substring(tempIdx + 1);
+            } else {
+                installFileName = targetWindow.G_CURREDITOR._config.pluginInstallFileName;
+            }
+            return installFileName;
+        }
+    </script>
+</head>
+<body onload="set_page();">
+    <div id="DEXT_fiVe_UP_Popup_wrap">
+        <div id="DEXT_fiVe_UP_Popup_head"><h1>DEXT5</h1></div>
+        <div id="DEXT_fiVe_UP_Popup_content" class="txt_install_guide"></div>
+        <div id="DEXT_fiVe_UP_Popup_foot"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Find</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <style type="text/css">
+        .color li { width:14px; height:14px; float:left; padding:0px; margin:1px; border:0px none; list-style-type:none; cursor:pointer; }
+    </style>
+	
+	<script type="text/javascript">
+        function page_loaded_event() {
+
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+
+            document.getElementById("editor_popup_find").className = 'DEXT_fiVe_ED_Popup_Type01 DEXT_fiVe_PUi_' + _skin_name;
+
+            document.getElementById("span_title").innerHTML = LayerWin.dext5_lang.find.name;
+
+            document.getElementById("label_search_contents").innerHTML = LayerWin.dext5_lang.find.search_contents;
+            document.getElementById("span_search").innerHTML = LayerWin.dext5_lang.find.search;
+
+            document.getElementById("span_search_option").innerHTML = LayerWin.dext5_lang.find.search_option;
+            document.getElementById("label_char_div").innerHTML = LayerWin.dext5_lang.find.char_div;
+            document.getElementById("label_text_end").innerHTML = LayerWin.dext5_lang.find.text_end;
+            document.getElementById("label_word_unit").innerHTML = LayerWin.dext5_lang.find.word_unit;
+            document.getElementById("span_search_direction").innerHTML = LayerWin.dext5_lang.find.search_direction;
+            document.getElementById("label_up").innerHTML = LayerWin.dext5_lang.find.up;
+            document.getElementById("label_down").innerHTML = LayerWin.dext5_lang.find.down;
+
+            document.getElementById("btn_cancel").innerHTML = LayerWin.dext5_lang.ok_cancel.cancel;
+
+            document.title = LayerWin.dext5_lang.find.frame_title;
+
+            document.getElementById("tosavepathurl").value = LayerWin._dext_editor._config.toSavePathURL;
+
+            var header = LayerWin.getElementsByClass("EdiTor_Popup_header", document);
+            header[0].onselectstart = function () { return false; };
+            document.getElementById("btn_cancel").focus();
+
+            ////////////////////
+            if (LayerDoc.compatMode == "BackCompat") {
+                var inputs = document.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type == 'text') {
+                        inputs[i].style.height = '20px';
+                    }
+                }
+            }
+            ///////////////////
+            setCursorPos(document.getElementById('search_contents'), true, false);
+            LayerWin.setFocusFirstAndLast(document, document.getElementById('search_contents'));
+        }
+
+	</script>
+</head>
+<body style="margin:0px; padding:0px;" onload="page_loaded_event()" >
+    <div id="editor_popup_find" class="editor_popup">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title"></span><span class="text">Dext5 Editor</span>
+            <div class="close">
+                <a href="javascript:event_dext_table_cancel();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / general -->
+        <div class="EdiTor_Popup_contents">
+            <div class="contents">
+                <input type="hidden" id="tosavepathurl" name="tosavepathurl" value="" />
+                <div class="con border">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="25%">
+                                <label id="label_search_contents" for="search_contents"></label>
+                            </td>
+                            <td width="75%" class="cb_btn">
+                                <input name="search_contents" id="search_contents" type="text" style="width:190px;" class="con_input"/>
+                                <a href="javascript:event_dext_find_completed();" style="cursor:pointer"><span id="span_search"></span></a>
+                            </td>    
+                        </tr>            
+                    </table>
+                </div>
+                <div class="con">
+                    <fieldset class="ulc">  
+                        <legend id="span_search_option"></legend>
+                        <input name="search_option" id="char_div" type="checkbox"/>
+                        <label id="label_char_div" for="char_div" style="vertical-align:middle;"></label><br />
+                        <input name="search_option" id="text_end" type="checkbox" checked/>
+                        <label id="label_text_end" for="text_end" style="vertical-align:middle;"></label><br />
+                        <input name="search_option" id="word_unit" type="checkbox"/>
+                        <label id="label_word_unit" for="word_unit" style="vertical-align:middle;"></label>           
+                    </fieldset>      
+                </div>
+                <div class="con">
+                    <fieldset class="ulc">  
+                        <legend id="span_search_direction"></legend>
+                        <input name="search_direction" id="up" type="radio"/>
+                        <label id="label_up" for="up" style="vertical-align:middle;"></label>
+                        <input name="search_direction" id="down" type="radio" checked/>
+                        <label id="label_down" for="down" style="vertical-align:middle;"></label> 
+                    </fieldset>      
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a href="javascript:event_dext_table_cancel();" class="cancel"><span id="btn_cancel"></span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

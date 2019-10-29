@@ -1,0 +1,969 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="1.0">
+  <Object id="nexacro.DEXT5Editor">
+    <ObjectInfo inheritance="nexacro.Div" typename="nexacro.DEXT5Editor"
+			csstypename="DEXT5Editor" csscontrolname="DEXT5Editor" group="UIComponent"
+			container="false" composite="true" tabstop="true" contents="true"
+			formats="false" defaultwidth="300" defaultheight="200" requirement="Runtime,HTML5"
+			description="DEXT5Editor" />
+
+    <PropertyInfo>
+      <Property name="UseTrace" group="Misc" type="Enum"
+				defaultvalue="false" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" unitinfo="" enuminfo="enum_TrueFalse"
+				requirement="Runtime,HTML5" description="nexacro trace 여부" />
+      <Property name="InitXml" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="에디터 생성시 로드할 xml파일을 설정할 수 있습니다." />
+      <Property name="InitServerXml" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="에디터 생성시 로드할 xml파일의 가상경로를 설정할 수 있습니다. (예 : '/handler/upload_handler.ashx?f=dext_editor.xml';)" />
+      <Property name="InitVisible" group="Misc" type="Enum"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_InitVisible" unitinfo=""
+				requirement="Runtime,HTML5" description="에디터 생성시 에디터를 화면에 표시할지 여부를 설정할 수 있습니다." />
+      <Property name="DefaultMessage" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="에디터 생성시 디자인 영역에 기본으로 띄울 메세지를 설정합니다." />
+      <Property name="FirstLoadType" group="Misc" type="Enum"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_FirstLoadType" unitinfo=""
+				requirement="Runtime,HTML5" description="FirstLoadMessage의 Type을 설정 합니다." />
+      <Property name="FirstLoadMessage" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="에디터 생성 후 디자인 영역에 텍스트, html 등을 띄울 수 있습니다." />
+      <Property name="FileFieldID" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="파일 업로드에 사용되는 File 태그의 name을 설정합니다." />
+      <Property name="RunTimes" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="에디터의 모드를 설정합니다. (웹표준모드, 플러그인모드)" />
+      <Property name="DocType" group="Misc" type="Enum"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_DocType" unitinfo=""
+				requirement="Runtime,HTML5" description="에디터의 DocType를 설정합니다." />
+      <Property name="Lang" group="Misc" defaultvalue="" readonly="false"
+				initonly="false" hidden="false" control="false" style="false" expr="false"
+				deprecated="false" unused="false" objectinfo="" unitinfo=""
+				requirement="Runtime,HTML5" description="에디터 생성시 로드 할 에디터의 언어를 설정할 수 있습니다." />
+      <Property name="SkinName" group="Misc" type="Enum"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_SkinName" unitinfo=""
+				requirement="Runtime,HTML5" description="에디터 생성시 로드할 에디터의 skin 색상을 설정할 수 있습니다." />
+      <Property name="DefaultFontFamily" group="Misc"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="에디터가 로드(시작)시 사용할 기본 폰트를 지정합니다. DEXT5 Editor는 다국어를 지원하므로 다국어 사용시 각 언어에 맞는 기본 폰트를 지정하는 기능으로 유용할 수 있습니다." />
+      <Property name="DefaultFontSize" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="에디터가 로드(시작)시 사용할 기본 폰트 크기를 지정합니다. DEXT5 Editor는 다국어를 지원하므로 다국어 사용시 각 언어에 맞는 기본 폰트 크기를 지정하는 기능으로 유용할 수 있습니다." />
+      <Property name="DefaultLineHeight" group="Misc"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="에디터가 로드(시작)시 사용할 기본 lineheight 를 지정합니다." />
+      <Property name="DefaultFontMarginTop" group="Misc"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="에디터가 로드(시작)시 사용할 기본 MarginTop 를 지정합니다." />
+      <Property name="DefaultFontMarginBottom" group="Misc"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="에디터가 로드(시작)시 사용할 기본 MarginBottom 를 지정합니다." />
+      <Property name="UserFieldID" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="파일 업로드에 사용되는 User 태그의 name을 설정합니다." />
+      <Property name="UserFieldValue" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="파일 업로드에 사용되는 User 태그의 value을 설정합니다." />
+      <Property name="ShowTopMenu" group="Misc" type="Enum"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_ShowTopMenu" unitinfo=""
+				requirement="Runtime,HTML5"
+				description="에디터의 메뉴바를 표시하거나 숨기는 기능을 설정합니다. 사용 용도에 따라서 메뉴바를 표시하지 않기를 원할 때 사용하면 유용 할 수 있습니다." />
+      <Property name="ShowToolBar" group="Misc" type="Enum"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_ShowToolBar" unitinfo=""
+				requirement="Runtime,HTML5"
+				description="에디터의 툴바는 상단, 하단 두개로 구성되어 있습니다. 이 설정은 상단의 툴바를 표시하거나 숨기는 기능을 설정합니다. 사용 용도에 따라서 상단 툴바를 표시하지 않기를 원할 때 사용하면 유용 할 수 있습니다." />
+      <Property name="ShowStatusBar" group="Misc" type="Enum"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_ShowStatusBar" unitinfo=""
+				requirement="Runtime,HTML5"
+				description="에디터의 상태바는 '디자인', 'HTML' 및 '미리보기', 'TEXT' 탭으로 구성되어 있습니다.이 설정은 상태바를 표시하거나 숨기는 기능을 설정합니다. 사용 용도에 따라서 하단 상태바를 표시하지 않기를 원할 때 사용하면 유용 할 수 있습니다." />
+      <Property name="ShowTopStatusBar" group="Misc" type="Enum"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_ShowTopStatusBar"
+				unitinfo="" requirement="Runtime,HTML5"
+				description="에디터의 상태바는 '디자인', 'HTML' 및 '미리보기', 'TEXT' 탭으로 구성되어 있습니다.이 설정은 상태바를 표시하거나 숨기는 기능을 설정합니다. 사용 용도에 따라서 하단 상태바를 표시하지 않기를 원할 때 사용하면 유용 할 수 있습니다." />
+      <Property name="ShowDialogPosition" group="Misc" type="Enum"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_ShowDialogPosition"
+				unitinfo="" requirement="Runtime,HTML5" description="에디터의 다이얼로그창이 표시될 위치를 설정합니다." />
+      <Property name="SourceViewtype" group="Misc" type="Enum"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_SourceViewtype"
+				unitinfo="" requirement="Runtime,HTML5" description="에디터 소스보기에서 html소스를 정렬할지 설정합니다." />
+      <Property name="ViewModeAutoWidth" group="Misc" type="Enum"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_ViewModeAutoWidth"
+				unitinfo="" requirement="Runtime,HTML5"
+				description="view 모드 사용 시 에디터 안의 내용 만큼 자동으로 width가 늘어납니다." />
+      <Property name="ViewModeAutoHeight" group="Misc" type="Enum"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_ViewModeAutoHeight"
+				unitinfo="" requirement="Runtime,HTML5"
+				description="view 모드 사용 시 에디터 안의 내용 만큼 자동으로 height가 늘어납니다." />
+      <Property name="FormListUrl" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="에디터 템플릿 양식을 설정하는 파일경로를 적용할 수 있습니다. http://를 포함한 전체 경로를 입력합니다." />
+      <Property name="Mode" group="Misc" type="Enum" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" enuminfo="enum_Mode" unitinfo="" requirement="Runtime,HTML5"
+				description="에디터 생성시 모드를 설정합니다. 기본값은 'edit' 모드로 설정되어 있습니다. 필요시 'view' 로 설정해 줍니다." />
+      <Property name="DevelopLangage" group="Misc" type="Enum"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_DevelopLangage"
+				unitinfo="" requirement="Runtime,HTML5"
+				description="사용중인 사이트의 언어를 설정합니다. 기본값은 NET이고, NET, JAVA, PHP 중 하나의 값을 사용할 수 있습니다." />
+      <Property name="HandlerUrl" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="웹에서 RFC 1867 표준에 따르는 POST 방식의 파일 전송을 받아주는 페이지 URL입니다. 이미지 파일 또는 Flash, media 파일 등 서버에 파일이 업로드 되지 않을 경우 이 값의 설정을 확인하세요. 지정된 URL의 동작을 확인 하려면 handler_url URL에 '?dext=test'를 붙여서 테스트 후 페이지에 'Hi, DEXT5 Editor !!!! test' 가 표시되면 정상적으로 설정된 경우입니다." />
+      <Property name="ServerDomain" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="이미지나 미디어 파일을 올릴 때, 업로드 된 파일의 웹 경로에 들어가는 도메인 부분을 설정합니다." />
+      <Property name="ToSavePathURL" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="이미지 또는 Flash, Media 파일 등이 저장될 서버에 연결된 저장소의 URL 경로를 지정할 수 있습니다. 에디터에서 등록된 파일들은 설정된 폴더의 아래에 저장이 됩니다." />
+      <Property name="ToSaveFilePathURL" group="Misc"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="이미지 또는 파일 삽입 등 저장될 서버에 연결된 저장소의 URL 경로를 지정할 수 있습니다. 에디터에서 등록된 파일들은 설정된 폴더의 아래에 저장이 됩니다." />
+      <Property name="SaveFolderNameRule" group="Misc" type="Enum"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_SaveFolderNameRule"
+				unitinfo="" requirement="Runtime,HTML5"
+				description="ToSavePathURL에 지정된 폴더 하위의 폴더들에 대한 저장 체계를 지정할 때 사용하는 값입니다." />
+      <Property name="SaveFileFolderNameRule" group="Misc" type="Enum"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_SaveFileFolderNameRule"
+				unitinfo="" requirement="Runtime,HTML5"
+				description="ToSaveFilePathURL에 지정된 폴더 하위의 폴더들에 대한 저장 체계를 지정할 때 사용하는 값입니다. " />
+      <Property name="AccessibilityValidationItems" group="Misc"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="웹 접근성 검증 항목 중 검증 하고자 하는 항목들을 선택하여 설정 합니다. 
+				항목은 table_caption, table_summary, iframe_title, frame_title, img_alt, a_title, duplicate_id 이며 해당 값으로 설정하면 선택한 항목을 웹 접근성 검증 합니다." />
+      <Property name="RemoveItem" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="메뉴바에서 메뉴를 표시하거나 숨기는 기능을 설정합니다. 메뉴 command명을 ','(콤마)로 구분하여 지정해 주면 해당 하위 메뉴를 표시하지 않습니다." />
+      <Property name="RemoveContextItem" group="Misc"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="Context메뉴에서 메뉴를 표시하거나 숨기는 기능을 설정합니다. 메뉴 command명을 ','(콤마)로 구분하여 지정해 주면 해당 하위 메뉴를 표시하지 않습니다." />
+      <Property name="ToolBarGrouping" group="Misc" type="Enum"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_ToolBarGrouping"
+				unitinfo="" requirement="Runtime,HTML5" description="툴바 그룹핑 사용여부를 설정합니다." />
+      <Property name="zXssUse" group="Misc" type="Enum"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_zXssUse" unitinfo=""
+				requirement="Runtime,HTML5"
+				description="XSS 방지 설정을 합니다. 값이 '1'일경우 script, vbscript 태그 입력시 문자열로 처리하고, src, href 등에 입력된 보안위협요소를 제거합니다." />
+      <Property name="zXssRemoveTags" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="에디터에 입력되면 삭제할 태그를 설정합니다. script,iframe,object ... 형태로 여러 태그를 설정할 수 있으며 사용자가 해당되는 태그를 입력한 경우 에디터에서 삭제처리 합니다." />
+      <Property name="zXssRemoveEvents" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="에디터에 입력되면 삭제할 이벤트를 설정합니다. onclick,onload,onchange, ... 형태로 여러 이벤트를 설정할 수 있고 all 로 입력하면 모든 이벤트 값을 설정합니다. 사용자가 태그에 해당되는 이벤트를 입력한 경우 에디터에서 삭제처리 합니다. " />
+      <Property name="EditorBorder" group="Misc" type="Enum"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_EditorBorder" unitinfo=""
+				requirement="Runtime,HTML5" description="에디터 뷰모드시 테두리를 설정 합니다. 0일경우 테두리가 보이지 않습니다." />
+      <Property name="MimeUse" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" enuminfo="enum_MimeUse" unitinfo="" requirement="Runtime,HTML5"
+				description="MIME 사용여부를 지정합니다. plugin 모듈을 사용할때만 사용가능 합니다. 1은 사용, 그외 값은 미사용입니다." />
+      <Property name="MimeCharset" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5" description="MIME Charset을 지정할 수 있습니다." />
+      <Property name="MimeConentEncodingType" group="Misc"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" enuminfo="enum_MimeConentEncodingType"
+				unitinfo="" requirement="Runtime,HTML5"
+				description="MIME 인코딩 시에 인코딩 방법을 설정합니다. 기본값은 '3' 이고 'base64' 입니다. '1'로 설정시 '7bit', '2'로 설정시 '8bit', '3'로 설정시 'base64', '4'로 설정시 'quoted-printable' 입니다." />
+      <Property name="MimeFileTypeFilter" group="Misc"
+				defaultvalue="" readonly="false" initonly="false" hidden="false"
+				control="false" style="false" expr="false" deprecated="false"
+				unused="false" objectinfo="" unitinfo="" requirement="Runtime,HTML5"
+				description="MIME 인코딩 대상 파일을 설정합니다. 기본값은 '1'이고 'Image' 입니다. '2'로 설정시 'css', '4'로 설정시 'js', '8'로 설정시 '동영상, swf 등 Object 파일' 입니다. 이미지와 js 파일 종류 모두를 인코딩 대상으로 지정하기 위해서는 '1' + '4' = 5 설정합니다. " />
+      <Property name="MimeLocalOnly" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" enuminfo="enum_MimeLocalOnly" unitinfo="" requirement="Runtime,HTML5"
+				description="MIME 인코딩 대상 파일 중에서 외부 (Local PC가 아닌) 도 포함 할 지를 설정합니다. 기본값은 '1' PC에 위치한 파일만 인코딩이고, '0'로 설정시 로컬 PC 및 외부 URL에 있는 모든 파일 인코딩 입니다. " />
+      <Property name="MimeRemoveHeader" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" enuminfo="enum_MimeRemoveHeader" unitinfo=""
+				requirement="Runtime,HTML5"
+				description="MIME 인코딩 생성 중에 'Subject', 'DataData' 및 'X-Generator' 값을 생성하지 않습니다. 기본값은 '0' 헤더를 기록하여 MIME 을 인코딩을 생성, '1'로 설정시 헤더를 제거하고 MIME을 인코딩을 생성합니다." />
+      <Property name="RemoveComment" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" enuminfo="enum_RemoveComment" unitinfo="" requirement="Runtime,HTML5"
+				description="에디터에 내용이 들어올 때 주석 삭제 여부를 설정합니다. 기본값은 '1' 주석 삭제, '0' 으로 설정시 주석을 미삭제 합니다. " />
+      <Property name="FontFamilyList" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5" description="" />
+      <Property name="FontSizeList" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5" description="" />
+      <Property name="FormattingList" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5" description="" />
+      <Property name="ZIndex" group="Misc" defaultvalue=""
+				readonly="false" initonly="false" hidden="false" control="false"
+				style="false" expr="false" deprecated="false" unused="false"
+				objectinfo="" unitinfo="" requirement="Runtime,HTML5" description="에디터의 z-Index를 지정할 수 있습니다." />
+    </PropertyInfo>
+
+    <MethodInfo>
+      <Method name="getEditor" group="" async="false" deprecated="false"
+				unused="false" requirement="HTML5" description="에디터 객체를 리턴합니다.">
+        <Syntax text="getEditor()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="getDext5Dom" group="" async="false" deprecated="false"
+				unused="false" requirement="HTML5"
+				description="디자인 영역의 documentElement Dom을 가져옵니다. 일반적으로 디자인 영역을 직접 접근할 때 유용합니다. ">
+        <Syntax text="getDext5Dom()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="getDext5BodyDom" group="" async="false"
+				deprecated="false" unused="false" requirement="HTML5"
+				description="디자인 영역의 Body Dom을 가져옵니다. 일반적으로 디자인 영역을 직접 접근할 때 유용합니다. ">
+        <Syntax text="getDext5BodyDom()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="getHtmlValueExWithDocType" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터의 디자인 영역의 HTML 소스(DOCTYPE 태그 포함)를 리턴합니다. ">
+        <Syntax text="getHtmlValueExWithDocType()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="setHtmlValueExWithDocType" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터의 디자인 영역의 HTML 소스(DOCTYPE 태그 포함)를 입력합니다.">
+        <Syntax text="setHtmlValueExWithDocType(value)">
+          <Return />
+          <Arguments>
+            <Argument name="value" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="getHtmlValueEx" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터 디자인 영역의 HTML태그를 포함한 소스를 가져옵니다.">
+        <Syntax text="getHtmlValueEx()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="setHtmlValueEx" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터 디자인 영역에 html 태그 내부의 소스를 입력합니다.">
+        <Syntax text="setHtmlValueEx(value)">
+          <Return />
+          <Arguments>
+            <Argument name="value" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+
+      <Method name="getHtmlValue" group="" async="false" deprecated="false"
+				unused="false" requirement="Runtime,HTML5"
+				description="에디터 디자인 영역의 HTML 소스에서 html 태그 내부의 소스를 가져옵니다.">
+        <Syntax text="getHtmlValue()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="setHtmlValue" group="" async="false" deprecated="false"
+				unused="false" requirement="Runtime,HTML5" description="에디터 디자인 영역에 html 태그 내부의 소스를 입력합니다.">
+        <Syntax text="setHtmlValue(value)">
+          <Return />
+          <Arguments>
+            <Argument name="value" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="getBodyValueEx" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터 디자인 영역의 HTML 소스에서 body태그를 포함한 소스를 가져옵니다.">
+        <Syntax text="getBodyValueEx()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="setBodyValueEx" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터 디자인 영역에 body태그를 포함한 소스를 입력합니다.">
+        <Syntax text="setBodyValueEx(value)">
+          <Return />
+          <Arguments>
+            <Argument name="value" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="getBodyValueExLikeDiv" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터 디자인 영역의 HTML 소스에서 body의 소스를 div태그로 가져옵니다.">
+        <Syntax text="getBodyValueExLikeDiv()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="setBodyValueExLikeDiv" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="div 태그를 에디터 디자인 영역에 body 태그로 입력합니다.">
+        <Syntax text="setBodyValueExLikeDiv(value)">
+          <Return />
+          <Arguments>
+            <Argument name="value" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="getBodyValue" group="" async="false" deprecated="false"
+				unused="false" requirement="Runtime,HTML5"
+				description="에디터 디자인 영역의 HTML 소스에서 body태그 내부의 소스를 가져옵니다.">
+        <Syntax text="getBodyValue()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="setBodyValue" group="" async="false" deprecated="false"
+				unused="false" requirement="Runtime,HTML5" description="에디터 디자인 영역에 body태그 내부의 소스를 입력합니다.">
+        <Syntax text="setBodyValue(value)">
+          <Return />
+          <Arguments>
+            <Argument name="value" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="getBodyTextValue" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터 디자인 영역의 HTML 소스에서 body태그 내부의 텍스트만 가져옵니다.">
+        <Syntax text="getBodyTextValue()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="setInsertHTML" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터 디자인 영역에서 커서가 있는 위치에 html 소스를 삽입합니다. ">
+        <Syntax text="setInsertHTML(html)">
+          <Return />
+          <Arguments>
+            <Argument name="html" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="setInsertText" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터 디자인 영역에서 커서가 있는 위치에 text를 삽입합니다. ">
+        <Syntax text="setInsertText(text)">
+          <Return />
+          <Arguments>
+            <Argument name="text" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="loadHtmlValueExFromURL" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터 디자인 영역에 지정한 경로의 html 페이지를 띄웁니다.">
+        <Syntax text="loadHtmlValueExFromURL(htmlURL)">
+          <Return />
+          <Arguments>
+            <Argument name="htmlURL" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="setHtmlContents" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터에서 set 되는 소스에 따라서 에디터 형태에 맞게 다시 set을 시켜줍니다. ">
+        <Syntax text="setHtmlContents(htmlURL)">
+          <Return />
+          <Arguments>
+            <Argument name="value" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="getImages" group="" async="false" deprecated="false"
+				unused="false" requirement="Runtime,HTML5"
+				description="에디터 디자인 영역에 있는 이미지 태그의 경로를 가져옵니다. 이미지전체경로 + (구분자 : 0x0b) + 이미지명 + (구분자 : 0x0c) + ... + ">
+        <Syntax text="getImages()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="getServerImages" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터 디자인 영역에 있는 서버 이미지 태그 경로를 가져옵니다. 이미지전체경로 + (구분자 : 0x0b) + 이미지명 + (구분자 : 0x0c) + ... + ">
+        <Syntax text="getServerImages()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="getDeletedImageUrl" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터에서 삭제한 이미지의 url를 가져 옵니다. ">
+        <Syntax text="getDeletedImageUrl()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="addUserCssUrl" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터에 사용자의 css를 적용합니다. ">
+        <Syntax text="addUserCssUrl(cssURL)">
+          <Return />
+          <Arguments>
+            <Argument name="cssURL" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="clearUserCssUrl" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터에 사용자의 css를 적용합니다. bool 값에 true를 입력하면 에디터에 적용된 css 경로를 모두 삭제합니다. bool 값에 false를 입력하면 환경설정 xml에서 user_css_url 부분에 설정된 css는 제외하고 모두 삭제합니다. ">
+        <Syntax text="clearUserCssUrl(bool)">
+          <Return />
+          <Arguments>
+            <Argument name="bool" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="setUserCssText" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터에 사용자의 css를 style tag로 적용합니다.">
+        <Syntax text="setUserCssText(cssText)">
+          <Return />
+          <Arguments>
+            <Argument name="cssText" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="clearUserCssText" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터에 적용되어 있는 style tag를 삭제합니다.">
+        <Syntax text="clearUserCssText()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="getToSavePathUrl" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터에 설정된 ToSavePathUrl값을 가져옵니다. ">
+        <Syntax text="getToSavePathUrl()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="setToSavePathUrl" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터의 ToSavePathUrl값을 설정합니다. (기본값은 dext5editordata로 설정되어 있습니다.) ">
+        <Syntax text="setToSavePathUrl(SavePathUrl)">
+          <Return />
+          <Arguments>
+            <Argument name="SavePathUrl" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="setSize" group="" async="false" deprecated="false"
+				unused="false" requirement="Runtime,HTML5" description="에디터 로드 후 에디터의 크기를 정해줍니다. ">
+        <Syntax text="setSize(width, height)">
+          <Return />
+          <Arguments>
+            <Argument name="width" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+            <Argument name="height" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="setFocusToEditor" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터가 로드 된 후 지정한 에디터에 포커스를 노출시켜 줍니다. ">
+        <Syntax text="setFocusToEditor()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="setRulerPosition" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터 가로 눈금자 포인터의 위치 값을 설정합니다. ">
+        <Syntax text="setRulerPosition(position)">
+          <Return />
+          <Arguments>
+            <Argument name="position" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="setEditorBodyEditable" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터 body 영역 안에 작성 가능 여부를 설정 합니다. ">
+        <Syntax text="setEditorBodyEditable(bEditable)">
+          <Return />
+          <Arguments>
+            <Argument name="bEditable" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="setFullScreen" group="" async="false"
+				deprecated="false" unused="false" requirement="HTML5" description="에디터를 전체화면으로 설정합니다. ">
+        <Syntax text="setFullScreen()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="setFullScreen" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터를 전체화면으로 설정합니다. ">
+        <Syntax text="setFullScreen()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="setFullScreen" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터를 전체화면으로 설정합니다. ">
+        <Syntax text="setFullScreen()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="isEmpty" group="" async="false" deprecated="false"
+				unused="false" requirement="Runtime,HTML5" description="에디터 디자인 영역에 내용이 있는지 없는지 체크합니다. ">
+        <Syntax text="isEmpty()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="isDirty" group="" async="false" deprecated="false"
+				unused="false" requirement="Runtime,HTML5" description="에디터 내용이 변경 되었는지 확인 할 수 있는 설정 입니다.">
+        <Syntax text="isDirty()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="setDirty" group="" async="false" deprecated="false"
+				unused="false" requirement="Runtime,HTML5" description="에디터를 로드 후 변경 하지 않은 상태로 설정 할 때 사용 합니다. ">
+        <Syntax text="setDirty()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="loadAutoSaveHtml" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터 localstorage에 들어간 마지막 내용으로 저장된 내용을 가져옵니다. ">
+        <Syntax text="loadAutoSaveHtml()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="getAccessibility" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터에 설정된 웹 접근성 단계를 가져옵니다. ">
+        <Syntax text="getAccessibility()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="setAccessibility" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터의 웹 접근성 값을 설정합니다. (기본값은 0으로 설정되어 있습니다.) ">
+        <Syntax text="setAccessibility(value)">
+          <Return />
+          <Arguments>
+            <Argument name="value" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="getAccessibilityValidation" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터의 웹 접근성 값을 설정합니다. (기본값은 0으로 설정되어 있습니다.) ">
+        <Syntax text="getAccessibilityValidation()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="setAccessibilityValidation" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="웹 접근성 검증 시 위반 항목이 있으면 웹 접근성 검증 팝업 창에 위반 목록을 노출 합니다. ">
+        <Syntax text="setAccessibilityValidation()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="setEditorMode" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터를 view 또는 edit 모드로 변경합니다. ">
+        <Syntax text="setEditorMode(mode)">
+          <Return />
+          <Arguments>
+            <Argument name="mode" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="setEditorBorder" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터 전체영역을 감싸고 있는 Border의 노출 여부를 설정 합니다. ">
+        <Syntax text="setEditorBorder(bEditorBorder)">
+          <Return />
+          <Arguments>
+            <Argument name="bEditorBorder" type="String" in="true"
+							out="false" option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="selectAll" group="" async="false" deprecated="false"
+				unused="false" requirement="Runtime,HTML5" description="에디터 디자인 영역에서 작성 된 모든 내용을 선택합니다. ">
+        <Syntax text="selectAll()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="show" group="" async="false" deprecated="false"
+				unused="false" requirement="Runtime,HTML5" description="에디터를 화면에 표시합니다.">
+        <Syntax text="show()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="hidden" group="" async="false" deprecated="false"
+				unused="false" requirement="Runtime,HTML5" description="에디터를 화면에서 숨김니다. ">
+        <Syntax text="hidden()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="showTopMenu" group="" async="false" deprecated="false"
+				unused="false" requirement="Runtime,HTML5" description="에디터의 메뉴 바를 표시하거나 숨기는 기능을 설정합니다. ">
+        <Syntax text="showTopMenu(value)">
+          <Return />
+          <Arguments>
+            <Argument name="value" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="showToolbar" group="" async="false" deprecated="false"
+				unused="false" requirement="Runtime,HTML5"
+				description="에디터의 툴바는 상단, 하단 두 개로 구성되어 있습니다. 이 설정은 상단의 툴바를 표시하거나 숨기는 기능을 설정합니다. ">
+        <Syntax text="showToolbar(value)">
+          <Return />
+          <Arguments>
+            <Argument name="value" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="showStatusbar" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터의 상태 바는 '디자인', 'HTML' 및 '미리 보기', 'TEXT' 탭으로 구성되어 있습니다. 이 설정은 상태 바를 표시하거나 숨기는 기능을 설정합니다. ">
+        <Syntax text="showStatusbar(value)">
+          <Return />
+          <Arguments>
+            <Argument name="value" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="dext5EncodeMime" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터에서 작성된 html을 MIME 형태로 인코딩 하는 기능입니다. (단, mimeUse 설정값이 '1' 이어야 합니다.) ">
+        <Syntax text="dext5EncodeMime(html, nFileType)">
+          <Return />
+          <Arguments>
+            <Argument name="html" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+            <Argument name="nFileType" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="dext5DecodeMime" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="마임데이터를 decode 합니다.">
+        <Syntax text="dext5DecodeMime(mimeData)">
+          <Return />
+          <Arguments>
+            <Argument name="mimeData" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="doSaveHTML" group="" async="false" deprecated="false"
+				unused="false" requirement="Runtime,HTML5" description="에디터에 작성한 소스를 html파일로 저장합니다.">
+        <Syntax text="doSaveHTML(strContent, strDefaultFileName, strCharSet)">
+          <Return />
+          <Arguments>
+            <Argument name="strContent" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+            <Argument name="strDefaultFileName" type="String" in="true"
+							out="false" option="false" variable="false" description="any string" />
+            <Argument name="strCharSet" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="doPrint" group="" async="false" deprecated="false"
+				unused="false" requirement="Runtime,HTML5" description="에디터에 작성한 소스를 프린트 합니다. ">
+        <Syntax text="doPrint(strHeader, strFooter)">
+          <Return />
+          <Arguments>
+            <Argument name="strHeader" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+            <Argument name="strFooter" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="doPrintPreview" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터에 작성한 소스를 프린트 미리보기를 한 후 프린트 합니다. ">
+        <Syntax text="doPrintPreview(strHeader, strFooter)">
+          <Return />
+          <Arguments>
+            <Argument name="strHeader" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+            <Argument name="strFooter" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="destroyEditor" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터에서 생성한 이벤트 및 객체를 삭제 합니다. ">
+        <Syntax text="destroyEditor(editorID)">
+          <Return />
+
+        </Syntax>
+      </Method>
+
+      <Method name="setHtmlContentsEw" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터 디자인 영역에 html 소스를 입력합니다.">
+        <Syntax text="setHtmlContentsEw(value)">
+          <Return />
+          <Arguments>
+            <Argument name="htmlValue" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+
+      <Method name="startUpEditor" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="hidden영역에 에디터를 생성한 경우 필요시 에디터를 로드 합니다.">
+        <Syntax text="startUpEditor()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="getEditorId" group="" async="false" deprecated="false"
+				unused="false" requirement="Runtime,HTML5" description="에디터의 ID를 얻어옵니다.">
+        <Syntax text="getEditorId()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="editorPrint" group="" async="false" deprecated="false"
+				unused="false" requirement="Runtime,HTML5" description="에디터의 내용을 프린트 합니다.">
+        <Syntax text="editorPrint()">
+          <Return />
+        </Syntax>
+      </Method>
+
+      <Method name="addHttpHeaderEx" group="" async="false"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="업로드 시 헤더에 name, value를 추가 합니다.">
+        <Syntax text="addHttpHeaderEx(headerName, headerValue)">
+          <Return />
+          <Arguments>
+            <Argument name="headerName" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+            <Argument name="headerValue" type="String" in="true" out="false"
+							option="false" variable="false" description="any string" />
+          </Arguments>
+        </Syntax>
+      </Method>
+    </MethodInfo>
+
+    <EventHandlerInfo>
+      <!-- define event -->
+      <EventHandler name="dext_editor_loaded_event" group="DEXT5EditorEvent"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="에디터가 로드 완료(작업준비) 되었을 때 발생합니다. ">
+        <Syntax text="dext_editor_loaded_event(obj:DEXT5Editor, editorID)">
+          <Return />
+          <Arguments>
+            <Argument name="obj" type="Object" in="true" out="false"
+							option="false" variable="false" description="DEXT5Editor" />
+            <Argument name="editorID" type="text" in="true" out="false"
+							option="false" variable="false" description="Editor ID" />
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      
+      <EventHandler name="dext_editor_before_loaded_event"
+				group="DEXT5EditorEvent" deprecated="false" unused="false"
+				requirement="Runtime,HTML5" description="에디터 로드 전 발생합니다. ">
+        <Syntax text="dext_editor_before_loaded_event(obj:DEXT5Editor)">
+          <Return />
+          <Arguments>
+            <Argument name="obj" type="Object" in="true" out="false"
+							option="false" variable="false" description="DEXT5Editor" />
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      
+      <EventHandler name="dext_editor_onusernotify" group="DEXT5EditorEvent"
+				deprecated="false" unused="false" requirement="Runtime,HTML5"
+				description="안드로이드 앱 실행환경에서 get API 호출시 결과 값 Return. ">
+        <Syntax text="dext_editor_before_loaded_event(obj:ReturnValue)">
+          <Return />
+          <Arguments>
+            <Argument name="obj" type="Object" in="true" out="false"
+							option="false" variable="false" description="ReturnValue" />
+          </Arguments>
+        </Syntax>
+      </EventHandler>
+      <!-- <EventHandler name="dext_editor_language_definition_event" group="DEXT5EditorEvent" 
+				deprecated="false" unused="false" requirement="HTML5" description="에디터가 로드되기전 
+				발생하며, 언어 리소스를 변경할 수 있습니다." > <Syntax text="dext_editor_language_definition_event(obj:editorLang)" 
+				> <Return/> <Arguments> <Argument name="editorLang" type="Object" in="true" 
+				out="false" option="false" variable="false" description="Editor Language 
+				Object" /> </Arguments> </Syntax> </EventHandler> -->
+    </EventHandlerInfo>
+
+  </Object>
+</MetaInfo>

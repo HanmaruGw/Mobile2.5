@@ -1,0 +1,295 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Insert DateTime</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+        document.write('<scr' + 'ipt src="../config/dext_lang.js" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+    <style type="text/css">
+        #datetime_table td {
+            padding: 0px 10px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        #datetime_table a {
+            text-decoration: none;
+            color: #5d5d5d;
+        }
+
+        .clicked {
+            background-color: #BDBDBD;
+        }
+
+        .clicked a {
+            color: #FFFFFF !important;
+        }
+
+        .datetime:hover {
+            background-color: #EAEAEA;
+        }
+    </style>
+    <script type="text/javascript">
+        var _iframeWin = LayerWin.getIframeWin();
+        var _clicked_tr;
+
+        function page_loaded_event() {
+            var _upload_frame = document.getElementById("upload_frame");
+
+            var eventHandler = function () {
+                var _body;
+                try {
+                    _body = (_upload_frame.contentDocument) ? _upload_frame.contentDocument.body : _upload_frame.contentWindow.document.body;
+                }
+                catch (e) {
+                    _body = _upload_frame.document.body;
+                }
+                if ('textContent' in _body) { _web_url = _body.textContent; } else { _web_url = _body.innerText; }
+            }
+
+            set_page();
+
+            // 다이얼로그창 열때 선택된 날짜시간형식에 포커스 주기
+            var clicked_DateTime = '';
+
+            if (DEXTTOP.DEXT5.browser.ie && DEXTTOP.DEXT5.browser.ieVersion <= 8) {
+                setCursorPos(document.getElementById('datetime_table').getElementsByTagName('a')[0], false, false);
+            }
+            else {
+                if (document.getElementsByClassName('clicked')) {
+                    clicked_DateTime = document.getElementsByClassName('clicked');
+                } else {
+                    clicked_DateTime = LayerWin.getElementsByClass('clicked', document);
+                }
+                setCursorPos(clicked_DateTime[0].firstChild, false, false);
+            }
+            LayerWin.setFocusFirstAndLast(document, document.getElementById('datetime_table').getElementsByTagName('a')[0]);
+        }
+
+        function set_page() {
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+            document.getElementById("editor_popup_table").className = 'DEXT_fiVe_ED_Popup_Type03 DEXT_fiVe_PUi_' + _skin_name;
+
+            document.getElementById('span_title').innerHTML = LayerWin.dext5_lang.insert_datetime.title;
+            document.getElementById('btn_ok').innerHTML = LayerWin.dext5_lang.insert_datetime.btn_ok;
+            document.getElementById('btn_close').innerHTML = LayerWin.dext5_lang.insert_datetime.btn_close;
+
+            document.title = LayerWin.dext5_lang.insert_datetime.frame_title;
+
+            // ie5에서 테이블 width 설정
+            if (DEXTTOP.DEXT5.browser.ie && DEXTTOP.DEXT5.browser.quirks) {
+                document.getElementById('datetime_table').style.width = 'auto';
+            }
+
+            try {
+                if (typeof (DEXT_LANG_CONFIG) != 'undefined' || typeof (DEXT_LANG_CONFIG.dateTime) != 'undefined') {
+                    var lang_code = LayerWin.DEXTTOP.G_CURREDITOR._config.lang;
+                    lang_code = lang_code.replace('-', '');
+
+                    var today = new Date();
+
+                    var year = '';
+                    var year2 = '';
+                    var month = '';
+                    var date = '';
+                    var day = '';
+
+                    var mon = '';
+                    var dy = '';
+
+                    var hour = '';
+                    var minute = '';
+                    var second = '';
+                    var AMPM = '';
+
+                    year = today.getFullYear();
+                    year2 = year.toString().substring(2, 4);
+                    month = DEXTTOP.DEXT5.util.leadingZeros(today.getMonth() + 1, 2);
+                    date = DEXTTOP.DEXT5.util.leadingZeros(today.getDate(), 2);
+                    day = today.getDay();
+
+                    if (DEXT_LANG_CONFIG.dateTime['date_' + lang_code].Month[today.getMonth()] != undefined) {
+                        mon = DEXT_LANG_CONFIG.dateTime['date_' + lang_code].Month[today.getMonth()];
+                    }
+
+                    if (DEXT_LANG_CONFIG.dateTime['date_' + lang_code].Day[day] != undefined) {
+                        dy = DEXT_LANG_CONFIG.dateTime['date_' + lang_code].Day[day];
+                    }
+
+                    hour = DEXTTOP.DEXT5.util.leadingZeros(today.getHours(), 2);
+                    minute = DEXTTOP.DEXT5.util.leadingZeros(today.getMinutes(), 2);
+                    second = DEXTTOP.DEXT5.util.leadingZeros(today.getSeconds(), 2);
+
+
+                    if (today.getHours() >= 12) { AMPM = 'PM'; }
+                    else { AMPM = 'AM'; }
+
+                    var explain_html = '';
+                    var last_dateTime_type = LayerWin.DEXTTOP.G_CURREDITOR.lastDateType;
+
+                    if (true) {
+                        var commonDateArr = DEXT_LANG_CONFIG.dateTime.common_date;
+                        var commonDate_Len = commonDateArr.length;
+
+                        for (var i = 0; i < commonDate_Len; i++) {
+                            var dateForm = commonDateArr[i];
+                            var dateVal = dateForm.replace('YYYY', year);
+                            dateVal = dateVal.replace('YY', year2);
+                            dateVal = dateVal.replace('MM', month);
+                            dateVal = dateVal.replace('DD', date);
+
+                            if (dateForm == last_dateTime_type) {
+                                explain_html += '<tr><td dext5_datetime="' + dateForm + '" class="clicked"><a href="javascript:datetime_click(\'' + dateForm + '\', \'' + dateVal + '\');">' + dateVal + '</a></td></tr>';
+                                document.getElementById('datetime_value').value = dateVal;
+                            }
+                            else {
+                                explain_html += '<tr><td dext5_datetime="' + dateForm + '" class="datetime"><a href="javascript:datetime_click(\'' + dateForm + '\', \'' + dateVal + '\');">' + dateVal + '</a></td></tr>';
+                            }
+                        }
+                    }
+
+                    var langDateArr = DEXT_LANG_CONFIG.dateTime['date_' + lang_code].date;
+                    var langDate_Len = langDateArr.length;
+
+                    for (var i = 0; i < langDate_Len; i++) {
+                        var dateForm = langDateArr[i];
+                        var dateVal = dateForm.replace('YYYY', year);
+                        dateVal = dateVal.replace('YY', year2);
+                        dateVal = dateVal.replace('MM', month);
+                        dateVal = dateVal.replace('DD', date);
+                        dateVal = dateVal.replace('Month', mon);
+                        dateVal = dateVal.replace('Day', dy);
+
+                        if (dateForm == last_dateTime_type) {
+                            explain_html += '<tr><td dext5_datetime="' + dateForm + '" class="clicked"><a href="javascript:datetime_click(\'' + dateForm + '\', \'' + dateVal + '\');">' + dateVal + '</a></td></tr>';
+                            document.getElementById('datetime_value').value = dateVal;
+                        }
+                        else {
+                            explain_html += '<tr><td dext5_datetime="' + dateForm + '" class="datetime"><a href="javascript:datetime_click(\'' + dateForm + '\', \'' + dateVal + '\');">' + dateVal + '</a></td></tr>';
+                        }
+                    }
+
+                    var commonTimeArr = DEXT_LANG_CONFIG.dateTime.common_time;
+                    var commonTime_Len = commonTimeArr.length;
+
+                    for (var i = 0; i < commonTime_Len; i++) {
+                        var timeForm = commonTimeArr[i];
+                        var timeVal = timeForm.replace('hh', hour);
+                        timeVal = timeVal.replace('mm', minute);
+                        timeVal = timeVal.replace('ss', second);
+                        timeVal = timeVal.replace('AMPM', AMPM);
+
+                        if (timeForm == last_dateTime_type) {
+                            explain_html += '<tr><td dext5_datetime="' + timeForm + '" class="clicked"><a href="javascript:datetime_click(\'' + timeForm + '\', \'' + timeVal + '\');">' + timeVal + '</a></td></tr>';
+                            document.getElementById('datetime_value').value = timeVal;
+                        }
+                        else {
+                            explain_html += '<tr><td dext5_datetime="' + timeForm + '" class="datetime"><a href="javascript:datetime_click(\'' + timeForm + '\', \'' + timeVal + '\');">' + timeVal + '</a></td></tr>';
+                        }
+                    }
+
+                    setTBodyInnerHTML(datetime_tbody, explain_html);
+
+                    DEXTTOP.DEXT5.util.addEvent(document.getElementById('datetime_table'), 'click', function (e) {
+                        var currElem = e.target ? e.target : e.srcElement;
+
+                        if (currElem.tagName == 'TD') {
+                            datetime_click(currElem.getAttribute('dext5_datetime'), currElem.innerText);
+                        }
+                        else if (currElem.tagName == 'A') {
+                            datetime_click(currElem.parentNode.getAttribute('dext5_datetime'), currElem.parentNode.innerText);
+                        }
+                    });
+
+                    DEXTTOP.DEXT5.util.addEvent(document.getElementById('datetime_table'), 'dblclick', function (e) {
+                        var currElem = e.target ? e.target : e.srcElement;
+
+                        click_ok_btn();
+
+                        //if (currElem.tagName == 'TD') {
+                        //    click_ok_btn();
+                        //}
+                    });
+                }
+            } catch (e) { }
+        }
+
+        function datetime_click(dext5_datetime, datetimeVal) {
+            var trArr = document.getElementById('datetime_table').rows;
+            var trArrLen = trArr.length;
+
+            for (var i = 0; i < trArrLen; i++) {
+                var tdArr = trArr[i].cells;
+                var tdArrLen = tdArr.length;
+
+                for (var j = 0; j < tdArrLen; j++) {
+                    if (tdArr[j].getAttribute('dext5_datetime') == dext5_datetime) {
+                        tdArr[j].className = 'clicked';
+                    } else {
+                        tdArr[j].className = 'datetime';
+                    }
+                }
+            }
+
+            document.getElementById('datetime_value').value = datetimeVal;
+            LayerWin.DEXTTOP.G_CURREDITOR.lastDateType = dext5_datetime;
+        }
+
+        function click_ok_btn() {
+            event_dext_insert_datetime(document.getElementById('datetime_value').value);
+            event_dext_insert_datetime_close();
+        }
+
+        // ie 9버전 이하 innerHTML 오류 수정
+        function setTBodyInnerHTML(tbody, html) {
+            var temp = tbody.ownerDocument.createElement('div');
+            temp.innerHTML = '<table>' + html + '</table>';
+            tbody.parentNode.replaceChild(temp.firstChild.firstChild, tbody);
+        }
+    </script>
+</head>
+<body style="margin: 0px; padding: 0px;" onload="page_loaded_event();">
+    <input type="hidden" id="datetime_value" />
+    <div id="editor_popup_table" class="editor_popup">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title"></span><span class="text"></span>
+            <div class="close">
+                <a href="javascript:accessibility_close();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <input type="hidden" id="tab_value" name="tab_value" value="1" />
+        <!-- Contents / general -->
+        <div id="tab_div1" class="EdiTor_Popup_contents view">
+            <div id="contents_1" class="contents" style="height:305px; overflow-x:hidden; overflow-y:auto;">
+                <div style="margin: 10px; border: 1px solid #EAEAEA;">
+                    <table id="datetime_table" style="width:100%">
+                        <tbody id="datetime_tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a href="javascript:click_ok_btn();" class="confirm" id="ok_btn"><span id="btn_ok">확인</span></a>
+            <a href="javascript:event_dext_insert_datetime_close();" class="cancel"><span id="btn_close">닫기</span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

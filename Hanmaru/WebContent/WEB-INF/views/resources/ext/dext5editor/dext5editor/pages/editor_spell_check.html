@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Speel Check</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <style type="text/css">
+        .color li { width:14px; height:14px; float:left; padding:0px; margin:1px; border:0px none; list-style-type:none; cursor:pointer; }
+    </style>
+	
+    <script type="text/javascript">
+        
+        function page_loaded_event() {
+            var btn_close = document.getElementById('btn_close');
+            setCursorPos(btn_close.parentNode, true, false);
+            LayerWin.setFocusFirstAndLast(document, btn_close.parentNode);
+
+            set_page();
+
+            if (document.compatMode == "BackCompat") {
+                var inputs = document.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type == 'text') {
+                        inputs[i].style.height = '20px';
+                    }
+                }
+            }
+        }
+
+        var chkWordArrNum = 0;
+        var chkWordArr = null;
+        var skipWordArr = [];
+        function set_page() {
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+            document.getElementById("editor_popup_spell_check").className = 'DEXT_fiVe_ED_Popup_Type01 DEXT_fiVe_PUi_' + _skin_name;
+            
+            document.title = LayerWin.dext5_lang.spellCheck.title;
+            document.getElementById('span_title').innerHTML = LayerWin.dext5_lang.spellCheck.title;
+            document.getElementById('btn_close').innerHTML = LayerWin.dext5_lang.spellCheck.btn_close;
+
+            document.getElementById('label_wrong_word').innerHTML = LayerWin.dext5_lang.spellCheck.incorrect_word;
+            document.getElementById('label_replace_word').innerHTML = LayerWin.dext5_lang.spellCheck.change_to;
+            document.getElementById('label_suggestions').innerHTML = LayerWin.dext5_lang.spellCheck.suggestions;
+            document.getElementById('span_ignore').innerHTML = LayerWin.dext5_lang.spellCheck.ignore;
+            document.getElementById('span_ignore_all').innerHTML = LayerWin.dext5_lang.spellCheck.ignore_all;
+            document.getElementById('span_replace').innerHTML = LayerWin.dext5_lang.spellCheck.replace;
+            document.getElementById('span_replace_all').innerHTML = LayerWin.dext5_lang.spellCheck.replace_all;
+
+
+            chkWordArr = LayerWin.getCheckSpelling(DEXTTOP.G_CURREDITOR);
+
+            var replaceWord = document.getElementById('replace_word');
+            var selBox = document.getElementById('suggestions');
+            ///////////////// selectBox onChange Event ///////////////////
+            var selectChange = function () {
+                replaceWord.value = selBox.value;
+            };
+            DEXTTOP.DEXT5.util.addEvent(selBox, 'change', selectChange);
+            //////////////////////////////////////////////////////////////
+
+            setCheckSpelling();
+        }
+
+        function nextWord(all) {
+            if (all) {
+                var _chkNode = chkWordArr[chkWordArrNum];
+                skipWordArr.push(_chkNode.word);
+            }
+            chkWordArrNum++
+            setCheckSpelling();
+        }
+
+        function setCheckSpelling() {
+            var chkWordArrLen = chkWordArr.length;
+            if (chkWordArrNum >= chkWordArrLen) {
+                setTimeout(function () {
+                    alert(LayerWin.dext5_lang.spellCheck.compMsg);
+                    event_dext_close();
+                }, 100);
+                return false;
+            }
+
+            if (chkWordArrLen > 0) {
+                var selBox = document.getElementById('suggestions');
+                var wrongWord = document.getElementById('wrong_word');
+                var replaceWord = document.getElementById('replace_word');
+
+                selBox.innerHTML = '';
+                replaceWord.value = '';
+
+                var _chkNode = chkWordArr[chkWordArrNum];
+                wrongWord.value = _chkNode.word;
+
+                var skipWord = "," + skipWordArr.join(',') + ",";
+                if (skipWord.indexOf("," + _chkNode.word + ",") > -1) {
+                    chkWordArrNum++
+                    setCheckSpelling();
+                    return;
+                }
+
+                var suggestions = _chkNode.suggestions;
+                var suggestionsLen = suggestions.length;
+                for (var i = 0; i < suggestionsLen; i++) {
+                    var opt = document.createElement("option");
+                    opt.value = suggestions[i];
+                    opt.innerText = suggestions[i];
+                    selBox.appendChild(opt)
+
+                    if (i == 0) {
+                        replaceWord.value = suggestions[i];
+                        selBox.selectedIndex = 0;
+                    }
+                }
+                
+                event_dext_spellcheck_find_completed(_chkNode.word);
+            }
+        }
+
+        function spellcheck_replace() {
+            event_dext_spellcheck_replace_completed();
+            nextWord();
+        }
+
+        function spellcheck_all_replace() {
+            var _chkNode = chkWordArr[chkWordArrNum];
+            skipWordArr.push(_chkNode.word);
+
+            // insert dextmark
+            LayerWin.makeRangeSelectionMarkInDesign();
+            event_dext_spellcheck_all_replace_completed();
+            
+            // delete dextmark
+            var dextmark = LayerWin._iframeDoc.getElementsByTagName('dextmark')
+            LayerWin.doSetCaretPosition(dextmark[1], true);
+            dextmark[1].parentNode.removeChild(dextmark[1]);
+            dextmark[0].parentNode.removeChild(dextmark[0]);
+
+            nextWord();
+        }
+	</script>
+</head>
+<body style="margin:0px; padding:0px;" onload="page_loaded_event()" >
+    <div id="editor_popup_spell_check" class="editor_popup">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title"></span><span class="text">Dext5 Editor</span>
+            <div class="close">
+                <a href="javascript:event_dext_close();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / general -->
+        <div class="EdiTor_Popup_contents">
+            <div class="contents">
+                <div class="con border">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="25%">
+                                <label for="wrong_word" id="label_wrong_word"></label>
+                            </td>
+                            <td width="*">
+                                <input name="wrong_word" id="wrong_word" type="text" readonly style="width:170px;" class="con_input" />
+                            </td> 
+                            <td width="25%" class="cb_bbtn" rowspan="4">
+                                <a href="javascript:nextWord();" style="cursor:pointer"><span id="span_ignore"></span></a><br /><br />
+                                <a href="javascript:nextWord(true);" style="cursor:pointer"><span id="span_ignore_all"></span></a><br /><br />
+                                <a href="javascript:spellcheck_replace();" style="cursor:pointer"><span id="span_replace"></span></a><br /><br />
+                                <a href="javascript:spellcheck_all_replace();" style="cursor:pointer"><span id="span_replace_all"></span></a>
+                            </td>   
+                        </tr>      
+                        <tr>
+                            <td>
+                                <label for="replace_word" id="label_replace_word"></label>
+                            </td>
+                            <td>
+                                <input name="replace_word" id="replace_word" type="text" style="width:170px;" class="con_input" />
+                            </td>    
+                            
+                        </tr>     
+                        <tr>
+                            <td>
+                                <label for="suggestions" id="label_suggestions"></label>
+                            </td>
+                            <td rowspan="2">
+                                <select id="suggestions" style="margin: 3px 0px 0px; width:173px; height:100px;" size="8"></select>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a href="javascript:event_dext_close();" class="cancel"><span id="btn_close"></span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

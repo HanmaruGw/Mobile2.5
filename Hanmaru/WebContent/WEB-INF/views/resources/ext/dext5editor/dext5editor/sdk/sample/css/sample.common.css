@@ -1,0 +1,99 @@
+﻿@charset "utf-8";
+
+/* common */
+html,body{padding:0;margin:0}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,form,fieldset,p,button,ul,ol,li{margin:0;padding:0}
+body,h1,h2,h3,h4,input,button{font-family:'맑은 고딕', 'Malgun Gothic','돋움',Dotum ,'굴림',Gulim,Sans-serif;font-size:12px}
+body {text-align: center;background-color:#fff}
+img,fileldset,iframe{border:0}
+li {list-style:none}
+input,select,button{vertical-align:middle}
+img {vertical-align:top}
+i,em,address{font-style: normal}
+label ,button{cursor:pointer}
+a {text-decoration: none}
+a:hover {text-decoration:underline}
+hr {display:none}
+table {border-collapse:collapse;border-spacing:0}
+iframe {vertical-align:top}
+.show {display:block}
+.hide {display:none}
+.blind, legend, caption {left: 0px; top: -1000em; overflow: hidden; display: block; position: absolute}
+.ellipsis {overflow: hidden; white-space: nowrap; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis}
+.flash_fix {left: 0px; top: 0px; width: 100%; height: 100%; position: absolute; z-index: -1;}
+
+/* style */
+body{width:100%;height:100%;}
+#wrap{position:relative;width:100%;height:100%;text-align:left;overflow:hidden;}
+#head{width:100%;padding:10px 0 0 0}
+#head h1{display:block;height:40px;line-height:28px;text-align:left;font-size:25px;font-weight:bold;color:#017bd0;border-bottom:2px solid #017bd0;padding-left:10px}
+#head h1 a{color:#017bd0;text-decoration:none}
+#container{overflow:hidden;width:1100px;height:auto;min-height:1100px;background:url('../../sample/images/snb_line.gif') repeat-y 0 bottom}
+#snb{float:left;width:180px;height:100%;margin-top:10px;}
+#snb ul li{overflow:hidden;padding:10px 0 8px 10px;color:#666;font-size:14px;letter-spacing:-1px}
+#snb ul li a{display:block;float:left;color:#666}
+#snb ul li span{display:block;float:left;width:13px;color:#666;font-size:10px;padding-top:3px}
+#snb ul li .on, #snb ul li a:hover{font-weight:bold;color:#cd4d04}
+#snb ul li a:hover{background:none}
+
+#container h3{padding-left:4px;height:35px;font-size:18px;font-family:맑은 고딕;color:#555}
+#container h2 a, #container h3 a{color:#555}
+#container h2 a:hover, #container h3 a:hover{text-decoration:none}
+#container h2{padding:12px 0 12px 10px;letter-spacing:1px;font-size:18px;font-family:맑은 고딕}
+#content {float:left;width:900px;height:100%;padding:15px 0 0 15px;text-align:left}
+#content .iframe_box{width:auto;height:auto;border:1px solid #d7d7d7;text-align:center}
+#content .iframe_box iframe{margin:0 auto;}
+
+.input_image {
+    width: 80px;
+    height: 25px;    
+    cursor:pointer;
+}
+
+.logBox 
+{
+    width: 780px;
+    height: 300px;
+    padding: 0px 3px 2px;
+    color: rgb(51, 51, 51);
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    font-size: 12px;
+    padding: 10px;
+    border: 1px solid #777;
+    line-height: 20px;
+    font-size: 13px;
+    display: block;
+    white-space: pre-wrap;
+    -ms-word-break: break-all;
+    -ms-word-wrap: break-word;
+    background-color: rgb(245, 245, 245);
+    margin: 0 auto;
+    text-align: left;
+}
+.info_lst_box{padding:20px 0 0 0;margin:0 auto -25px auto;width:800px;text-align:left;}
+.info_lst_box li{padding-bottom:10px; color:#cd4d04; font-size:14px;}
+.info_lst_box li span{display:inline-block;padding-top:5px;}
+
+.btn_lst_box{width:800px;margin:30px auto 15px auto;padding:0 0 15px 0;border-bottom:1px solid #007ace;text-align:left;}
+.btn_lst_box2{margin:0 auto 15px auto;}
+.btn_lst_box textarea{width:100%}
+
+#wrap .btn_info{position:absolute;left:295px;top:17px;padding:2px 10px;height:18px;text-align:center;color:#fff;border:1px solid #02538a;background:#0e639c}
+
+#wrap .btn_info2{left:391px;top:17px;background:#cd4d04}
+#wrap .btn_info3{left:499px;top:17px;background:#734699}
+#wrap .btn_info a{color:#fff}
+
+/* 폼모드추가 */
+.input_sec{overflow:hidden;width:800px;margin:20px auto -10px auto;}
+.input_sec table{width:100%;table-layout:fixed;border:1px solid #eee}
+.input_sec table td{padding:4px 0;text-align:center;font-size:12px;border-left:1px solid #fff;background:#e3eef5;}
+.input_sec table td input{height:18px;padding-left:5px;}
+.input_sec table .basic{width:100px;height:80px}
+.input_sec table .type{width:100px;padding-left:10px;text-align:left;font-weight:bold}
+.input_sec table .input_send{text-align:center;padding:0;*padding:0 0 0 20px;width:120px;*width:100px}
+.input_sec .input_box{width:340px;padding-left:15px;text-align:left;}
+.input_sec table tr td .input_button{width:100px;height:60px;padding:4px 0;font-weight:bold;text-align:center;background:#007ace;color:#fff;border:none}
+.input_sec .input_button:hover{background:#036ab1}
+.input_sec .last_line{padding-bottom:8px}
+

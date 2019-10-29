@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Paste</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+	<script type="text/javascript">
+	    function page_loaded_event() {
+	        var _skin_name = LayerWin._dext_editor._config.style.skinName;
+	        document.getElementById("dext_dialog_box").className = 'DEXT_fiVe_ED_Popup_Type01 DEXT_fiVe_PUi_' + _skin_name;
+
+	        document.getElementById('span_title').innerHTML = LayerWin.dext5_lang.paste_dialog.title;
+	        document.getElementById('div_desc').innerHTML = LayerWin.dext5_lang.paste_dialog.desc;
+
+	        document.getElementById('btn_ok').innerHTML = LayerWin.dext5_lang.ok_cancel.ok;
+	        document.getElementById('btn_cancel').innerHTML = LayerWin.dext5_lang.ok_cancel.cancel;
+
+	        var btn_ok_a = document.getElementById('btn_ok_a');
+	        DEXTTOP.DEXT5.util.addEvent(btn_ok_a, 'click', function () { dext_insert_paste_dialog_html(); });
+
+	        var header = LayerWin.getElementsByClass('EdiTor_Popup_header', document);
+	        header[0].onselectstart = function () { return false; };
+
+	        createPasteArea();
+	    }
+
+	    function createPasteArea() {
+
+	        var newIframe = document.createElement('iframe');
+	        newIframe.id = 'pasteArea';
+	        newIframe.title = 'pasteArea';
+	        var srcUrl = 'document.open();' + (LayerWin.isCustomDomain(document) ? ('document.domain="' + document.domain + '";') : '') + ' document.close();';
+	        srcUrl = DEXTTOP.DEXT5.browser.ie ? 'javascript:void(function(){' + LayerWin.encodeURIComponent(srcUrl) + '}())' : '';
+	        newIframe.src = srcUrl;
+	        newIframe.frameBorder = 0;
+	        newIframe.style.width = '100%';
+	        newIframe.style.height = '165px';
+	        newIframe.style.borderWidth = '0px';
+
+	        if (DEXTTOP.DEXT5.browser.mobile || DEXTTOP.DEXT5.browser.iOS) {
+	            newIframe.style.overflow = 'hidden';
+	            newIframe.style.display = 'inline-block';
+	        }
+
+	        var holder = document.getElementById('div_paste_area');
+
+	        holder.appendChild(newIframe);
+	        var iframeDoc = LayerWin.getIframeDocument(newIframe);
+
+	        var htmlhtml = '';
+	        htmlhtml = '<!DOCTYPE html>\n';
+	        htmlhtml += '<html><head><title>' + LayerWin._dext_editor._config.system_title + ' Editor</title>';
+	        htmlhtml += '<style type=text/css>';
+	        htmlhtml += 'body { padding:0; margin:0; cursor:text; line-height:1.2; font-size:12px; overflow-x:hidden; overflow-y:auto;}';
+	        htmlhtml += '</style>';
+	        htmlhtml += '</head>';
+	        htmlhtml += '<body contenteditable="true"></body></html>';
+
+	        //iframeDoc.open();
+	        iframeDoc.open('text/html', 'replace');
+	        LayerWin.isCustomDomain(document) && (iframeDoc.domain = document.domain);
+	        iframeDoc.write(htmlhtml);
+	        iframeDoc.close();
+
+	        var head = iframeDoc.getElementsByTagName('head')[0];
+	        var meta = iframeDoc.createElement('meta');
+	        meta.setAttribute("http-equiv", "Content-Type");
+	        meta.setAttribute("content", "text/html");
+	        meta.setAttribute("charset", 'utf-8');
+	        head.appendChild(meta);
+
+	        var keyupEvt = function (event) {
+	            var keyCode = ('which' in event) ? event.which : event.keyCode;
+
+	            var Key_Esc = 27;
+	            if (keyCode == Key_Esc) {
+	                event_dext_close();
+	            }
+	        };
+
+	        LayerWin.DEXTTOP.DEXT5.util.addEvent(iframeDoc, "keyup", keyupEvt);
+
+	        setCursorPos(iframeDoc.body, true, false);
+	        LayerWin.setFocusFirstAndLast(document, iframeDoc.body);
+	    }
+    </script>
+</head>
+<body style="margin:0px; padding:0px;" onload="page_loaded_event()" >
+	<div class="DEXT_fiVe_ED_Popup_Type03 DEXT_fiVe_PUi_blue" id="dext_dialog_box">
+		<!-- Header -->
+		<div class="EdiTor_Popup_header">
+			<span class="subject" id="span_title">붙여넣기</span><span class="text">DEXT5 Editor</span>
+			<div class="close">
+				<a href="javascript:event_dext_close();" title="close"></a>
+			</div>
+		</div>
+		<!-- // Header -->
+
+		<!-- Contents / general -->
+		<div class="EdiTor_Popup_contents view">
+            <div class="contents"  style="height: 265px;">
+                <div class="con border">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <div id="div_desc">
+                                    브러우저 보안 설정으로 인해, 클립보드의 자료를 직접 접근할 수 없습니다. 이 창에 다시 붙여넣기 하십시오.<br />
+                                    키보드의 (Ctrl/Cmd+V) 를 이용해서 상자안에 붙여넣고 OK 를 누르세요.
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="con" id="div_paste_area" style="border:1px solid #DBD5BD; margin-top:5px;">
+                    
+                </div>
+            </div>
+        </div>
+		<!-- // Contents -->
+
+		<!-- Footer -->
+		<div class="EdiTor_Popup_footer">
+			<a href="javascript:void(0);" class="confirm" id="btn_ok_a"><span id="btn_ok">확인</span></a>
+			<a href="javascript:event_dext_close();"  class="cancel" id="abtn_cancel"><span id="btn_cancel">취소</span></a>
+		</div>
+		<!-- // Footer -->
+	</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: UserCssUrl</h3>
+    <p class="ttl">XML : &#60;user_css_url&#62;.....&#60;/user_css_url&#62;, Config : config.UserCssUrl<br />XML : &#60;user_css_url always_set="....."&#62;&#60;/user_css_url&#62;, Config : config.UserCssAlwaysSet</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        사용자가 만든 css를 에디터 영역에 설정합니다.<br />
+        그리고 그 css를 항상 포함할지 여부를 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">XML:user_css_url,Config:UserCssUrl</span>&nbsp;&nbsp;http://를 포함하는 전체 url을 입력해야 합니다. 
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:always_set,Config:UserCssAlwaysSet</span>&nbsp;&nbsp;기본값은 "0" 사용자가 만든 css를 에디터 영역에 항상 포함되지 않으며, "1" 설정시 항상 포함됩니다.
+        </span>
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+<b>"http://www.dext5.com/user_css.css" 링크의 css를 에디터 영역에 설정합니다.</b>
+<b>그리고 그 css를 항상 포함 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;user_css_url always_set="1"&#62;http://www.dext5.com/user_css.css&#60;/user_css_url&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+ 
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;    
+    &#60;script type="text/javascript"&#62;
+        
+        DEXT5.config.UserCssUrl = "http://www.dext5.com/user_css.css";
+        DEXT5.config.UserCssAlwaysSet = "1";
+
+        new Dext5editor("editor1");
+
+    &#60;/script&#62;       
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

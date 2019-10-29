@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: SaveFileNameRule</h3>
+    <p class="ttl">XML : &#60;save_filename_rule&#62;.....&#60;/save_filename_rule&#62;, Config : config.SaveFileNameRule</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        웹에서 등록된 파일의 이름을 지정하는 규칙입니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        기본값은 "GUID" 입니다.<br />
+        값 지정은 "GUID" 또는 "DATETIME" 를 입력합니다.<br />
+        "DATETIME" 의 경우 파일이름이 년도(4자리)월(2자리)일(2자리)시간(2자리)시(2자리)초(2자리)밀리초(2자리) 형태로 설정됩니다. 
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+<b>웹에서 등록된 파일의 이름을</b>
+<b>년도(4자리)월(2자리)일(2자리)시간(2자리)시(2자리)초(2자리)밀리초(2자리) 형태로 설정함니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;uploader_setting&#62;
+    .....
+    &#60;save_filename_rule&#62;DATETIME&#60;/save_filename_rule&#62;
+    .....
+&#60;/uploader_setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+ 
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;   
+    &#60;script type="text/javascript"&#62;
+
+        DEXT5.config.SaveFileNameRule = "DATETIME";
+
+        new Dext5editor("editor1");
+
+    &#60;/script&#62;       
+&#60;/div&#62;        
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

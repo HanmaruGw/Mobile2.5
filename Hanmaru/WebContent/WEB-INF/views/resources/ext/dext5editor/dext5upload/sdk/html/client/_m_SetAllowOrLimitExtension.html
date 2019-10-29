@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">          
+    <h3 class="title">DEXT5 Upload :: SetAllowOrLimitExtension</h3>
+    <p class="ttl">void SetAllowOrLimitExtension(allowOrLimit, extension, uploadID)</p>
+    <p class="txt">
+       업로드 할 파일 확장자를 허용 또는 제한으로 설정합니다. 
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        없음.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">allowOrLimit</span>&nbsp;&nbsp;업로드 할 파일 확장자를 허용할지 제한할지를 의미합니다. 0: 제한으로 설정, 1: 허용으로 설정<br/>
+        <span class="firebrick">extension</span>&nbsp;&nbsp;제한 또는 허용할 파일 확장자를 의미합니다.(확장자가 여러개일 경우 콤마(,)로 구분하여 설정합니다)<br />
+        <span class="firebrick">uploadID</span>&nbsp;&nbsp;실행할 업로드의 id를 의미합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        없음.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+        function setAllowOrLimitExtension() {
+            // gif,jpg 확장자의 업로드를 제한으로 설정합니다.
+            DEXT5UPLOAD.SetAllowOrLimitExtension(0, 'gif,jpg', 'upload1');    
+        }   
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:800px;height:200px"&#62;  
+        &#60;script type="text/javascript"&#62;
+            new Dext5Upload("upload1");
+        &#60;/script&#62;
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

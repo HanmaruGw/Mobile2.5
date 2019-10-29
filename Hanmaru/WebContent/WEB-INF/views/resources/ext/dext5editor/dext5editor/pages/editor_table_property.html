@@ -1,0 +1,1198 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Table Property</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+
+        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+            document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.ajaxUploadJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+        }
+    </script>
+
+    <style type="text/css">
+        .color li { width:14px; height:14px; float:left; padding:0px; margin:1px; border:0px none; list-style-type:none; cursor:pointer; }
+    </style>
+	
+	<script type="text/javascript">
+	    var file_field_id = LayerWin._dext_editor._config.fileFieldID;
+	    var user_field_id = LayerWin._dext_editor._config.userFieldID;
+	    var user_field_value = LayerWin._dext_editor._config.userFieldValue;
+	    var _init_image_url = '';
+
+	    function page_loaded_event() {
+
+	        var _td1InnerHtml = '', _td2InnerHtml = '';
+	        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+	            _td1InnerHtml += '<label id="label_image" for="image_url"></label><input type="hidden" id="drop_zone_uploadtype" name="drop_zone_uploadtype" value="p_table_bg_image" /><input type="hidden" id="file_text" name="file_text" />';
+
+	            _td2InnerHtml += '<input name="image_url_value" id="image_url_value" type="hidden" />';	            
+	            _td2InnerHtml += '<div class="DEXT_fiVe_ED_Popup_DropZone DEXT_fiVe_ED_Popup_DropZone_1" id="drop_zone" style="border:dashed 1px gray; width:255px; height:40px; line-height:40px; text-align:center; color:gray; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"></div>';
+	            _td2InnerHtml += '<div style="position:absolute; left:0px; top:-40px;"><input class="noline" type="file" id="Filedata" name="Filedata" style="width:0px; height:0px" onchange="fileOnchange(this, \'p_table_bg_image\');" /></div>';
+	           
+	        }
+	        else {
+	            _td1InnerHtml += '<label id="label_image" for="image_url"></label>';
+
+	            _td2InnerHtml += '<input name="image_url_value" id="image_url_value" type="hidden" />';
+	            _td2InnerHtml += '<input name="image_url" id="image_url" type="text" class="con_input" style="width:178px; float:left;background:#fff" disabled="disabled" />';
+	            _td2InnerHtml += '<span id="find_file_nm" style="width:67px; height:20px; *margin-left:-3px;_margin-left:-3px;background-position: 0px 0px; display:block; float:left; cursor:pointer; background-repeat:no-repeat;">';
+	            _td2InnerHtml += '<span id="file_input_search" class="file_input_button2">찾아보기</span>';
+	            _td2InnerHtml += '<input class="noline" type="file" id="Filedata" name="Filedata" style="margin-top:-35px;*margin-top: -28px;margin-left:-178px;width:258px; height:25px; opacity:0; filter:alpha(opacity=0); -moz-opacity:0; cursor:pointer;" onchange="fileOnchange(this, \'p_table_bg_image\');" />';       
+	            _td2InnerHtml += '<a href="javascript:void(0);" id="a_file"></a></span>';
+	        }
+
+	        var _td1 = document.createElement('td');
+	        _td1.width = '20%';
+	        _td1.innerHTML = _td1InnerHtml;
+
+	        var _td2 = document.createElement('td');
+	        _td2.colSpan = '3';
+	        _td2.innerHTML = _td2InnerHtml;
+
+	        document.getElementById('tr_back_image1').appendChild(_td1);
+	        document.getElementById('tr_back_image1').appendChild(_td2);
+
+	        if (LayerWin._dext_editor._config.disableInsertImage.indexOf(',table,') > -1) {
+	            document.getElementById('tr_back_image1').style.display = 'none';
+	            document.getElementById('tr_back_image2').style.display = 'none';
+	            document.getElementById('tr_back_image3').style.display = 'none';
+	        }
+
+	        if (LayerWin._dext_editor._config.uploadUseHTML5 != "1") {
+	            var _upload_frame = document.getElementById("upload_frame");
+
+	            var accessibility = LayerWin._dext_editor._config.accessibility;
+	            if (accessibility == "-1") {
+	                if (document.getElementById("access_img_1")) document.getElementById("access_img_1").style.display = "none";
+	                if (document.getElementById("access_img_2")) document.getElementById("access_img_2").style.display = "none";
+	                if (document.getElementById("access_img_3")) document.getElementById("access_img_3").style.display = "none";
+	            }
+
+	            var eventHandler = function () {
+	                var _body;
+
+	                try {
+	                    _body = (_upload_frame.contentDocument) ? _upload_frame.contentDocument.body : _upload_frame.contentWindow.document.body;
+	                }
+	                catch (e) {
+	                    _body = _upload_frame.document.body;
+	                }
+
+	                if ('textContent' in _body) { _web_url = _body.textContent; } else { _web_url = _body.innerText; }
+	                event_dext_table_property_completed(_web_url);
+	            }
+	            //if (_upload_frame.addEventListener) { _upload_frame.addEventListener("load", eventHandler, true) } else { _upload_frame.attachEvent("onload", eventHandler) }
+	            DEXTTOP.DEXT5.util.addEvent(_upload_frame, "load", eventHandler, true);
+	        }
+
+	        set_page();
+
+	        if (LayerDoc.compatMode == "BackCompat") {
+	            var inputs = document.getElementsByTagName('input');
+	            for (var i = 0; i < inputs.length; i++) {
+	                if (inputs[i].type == 'text') {
+	                    inputs[i].style.height = '20px';
+	                }
+	            }
+	        }
+
+	        var a_file = document.getElementById('a_file');
+	        if (LayerWin.G_dext5plugIn && LayerWin.DEXTTOP.G_CURREDITOR._config.plugin_version >= "3,3,0,26") {
+	            document.getElementById(file_field_id).parentNode.removeChild(document.getElementById(file_field_id));
+	            var find_file_nm = document.getElementById("find_file_nm");
+	            DEXTTOP.DEXT5.util.addEvent(find_file_nm, "click", function () {
+	                pluginOpenDialogImage();
+	            });
+	        } else {
+
+	            if (LayerWin._dext_editor._config.uploadUseHTML5 != "1") {
+	                a_file.href = 'javascript:document.getElementById(file_field_id).click();';
+	            }
+	            
+	        }
+
+	        if (LayerWin._dext_editor._config.uploadUseHTML5 != "1") {
+	            DEXTTOP.DEXT5.util.addEvent(a_file, "focus", function () {
+	                document.getElementById('find_file_nm').style.border = '0';
+	                document.getElementById('find_file_nm').style.backgroundImage = 'none';
+	            });
+
+	            DEXTTOP.DEXT5.util.addEvent(a_file, "blur", function () {
+	                document.getElementById('find_file_nm').style.border = '0';
+	                document.getElementById('find_file_nm').style.backgroundImage = 'none';
+	            });
+	        }
+	        
+
+	        setCursorPos(document.getElementById('width'), true, false);
+	        LayerWin.setFocusFirstAndLast(document, document.getElementById('tab_1'));
+	    }
+
+	    function set_page() {
+
+	        var _upload_url = LayerWin._dext_editor._config.post_url;
+	        document.getElementById("upload_url").value = _upload_url;
+
+	        // document domain
+	        var _proxy_url = LayerWin._dext_editor._config.proxy_url;
+
+	        var enforceDocumentDomain = false;
+            try {
+                enforceDocumentDomain = dext5EnforceDocumentDomain;
+            } catch (e) { }
+	        var currentDocDomain = document.domain;
+	        if (enforceDocumentDomain) {
+	            currentDocDomain += '|';
+	        }
+
+	        // 신규 암호화 로직 추가로 인하여 수정 - by jeongmin 18.08.06
+	        if (LayerWin._dext_editor._config.security.encryptParam != "0") {
+	            document.getElementById("document_domain").value = DEXTTOP.DEXT5.util.makeEncryptParamFinal(currentDocDomain);
+	            document.getElementById("uploadtype").value = DEXTTOP.DEXT5.util.makeEncryptParamFinal("image");
+	            document.getElementById("proxy_url").value = DEXTTOP.DEXT5.util.makeEncryptParamFinal(_proxy_url);
+	            document.getElementById("pe").value = LayerWin._dext_editor._config.security.encryptParam;
+	        } else {
+	            document.getElementById("document_domain").value = currentDocDomain;
+	            document.getElementById("uploadtype").value = "image";
+	            document.getElementById("proxy_url").value = _proxy_url;
+	            document.getElementById("pe").parentNode.removeChild(document.getElementById("pe"));
+	        }
+
+	        if (DEXTTOP.G_CURREDITOR._config.ie11_BugFixed_DeleteTableAlign == '1') {
+	            document.getElementById("label_range").style.display = 'none';
+	            document.getElementById("range").style.display = 'none';
+	        }
+
+	        var _skin_name = LayerWin._dext_editor._config.style.skinName;
+
+	        document.getElementById("editor_popup_table").className = 'DEXT_fiVe_ED_Popup_Type01 DEXT_fiVe_PUi_' + _skin_name;
+
+	        document.getElementById("span_title").innerHTML = LayerWin.dext5_lang.table_property.title;
+
+	        document.getElementById("span_tab_div1_tab1").innerHTML = LayerWin.dext5_lang.table_property.tab1;
+	        document.getElementById("span_tab_div1_tab2").innerHTML = LayerWin.dext5_lang.table_property.tab2;
+
+	        document.getElementById("label_width_line").innerHTML = LayerWin.dext5_lang.table_property.width_line;
+	        document.getElementById("label_height_line").innerHTML = LayerWin.dext5_lang.table_property.height_line;
+	        document.getElementById("label_width").innerHTML = LayerWin.dext5_lang.table_property.width;
+	        document.getElementById("label_height").innerHTML = LayerWin.dext5_lang.table_property.height;
+	        document.getElementById("label_table_edge_reduce").innerHTML = LayerWin.dext5_lang.table_property.table_edge_reduce;
+	        document.getElementById("label_range").innerHTML = LayerWin.dext5_lang.table_property.range;
+	        document.getElementById("label_class").innerHTML = LayerWin.dext5_lang.table.class_name;
+	        document.getElementById("label_margin_left").innerHTML = LayerWin.dext5_lang.table.margin_left;
+
+	        document.getElementById("label_line_style").innerHTML = LayerWin.dext5_lang.table_property.line_style;
+	        document.getElementById("label_line_kind").innerHTML = LayerWin.dext5_lang.table_property.line_kind;
+	        document.getElementById("label_line_thickness").innerHTML = LayerWin.dext5_lang.table_property.line_thickness;
+	        document.getElementById("span_line_color").innerHTML = LayerWin.dext5_lang.table_property.line_color;
+	        document.getElementById("span_edge_select").innerHTML = LayerWin.dext5_lang.table_property.edge_select;
+
+	        document.getElementById("span_edge_select_out").innerHTML = LayerWin.dext5_lang.table.edge_select_out;
+	        document.getElementById("edge_select_1").title = LayerWin.dext5_lang.table.edge_select_out;
+	        document.getElementById("span_edge_select_in").innerHTML = LayerWin.dext5_lang.table.edge_select_in;
+	        document.getElementById("edge_select_2").title = LayerWin.dext5_lang.table.edge_select_in;
+	        document.getElementById("span_edge_select_total").innerHTML = LayerWin.dext5_lang.table.edge_select_total;
+	        document.getElementById("edge_select_3").title = LayerWin.dext5_lang.table.edge_select_total;
+	        document.getElementById("span_edge_select_user").innerHTML = LayerWin.dext5_lang.table.edge_select_user;
+	        document.getElementById("edge_select_4").title = LayerWin.dext5_lang.table.edge_select_user;
+	        
+	        document.getElementById("label_cell_gap").innerHTML = LayerWin.dext5_lang.table_property.cell_gap;
+	        document.getElementById("label_cell_inside_margin").innerHTML = LayerWin.dext5_lang.table_property.cell_inside_margin;
+
+	        document.getElementById("label_table_caption").innerHTML = LayerWin.dext5_lang.table_property.table_caption;
+	        document.getElementById("label_table_summary").innerHTML = LayerWin.dext5_lang.table_property.table_summary;
+
+	        document.getElementById("span_tab_div2_tab1").innerHTML = LayerWin.dext5_lang.table_property.tab1;
+	        document.getElementById("span_tab_div2_tab2").innerHTML = LayerWin.dext5_lang.table_property.tab2;
+
+	        document.getElementById("label_image").innerHTML = LayerWin.dext5_lang.table_property.image;
+
+	        if (LayerWin._dext_editor._config.uploadUseHTML5 != "1") {
+	            document.getElementById("find_file_nm").style.backgroundImage = "url(../images/editor/dialog/btn/" + LayerWin.dext5_lang.table_property.find_file_nm + ")";
+	        }
+	        
+	        document.getElementById("label_add").innerHTML = LayerWin.dext5_lang.table_property.add;
+	        document.getElementById("label_repeat").innerHTML = LayerWin.dext5_lang.table_property.repeat;
+	        document.getElementById("label_horizontal").innerHTML = LayerWin.dext5_lang.table_property.horizontal;
+	        document.getElementById("label_vertical").innerHTML = LayerWin.dext5_lang.table_property.vertical;
+	        document.getElementById("span_background_color").innerHTML = LayerWin.dext5_lang.table_property.background_color;
+	        document.getElementById("span_prev_background_remove").innerHTML = LayerWin.dext5_lang.table_property.prev_background_remove;
+	        document.getElementById("span_prev_background_remove_regend").innerHTML = LayerWin.dext5_lang.table_property.prev_background_remove;
+
+	        document.getElementById("label_scope").innerHTML = LayerWin.dext5_lang.table_property.scope;
+	        document.getElementById("span_title_cell1").innerHTML = LayerWin.dext5_lang.table_property.title_cell1;
+	        document.getElementById("span_title_cell2").innerHTML = LayerWin.dext5_lang.table_property.title_cell2;
+	        document.getElementById("span_title_cell3").innerHTML = LayerWin.dext5_lang.table_property.title_cell3;
+	        document.getElementById("span_title_cell4").innerHTML = LayerWin.dext5_lang.table_property.title_cell4;
+
+	        document.getElementById("btn_ok").innerHTML = LayerWin.dext5_lang.table_property.btn_ok;
+	        document.getElementById("btn_cancel").innerHTML = LayerWin.dext5_lang.table_property.btn_cancel;
+
+	        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+	            if (DEXTTOP.DEXT5.browser.mobile == true || DEXTTOP.DEXT5.UserAgent.device.type == 'mobile') {
+	                document.getElementById("drop_zone").innerHTML = LayerWin.dext5_lang.upload.drop_zone_content2; // 모바일 드랍존 문구
+	            }
+	            else {
+	                document.getElementById("drop_zone").innerHTML = LayerWin.dext5_lang.upload.drop_zone_content; // 드랍존 문구
+	            }
+	        }
+	        else {
+	            document.getElementById("file_input_search").innerHTML = LayerWin.dext5_lang.table_property.file_search; // 찾아보기
+	        }
+
+	        // 설정언어 일본어일 경우 드랍존의 문구가 잘려서 배경이미지 및 스타일 변경
+	        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+
+	            setDragAndDropEvent('drop_zone');
+
+	            if (DEXTTOP.G_CURREDITOR._config.lang.indexOf('ja') == 0) {
+	                var dropZoneArea = document.getElementById("drop_zone");
+	                dropZoneArea.style.backgroundImage = 'none';
+	                dropZoneArea.getElementsByTagName('div')[0].style.marginLeft = '0px';
+	            }
+	        }
+
+	        document.title = LayerWin.dext5_lang.table_property.frame_title;
+
+	        var fileDataObj = document.getElementById("Filedata");
+	        fileDataObj.id = file_field_id;
+	        fileDataObj.name = file_field_id;
+
+	        var userDataObj = document.getElementById("userField");
+	        userDataObj.id = user_field_id;
+	        userDataObj.name = user_field_id;
+	        userDataObj.value = user_field_value;
+
+	        document.getElementById("tosavepathurl").value = LayerWin._dext_editor._config.toSavePathURL;
+
+	        document.getElementById("btn_cancel").focus();
+
+	        var table_element = LayerWin.GetParentbyTagName(DEXTTOP.G_SELECTED_ELEMENT, 'table', true);
+
+	        var _width_line = table_element.rows.length;
+	        var _height_line = 0;
+	        for (var i = 0; i < table_element.rows.length; i++) {
+	            var _temp = 0;
+	            for (var j = 0; j < table_element.rows[i].cells.length; j++) {
+	                _temp++;
+	            }
+	            if (_temp > _height_line) {
+	                _height_line = _temp;
+	            }
+	        }
+	        var _width = "";
+	        if (table_element.style.width != "" && table_element.style.width.indexOf('%') < 0) {
+	            _width = parseInt(table_element.style.width, 10);
+	        }
+	        if (_width == "" && table_element.width && table_element.width != "" && table_element.width.indexOf('%') < 0) {
+	            _width = parseInt(table_element.width, 10);
+	        }
+
+	        var _height = "";
+	        if (table_element.style.height != "" && table_element.style.height.indexOf('%') < 0) {
+	            _height = parseInt(table_element.style.height, 10);
+	        }
+	        if (_height == "" && table_element.height && table_element.height != "" && table_element.height.indexOf('%') < 0) {
+	            _height = parseInt(table_element.height, 10);
+	        }
+
+	        var _table_edge_reduce = "Y";
+	        if (table_element.style.borderCollapse == "collapse" || table_element.collapse == "collapse") {
+	            _table_edge_reduce = "N";
+	        } else if (table_element.style.borderCollapse == "separate" || table_element.collapse == "separate" || table_element.collapse == "") {
+	            _table_edge_reduce = "Y";
+	        }
+	       
+	        //var _range = table_element.style.textAlign;
+	        var _margin_left = table_element.style.marginLeft;
+	        if (_margin_left && _margin_left != "") {
+	            document.getElementById("margin_left").value = parseInt(_margin_left, 10);
+	        }
+
+	        var _range = table_element.align;
+	        var _cell_gap = table_element.cellSpacing;
+	        var _cell_inside_margin = table_element.cellPadding;
+	        var _caption_check = false;
+	        var _caption_index = 0;
+	        for (var i = 0; i < table_element.childNodes.length; i++) {
+	            if (table_element.childNodes[i].nodeName.match(/caption/i)) {
+	                _caption_check = true;
+	                _caption_index = i;
+	                break;
+	            }
+	        }
+	        var _table_caption = "";
+	        if (_caption_check) {
+	            _table_caption = table_element.childNodes[i].innerHTML;
+	        }
+	        var _table_summary = table_element.summary;
+	        var _image_url = (table_element.style.backgroundImage).replace('url("', '').replace('")', '');
+	        if (_image_url == "") {
+	            if (table_element.getAttribute('background')) {
+	                _image_url = table_element.getAttribute('background').replace(/\\/gi, "/");
+	            }
+	        }
+
+	        _init_image_url = _image_url;
+
+	        var _add = table_element.style.backgroundAttachment;
+	        var _repeat = table_element.style.backgroundRepeat;
+	        var _horizontal = "";
+	        var _vertical = "";
+	        if (table_element.style.backgroundPosition != "") {
+	            var _position = (table_element.style.backgroundPosition).replace(' ', '').split('px');
+	            _horizontal = parseInt(_position[0], 10) > 0 ? _position[0] : "";
+	            _vertical = parseInt(_position[1], 10) > 0 ? _position[1] : "";
+	        }
+	        var _background_color = "";
+	        if (table_element.style.backgroundColor != "" && table_element.style.backgroundColor != "transparent") {
+	            if ((table_element.style.backgroundColor).substring(0, 1) == "#") {
+	                _background_color = table_element.style.backgroundColor;
+	            } else {
+	                _background_color = DEXTTOP.DEXT5.util.rgb2hex(table_element.style.backgroundColor);
+	            }
+	        }
+	        var left_cell = false;
+	        var top_cell = false;
+	        var _scope = false;
+	        var tableRowsCellsLen = "";
+	        for (var i = 0; i < table_element.rows.length; i++) {
+	            tableRowsCellsLen = table_element.rows[i].cells.length;
+	            if (tableRowsCellsLen > 0 && table_element.rows[i].cells[0].nodeName.match(/th/i)) {
+	                left_cell = true;
+	                if (table_element.rows[i].cells[0].scope == "row") {
+	                    _scope = true;
+	                }
+	            } else {
+	                left_cell = false;
+	            }
+	        }
+	        for (var i = 0; i < table_element.rows[0].cells.length; i++) {
+	            tableRowsCellsLen = table_element.rows[0].cells.length;
+	            if (tableRowsCellsLen > 0 && table_element.rows[0].cells[i].nodeName.match(/th/i)) {
+	                top_cell = true;
+	                if (table_element.rows[0].cells[i].scope == "col") {
+	                    _scope = true;
+	                }
+	            } else {
+	                top_cell = false;
+	            }
+	        }
+	        var _title_cell = "";
+	        if (left_cell && top_cell) {
+	            _title_cell = "4";
+	        } else if (top_cell) {
+	            _title_cell = "3";
+	        } else if (left_cell) {
+	            _title_cell = "2";
+	        } else {
+	            _title_cell = "1";
+	        }
+
+	        if ((_image_url != "" && _image_url != "none") || _background_color != "") {
+	            //document.getElementById("a_prev_background_remove").style.display = "";
+	        }
+
+	        document.getElementById("width_line").value = _width_line;
+	        document.getElementById("height_line").value = _height_line;
+	        document.getElementById("width").value = _width;
+	        document.getElementById("height").value = _height;
+	        if (_table_edge_reduce == "Y") {
+	            document.getElementById("table_edge_reduce").checked = true;
+	        } else if (_table_edge_reduce == "N") {
+	            document.getElementById("table_edge_reduce").checked = false;
+	        }
+	        var _range_value = LayerWin.dext5_lang.arr_range_value.value;
+	        var _cnt = _range_value.length;
+	        for (var i = 0; i < _cnt; i++) {
+	            //var _range_list = parent.DEXT5.util.xml.getNodeIdx(_range_value, "range_list", i);
+	            _value = LayerWin.dext5_lang.arr_range_value.value[i];
+	            _text = LayerWin.dext5_lang.arr_range_value.text[i];
+	            var option = document.createElement("OPTION");
+	            option.value = _value;
+	            option.text = _text;
+	            if (_value == _range) {
+	                option.selected = true;
+	            }
+	            document.getElementById("range").options.add(option);
+	        }
+
+	        document.getElementById('table_id').value = table_element.id;
+	        
+            var _classList = LayerWin._dext_editor._config.tableClassList;
+	        _cnt = _classList.length;
+	        if (_cnt > 0) {
+	            document.getElementById('input_class').parentNode.removeChild(document.getElementById('input_class'));
+	            for (var i = 0; i < _cnt; i++) {
+	                var option = document.createElement("OPTION");
+	                option.value = _classList[i];
+	                option.text = _classList[i];
+	                document.getElementById("class_name").options.add(option);
+	            }
+	            var option = document.createElement("OPTION");
+	            option.value = "";
+	            option.text = LayerWin.dext5_lang.table.none_class;
+	            document.getElementById("class_name").options.add(option);
+	            if (table_element.className == "") {
+	                document.getElementById("class_name").value = "";
+	            } else {
+	                document.getElementById("class_name").value = table_element.className;
+	            }
+	        } else {
+	            document.getElementById("class_name").parentNode.removeChild(document.getElementById("class_name"));
+	            document.getElementById('input_class').value = table_element.className;
+	            document.getElementById('input_class').style.display = 'block';
+	            document.getElementById('input_class').id = 'class_name';
+	        }
+
+	        var lineStyle = LayerWin._dext_editor._config.tableLineStyleValue;
+	        var ulLineStyle = document.getElementById("ul_line_style");
+	        var tableLineStyleList = LayerWin._dext_editor._config.tableLineStyleList;
+	        _cnt = tableLineStyleList.length;
+	        if (_cnt > 0) {
+	            for (var i = 0; i < _cnt; i++) {
+	                if (lineStyle["_" + tableLineStyleList[i]]) {
+	                    var option = document.createElement("LI");
+	                    var optVal = '<a href="javascript:void(0);" class="sebt"><span class="line" style="' + lineStyle["_" + tableLineStyleList[i]];
+
+	                    // 리스트가 중앙에 보이도록 처리함. sanctity.   2018.08.13
+	                    if (lineStyle["_" + tableLineStyleList[i]].indexOf('border-top') > -1)
+	                        optVal += " margin-top:10px;";
+	                    optVal += '">';
+	                    if (tableLineStyleList[i] == 'hidden' || tableLineStyleList[i] == 'none') { optVal += LayerWin.dext5_lang.table.line_style_hidden; }
+	                    optVal += '</span></a>';
+	                    option.innerHTML = optVal;
+	                    ulLineStyle.appendChild(option);
+	                }
+	            }
+	        } else {
+	            var _line_style_value = LayerWin.dext5_lang.arr_line_style_value.value;
+	            _cnt = _line_style_value.length;
+	            for (var i = 0; i < _cnt; i++) {
+	                var option = document.createElement("LI");
+	                var optVal = '<a href="javascript:void(0);" class="sebt"><span class="line" style="' + lineStyle["_" + _line_style_value[i]];
+
+	                // 리스트가 중앙에 보이도록 처리함. sanctity.   2018.08.13
+	                if (lineStyle["_" + _line_style_value[i]].indexOf('border-top') > -1)
+	                    optVal += " margin-top:10px;";
+	                optVal += '">';
+	                if (_line_style_value[i] == 'hidden' || _line_style_value[i] == 'none') { optVal += LayerWin.dext5_lang.table.line_style_hidden; }
+	                optVal += '</span></a>';
+	                option.innerHTML = optVal;
+	                ulLineStyle.appendChild(option);
+	            }
+	        }
+
+	        var _line_kind_value = LayerWin.dext5_lang.arr_line_kind_value.value;
+	        _cnt = _line_kind_value.length;
+	        var _value = "";
+	        var _text = "";
+	        for (var i = 0; i < _cnt; i++) {
+	            //var _line_kind_list = parent.DEXT5.util.xml.getNodeIdx(_line_kind_value, "line_kind_list", i);
+	            _value = LayerWin.dext5_lang.arr_line_kind_value.value[i];
+	            _text = LayerWin.dext5_lang.arr_line_kind_value.text[i];
+	            var option = document.createElement("OPTION");
+	            option.value = _value;
+	            option.text = _text;
+	            document.getElementById("line_kind").options.add(option);
+	        }
+	        document.getElementById("line_kind").options[0].selected = "selected";
+	        document.getElementById("line_thickness").value = "1";
+	        document.getElementById("cell_gap").value = _cell_gap;
+	        document.getElementById("cell_inside_margin").value = _cell_inside_margin;
+	        document.getElementById("table_caption").value = _table_caption;
+	        document.getElementById("table_summary").value = _table_summary;
+	        if (_image_url != "") {
+	            document.getElementById("image_url_value").value = _image_url;
+	            var _split_image_url = _image_url.split("/");
+
+	            if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+	                document.getElementById("drop_zone").innerHTML = _split_image_url[_split_image_url.length - 1];
+	                document.getElementById('drop_zone').className = 'DEXT_fiVe_ED_Popup_DropZoneNoneBackground';
+	            }
+	            else {
+	                document.getElementById("image_url").value = _split_image_url[_split_image_url.length - 1];
+	            }
+	        }
+
+	        var _add_value = LayerWin.dext5_lang.arr_add_value.value;
+	        _cnt = _add_value.length;
+	        for (var i = 0; i < _cnt; i++) {
+	            //var _add_list = parent.DEXT5.util.xml.getNodeIdx(_add_value, "add_list", i);
+	            _value = LayerWin.dext5_lang.arr_add_value.value[i];
+	            _text = LayerWin.dext5_lang.arr_add_value.text[i];
+	            var option = document.createElement("OPTION");
+	            option.value = _value;
+	            option.text = _text;
+	            if (_value == _add) {
+	                option.selected = true;
+	            }
+	            document.getElementById("add").options.add(option);
+	        }
+	        var _repeat_value = LayerWin.dext5_lang.arr_repeat_value.value;
+	        _cnt = _repeat_value.length;
+	        for (var i = 0; i < _cnt; i++) {
+	            //var _repeat_list = parent.DEXT5.util.xml.getNodeIdx(_repeat_value, "repeat_list", i);
+	            _value = LayerWin.dext5_lang.arr_repeat_value.value[i];
+	            _text = LayerWin.dext5_lang.arr_repeat_value.text[i];
+	            var option = document.createElement("OPTION");
+	            option.value = _value;
+	            option.text = _text;
+	            if (_value == _repeat) {
+	                option.selected = true;
+	            }
+	            document.getElementById("repeat").options.add(option);
+	        }
+	        document.getElementById("horizontal").value = _horizontal;
+	        document.getElementById("vertical").value = _vertical;
+	        /*
+            // 테이블 배경색이 있을경우 수정시 셀 background가 사라지는 현상으로 주석 처리함. 
+	        if (_background_color != "") {
+	            document.getElementById("background_color").style.background = _background_color;
+	        }
+            */
+	        document.getElementById("scope").checked = _scope;
+	        if (_title_cell == "1") {
+	            document.getElementById("scope").checked = false;
+	            document.getElementById("scope").disabled = true;
+	        } else {
+	            document.getElementById("scope").disabled = false;
+	        }
+	        for (var i = 1; i <= 4; i++) {
+	            if (i == parseInt(_title_cell, 10)) {
+	                document.getElementById("a_title_cell" + i).className = "con_t_on_btn";
+	            } else {
+	                document.getElementById("a_title_cell" + i).className = "con_t_btn";
+	            }
+	        }
+	        document.getElementById("title_cell").value = _title_cell;
+
+	        edgeNoneTotalClick('none');
+	        setLineStyleEvt();
+	        //setTableBorderModifyValue(table_element);
+
+	        if (LayerWin._dext_editor._config.useTableBackgroundImage == '0') {
+	            document.getElementById('tr_back_image1').style.display = 'none';
+	            document.getElementById('tr_back_image2').style.display = 'none';
+	            document.getElementById('tr_back_image3').style.display = 'none';
+	        }
+	    }
+
+	    function tabControl(mode) {
+	        var div_tab_arr = LayerWin.getElementsByClass("con_btn", document);
+	        var currIndex = parseInt(mode, 10) - 1;
+
+	        if (mode == "1") {
+	            document.getElementById("tab_div1").className = "EdiTor_Popup_contents view";
+	            document.getElementById("tab_div2").className = "EdiTor_Popup_contents none";
+	            setCursorPos(document.getElementById('width'), false, false);
+	        } else if (mode == "2") {
+	            document.getElementById("tab_div1").className = "EdiTor_Popup_contents none";
+	            document.getElementById("tab_div2").className = "EdiTor_Popup_contents view";
+	            setCursorPos(document.getElementById('a_file'), true, false);
+	        }
+	        document.getElementById("tab_value").value = mode;
+	        LayerWin.setFocusFirstAndLast(document, div_tab_arr[currIndex].getElementsByTagName('a')[0]);
+	    }
+
+	    function titleCellClick(select) {
+
+	        for (var i = 1; i <= 4; i++) {
+	            if (i == parseInt(select, 10)) {
+	                document.getElementById("a_title_cell" + i).className = "con_t_on_btn";
+	            } else {
+	                document.getElementById("a_title_cell" + i).className = "con_t_btn";
+	            }
+	        }
+	        document.getElementById("title_cell").value = select;
+	        if (select == "1") {
+	            document.getElementById("scope").checked = false;
+	            document.getElementById("scope").disabled = true;
+	        } else {
+	            document.getElementById("scope").disabled = false;
+	        }
+	    }
+
+	    LayerWin._dext_editor.applyEdgeMode = "total";
+	    function edgeSelectClick(select, mode) {
+	        LayerWin._dext_editor.applyEdgeMode = mode;
+	        for (var i = 1; i <= 4; i++) {
+	            var edge_select = document.getElementById("edge_select_" + i);
+	            if (i == parseInt(select, 10)) {
+	                /*
+	                var removeReg = new RegExp("(\\s|^)con_tb_btn(\\s|$)");
+	                if (removeReg.test(edge_select.className)) {
+	                edge_select.className = DEXTTOP.DEXT5.util.trim(edge_select.className.replace(removeReg, " "));
+	                }
+	                */
+
+	                var addReg = new RegExp("(\\s|^)bgselect(\\s|$)");
+	                if (!addReg.test(edge_select.className)) {
+	                    edge_select.className += " bgselect";
+	                    edge_select.className = DEXTTOP.DEXT5.util.trim(edge_select.className);
+	                }
+	            } else {
+	                var removeReg = new RegExp("(\\s|^)bgselect(\\s|$)");
+	                if (removeReg.test(edge_select.className)) {
+	                    edge_select.className = DEXTTOP.DEXT5.util.trim(edge_select.className.replace(removeReg, " "));
+	                }
+
+	                /*
+	                var addReg = new RegExp("(\\s|^)con_tb_btn(\\s|$)");
+	                if (!addReg.test(edge_select.className)) {
+	                edge_select.className += " con_tb_btn";
+	                edge_select.className = DEXTTOP.DEXT5.util.trim(edge_select.className);
+	                }
+	                */
+	            }
+	        }
+	    }
+
+	    function pluginOpenDialogImage() {
+	        var imgPath = document.getElementById("image_url").value = LayerWin.G_dext5plugIn.Dext5OpenDialogImage(0);
+
+	        fileOnchange(document.getElementById("image_url"), 'p_table_bg_image');
+	        imgPath = "file:///" + imgPath.replace(/\\/gi, "/");
+	        document.getElementById("image_url_value").value = imgPath;
+	    }
+
+	    function lineCountCheck(object, mode, max, min) {
+	        if (parseInt(object.value, 10) < parseInt(min, 10)) {
+	            if (mode == "L") {
+	                alert(LayerWin.dext5_lang.msg.detailTableInsertLineThicknessMinAlert);
+	                object.focus();
+	            }
+	            object.value = min;
+	        } else if (parseInt(object.value, 10) > parseInt(max, 10)) {
+	            if (mode == "L") {
+	                alert(LayerWin.dext5_lang.msg.detailTableInsertLineThicknessMaxAlert);
+	                object.focus();
+	            }
+	            object.value = max;
+	        }
+	    }
+
+	    function backgroundImageDeleteCheck(chk) {
+	        if (chk.checked) {
+	            document.getElementById("prev_background_remove").value = "Y";
+	        }
+	        else {
+	            document.getElementById("prev_background_remove").value = "N";
+	        }
+	    }
+
+	    function lineColorChange() {
+	        edgeNoneTotalClick(LayerWin._dext_editor.applyEdgeMode);
+	    }
+	</script>
+</head>
+<body style="margin:0px; padding:0px;" onload="page_loaded_event(); page_Custom_Control();" >
+    <script type="text/javascript">
+        var custom_code = LayerWin._dext_editor._config.custom_code;
+        var custom_height = "";
+
+        if (custom_code == 'CCODE_001') {
+            custom_height = "245px";
+
+            document.write("<style type='text/css'>");
+            document.write(" .DEXT_fiVe_ED_Popup_Type01 .EdiTor_Popup_contents .contents, .DEXT_fiVe_ED_Popup_Type02 .EdiTor_Popup_contents .contents, .DEXT_fiVe_ED_Popup_Type03 .EdiTor_Popup_contents .contents {  background:#FFFFFF; padding-bottom:0px; padding-top:0px; display:block; } ");
+            document.write(" .DEXT_fiVe_ED_Popup_Type01 .EdiTor_Popup_contents .contents .con, .DEXT_fiVe_ED_Popup_Type02 .EdiTor_Popup_contents .contents .con, .DEXT_fiVe_ED_Popup_Type03 .EdiTor_Popup_contents .contents .con { padding:1px 2px; margin:0px 7px; display:block; } ");
+            document.write("</style>");
+        } else {
+            custom_height = "390px";
+        }
+
+        function page_Custom_Control() {
+            if (custom_code == 'CCODE_001') {
+                document.getElementById('div_tab_container').style.display = "none";
+                document.getElementById('tab_2').style.display = "none";
+                document.getElementById('tr_class_id').style.display = "none";
+                document.getElementById('tr_table_edge_reduce').style.display = "none";
+                document.getElementById('table_cell_gap_margin').style.display = "none";
+                document.getElementById('div_table_caption_summary').style.display = "none";
+                document.getElementById('div_table_edge_border').className = "con";
+            }
+        }
+    </script>
+    <div id="editor_popup_table" class="editor_popup">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title"></span><span class="text">Dext5 Editor</span>
+            <div class="close">
+                <a href="javascript:event_dext_table_cancel();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <input type="hidden" id="tab_value" name="tab_value" value="1"/>
+        <!-- Contents / general -->
+        <div id="tab_div1" class="EdiTor_Popup_contents view">
+            <div id="div_tab_container" class="con_btn">
+                <a href="javascript:tabControl('1');" class="on" id="tab_1"><span id="span_tab_div1_tab1"></span></a>
+                <a href="javascript:tabControl('2');" class="off" id="tab_2"><span id="span_tab_div1_tab2"></span></a>
+            </div>
+            <script type="text/javascript">
+                document.write('<div id="contents_1" class="contents" style="height: ' + custom_height + '; overflow: hidden;">');
+            </script>
+                <div class="speech_balloons_bt" id="access_div_tab1" style="position:absolute; display:none; width:317px;" >       
+                    <span class="sp_t" style="width:300px;"><p></p></span>
+                </div>
+                <div class="con border">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="25%">
+                                <label id="label_width_line" for="width_line"></label>
+                            </td>
+                            <td width="25%">
+                                <input name="width_line" id="width_line" type="text" class="con_input" style="width:55px;" maxlength="4" disabled="disabled" />
+                            </td>
+                            <td width="25%">
+                                <label id="label_width" for="width"></label>
+                            </td>
+                            <td width="25%">
+                                <input name="width" id="width" type="text" class="con_input" style="width:55px;" onkeydown="LayerWin.onlyNumber(event);" maxlength="4"/>px
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label id="label_height_line" for="height_line"></label>
+                            </td>
+                            <td>
+                                <input name="height_line" id="height_line" type="text" class="con_input" style="width:55px;" maxlength="4" disabled="disabled" />
+                            </td>
+                            <td>
+                                <label id="label_height" for="height"></label>
+                            </td>
+                            <td>
+                                <input name="height" id="height" type="text" class="con_input" style="width:55px;" onkeydown="LayerWin.onlyNumber(event);" maxlength="4"/>px
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label id="label_margin_left" for="margin_left"></label>
+                            </td>
+                            <td>
+                                <table cellpadding="0" cellspacing="0" style="line-height:normal; table-layout:auto;"><tbody><tr><td>
+                                <div class="no_ab">
+                                <input name="margin_left" id="margin_left" type="text" class="con_input" onkeydown="LayerWin.onlyNumber(event);" onblur="lineCountCheck(this,'M','999','0');" maxlength="3"/>
+                                <ul>
+                                    <li onclick="LayerWin.click_plus_func(document.getElementById('margin_left'),999,10)"><a href="javascript:void(0);" style="cursor:pointer"><img src="../images/editor/dialog/btn/editor_ta_btn.gif" width="15" height="10" alt=""/></a></li>
+                                    <li onclick="LayerWin.click_minus_func(document.getElementById('margin_left'),0,10)"><a href="javascript:void(0);" style="cursor:pointer"><img src="../images/editor/dialog/btn/editor_ba_btn.gif" width="15" height="10" alt=""/></a></li>
+                                </ul>
+                                </div>
+                                </td></tr></tbody></table>
+                            </td>
+                            <td>
+                                <label id="label_range" for="range"></label>
+                            </td>
+                            <td>
+                                <select name="range" id="range" style="width:80px;"></select>
+                            </td>
+                        </tr>
+                        <tr id="tr_class_id">
+                            <td>
+                                <label for="table_id">ID</label>
+                            </td>
+                            <td>
+                                <input id="table_id" type="text" class="con_input" style="width:60px;"/> 
+                            </td>
+                            <td>
+                                <label id="label_class" for="class_name">Class</label>
+                            </td>
+                            <td>
+                                <select name="class_name" id="class_name" style="width:80px;"></select>
+                                <input id="input_class" type="text" class="con_input" style="width:76px;"/> 
+                            </td>
+                        </tr>
+                        <tr id="tr_table_edge_reduce">
+                            <td colspan="4">
+                                <input name="table_edge_reduce" id="table_edge_reduce" type="checkbox"/>
+                                <label id="label_table_edge_reduce" for="table_edge_reduce"></label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="con">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="25%">
+                                <label id="label_line_style" for="line_style"></label>
+                            </td>
+                            <td width="25%">
+                                <div style="z-index: 10; position: relative;">
+                                <!--<select name="line_style" id="line_style" style="width:80px;" onchange="lineStyleChange();"></select>-->
+                                    <button class="line_btn" type="button" name="line_style_btn" id="line_style_btn" onclick="fnLineStyleToggle();">
+                                        <span id="line_style" class="cr" style="border-top: 1px solid #5d5d5d;"></span>
+                                    </button>
+                                    <script type="text/javascript">
+                                        if (custom_code == 'CCODE_001') {
+                                            document.write('<div id="line_style_list" class="line_style" style="z-index: 1; position: absolute; left: 0px; top: 0px; _left: 2px; display: none;">');
+                                        } else {
+                                            document.write('<div id="line_style_list" class="line_style" style="z-index: 1; position: absolute; left: 0px; top: 19px; _left: 2px; display: none;">');
+                                        }
+                                    </script>
+                                        <ul id="ul_line_style">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            <td width="25%">
+                                <label id="label_line_kind" for="line_kind"></label>
+                            </td>
+                            <td width="25%">
+                                <select name="line_kind" id="line_kind" style="width:80px;" onchange="lineKindChange();"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span id="span_line_color"></span>
+                            </td>
+                            <td>
+                                <!-- 컬러피커 수정으로 인한 위치 변경 by jh 2017.03.28 -->
+                                <!--<div class="tbd" style="cursor:pointer;" onclick="javascript:LayerWin.showColorPopup(document,document.getElementById('line_color'),'borderTopColor','line_color',-5,-60, lineColorChange);">-->
+                                <div class="tbd" style="cursor:pointer;" onclick="javascript:LayerWin.showColorPopup(document,document.getElementById('line_color'),'borderTopColor','line_color',-5,-80, lineColorChange);">
+                                    <a href="javascript:void(0)">
+                                        <span style="border-top-color:#000000;" id="line_color" class="tbd_color"></span>
+                                    </a>
+                                </div>
+                            </td>
+                            <td>
+                                <label id="label_line_thickness" for="line_thickness"></label>
+                            </td>
+                            <td>
+                                <table cellpadding="0" cellspacing="0" style="line-height:normal; table-layout:auto;"><tbody><tr><td>
+                                <div class="no_ab">
+                                <input name="line_thickness" id="line_thickness" type="text" class="con_input" onkeydown="LayerWin.onlyNumber(event);" onblur="lineCountCheck(this,'L','10','0');" maxlength="4" onkeyup="lineThicknessChange();"/>
+                                <ul id="line_thickness_updn_btn">
+                                    <li onclick="LayerWin.click_plus_func(document.getElementById('line_thickness'),10,1,lineThicknessChange)"><a href="javascript:void(0);" style="cursor:pointer"><img src="../images/editor/dialog/btn/editor_ta_btn.gif" width="15" height="10" alt=""/></a></li>
+                                    <li onclick="LayerWin.click_minus_func(document.getElementById('line_thickness'),0,1,false,lineThicknessChange)" ><a href="javascript:void(0);" style="cursor:pointer"><img src="../images/editor/dialog/btn/editor_ba_btn.gif" width="15" height="10" alt=""/></a></li>
+                                </ul>
+                                </div>
+                                </td><td width="10px">px</td></tr></tbody></table>
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="table_cell_gap_margin" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="25%">
+                                <label id="label_cell_gap" for="cell_gap"></label>
+                            </td>
+                            <td width="25%">
+                                <table cellpadding="0" cellspacing="0" style="line-height:normal; table-layout:auto;"><tbody><tr><td>
+                                <div class="no_a">
+                                <input name="cell_gap" id="cell_gap" type="text" class="con_input" onkeydown="LayerWin.onlyNumber(event);" maxlength="4"/>
+                                <ul>
+                                    <li onclick="LayerWin.click_plus_func(document.getElementById('cell_gap'),10,1)"><a href="javascript:void(0);" style="cursor:pointer"><img src="../images/editor/dialog/btn/editor_ta_btn.gif" width="15" height="10" alt=""/></a></li>
+                                    <li onclick="LayerWin.click_minus_func(document.getElementById('cell_gap'),0,1)"><a href="javascript:void(0);" style="cursor:pointer"><img src="../images/editor/dialog/btn/editor_ba_btn.gif" width="15" height="10" alt=""/></a></li>
+                                </ul>
+                                </div>
+                                </td></tr></tbody></table>
+                            </td>
+                            <td width="30%">
+                                <label id="label_cell_inside_margin" for="cell_inside_margin"></label>
+                            </td>
+                            <td width="20%">
+                                <table cellpadding="0" cellspacing="0" style="line-height:normal; table-layout:auto;"><tbody><tr><td>
+                                <div class="no_a">
+                                <input name="cell_inside_margin" id="cell_inside_margin" type="text" class="con_input" onkeydown="LayerWin.onlyNumber(event);" maxlength="4"/>
+                                <ul>
+                                    <li onclick="LayerWin.click_plus_func(document.getElementById('cell_inside_margin'),10,1)"><a href="javascript:void(0);" style="cursor:pointer"><img src="../images/editor/dialog/btn/editor_ta_btn.gif" width="15" height="10" alt=""/></a></li>
+                                    <li onclick="LayerWin.click_minus_func(document.getElementById('cell_inside_margin'),0,1)"><a href="javascript:void(0);" style="cursor:pointer"><img src="../images/editor/dialog/btn/editor_ba_btn.gif" width="15" height="10" alt=""/></a></li>
+                                </ul>
+                                </div>
+                                </td></tr></tbody></table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="div_table_edge_border" class="con border">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="15%">
+                                <span id="span_edge_select"></span>
+                            </td>
+                            <td width="60%">
+                                <div class="select_outline">
+                                    <p>
+                                        <a id="edge_select_1" href="javascript:edgeNoneTotalClick('outside', true); edgeSelectClick(1, 'outside');" class="out"><span></span></a>
+                                        <span id="span_edge_select_out"></span></p>
+                                    <p>
+                                        <a id="edge_select_2" href="javascript:edgeNoneTotalClick('inside', true); edgeSelectClick(2, 'inside');" class="in">
+                                            <span></span>
+                                        </a><span id="span_edge_select_in"></span></p>
+                                    <p>
+                                        <a id="edge_select_3" href="javascript:edgeNoneTotalClick('total'); edgeSelectClick(3, 'total');" class="all bgselect"><span></span>
+                                        </a><span id="span_edge_select_total"></span></p>
+                                    <p>
+                                        <a id="edge_select_4" href="javascript:edgeNoneTotalClick('user'); edgeSelectClick(4, 'user');" class="user"><span></span></a>
+                                    <span id="span_edge_select_user"></span></p>
+                                </div>
+                            </td>
+                            <td width="*" style="height: 95px;">
+                                <table class="select_border" cellpadding="0" cellspacing="0" style="table-layout: auto;">
+                                    <tr>
+                                        <td class="line_lrtb">
+                                        </td>
+                                        <td class="line_tb" style="vertical-align: top;">                              									</td>
+                                        <td class="line_lrtb">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="line_lr" style="text-align: left;">
+                                    	    <table class="preview_left" width="15" height="64" cellspacing="0" cellpadding="0" style="text-align:left;">
+											    <tr>
+												    <td class="line_lr_top"><a href="javascript:edgeClick('top', true);">
+                                                <img id="edge_top" style="cursor: pointer;" src="../images/editor/dialog/editor_line_top_img.gif"
+                                                    width="13" height="13" alt="" /></a></td>
+											    </tr>
+											    <tr>
+												    <td class="line_lr_middle"><a href="javascript:edgeClick('horizon', true);">
+                                                <img id="edge_horizon" style="cursor: pointer;" src="../images/editor/dialog/editor_line_horizon_img.gif"
+                                                    width="13" height="13" alt="" /></a></td>
+											    </tr>
+											    <tr>
+												    <td class="line_lr_bottom"><a href="javascript:edgeClick('bottom', true);">
+                                                <img id="edge_bottom" style="cursor: pointer;" src="../images/editor/dialog/editor_line_bottom_img.gif"
+                                                    width="13" height="13" alt="" /></a></td>
+											    </tr>
+										    </table>
+                                        </td>
+                                        <td class="line_m">                                       
+                                           <table  class="preview_t">
+                                              <tr>
+	                                              <td id="topcell1"></td>
+	                                              <td id="topcell2"></td>
+                                              </tr>
+                                              <tr id="bottomRow">
+	                                              <td id="bottomcell1"></td>
+	                                              <td id="bottomcell2"></td>
+                                              </tr>
+                                            </table>
+                                        </td>
+                                        <td class="line_lr" style="text-align: right;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="line_lrtb">
+                                        </td>
+                                        <td class="line_tb" style="vertical-align: bottom;">
+                                            <table class="preview_bottom" width="64" height="15" cellspacing="0" cellpadding="0">
+											    <tr style="text-align:center">
+												    <td class="line_tb_left"><a href="javascript:edgeClick('left', true);">
+                                                <img id="edge_left" style="cursor: pointer;" src="../images/editor/dialog/editor_line_left_img.gif"
+                                                    width="13" height="13" alt="" /></a></td>
+												    <td class="line_tb_middle"> <a href="javascript:edgeClick('vertical', true);">
+                                                <img id="edge_vertical" style="cursor: pointer;" src="../images/editor/dialog/editor_line_vertical_img.gif"
+                                                    width="13" height="13" alt="" /></a></td>
+												    <td class="line_tb_right"><a href="javascript:edgeClick('right', true);">
+                                                <img id="edge_right" style="cursor: pointer;" src="../images/editor/dialog/editor_line_right_img.gif"
+                                                    width="13" height="13" alt="" /></a></td>
+											    </tr>
+                                             </table>         
+                                        </td>
+                                        <td class="line_lrtb">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="div_table_caption_summary" class="con">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="22%">
+                                <label id="label_table_caption" for="table_caption"></label>
+                                <a href="javascript:LayerWin.showAccessPopup(document, document.getElementById('access_img_1'), document.getElementById('access_div_tab1'), LayerWin.dext5_lang.access_explain.table_caption, -10, -105);">
+                                    <script type="text/javascript">
+                                        if (custom_code != 'CCODE_001') {
+                                            document.write('<img id="access_img_1" src="../images/editor/dialog/editor_a.gif" alt="web_accessibility" style="margin-left:5px; border:0;" />');
+                                        }
+                                    </script>
+                                </a>
+                            </td>
+                            <td width="28%">
+                                <input name="table_caption" id="table_caption" type="text" class="con_input" style="width:90px;"/>
+                            </td>
+                            <td width="22%">
+                                <label id="label_table_summary" for="table_summary"></label>
+                                <a href="javascript:LayerWin.showAccessPopup(document, document.getElementById('access_img_2'), document.getElementById('access_div_tab1'), LayerWin.dext5_lang.access_explain.table_summary, -195, -105);">
+                                    <script type="text/javascript">
+                                        if (custom_code != 'CCODE_001') {
+                                            document.write('<img id="access_img_2" src="../images/editor/dialog/editor_a.gif" alt="web_accessibility" style="margin-left:5px; border:0;" />');
+                                        }
+                                    </script>
+                                </a>
+                            </td>
+                            <td width="28%">
+                                <input name="table_summary" id="table_summary" type="text" class="con_input" style="width:90px;"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Contents / general -->
+        <div id="tab_div2" class="EdiTor_Popup_contents none">
+            <div class="con_btn">
+                <a href="javascript:tabControl('1');" class="off"><span id="span_tab_div2_tab1"></span></a>
+                <a href="javascript:tabControl('2');" class="on"><span id="span_tab_div2_tab2"></span></a>
+            </div>
+            <input type="hidden" id="upload_url" name="upload_url" value="" />
+            <form name="dext_upload_form" method="post" target="upload_frame" enctype="multipart/form-data" action="" style="padding:0; margin:0;">
+                <input type="hidden" id="pe" name="pe" value="1" />
+                <input type="hidden" id="document_domain" name="document_domain" value="" />
+                <input type="hidden" id="proxy_url" name="proxy_url" value="" />
+			    <input type="hidden" id="uploadtype" name="uploadtype" value="image" />
+			    <input type="hidden" id="savefilename" name="savefilename" value="" />
+			    <input type="hidden" id="savefileext" name="savefileext" value="" />
+			    <input type="hidden" id="serverdomain" name="serverdomain" value="" />
+			    <input type="hidden" id="tosavepathurl" name="tosavepathurl" value="" />
+                <input type="hidden" id="savafoldernamerule" name="savafoldernamerule" value="" />
+                <input type="hidden" id="savafilenamerule" name="savafilenamerule" value="" />
+			    <input type="hidden" id="image_convert_format" name="image_convert_format" value="" />
+			    <input type="hidden" id="image_convert_width" name="image_convert_width" value="" />
+			    <input type="hidden" id="image_convert_height" name="image_convert_height" value="" />
+                <input type="hidden" id="userField" value="" />
+            <script type="text/javascript">
+                document.write('<div id="contents_2" class="contents" style="height: ' + custom_height + '; overflow: hidden;">');
+            </script>
+                <div class="speech_balloons" id="access_div_tab2" style="position:absolute; display:none; width:220px;" >       
+                    <span class="sp_t" style="width:200px;"><p></p></span>
+                    <span class="sp_arrow">
+                        <script type="text/javascript">
+                            if (custom_code != 'CCODE_001') {
+                                document.write('<img src="../images/editor/dialog/speech_arrow.gif" width="15" height="16" alt="web accessibility"/>');
+                            }
+                        </script>
+                    </span>
+                </div>
+                <div class="con border">
+                    <table cellpadding="0" cellspacing="0">
+
+                        <tr id="tr_back_image1"></tr>
+
+                        <tr id="tr_back_image2">
+                            <td width="20%">
+                                <label id="label_add" for="add"></label>
+                            </td>
+                            <td width="30%">
+                                <select name="add" id="add"></select>
+                            </td>
+                            <td width="20%">
+                                <label id="label_horizontal" for="horizontal"></label>
+                            </td>
+                            <td width="30%">
+                                <input name="horizontal" id="horizontal" type="text" class="con_input" style="width:55px;" onkeydown="LayerWin.onlyNumber(event);" maxlength="4" />px
+                            </td>
+                        </tr>
+                        <tr id="tr_back_image3">
+                            <td>
+                                <label id="label_repeat" for="repeat"></label>
+                            </td>
+                            <td>
+                                <select name="repeat" id="repeat" style="width:100%"></select>
+                            </td>
+                            <td>
+                                <label id="label_vertical" for="vertical"></label>
+                            </td>
+                            <td>
+                                <input name="vertical" id="vertical" type="text" class="con_input" style="width:55px;" onkeydown="LayerWin.onlyNumber(event);" maxlength="4" />px
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span id="span_background_color"></span>
+                            </td>
+                            <td colspan="3">
+                                <div class="tsc" style="cursor:pointer;" onclick="javascript:LayerWin.showColorPopup(document,document.getElementById('background_color'),'background',undefined,-3,-20);">
+                                    <a href="javascript:void(0)">
+                                        <span id="background_color"></span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+						<tr>
+							<td colspan="4" style="height:20px;"></td>
+						</tr>
+                        <tr>
+                            <td colspan="4" class="select_btn" style="text-align:center;">
+								<fieldset class="ulc">
+									<legend><span id="span_prev_background_remove_regend"></span></legend>
+									<input type="hidden" id="prev_background_remove" name="prev_background_remove" value="N"/>
+									<input type="checkbox" style="vertical-align:middle;" id="chk_background_remove" name="chk_background_remove" onclick="backgroundImageDeleteCheck(this)"  />
+									<label style="vertical-align:middle;" for="chk_background_remove"><span id="span_prev_background_remove"></span></label>
+								</fieldset>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="con con_th">
+                    <input type="hidden" id="title_cell" name="title_cell" value=""/>
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td colspan="4" style="height:30px; text-align:left;">
+                                <input name="scope" id="scope" type="checkbox" disabled/>
+                                <label id="label_scope" for="scope"></label>
+                                <a href="javascript:LayerWin.showAccessPopup(document, document.getElementById('access_img_3'), document.getElementById('access_div_tab2'), LayerWin.dext5_lang.access_explain.table_scope, 15, 0);">
+                                    <script type="text/javascript">
+                                        if (custom_code != 'CCODE_001') {
+                                            document.write('<img id="access_img_3" src="../images/editor/dialog/editor_a.gif" alt="web_accessibility" style="margin-left:5px; border:0;" />');
+                                        }
+                                    </script>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="25%" class="">
+                                <a href="javascript:titleCellClick('1');" class="con_t_btn" id="a_title_cell1"><span class="tb02"></span></a>
+                                <br />
+                                <span id="span_title_cell1"></span>
+                            </td>
+                            <td width="25%" class="">
+                                <a href="javascript:titleCellClick('2');" class="con_t_btn" id="a_title_cell2"><span class="tb03"></span></a>
+                                <br />
+                                <span id="span_title_cell2"></span>
+                            </td>
+                            <td width="25%" class="">
+                                <a href="javascript:titleCellClick('3');" class="con_t_btn" id="a_title_cell3"><span class="tb04"></span></a>
+                                <br />
+                                <span id="span_title_cell3"></span>
+                            </td>
+                            <td width="25%" class="">
+                                <a href="javascript:titleCellClick('4');" class="con_t_btn" id="a_title_cell4"><span class="tb05"></span></a>
+                                <br />
+                                <span id="span_title_cell4"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+    <iframe id="upload_frame" name="upload_frame" frameborder="0" style="width:0px; height:0px; display:none;" title="DEXT5Editor Upload"></iframe>
+            </form>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+			<span id="dext_loading" style="display:none;"><img src="../images/editor/dialog/loading.gif" alt="working" style="vertical-align:middle; " /> Uploading... </span>
+            <a href="javascript:dext_table_property_upload_image();" class="confirm" id="ok_btn"><span id="btn_ok"></span></a>
+            <a href="javascript:event_dext_table_cancel();" class="cancel"><span id="btn_cancel"></span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

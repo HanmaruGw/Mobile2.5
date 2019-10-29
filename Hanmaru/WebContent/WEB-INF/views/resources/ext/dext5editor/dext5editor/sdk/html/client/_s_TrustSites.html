@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">
+    <span class="pl_type">[플러그인 전용]</span>               
+    <h3 class="title">DEXT5 Editor :: TrustSites</h3>
+    <p class="ttl">XML : &#60;trust_sites&#62;.....&#60;/trust_sites&#62;, Config : config.TrustSites </p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        신뢰할 수 있는 사이트를 추가합니다.
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+<b>"www.dext5.com"을 신뢰할 수 있는 사이트에 추가합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;license&#62;
+    .....
+    &#60;trust_sites&#62;www.dext5.com&#60;/trust_sites&#62;
+    .....
+&#60;/license&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+ 
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;    
+    &#60;script type="text/javascript"&#62;
+
+        DEXT5.config.TrustSites = "www.dext5.com";
+
+        new Dext5editor("editor1");
+
+    &#60;/script&#62;       
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

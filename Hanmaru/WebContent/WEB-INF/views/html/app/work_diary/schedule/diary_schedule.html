@@ -1,0 +1,229 @@
+
+<div class="workDiaryContainer" ng-controller="diaryScheduelController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarMenu" ng-click="slideMenuClick()">
+			<img src="/resources/image/ic-menu.png">
+		</div>
+		
+		<!--
+		<div class="headerBarTitle diaryDrop" ng-click="scheduleDateSelectBtn($event)">
+			<span>{{currentYear}}. {{currentMonth}}</span>
+			<img src="/resources/image/work_diary/drop_option_black.png">
+		</div>
+		-->
+		
+		<div class="headerBarTitle diaryDrop" ng-click="chooseSearchDate('end')">
+			<span>{{currentYear}}. {{currentMonth}}</span>
+			<img src="/resources/image/work_diary/drop_option_black.png">
+		</div>
+		
+		<!--
+		<div class="headerBarTitle diaryDrop" ng-click="chooseSearchDate('end')" >
+			<input type="text" placeholder="2019.02.14" readonly="readonly" ng-model=txtSearchEnd" ng-trim="true" > 
+			<img src="/resources/image/work_diary/drop_option_black.png">
+		</div>
+		-->
+			<!-- <input type="text" placeholder="2019.02.14" readonly="readonly" ng-model=txtSearchEnd" ng-trim="true" >  -->
+		
+		<div class="headerBarSearch workDiarySearch" ng-click="scheduleSearchBtn($event)">
+			<img src="/resources/image/mail_ic-search.png">
+		</div>
+		<div class="headerBarSend workDiaryWrite" ng-click="btnShowScheduleWrite()">
+			<img src="/resources/image/work_diary/ic-writing.png">
+		</div>
+		<div class="headerUnderBar"></div>
+		<!-- <div class="headerUnderBar diaryUnderHeight diaryDropBar"></div> -->
+	</div>
+	
+	<!-- 날짜 선택창 시작 -->
+	<div class="diaryDateDrop" ng-show="isShowSelectDate">
+		<div class="diaryDateDiv">
+			<div class="dateYearDiv">
+				<span>2017</span>
+				<span>9</span>
+			</div>
+			<div class="dateYearDiv">
+				<span>2018</span>
+				<span>10</span>
+			</div>
+			<div class="dateYearDiv">
+				<span>2019</span>
+				<span>11</span>
+			</div>
+		</div>
+		<div class="diaryBtnDiv">
+			<div class="diaryCancelBtn">취소</div>
+			<div class="diarySearchBtn">검색</div>
+		</div>
+	</div>	
+	<!-- 날짜 선택창 끝 -->
+	
+	<!-- 검색 -->
+	<div class="workDiarySearchBack"></div>
+	<div class="workDiaryDataVoid">
+		<span class="workDiarySearchResult">검색된 데이터가 없습니다.</span>
+		<span class="searchResultBlank"></span>
+	</div>
+	
+	<div class="diarysearchDivBase" ng-show="isShowScheduleSearch == true ">
+		<div class="diarySearchDiv" >		
+			<div class="diarySearchOption" ><!-- ng-click="searchOption()" -->
+				<ul class="diarySearchSelect">
+					<li class="diarySelectFirst">
+						<!-- <span class="selectFirstName">전체</span> -->
+						<img src="/resources/image/mail/ic-select-arrow-bottom.png">
+						<select name="selectSearchSelect" class="selectSearchSelect" ng-model="selectSearchSelect" style="width: 80%;height: 100%;background-color: #E4E7EB;margin-left: 10px;border-width: 0px;">
+							<option value=''>전체</option>
+							<option value=''>제목</option>
+							<option value=''>본문</option>
+							<option value=''>발신자</option>
+							<option value=''>제목+본문</option>
+						</select>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="diarySearchKeyword">
+				<input type="text" placeholder="검색어 입력">
+				<button ng-click="btnSearchSchedule()">검색</button>
+				<!-- ng-model="SearchValue" ng-trim="true"
+				ng-click="btnSearchMail()" -->
+			</div>
+		</div>	
+	</div>	
+	<!-- 검색 끝 -->
+	
+	<div class="workDiaryContents" >
+		<div class="diaryCalenderTab" style="height:100%">
+			<ul class="diaryCalendarList">
+				<li><a class="sunTextColor">일</a></li>
+				<li><a>월</a></li>
+				<li><a>화</a></li>
+				<li><a>수</a></li>
+				<li><a>목</a></li>
+				<li><a>금</a></li>
+				<li><a class="satTextColor">토</a></li>
+			</ul>
+
+			<div id="calendar" ng-show="isCalendarSearch == false" style="height:97%"></div>
+			<div id="calendarSearchResult" ng-show="isCalendarSearch == true">
+				<div class="wrapSearchElem" ng-repeat="elem in arrSearchResult">
+					<div class="btnColorBullet">
+						<span style="background-color:#{{elem.Color}}"></span>
+					</div>
+					<div class="wrapSearchContents">
+						<strong>{{elem.Title}}</strong><br>
+						<span>
+							{{elem.StartDate}} ~ {{elem.EndDate}} 
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="workDiaryBottomWrap">
+		<div class="diaryRightBtn">
+			<span class="diaryTodayBtn" ng-click="btnScheduleToday()"><a>오늘</a></span>
+			<span class="diaryCalendarBtn" ng-click="btnShowShareCalendar()"><a>공유캘린더</a></span>
+			<span class="diaryShareUser" ng-click="btnShowShareUser()"><a>일정참고자</a></span>
+		</div>
+	</div>
+	
+	<!-- 일정보기 다이얼로그 시작 -->
+	<div class="dialogScheduleViewingBase" ng-show="isDlgScheduleDetail == true">
+		<div class="dialogScheduleViewing">
+			<div class="dialogScheduleViewingTop">
+				<span>일정보기</span>
+				<div class="dialogScheduleAdd" ng-click="btnShowScheduleWrite_Time()">일정추가</div>
+			</div>
+			<div class="dialogScheduleDate">
+				<!-- <span>2018.12.26 (수)</span> -->
+				 <span>{{currSelectedDate}}</span>
+			</div>
+			<div class="dialogScheduleViewingWrap">
+				<div class="dialogScheduleViewingContents">
+					<div class="dialogScheduleViewingList" ng-repeat="schedule in currSelectedScheduleList" ng-click="Btn_Schedule_View(schedule)">
+						<div class="scheduleViewingListLabel" style="background-color:#{{schedule.Color}}"></div>
+						<div class="scheduleViewingListText">
+							<span>{{schedule.Title}}</span>
+							<p>{{schedule.StartDate}} ~ {{schedule.EndDate}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="dialogScheduleViewingCheck">
+				<div class="dialogScheduleViewingBtn">
+					<a><span class="dialogScheduleViewingAction" ng-click="dismissDlgScheduleDetail($event)">확인</span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 일정보기 다이얼로그 끝 -->
+	
+	<!-- 공유캘린더 다이얼로그 시작 -->
+	<div class="dialogShareCalendarBase" ng-show="isDlgShareCalendar == true">
+		<div class="dialogShareCalendar">
+			<div class="dialogShareCalendarTop">
+				<span>공유 캘린더</span>
+				<img src="/resources/image/ic-delete.png" ng-click="dismissDlgShareCalendar($event)">
+			</div>
+			<div class="dialogShareCalendarWrap">
+				<div class="dialogShareCalendarContents" ng-repeat="cal in arrShareCalendar" ng-click="btnToggleShareCalendar(cal)">
+					<div class="dialogCalendarList">
+						<img src="/resources/image/selectbox-square-on.png" ng-show="cal.IsChecked==true">
+						<img src="/resources/image/selectbox-square-off.png" ng-show="cal.IsChecked==false">
+						<span>{{cal.Name}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="dialogShareCalendarCheck">
+				<div class="dialogShareCalendarBtn">
+					<a><span class="dialogShareCalendarAction" ng-click="applyShareCalendar($event)">확인</span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 공유캘린더 다이얼로그 끝 -->
+	
+	<!-- 일정참고자 다이얼로그 시작 -->
+	<div class="dialogShareCalendarBase" ng-show="isDlgShareUser == true">
+		<div class="dialogShareCalendar">
+			<div class="dialogShareCalendarTop">
+				<span>일정참고자</span>
+				<img src="/resources/image/ic-delete.png" ng-click="dismissDlgShareUser($event)">
+			</div>
+			<div class="dialogShareCalendarWrap">
+				<div class="dialogShareCalendarContents" ng-repeat="user in arrShareUser" >
+					<div class="dialogCalendarList">
+						<div ng-click="btnToggleShareUser(user)">
+							<img src="/resources/image/selectbox-square-on.png" ng-show="user.IsChecked == true">
+							<img src="/resources/image/selectbox-square-off.png" ng-show="user.IsChecked != true">
+							<span class="wrapShareUserInfo">
+								<span>{{user.UserName}}</span>
+								<span>{{user.EmailAddress}}</span>
+							</span>
+							<span class="wrapShareUserExit">
+								<img ng-click="btnRemoveShareUser($index)" src="/resources/image/icon/ic_remove_normal.png">
+							</span>
+						</div>
+						
+					</div>
+					
+				</div>
+ 			</div>
+			<div class="dialogShareCalendarCheckDb">
+				<div class="dialogShareCalendarBtn">
+					<a><span ng-click="addShareUser($event, 'ShareUser')" class="dialogShareCalendarAction">추가</span></a>
+				</div>
+			</div>
+			<div class="dialogShareCalendarCheckDb">
+				<div class="dialogShareCalendarBtn">
+					<a><span ng-click="applyShareUser($event)" class="dialogShareCalendarAction">적용</span></a>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<!-- 일정참고자 다이얼로그 끝 -->
+</div>

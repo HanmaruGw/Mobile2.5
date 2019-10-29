@@ -1,0 +1,99 @@
+<div class="settingsContainer" ng-controller="settingController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarMenu" ng-click="slideMenuClick()">
+			<img src="/resources/image/menu_img.png">
+		</div>
+		<div class="headerBarTitle">
+			<span>설정</span>
+		</div>
+		<div class="headerBarMove approval_attach">
+		
+		</div>
+		<div class="headerBarSearch approval_search">
+			
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	<div class="settingsSelectDiv">
+		<div class="settingsSelectContents">
+			<div class="settingsSelectLang">
+				<p>{{translateLanguage('language_setting')}}</p>
+				<div class="settingsLang">
+					<select name="reservSelectName" class="settingsSelectOption" ng-model="selectedLang" ng-options="data.name for data in langList" ng-change="langChanged(selectedLang)" ng-if="langList.length > 0">
+					</select>
+				</div>
+			</div>
+			<div class="settingsSelectCompany">
+				<p>{{translateLanguage('company_setting')}}</p>
+				<div class="settingsCompany">
+					<select name="reservSelectName" class="settingsSelectOption" ng-model="selectedCompany" ng-options="data.name for data in companyList" ng-change="companyChanged(selectedCompany)" ng-if="companyList.length > 0">
+					</select>
+				</div>
+			</div>
+			<div class="settingsSelectView">
+				<p>{{translateLanguage('main_setting')}}</p>
+				<div class="settingsView">
+					<select name="reservSelectName" class="settingsSelectOption" ng-model="selectedView" ng-options="data.name for data in settingViewList" ng-change="viewChanged()">
+					</select>
+				</div>
+			</div>
+			<div class="simplePasswordContents">
+				<p>{{translateLanguage('simple_password')}}</p>
+				<div class="simplePasswordModify">
+					<button>{{translateLanguage('modify')}}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--리스트-->
+	<div class="settingsCheckDiv">
+		<div class="approvalHandleNotice" ng-click="btnApprovalPush()">
+			<div class="approvalHandleContents">
+				<span>{{translateLanguage('approval_push')}}</span>
+			</div>
+			<div class="settingsSelectBtn" ng-class="{'settingsSelectBtnClicked':approvalPush == true}" ng-click="approvalPush = !approvalPush">
+				{{approvalPushVal}}
+			</div>
+		</div>
+		<div class="receiveMailNotice" ng-click="btnDocumentPush()">
+			<div class="receiveMailContents">
+				<span>{{translateLanguage('approval_cc_push')}}</span>
+			</div>
+			<div class="settingsSelectBtn" ng-class="{'settingsSelectBtnClicked':documentPush == true}" ng-click="documentPush = !documentPush">
+				{{documentPushVal}}
+			</div>
+		</div>
+		<div class="scheduleNotice" ng-click="btnSchedulePush()">
+			<div class="scheduleNoticeContents">
+				<span>{{translateLanguage('work_schedule_push')}}</span>
+			</div>
+			<div class="settingsSelectBtn" ng-class="{'settingsSelectBtnClicked':schedulePush == true}" ng-click="schedulePush = !schedulePush">
+				{{schedulePushVal}}
+			</div>
+		</div>
+		<div class="workNoitce" ng-click="btnWorkPush()">
+			<div class="workNoitceContents">
+				<span>{{translateLanguage('work_task_push')}}</span>
+			</div>
+			<div class="settingsSelectBtn" ng-class="{'settingsSelectBtnClicked':workPush == true}" ng-click="workPush = !workPush">
+				{{workPushVal}}
+			</div>
+		</div>
+		<div class="reportNotice" ng-click="btnReportPush()">
+			<div class="reportNoticeContents">
+				<span>{{translateLanguage('work_report_push')}}</span>
+			</div>
+			<div class="settingsSelectBtn" ng-class="{'settingsSelectBtnClicked':reportPush == true}" ng-click="reportPush = !reportPush ">
+				{{reportPushVal}}
+			</div>
+		</div>
+	</div>
+	
+	<!--로그아웃-->
+	<div class="reservBtn" ng-click="btnDoLogout()">
+		<span>{{translateLanguage('logout')}}</span>
+	</div>
+	
+	
+</div>

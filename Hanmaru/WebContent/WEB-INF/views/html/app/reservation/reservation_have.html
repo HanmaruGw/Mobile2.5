@@ -1,0 +1,96 @@
+<div class="reservationContainer" ng-controller="ReservBookingListController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarBack"  ng-click="slideMenuClick()">
+			<img src="/resources/image/menu_img.png">
+		</div>
+		<div class="headerBarTitle prevPageTitle">
+			<span>{{translateLanguage('resource_simple_reserv')}}</span>
+		</div>
+		<div class="headerBarMove approval_attach">
+			
+		</div>
+		<div class="headerBarSearch approval_search">
+			
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	<div class="reservHaveWrap">
+		<div class="reservHaveContents">
+			<div class="reservHaveSubs">
+				<p>{{translateLanguage('resource_select_area')}}</p>
+				<div class="reservSelectPlace">
+					<ul class="reservSpotSelect">
+						<li class="spotSelectFirst" ng-click="selectAreaCode()">
+							<span class="selectFirstName">{{areaName}}</span>
+							<img src="/resources/image/reservation/ic-select-arrow-bottom_blue.png">
+							<!-- <img src="/resources/image/reservation/ic-select-arrow-top_blue.png">  해당 이미지는 아래 선택 목록이 열리면 이 이미지로 바뀌어야합니다.-->
+							<ul class="selectContentsReserv" ng-show="areaCodeShow == true">
+								<li class="selectContentsList" ng-repeat="area in areaList" ng-click="applyArea($event,$index,area)">
+									<span class="selectListTxt" ng-class="{'selected' : curAreaIdx == $index}">{{area.DisplayName}}</span>
+									<img src="/resources/image/ic_check_select.png" ng-show="curAreaIdx == $index">
+								</li>
+							</ul>		
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="reservHaveTime">
+				<p>{{translateLanguage('resource_reserve_time')}}</p>
+				<div class="reservHaveFirst" ng-click="chooseSearchDate('start')">
+					<input type="text" class="txtDateSearch" ng-model="txtSearchDate" readonly="readonly" ng-trim="true">
+					<!-- <img src="/resources/image/ic-calendar.png"> -->
+				</div>
+			</div>
+			<div class="reservSelectTime">
+				<p></p>
+				<div class="reservSelectFirst">
+					<div class="reservSelectHour">
+						<ul>
+							<li class="hourBaseSelect" ng-click="selectTime()">
+								<a>{{txtStartTime}}</a>
+								<ul class="hourListSelect" ng-show="isTimeShow === true">
+									<!-- <li><a class="selectHourColor">10:00</a></li> css 참고-->
+									<li ng-repeat="time in timeList" ng-click="applyStartTime(time.value)"><a>{{time.name}}</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					<span class="firstSelectTime">부터</span>
+				</div>
+				<div class="reservSelectSecond">
+					<div class="reservSelectMinute">
+						<ul>
+							<li class="minuteBaseSelect" ng-click="selectPeriod()">
+								<a>{{txtPeriod}}</a>
+								<ul class="minuteListSelect" ng-show="isPeriodShow === true">
+									<!-- <li><a class="selectMinuteColor">2시간 30분</a></li> -->	
+									<li ng-repeat="period in periodList" ng-click="applyPeriod(period)"><a>{{period.name}}</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					<span class="lastSelectTime">동안</span>
+				</div>
+			</div>
+			<div class="reservCheckBtn" ng-click="reservFindPossible()"><span>{{translateLanguage('find')}}</span></div>
+		</div>
+		<!--리스트-->
+		<div class="reservCheckDiv">
+			<div class="reservCheckList"  ng-repeat="reservPossibleItem in reservPossibleList" ng-show="isPossibleReserv == true">
+				<div class="reservCheckContents">
+					<span>{{reservPossibleItem.Resource_name}}</span>
+					<p>{{reservPossibleItem.Attender_limit}}명 / {{reservPossibleItem.resource_kind_name}}</p>
+				</div>
+				<div class="reservSelectBtn" ng-click="reservChoiceBtn(reservPossibleItem)">선택</div>
+			</div>
+			<div class="reservNoResult" ng-show="isPossibleReserv == false">
+				<span class="reservNoResultBlank"></span>
+				<span class="reservNoResultTitle">{{translateLanguage('warn_empty_message')}}</span>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+</div>

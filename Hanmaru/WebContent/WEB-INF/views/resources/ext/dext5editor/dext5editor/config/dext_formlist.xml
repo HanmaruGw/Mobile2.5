@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dext5>
+  <FormList Name="부서양식">
+    <FORM FormName="부서 회의록" url="pages/forms/meeting.html"></FORM>
+    <FORM FormName="주간 보고서" url="pages/forms/plan.html"></FORM>
+    <FORM FormName="휴가(조퇴) 신청서" url="pages/forms/vacation.html"></FORM>
+  </FormList>
+  <FormList Name="총무">
+    <FORM FormName="품의서" url="pages/forms/consultation.html"></FORM>
+  </FormList>
+</dext5>

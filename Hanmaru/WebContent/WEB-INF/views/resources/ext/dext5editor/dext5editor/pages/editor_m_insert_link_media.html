@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>M Media</title>
+    <meta id="extViewportMeta" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+	<script type="text/javascript">
+
+	    var elemModify = null;
+	    try {
+	        elemModify = DEXTTOP.G_SELECTED_ELEMENT;
+	        if (elemModify && elemModify.tagName.toLowerCase() != "img") DEXTTOP.G_SELECTED_ELEMENT = elemModify = null;
+	    } catch (e) {
+	        elemModify = null;
+	    }
+
+	    function page_loaded_event() {
+	        var _skin_name = LayerWin._dext_editor._config.style.skinName;
+	        document.getElementById("dext_dialog_box").className = 'DEXT_fiVe_ED_Popup_Type03 DEXT_fiVe_PUi_' + _skin_name;
+
+	        document.getElementById('span_title').innerHTML = LayerWin.dext5_lang.insert_link_media.title_link_media;
+	        //document.getElementById('div_desc').innerHTML = LayerWin.dext5_lang.insert_link_media.desc_link_media;
+	        document.getElementById('label_tag_insert').innerHTML = LayerWin.dext5_lang.insert_link_media.tag;
+	        document.getElementById('btn_ok').innerHTML = LayerWin.dext5_lang.ok_cancel.ok;
+	        document.getElementById('btn_cancel').innerHTML = LayerWin.dext5_lang.ok_cancel.cancel;
+	        if (LayerWin._dext_editor._config.allowLinkMediaCaption == '1') {
+	            document.getElementById('label_tag_caption').innerHTML = LayerWin.dext5_lang.insert_link_media.caption;
+	            document.getElementById('mediaTagTd').style.height = '45px';
+	            document.getElementById('captionTr1').style.display = '';
+	            document.getElementById('captionTr2').style.display = '';
+	            document.getElementById('ta_media_tag').style.height = '50px';
+	        }
+
+            if(elemModify)
+	            set_page();
+
+	        var btn_ok_a = document.getElementById('btn_ok_a');
+	        if (elemModify != null) {
+	            DEXTTOP.DEXT5.util.addEvent(btn_ok_a, 'click', function () { dext_modify_link_media(elemModify); });
+	        } else {
+	            DEXTTOP.DEXT5.util.addEvent(btn_ok_a, 'click', function () { dext_insert_link_media(); });
+	        }
+
+	        var header = LayerWin.getElementsByClass('EdiTor_Popup_header', document);
+	        header[0].onselectstart = function () { return false; };
+
+	        setCursorPos(document.getElementById('ta_media_tag'), true, false);
+	        LayerWin.setFocusFirstAndLast(document, document.getElementById("ta_media_tag"));
+	    }
+
+	    function set_page() {
+
+	        var keyid = elemModify.getAttribute('dext5customdata');
+	        if (keyid != null && keyid != undefined) {
+	            var elemData = LayerWin.getDextCustomData(keyid);
+	            if (elemData.type == 'iframe' || elemData.type2 == 'iframe') {
+	                var iframe = document.createElement("iframe");
+	                iframe.width = LayerWin.parseIntOr0(elemModify.style.width) == 0 ? elemModify.width + "" : elemModify.style.width + "";
+	                iframe.height = LayerWin.parseIntOr0(elemModify.style.height) == 0 ? LayerWin.parseIntOr0(elemModify.height) + "" : LayerWin.parseIntOr0(elemModify.style.height) + "";
+
+	                if (elemData.src.indexOf('dext5player/media_player') > -1) {
+	                    var ampIndex = elemData.src.lastIndexOf('&');
+	                    var tempSrc = elemData.src.substring(0, ampIndex);
+	                    tempSrc += '&size=' + LayerWin.parseIntOr0(iframe.width) + '^' + LayerWin.parseIntOr0(iframe.height);
+	                    iframe.src = tempSrc;
+	                } else {
+	                    iframe.src = elemData.src;
+	                }
+
+	                iframe.id = elemData.id;
+	                iframe.name = elemData.name;
+	                iframe.title = elemData.title;
+	                iframe.className = elemData.className;
+
+	                if (elemModify.align != null && elemModify.align != undefined) {
+	                    elemData.align = elemModify.align;
+	                }
+	                iframe.align = elemData.align;
+
+	                iframe.scrolling = elemData.scrolling;
+	                if (elemData.frameBorder) {
+	                    iframe.frameBorder = 1;
+	                } else {
+	                    iframe.frameBorder = 0;
+	                }
+	                if (typeof elemData.attributes != 'undefined') {
+	                    var checkAttrName = ["src", "id", "name", "title", "width", "height", "align", "scrolling", "frameBorder", "class"];
+	                    var attrsLen = elemData.attributes.length;
+	                    for (var i = 0; i < attrsLen; i++) {
+	                        var attr = elemData.attributes[i];
+	                        if (attr.specified) {
+	                            if (checkAttrName.indexOf(attr.name.toLowerCase()) < 0) {
+	                                if (attr.name.toLowerCase() == "style") {
+	                                    iframe.style.cssText = attr.value;
+	                                } else {
+	                                    iframe.setAttribute(attr.name, attr.value);
+	                                }
+	                            }
+	                        }
+	                    }
+	                }
+
+	                ta_media_tag.value = iframe.outerHTML;
+	                if (elemData.caption) {
+	                    ta_media_caption.value = elemData.caption;
+	                }
+
+	            } else if (elemData.type == 'flash' || elemData.type2 == 'flash') {
+	                var tempParent = document.createElement("div");
+	                var flash_html = "";
+	                flash_html += ("<embed src='" + elemData.src + "'");
+	                if (elemData.hspace != "") { flash_html += " hspace='" + elemData.hspace + "px'"; }
+	                if (elemData.vspace != "") { flash_html += " vspace='" + elemData.vspace + "px'"; }
+	                if (elemData.scale != "") { flash_html += " scale='" + elemData.scale + "'"; }
+	                if (elemData.allowScriptAccess != "") { flash_html += " allowScriptAccess='" + elemData.allowScriptAccess + "'"; }
+	                if (elemData.quality != "") { flash_html += " quality='" + elemData.quality + "'"; }
+	                if (elemData.align != "") { flash_html += " align='" + elemData.align + "'"; }
+	                if (elemData.menu == false) { flash_html += " menu='false'"; } else { flash_html += " menu='true'"; }
+	                if (elemData.play == false) { flash_html += " play='false'"; } else { flash_html += " play='true'"; }
+	                if (elemData.loop == false) { flash_html += " loop='false'"; } else { flash_html += " loop='true'"; }
+	                if (elemData.allowFullScreen == false) { flash_html += " allowFullScreen='false'"; } else { flash_html += " allowFullScreen='true'"; }
+	                if (elemData.flashvars && elemData.flashvars != "") { flash_html += " flashvars='" + elemData.flashvars + "'"; }
+	                //if (elemData.caption && elemData.caption != "") { flash_html += " DEXT_fiVe_Media_Caption='" + elemData.caption + "'"; }
+	                if (elemData.src.indexOf('dext5player/') < 0) {
+	                    flash_html += ' wmode="transparent"';
+	                }
+
+	                flash_html += (" pluginspage='http://www.macromedia.com/go/getflashplayer' type='application/x-shockwave-flash' />");
+
+	                tempParent.innerHTML = flash_html
+	                var flash = tempParent.firstChild;
+	                // 소스보기에서 단위를 %로 바꾸는 경우가 있어 아래 로직으로 수정 (150127 hj)
+	                flash.style.width = LayerWin.parseIntOr0(elemModify.style.width) == 0 ? elemModify.width + "" : elemModify.style.width + "";
+	                flash.style.height = LayerWin.parseIntOr0(elemModify.style.height) == 0 ? LayerWin.parseIntOr0(elemModify.height) + "px" : LayerWin.parseIntOr0(elemModify.style.height) + "px";
+
+	                ta_media_tag.value = flash.outerHTML;
+	                if (elemData.caption) {
+	                    ta_media_caption.value = elemData.caption;
+	                }
+	            }
+	        }
+	    }
+    </script>
+</head>
+<body style="margin:0px; padding:0px;" onload="page_loaded_event()" >
+	<div class="DEXT_fiVe_ED_Popup_Type03 DEXT_fiVe_PUi_blue" id="dext_dialog_box">
+		<!-- Header -->
+		<div class="EdiTor_Popup_header">
+			<span class="subject" id="span_title">Insert Media</span><span class="text">DEXT5 Editor</span>
+			<div class="close">
+				<a href="javascript:event_dext_flash_upload_cancel();" title="close"></a>
+			</div>
+		</div>
+		<!-- // Header -->
+
+		<!-- Contents / general -->
+		<div class="EdiTor_Popup_contents view">
+            <div class="contents"  style="height: 230px;">
+                <div class="con border">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="100%">
+                                <div id="div_desc"></div>
+                                <div id="" style="margin:4px 0 0 0; text-align:center;">
+                                    <img src="../images/editor/dialog/media_logo.gif" alt="" style="width:100%; height:16px;"/>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="con">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="width:100%;">
+                                <label style="vertical-align: middle;" for="ta_media_tag" id="label_tag_insert"></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="height: 80px; width:100%;" id="mediaTagTd">
+                                <textarea id="ta_media_tag" name="ta_media_tag" cols="87" rows="16" spellcheck="false" style="width: 100%; height: 120px;"></textarea>
+                            </td>
+                        </tr>
+                        <tr id="captionTr1" style="display:none;">
+                            <td>
+                                <label style="vertical-align: middle;" for="ta_media_caption" id="label_tag_caption"></label>
+                            </td>
+                        </tr>
+                        <tr id="captionTr2" style="display:none;">
+                            <td style="height: 47px;">
+                                <textarea id="ta_media_caption" name="ta_media_caption" cols="87" rows="16" spellcheck="false" style="width: 100%; height: 50px;"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+		<!-- // Contents -->
+
+		<!-- Footer -->
+		<div class="EdiTor_Popup_footer">
+			<a href="javascript:void(0);" class="confirm" id="btn_ok_a"><span id="btn_ok">확인</span></a>
+			<a href="javascript:event_dext_flash_upload_cancel();"  class="cancel" id="abtn_cancel"><span id="btn_cancel">취소</span></a>
+		</div>
+		<!-- // Footer -->
+	</div>
+</body>
+</html>

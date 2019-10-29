@@ -1,0 +1,68 @@
+<div class="attendanceContainer" ng-controller="attendanceController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarMenu" ng-click="slideMenuClick()">
+			<img src="/resources/image/ic-menu.png">
+		</div>
+		<div class="headerBarTitle">
+			<span>{{translateLanguage('time')}}</span>
+		</div>
+		<div class="headerUnderBar "></div>
+	</div>
+	<div class="attendanceManagementDiv">
+		<div class="attendanceManagementContents">
+		
+			<div class="attendanceManagementDate" ng-click="chooseSearchDate('start')">
+				<input type="text" readonly="readonly" class="txtDateSearch" ng-model="txtNowDate" ng-trim="true">
+			</div>
+			
+			<div class="attendTapDiv">
+				<div class="attendTapStart" ng-click="selectAttendStart()" ng-class="{'selected' :  isAttendStart == true}"><span>{{translateLanguage('time_attendance_start')}}</span></div>
+				<div class="attendTapGoOut" ng-click="selectAttendGoOut()" ng-class="{'selected' :  isAttendGoOut == true}"><span>{{translateLanguage('time_attendance_goout')}}</span></div>
+				<div class="attendTapEnd" ng-click="selectAttendEnd()" ng-class="{'selected' :  isAttendEnd == true}"><span>{{translateLanguage('time_attendance_end')}}</span></div>
+			</div>
+			
+			<div>
+				<div class="officeAttendanceTime">
+					<p ng-show="isAttendGoOut == false">{{translateLanguage('time_start_time')}}</p>
+					<p ng-show="isAttendGoOut == true">{{translateLanguage('time_goout_start_time')}}</p>
+					
+				</div>
+				<div class="officeQuittingTime">
+					<p ng-show="isAttendGoOut == false">{{translateLanguage('time_end_time')}}</p>
+					<p ng-show="isAttendGoOut == true">{{translateLanguage('time_goout_end_time')}}</p>
+				</div>
+			</div>
+			
+			<div>
+				<div class="attendanceTimeLabel">
+					<a class="attendanceSelectTime">{{txtStartTimeName}}</a>
+				</div>
+				<div class="quittingTimeLabel">
+					<a class="quittingSelectTime">{{txtEndTimeName}}</a>
+				</div>
+			</div>
+			
+		</div>
+		<div class="attendanceCumulativeTime">
+			<span class="otCumulativeLabel">{{translateLanguage('time_ot_time')}}</span>
+			<div class="attendanceCumulativeWrap">
+				<div class="attendanceWeeklyTime">
+					<div class="weeklyTimeLabel">
+						<span>{{translateLanguage('time_week')}}</span>
+						<span>{{txtOTweek}}</span>
+					</div>
+				</div>
+				<div class="attendanceMonthlyTime">
+					<div class="monthlyTimeLabel">
+						<span>{{translateLanguage('time_month')}}</span>
+						<span>{{txtOTmonth}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="attendanceSaveBtn" ng-click="btnSetAttend()">
+		<span>{{translateLanguage('save')}}</span>
+	</div>
+</div>

@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: StatusBarLoading</h3>
+    <p class="ttl">XML : &#60;show_statusbar loading="....."&#62;&#60;/show_statusbar&#62;, Config : config.StatusBarLoading</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        에디터의 보기화면(statusBar)에서 "디자인", "HTML" 및 "미리보기", "TEXT" 탭 변경 시 로딩 텍스트 노출 여부를 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        "0"으로 설정 시 로딩 텍스트를 미노출 하고, "1"로 설정 시 로딩 텍스트를 노출 합니다.
+        기본값은 "1" 입니다. 
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+<b>탭 변경 시 로딩 텍스트 미노출로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;show_statusbar loading="0"&#62;&#60;/show_statusbar&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+ 
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;  
+    &#60;script type="text/javascript"&#62;
+
+        DEXT5.config.StatusBarLoading = "0";
+
+        new Dext5editor("editor1");
+
+    &#60;/script&#62;       
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

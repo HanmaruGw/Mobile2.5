@@ -1,0 +1,293 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../css/help.css" rel="stylesheet" type="text/css">
+<script src="../js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function heightResize() {
+        $('#lnb').css('height', $(window).height() - 20 + 'px')
+    }
+    $(function () {
+        heightResize();
+    })
+    $(window).resize(heightResize)
+
+    function click_evt(obj) {
+        var elementsA = document.getElementsByTagName('a')
+        var elementsALength = document.getElementsByTagName('a').length;
+
+        for (var idx = 0; idx < elementsALength; idx++) {
+            if (elementsA[idx] == obj)
+                elementsA[idx].className = "on";
+            else
+                elementsA[idx].className = "";
+        }
+        var iframeObj = document.getElementById("contentBox");
+        if (obj.href != null && obj.href != undefined && obj.href != '') iframeObj.src = obj.href;
+
+        return false;
+    }
+
+    $(function () {
+        $("ul").css("display", "none");
+        $("#lnb h3").click(function () {
+            if ($("+ul", this).css("display") == "none") {
+                $("ul").slideUp("fast");
+                $("+ul", this).slideDown("fast");
+                $("h3").removeClass("selected");
+                $(this).addClass("selected");
+            } else if ($("#lnb h3:first")) {
+                $("ul").css("display", "none");
+                $("+ul", this).slideUp("fast");
+                $("h3").removeClass("selected");
+            } else {
+                $("+ul", this).slideUp("fast");
+                $(this).addClass("selected");
+            }
+        }).mouseover(function () {
+            $(this).addClass("over");
+        }).mouseout(function () {
+            $(this).removeClass("over");
+        });
+    });
+
+    $(function () {
+        $(".subbox").css("display", "none");
+        $("#lnb ul li h4").click(function () {
+            if ($("+.subbox", this).css("display") == "none") {
+                $(".subbox").slideUp("fast");
+                $("+.subbox", this).slideDown("fast");
+                $("h4").removeClass("selected");
+                $(this).addClass("selected");
+            } else if ($("#lnb ul li h4:first")) {
+                $(".subbox").css("display", "none");
+                $("+.subbox", this).slideUp("fast");
+                $("h4").removeClass("selected");
+            } else {              
+                $("+.subbox", this).slideUp("fast");
+                $(this).addClass("selected");
+            }
+        }).mouseover(function () {
+            $(this).addClass("over");
+        }).mouseout(function () {
+            $(this).removeClass("over");
+        });
+    });
+</script>
+</head>
+<body topmargin="0" leftmargin="0" scroll="no" marginheight="0" marginwidth="0">
+<h2 class="blind">DEXT5 Editor 개발자 매뉴얼</h2>
+<table style="width: 100%; height: 100%;" border="0" cellspacing="0" cellpadding="0">
+    <tbody>
+    <tr>
+        <td valign="top" style="width: 230px;height:100%;">
+        <div id="lnb" class="dext5help_content_left" style="padding:10px;overflow:auto">
+
+            <h3 class="title" title="소개"><a onclick="return click_evt(this);">소개</a></h3>
+            <ul class="help_lst_box">
+                <li>
+                    <h4 title="설치 및 기본설정"><a href="../dev/config/dext5guideMain.html" onclick="return click_evt(this);">설치 및 기본설정</a></h4>
+                    <ul class="subbox n_subbox"><li></li></ul>
+                </li>
+            </ul>
+
+            <h3 class="title" title="클라이언트 가이드"><a onclick="return click_evt(this);">클라이언트 가이드</a></h3>
+            <ul class="help_lst_box">
+                <li>
+                    <h4 title="환경설정파일"><a href="../dev/config/dext5config.html" onclick="return click_evt(this);">환경설정파일</a></h4>
+                    <ul class="subbox n_subbox"><li></li></ul>
+                </li>               
+                <li>
+                    <h4 class="title" title="Methods">Methods</h4>
+                    <!-- Methods start -->
+                    <ul class="subbox subbox2">
+                        <li><a href="../dev/api/_m_Dext5editor.html" onclick="return click_evt(this);" title="DEXT5 Editor">DEXT5Editor</a></li>
+                        <li><a href="../dev/api/_m_getEditor.html" onclick="return click_evt(this);" title="getEditor">getEditor</a></li>
+                        <li><a href="../dev/api/_m_setEditor.html" onclick="return click_evt(this);" title="setEditor">setEditor</a></li>
+                        <li><a href="../dev/api/_m_getUserRuntimeMode.html" onclick="return click_evt(this);" title="getUserRuntimeMode">getUserRuntimeMode</a></li>
+                        <li><a href="../dev/api/_m_getDext5Dom.html" onclick="return click_evt(this);" title="getDext5Dom">getDext5Dom</a></li>
+                        <li><a href="../dev/api/_m_getDext5BodyDom.html" onclick="return click_evt(this);" title="getDext5BodyDom">getDext5BodyDom</a></li>
+                        <li><a href="../dev/api/_m_setHtmlContents.html" onclick="return click_evt(this);" title="setHtmlContents">setHtmlContents</a></li>
+                        <li><a href="../dev/api/_m_setHtmlContentsEw.html" onclick="return click_evt(this);" title="setHtmlContentsEw">setHtmlContentsEw</a></li>
+                        <li><a href="../dev/api/_m_getHtmlValueExWithDocType.html" onclick="return click_evt(this);" title="getHtmlValueExWithDocType">getHtmlValueExWithDocType</a></li>
+                        <li><a href="../dev/api/_m_setHtmlValueExWithDocType.html" onclick="return click_evt(this);" title="setHtmlValueExWithDocType">setHtmlValueExWithDocType</a></li>
+                        <li><a href="../dev/api/_m_getHtmlValueEx.html" onclick="return click_evt(this);" title="getHtmlValueEx">getHtmlValueEx</a></li>
+                        <li><a href="../dev/api/_m_setHtmlValueEx.html" onclick="return click_evt(this);" title="setHtmlValueEx">setHtmlValueEx</a></li>
+                        <li><a href="../dev/api/_m_getHtmlValue.html" onclick="return click_evt(this);" title="getHtmlValue">getHtmlValue</a></li>
+                        <li><a href="../dev/api/_m_setHtmlValue.html" onclick="return click_evt(this);" title="setHtmlValue">setHtmlValue</a></li>
+                        <li><a href="../dev/api/_m_getBodyValueEx.html" onclick="return click_evt(this);" title="getBodyValueEx">getBodyValueEx</a></li>
+                        <li><a href="../dev/api/_m_setBodyValueEx.html" onclick="return click_evt(this);" title="setBodyValueEx">setBodyValueEx</a></li>
+                        <li><a href="../dev/api/_m_getBodyValueExLikeDiv.html" onclick="return click_evt(this);" title="getBodyValueExLikeDiv">getBodyValueExLikeDiv</a></li>
+                        <li><a href="../dev/api/_m_setBodyValueExLikeDiv.html" onclick="return click_evt(this);" title="setBodyValueExLikeDiv">setBodyValueExLikeDiv</a></li>
+                        <li><a href="../dev/api/_m_getBodyValue.html" onclick="return click_evt(this);" title="getBodyValue">getBodyValue</a></li>
+                        <li><a href="../dev/api/_m_setBodyValue.html" onclick="return click_evt(this);" title="setBodyValue">setBodyValue</a></li>
+                        <li><a href="../dev/api/_m_getBodyTextValue.html" onclick="return click_evt(this);" title="getBodyTextValue">getBodyTextValue</a></li>
+                        <li><a href="../dev/api/_m_setInsertHTML.html" onclick="return click_evt(this);" title="setInsertHTML">setInsertHTML</a></li>
+                        <li><a href="../dev/api/_m_setInsertHTMLEx.html" onclick="return click_evt(this);" title="setInsertHTMLEx">setInsertHTMLEx</a></li>
+                        <li><a href="../dev/api/_m_setInsertText.html" onclick="return click_evt(this);" title="setInsertText">setInsertText</a></li>
+                        <li><a href="../dev/api/_m_loadHtmlValueExFromURL.html" onclick="return click_evt(this);" title="loadHtmlValueExFromURL">loadHtmlValueExFromURL</a></li>
+                        <li><a href="../dev/api/_m_getImages.html" onclick="return click_evt(this);" title="getImages">getImages</a></li>
+                        <li><a href="../dev/api/_m_getImagesEx.html" onclick="return click_evt(this);" title="getImagesEx">getImagesEx</a></li>
+                        <li><a href="../dev/api/_m_getContentsUrl.html" onclick="return click_evt(this);" title="getContentsUrl">getContentsUrl</a></li>
+                        <li><a href="../dev/api/_m_getServerImages.html" onclick="return click_evt(this);" title="getServerImages">getServerImages</a></li>
+                        <li><a href="../dev/api/_m_getDeletedImageUrl.html" onclick="return click_evt(this);" title="getDeletedImageUrl">getDeletedImageUrl</a></li>
+                        <li><a href="../dev/api/_m_getDeletedElementsUrl.html" onclick="return click_evt(this);" title="getDeletedElementsUrl">getDeletedElementsUrl</a></li>
+                        <li><a href="../dev/api/_m_addUserCssUrl.html" onclick="return click_evt(this);" title="addUserCssUrl">addUserCssUrl</a></li>
+                        <li><a href="../dev/api/_m_clearUserCssUrl.html" onclick="return click_evt(this);" title="clearUserCssUrl">clearUserCssUrl</a></li>
+                        <li><a href="../dev/api/_m_setUserCssText.html" onclick="return click_evt(this);" title="setUserCssText">setUserCssText</a></li>
+                        <li><a href="../dev/api/_m_clearUserCssText.html" onclick="return click_evt(this);" title="clearUserCssText">clearUserCssText</a></li>
+                        <!--<li><a href="../dev/api/_m_setClassStyle.html" onclick="return click_evt(this);" title="setClassStyle">setClassStyle</a></li>
+                        <li><a href="../dev/api/_m_removeClassStyle.html" onclick="return click_evt(this);" title="removeClassStyle">removeClassStyle</a></li>-->
+                        <li><a href="../dev/api/_m_getToSavePathUrl.html" onclick="return click_evt(this);" title="getToSavePathUrl">getToSavePathUrl</a></li>
+                        <li><a href="../dev/api/_m_setToSavePathUrl.html" onclick="return click_evt(this);" title="setToSavePathUrl">setToSavePathUrl</a></li>
+                        <li><a href="../dev/api/_m_setSize.html" onclick="return click_evt(this);" title="setSize">setSize</a></li>
+                        <li><a href="../dev/api/_m_setFocusToEditor.html" onclick="return click_evt(this);" title="setFocusToEditor">setFocusToEditor</a></li>
+                        <li><a href="../dev/api/_m_setNextTabElementId.html" onclick="return click_evt(this);" title="setNextTabElementId">setNextTabElementId</a></li>
+                        <li><a href="../dev/api/_m_setRulerPosition.html" onclick="return click_evt(this);" title="setRulerPosition">setRulerPosition</a></li>
+                        <li><a href="../dev/api/_m_setEditorBodyEditable.html" onclick="return click_evt(this);" title="setEditorBodyEditable">setEditorBodyEditable</a></li>
+                        <li><a href="../dev/api/_m_setFullScreen.html" onclick="return click_evt(this);" title="setFullScreen">setFullScreen</a></li>
+                        <li><a href="../dev/api/_m_isEmpty.html" onclick="return click_evt(this);" title="isEmpty">isEmpty</a></li>
+                        <li><a href="../dev/api/_m_isDirty.html" onclick="return click_evt(this);" title="isDirty">isDirty</a></li>
+                        <li><a href="../dev/api/_m_setDirty.html" onclick="return click_evt(this);" title="setDirty">setDirty</a></li>
+                        <li><a href="../dev/api/_m_loadAutoSaveHtml.html" onclick="return click_evt(this);" title="loadAutoSaveHtml">loadAutoSaveHtml</a></li>
+                        <li><a href="../dev/api/_m_getAccessibility.html" onclick="return click_evt(this);" title="getAccessibility">getAccessibility</a></li>
+                        <li><a href="../dev/api/_m_setAccessibility.html" onclick="return click_evt(this);" title="setAccessibility">setAccessibility</a></li>
+                        <li><a href="../dev/api/_m_getAccessibilityValidation.html" onclick="return click_evt(this);" title="getAccessibilityValidation">getAccessibilityValidation</a></li>
+                        <li><a href="../dev/api/_m_setAccessibilityValidation.html" onclick="return click_evt(this);" title="setAccessibilityValidation">setAccessibilityValidation</a></li>
+                        <li><a href="../dev/api/_m_setEditorMode.html" onclick="return click_evt(this);" title="setEditorMode">setEditorMode</a></li>
+                        <li><a href="../dev/api/_m_setEditorBorder.html" onclick="return click_evt(this);" title="setEditorBorder">setEditorBorder</a></li>
+                        <li><a href="../dev/api/_m_selectAll.html" onclick="return click_evt(this);" title="selectAll">selectAll</a></li>
+                        <li><a href="../dev/api/_m_show.html" onclick="return click_evt(this);" title="show">show</a></li>
+                        <li><a href="../dev/api/_m_hidden.html" onclick="return click_evt(this);" title="hidden">hidden</a></li>
+                        <li><a href="../dev/api/_m_showTopMenu.html" onclick="return click_evt(this);" title="showTopMenu">showTopMenu</a></li>
+                        <li><a href="../dev/api/_m_showToolbar.html" onclick="return click_evt(this);" title="showToolbar">showToolbar</a></li>
+                        <li><a href="../dev/api/_m_showStatusbar.html" onclick="return click_evt(this);" title="showStatusbar">showStatusbar</a></li>
+                        <li><a href="../dev/api/_m_setEditorChangeMode.html" onclick="return click_evt(this);" title="setEditorChangeMode">setEditorChangeMode</a></li>
+                        <li><a href="../dev/api/_m_dext5EncodeMime.html" onclick="return click_evt(this);" title="dext5EncodeMime">[PL]dext5EncodeMime</a></li>
+                        <li><a href="../dev/api/_m_dext5DecodeMime.html" onclick="return click_evt(this);" title="dext5DecodeMime">[PL]dext5DecodeMime</a></li>
+                        <li><a href="../dev/api/_m_doSaveHTML.html" onclick="return click_evt(this);" title="doSaveHTML">[PL]doSaveHTML</a></li>
+                        <li><a href="../dev/api/_m_doPrint.html" onclick="return click_evt(this);" title="doPrint">[PL]doPrint</a></li>
+                        <li><a href="../dev/api/_m_doPrintPreview.html" onclick="return click_evt(this);" title="doPrintPreview">[PL]doPrintPreview</a></li>
+                    </ul>
+                    <!-- //Methods end -->
+                </li>
+                <li><h4 class="title" title="Properties">Properties</h4>
+                    <!-- Properties start -->
+                    <ul class="subbox subbox2">
+                        <li><a href="../dev/api/_p_AccessibilityValidationItems.html" onclick="return click_evt(this);" title="AccessibilityValidationItems">AccessibilityValidationItems</a></li>
+                        <li><a href="../dev/api/_p_AutoDestroy.html" onclick="return click_evt(this);" title="AutoDestroy">AutoDestroy</a></li>
+                        <li><a href="../dev/api/_p_DefaultMessage.html" onclick="return click_evt(this);" title="DefaultMessage">DefaultMessage</a></li>
+                        <li><a href="../dev/api/_p_DevelopLangage.html" onclick="return click_evt(this);" title="DevelopLangage">DevelopLangage</a></li>
+                        <li><a href="../dev/api/_p_DialogWindow.html" onclick="return click_evt(this);" title="DialogWindow">DialogWindow</a></li>
+                        <li><a href="../dev/api/_p_Doctype.html" onclick="return click_evt(this);" title="Doctype">Doctype</a></li>
+                        <li><a href="../dev/api/_p_DragResize.html" onclick="return click_evt(this);" title="DragResize">DragResize</a></li>
+                        <li><a href="../dev/api/_p_EditorBodyEditable.html" onclick="return click_evt(this);" title="EditorBodyEditable">EditorBodyEditable</a></li>
+                        <li><a href="../dev/api/_p_EditorBorder.html" onclick="return click_evt(this);" title="EditorBorder">EditorBorder</a></li>
+                        <li><a href="../dev/api/_p_EditorHolder.html" onclick="return click_evt(this);" title="EditorHolder">EditorHolder</a></li>
+                        <li><a href="../dev/api/_p_EditorTabDisable.html" onclick="return click_evt(this);" title="EditorTabDisable">EditorTabDisable</a></li>
+                        <li><a href="../dev/api/_p_EnterTag.html" onclick="return click_evt(this);" title="EnterTag">EnterTag</a></li>
+                        <li><a href="../dev/api/_p_FileFieldID.html" onclick="return click_evt(this);" title="FileFieldID">FileFieldID</a></li>
+                        <li><a href="../dev/api/_p_FirstLoadMessage.html" onclick="return click_evt(this);" title="FirstLoadType">FirstLoadType</a></li>
+                        <li><a href="../dev/api/_p_focusInitObjId.html" onclick="return click_evt(this);" title="FocusInitObjId">FocusInitObjId</a></li>
+                        <li><a href="../dev/api/_p_FontFamilyList.html" onclick="return click_evt(this);" title="FontFamilyList">FontFamilyList</a></li>
+                        <li><a href="../dev/api/_p_FontSizeList.html" onclick="return click_evt(this);" title="FontSizeList">FontSizeList</a></li>
+                        <li><a href="../dev/api/_p_FormattingList.html" onclick="return click_evt(this);" title="FormattingList">FormattingList</a></li>
+                        <li><a href="../dev/api/_p_FormListUrl.html" onclick="return click_evt(this);" title="FormListUrl">FormListUrl</a></li>
+                        <li><a href="../dev/api/_p_FrameFullScreen.html" onclick="return click_evt(this);" title="FrameFullScreen">FrameFullScreen</a></li>
+                        <li><a href="../dev/api/_p_HandlerUrl.html" onclick="return click_evt(this);" title="HandlerUrl">HandlerUrl</a></li>
+                        <li><a href="../dev/api/_p_Height.html" onclick="return click_evt(this);" title="Height">Height</a></li>
+                        <li><a href="../dev/api/_p_IgnoreSameEditorName.html" onclick="return click_evt(this);" title="IgnoreSameEditorName">IgnoreSameEditorName</a></li>
+                        <li><a href="../dev/api/_p_ImageBaseUrl.html" onclick="return click_evt(this);" title="ImageBaseUrl">ImageBaseUrl</a></li>
+                        <li><a href="../dev/api/_p_InitVisible.html" onclick="return click_evt(this);" title="InitVisible">InitVisible</a></li>
+                        <li><a href="../dev/api/_p_InitXml.html" onclick="return click_evt(this);" title="InitXml">InitXml</a></li>
+                        <li><a href="../dev/api/_p_Lang.html" onclick="return click_evt(this);" title="Lang">Lang</a></li>
+                        <li><a href="../dev/api/_p_LineHeightList.html" onclick="return click_evt(this);" title="LineHeightList">LineHeightList</a></li>
+                        <li><a href="../dev/api/_p_Mode.html" onclick="return click_evt(this);" title="Mode">Mode</a></li>
+                        <li><a href="../dev/api/_p_NextTabElementId.html" onclick="return click_evt(this);" title="NextTabElementId">NextTabElementId</a></li>
+                        <li><a href="../dev/api/_p_RemoveItem.html" onclick="return click_evt(this);" title="RemoveItem">RemoveItem</a></li>
+                        <li><a href="../dev/api/_p_RemoveContextItem.html" onclick="return click_evt(this);" title="RemoveContextItem">RemoveContextItem</a></li>
+                        <li><a href="../dev/api/_p_RemoveComment.html" onclick="return click_evt(this);" title="RemoveComment">RemoveComment</a></li>
+                        <li><a href="../dev/api/_p_Runtimes.html" onclick="return click_evt(this);" title="Runtimes">Runtimes</a></li>
+                        <li><a href="../dev/api/_p_SaveFolderNameRule.html" onclick="return click_evt(this);" title="SaveFolderNameRule">SaveFolderNameRule</a></li>
+                        <li><a href="../dev/api/_p_scrollOverflow.html" onclick="return click_evt(this);" title="ScrollOverflow">ScrollOverflow</a></li>
+                        <li><a href="../dev/api/_p_ServerDomain.html" onclick="return click_evt(this);" title="ServerDomain">ServerDomain</a></li>
+                        <li><a href="../dev/api/_p_SetValueObjId.html" onclick="return click_evt(this);" title="SetValueObjId">SetValueObjId</a></li>
+                        <li><a href="../dev/api/_p_ShowDialogPosition.html" onclick="return click_evt(this);" title="ShowDialogPosition">ShowDialogPosition</a></li>
+                        <li><a href="../dev/api/_p_SkinName.html" onclick="return click_evt(this);" title="SkinName">SkinName</a></li>
+                        <li><a href="../dev/api/_p_StatusBarInitMode.html" onclick="return click_evt(this);" title="StatusBarInitMode">StatusBarInitMode</a></li>
+                        <li><a href="../dev/api/_p_StatusBarItem.html" onclick="return click_evt(this);" title="StatusBarItem">StatusBarItem</a></li>
+                        <li><a href="../dev/api/_p_tabIndexObjId.html" onclick="return click_evt(this);" title="tabIndexObjId">tabIndexObjId</a></li>
+                        <li><a href="../dev/api/_p_ToolBarGrouping.html" onclick="return click_evt(this);" title="ToolBarGrouping">ToolBarGrouping</a></li>
+                        <li><a href="../dev/api/_p_ToSavePathURL.html" onclick="return click_evt(this);" title="ToSavePathURL">ToSavePathURL</a></li>
+                        <li><a href="../dev/api/_p_UserFieldValue.html" onclick="return click_evt(this);" title="UserFieldValue">UserFieldValue</a></li>
+                        <li><a href="../dev/api/_p_userFontFamily.html" onclick="return click_evt(this);" title="UserFontFamily">UserFontFamily</a></li>
+                        <li><a href="../dev/api/_p_userFontSize.html" onclick="return click_evt(this);" title="UserFontSize">UserFontSize</a></li>
+                        <li><a href="../dev/api/_p_UserHelpUrl.html" onclick="return click_evt(this);" title="UserHelpUrl">UserHelpUrl</a></li>
+                        <li><a href="../dev/api/_p_ViewModeAutoHeight.html" onclick="return click_evt(this);" title="ViewModeAutoHeight">ViewModeAutoHeight</a></li>
+                        <li><a href="../dev/api/_p_ViewModeAutoWidth.html" onclick="return click_evt(this);" title="ViewModeAutoWidth">ViewModeAutoWidth</a></li>
+                        <li><a href="../dev/api/_p_Width.html" onclick="return click_evt(this);" title="Width">Width</a></li>
+                        <li><a href="../dev/api/_p_zIndex.html" onclick="return click_evt(this);" title="zIndex">zIndex</a></li>
+                        <li><a href="../dev/api/_p_zStatusBar.html" onclick="return click_evt(this);" title="zStatusBar">zStatusBar</a></li>
+                        <li><a href="../dev/api/_p_zToolBar.html" onclick="return click_evt(this);" title="zToolBar">zToolBar</a></li>
+                        <li><a href="../dev/api/_p_zTopMenu.html" onclick="return click_evt(this);" title="zTopMenu">zTopMenu</a></li>
+                        <li><a href="../dev/api/_p_zXssRemoveEvents.html" onclick="return click_evt(this);" title="zXssRemoveEvents">zXssRemoveEvents</a></li>
+                        <li><a href="../dev/api/_p_zXssRemoveTags.html" onclick="return click_evt(this);" title="zXssRemoveTags">zXssRemoveTags</a></li>
+                        <li><a href="../dev/api/_p_zXssUse.html" onclick="return click_evt(this);" title="zXssUse">zXssUse</a></li>
+                        <li><a href="../dev/api/_p_mimeCharset.html" onclick="return click_evt(this);" title="mimeCharset">[PL]mimeCharset</a></li>
+                        <li><a href="../dev/api/_p_mimeConentEncodingType.html" onclick="return click_evt(this);" title="mimeConentEncodingType">[PL]mimeConentEncodingType</a></li>
+                        <li><a href="../dev/api/_p_mimeFileTypeFilter.html" onclick="return click_evt(this);" title="mimeFileTypeFilter">[PL]mimeFileTypeFilter</a></li>
+                        <li><a href="../dev/api/_p_mimeLocalOnly.html" onclick="return click_evt(this);" title="mimeLocalOnly">[PL]mimeLocalOnly</a></li>
+                        <li><a href="../dev/api/_p_mimeRemoveHeader.html" onclick="return click_evt(this);" title="mimeRemoveHeader">[PL]mimeRemoveHeader</a></li>
+                        <li><a href="../dev/api/_p_mimeUse.html" onclick="return click_evt(this);" title="mimeUse">[PL]mimeUse</a></li>
+                    </ul>
+                    <!-- //Properties end -->                                               
+                </li>
+                <li>
+                    <h4 class="title" title="Events">Events</h4>
+                    <!-- Events start -->
+                    <ul class="subbox subbox2">
+                        <li><a href="../dev/api/_e_AfterChangeMode.html" onclick="return click_evt(this);" title="AfterChangeMode">AfterChangeMode</a></li>
+                        <li><a href="../dev/api/_e_BeforeInsertUrl.html" onclick="return click_evt(this);" title="BeforeInsertUrl">BeforeInsertUrl</a></li>
+                        <li><a href="../dev/api/_e_BeforePaste.html" onclick="return click_evt(this);" title="BeforPpaste">BeforePaste</a></li>
+                        <li><a href="../dev/api/_e_CustomAction.html" onclick="return click_evt(this);" title="CustomAction">CustomAction</a></li>
+                        <li><a href="../dev/api/_e_EditorLoaded.html" onclick="return click_evt(this);" title="EditorLoaded">EditorLoaded</a></li>
+                        <li><a href="../dev/api/_e_FullScreen.html" onclick="return click_evt(this);" title="FullScreen">FullScreen</a></li>
+                        <!--<li><a href="../dev/api/_e_KeyEvent.html" onclick="return click_evt(this);" title="KeyEvent">KeyEvent</a></li>-->
+                        <!--<li><a href="../dev/api/_e_MouseEvent.html" onclick="return click_evt(this);" title="MouseEvent">MouseEvent</a></li>-->
+                        <li><a href="../dev/api/_e_LanguageDefinition.html" onclick="return click_evt(this);" title="LanguageDefinition">LanguageDefinition</a></li>
+                        <li><a href="../dev/api/_e_OnError.html" onclick="return click_evt(this);" title="OnError">OnError</a></li>
+                        <!--<li><a href="../dev/api/_e_PasteImage.html" onclick="return click_evt(this);" title="PasteImage">PasteImage</a></li>-->
+                        <li><a href="../dev/api/_e_Resized.html" onclick="return click_evt(this);" title="Resized">Resized</a></li>
+                        <li><a href="../dev/api/_e_EditorImg.html" onclick="return click_evt(this);" title="EditorImg">[AD]EditorImg</a></li>
+                        <li><a href="../dev/api/_e_EditorInput.html" onclick="return click_evt(this);" title="EditorInput">[AD]EditorInput</a></li>
+                        <li><a href="../dev/api/_e_EditorSelect.html" onclick="return click_evt(this);" title="EditorSelect">[AD]EditorSelect</a></li>
+                        <li><a href="../dev/api/_e_EditorTextarea.html" onclick="return click_evt(this);" title="EditorTextarea">[AD]EditorTextarea</a></li>
+                    </ul>
+                    <!-- //Events end -->
+                </li>
+            </ul>
+            <!--<h3 class="title" title="서버 가이드"><a href="../dev/config/dext5config.html" onclick="return click_evt(this);">서버 가이드</a></h3>
+            <ul class="help_lst_box">
+                <li>
+                    <h4 class="title" title="">111</h4>
+                    <ul class="subbox n_subbox"><li></li></ul>
+                </li>
+                <li>
+                    <h4 class="title" title="">222</h4>
+                    <ul class="subbox n_subbox"><li></li></ul>
+                </li>
+            </ul>-->
+        </div>
+        </td>
+		<td valign="top" style="height:100%;border-left:1px solid #cacaca">
+            <iframe name="right" id="contentBox" width="100%" height="100%" src="../dev/config/dext5guideMain.html" frameborder="0" scrolling="auto" style="width: 100%; height: 100%;" title="개발자 APIs 상세 설명"></iframe>
+		</td>
+    </tr>
+</tbody>
+</table>
+</body>
+</html>
+

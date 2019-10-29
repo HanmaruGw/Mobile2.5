@@ -1,0 +1,65 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Editor Sample</title>    
+    <meta name="viewport" id="extViewportMeta" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="../css/sample.common.css" rel="stylesheet" />
+    <script>
+        function fn_load() {
+            var _html = opener.document.getElementById('getValueArea').value;
+
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = _html;
+
+
+            // 기준이 될 editor의 가로값. 이 예제에선 가로를 800px로 설정했다고 가정합니다.
+            var editorWidth = 800;
+
+            // 에디터의 좌,우 margin 값을 빼줍니다.
+            var bodyMarginLeft = 10;
+            var bodyMarginRight = 10;
+
+            editorWidth = editorWidth - bodyMarginLeft - bodyMarginRight;
+
+            // 작성 영역에서 이미지 태그를 가져옵니다.
+            var images = tempDiv.getElementsByTagName('img');
+            var imagesLength = images.length;
+            for (var i = 0; i < imagesLength; i++) {
+                if (images[i].style.width.indexOf('px') > -1) {
+                    // 이미지 태그의 가로 값을 에디터의 가로값 기준으로 %값을 구하여 설정해줍니다.
+                    var imgWidth = parseInt(images[i].style.width, 10);
+                    var tempWidth = (imgWidth / editorWidth) * 100;
+                    images[i].style.width = tempWidth + '%';
+                    images[i].style.height = '';
+                }
+            }
+
+            // 작성 영역에서 테이블 태그를 가져옵니다.
+            var tables = tempDiv.getElementsByTagName('table');
+            var tablesLength = tables.length;
+            for (var i = 0; i < tablesLength; i++) {
+
+                // 테이블 태그의 가로 값을 에디터의 가로값 기준으로 %값을 구하여 설정해줍니다.
+                if (tables[i].style.width.indexOf('px') > -1) {
+                    var tableWidth = parseInt(tables[i].style.width, 10);
+                    tables[i].style.width = tableWidth / editorWidth * 100 + '%';
+                }
+            }
+
+
+            document.getElementById('contents').innerHTML = tempDiv.innerHTML;
+        }
+    </script>
+</head>	
+<body onload="fn_load();">
+    <ul class="info_lst_box" style="width:100%;">
+        <li>
+            &nbsp;&nbsp;• 보기페이지 예시
+        </li>
+    </ul>
+    <div id="contents" class="btn_lst_box" style="width: 90%; border:1px solid #000000; padding:10px;"></div>
+</body>
+</html>

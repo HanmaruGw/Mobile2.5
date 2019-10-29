@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <span class="pl_type">[관리자 라이선스 전용]</span>
+    <h3 class="title nline">DEXT5 Editor :: dext_editor_img_event</h3>
+    <p class="ttl">boolean dext_editor_img_event(element, editorId)</p>
+    <p class="txt">
+        관리자모드에서 img태그로 추가된 객체 더블클릭 시 이벤트가 발생합니다. 
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        true를 리턴할 경우 속성 다이얼로그창이 나타나고, false를 리턴할 경우 나타나지 않습니다.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">element</span>&nbsp;&nbsp;이벤트가 발생한 요소입니다.<br />
+        <span class="firebrick">editorId</span>&nbsp;&nbsp;이벤트가 발생한 에디터 id입니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        에디터의 설정파일(dext5editor/config/dext_editor.xml)의 <b>manager_mode 설정의 use 속성값이 1인 경우</b>에 이벤트가 발생합니다.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;
+&#60;script type="text/javascript"&#62;
+
+    function dext_editor_img_event(editorId, codemessage) {
+        // work something ...
+
+        return true or false;
+    }
+
+&#60;/script&#62; 	
+&#60;/head&#62;
+&#60;body&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:900px;height:550px"&#62;  
+
+    &#60;script type="text/javascript"&#62;
+        new Dext5editor("editor1");
+    &#60;/script&#62;        
+
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

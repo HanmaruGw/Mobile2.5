@@ -1,0 +1,1383 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Chart</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+        
+        
+    </script>
+
+    <style type="text/css">
+    </style>
+
+    <script type="text/javascript">
+        var grid = null;
+        var element = null;
+        try {
+            element = DEXTTOP.G_SELECTED_ELEMENT;
+            if (element && element.tagName.toLowerCase() != "img") DEXTTOP.G_SELECTED_ELEMENT = element = null;
+        } catch (e) {
+            element = null;
+        }
+
+        var charts = {
+            line: ["line-1", "line-2", "line-3", "line-4"],
+            bar: ["bar-1", "bar-2", "bar-3", "bar-4"],
+            area: ["area-1", "area-2", "area-3", "area-4"],
+            circle: ["circle-1", "circle-2"],
+            radar: ["radar-1", "radar-2", "radar-3", "radar-4", "radar-5"],
+            scatter: ["scatter-1", "scatter-2"]
+        };
+
+        var defaultColor = ["45,190,255", "244,67,54", "188,105,255", "236,189,45", "109,206,114", "245,124,25"];
+        
+        function getDefaultColor(idx) {
+            if (idx > -1) {
+                var tmp = defaultColor[idx % 6].split(",");
+                for (var i = 0; i < 3; i++) {
+                    tmp[i] = (tmp[i] * 1) + (Math.floor(idx / 6) * 32);
+                    while (tmp[i] > 255) {
+                        tmp[i] -= 100;
+                    }
+                }
+
+                return "rgb(" + tmp.join() + ")";
+            } else {
+                var tmp = [];
+                for (var i = 0; i < defaultColor.length; i++) {
+                    tmp.push("rgb(" + defaultColor[i] + ")");
+                }
+                return tmp;
+            }
+        }
+
+        var chartData = {
+            type: "line-1",
+            data: [["", "Apple", "Banana"], ["First", "", ""], ["Second", "", ""], ["Third", "", ""], ["Fourth", "", ""]],
+            title: {
+                text: "",
+                position: "top",
+                fontFamily: "굴림",
+                fontSize: "20",
+                fontStyle: "bold",
+                fontColor: "rgb(0,0,0)"
+            },
+            axes: {
+                x: {
+                    text: "",
+                    fontFamily: "굴림",
+                    fontSize: "12",
+                    fontStyle: "italic",
+                    fontColor: "rgb(0,0,0)"
+                },
+                y: {
+                    text: "",
+                    fontFamily: "굴림",
+                    fontSize: "12",
+                    fontStyle: "italic",
+                    fontColor: "rgb(0,0,0)"
+                },
+                min: "",
+                max: "",
+                step: ""
+            },
+            color: {
+                background: "rgb(255,255,255)",
+                column: getDefaultColor()
+            },
+            legend: {
+                display: true,
+                position: "bottom",
+                fontFamily: "굴림",
+                fontSize: "12",
+                fontStyle: "",
+                fontColor: "rgb(0,0,0)"
+            },
+            grid: true,
+            width: "400",
+            height: "200"
+        };
+
+        function popup_toggle(tapNum) {
+            var popTap = LayerWin.getElementsByClass("EdiTor_Popup_contents", document);
+            var div_tab_arr = LayerWin.getElementsByClass("con_btn", document);
+
+            switch (tapNum) {
+                case 0:
+                    popTap[0].className = "EdiTor_Popup_contents view";
+                    popTap[1].className = "EdiTor_Popup_contents none";
+                    popTap[2].className = "EdiTor_Popup_contents none";
+                    popTap[3].className = "EdiTor_Popup_contents none";
+                    popTap[4].className = "EdiTor_Popup_contents none";
+
+                    //LayerWin.setFocusFirstAndLast(document, div_tab_arr[0].getElementsByTagName('a')[0]);
+                    break;
+                case 1:
+                    popTap[0].className = "EdiTor_Popup_contents none";
+                    popTap[1].className = "EdiTor_Popup_contents view";
+                    popTap[2].className = "EdiTor_Popup_contents none";
+                    popTap[3].className = "EdiTor_Popup_contents none";
+                    popTap[4].className = "EdiTor_Popup_contents none";
+
+                    //LayerWin.setFocusFirstAndLast(document, div_tab_arr[1].getElementsByTagName('a')[0]);
+                    break;
+                case 2:
+                    popTap[0].className = "EdiTor_Popup_contents none";
+                    popTap[1].className = "EdiTor_Popup_contents none";
+                    popTap[2].className = "EdiTor_Popup_contents view";
+                    popTap[3].className = "EdiTor_Popup_contents none";
+                    popTap[4].className = "EdiTor_Popup_contents none";
+
+                    //LayerWin.setFocusFirstAndLast(document, div_tab_arr[2].getElementsByTagName('a')[0]);
+                    break;
+                case 3:
+                    popTap[0].className = "EdiTor_Popup_contents none";
+                    popTap[1].className = "EdiTor_Popup_contents none";
+                    popTap[2].className = "EdiTor_Popup_contents none";
+                    popTap[3].className = "EdiTor_Popup_contents view";
+                    popTap[4].className = "EdiTor_Popup_contents none";
+
+                    //LayerWin.setFocusFirstAndLast(document, div_tab_arr[3].getElementsByTagName('a')[0]);
+                    break;
+                case 4:
+                    popTap[0].className = "EdiTor_Popup_contents none";
+                    popTap[1].className = "EdiTor_Popup_contents none";
+                    popTap[2].className = "EdiTor_Popup_contents none";
+                    popTap[3].className = "EdiTor_Popup_contents none";
+                    popTap[4].className = "EdiTor_Popup_contents view";
+
+                    preview();
+
+                    //LayerWin.setFocusFirstAndLast(document, div_tab_arr[3].getElementsByTagName('a')[0]);
+                    break;
+                default: return;
+            }
+        }
+
+        function page_loaded_event() {
+
+            set_page_lang();
+
+            var btn_ok_a = document.getElementById('btn_ok_a');
+
+            DEXTTOP.DEXT5.util.addEvent(btn_ok_a, 'click', function () { set_modify_ok(); });
+
+            if (LayerDoc.compatMode == "BackCompat") {
+                var inputs = document.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type == 'text') {
+                        inputs[i].style.height = '20px';
+                    }
+                }
+            }
+
+            setPage();
+
+            var first_tab_1 = document.getElementById("first_tab_1");
+            setCursorPos(first_tab_1, false, false);
+            LayerWin.setFocusFirstAndLast(document, first_tab_1);
+        }
+
+        function set_page_lang() {
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+
+            document.getElementById("dext_dialog_box").className = 'DEXT_fiVe_ED_Popup_Type02 DEXT_fiVe_PUi_' + _skin_name + ' DEXT_fiVe_ED_Popup_chart';
+
+            document.getElementById("span_title").innerHTML = LayerWin.dext5_lang.chart.title;
+
+            document.getElementById("span_first_tab_1").innerHTML = LayerWin.dext5_lang.chart.tab1;
+            document.getElementById("span_first_tab_2").innerHTML = LayerWin.dext5_lang.chart.tab1;
+            document.getElementById("span_first_tab_3").innerHTML = LayerWin.dext5_lang.chart.tab1;
+            document.getElementById("span_first_tab_4").innerHTML = LayerWin.dext5_lang.chart.tab1;
+            document.getElementById("span_first_tab_5").innerHTML = LayerWin.dext5_lang.chart.tab1;
+            document.getElementById("span_secon_tab_1").innerHTML = LayerWin.dext5_lang.chart.tab2;
+            document.getElementById("span_secon_tab_2").innerHTML = LayerWin.dext5_lang.chart.tab2;
+            document.getElementById("span_secon_tab_3").innerHTML = LayerWin.dext5_lang.chart.tab2;
+            document.getElementById("span_secon_tab_4").innerHTML = LayerWin.dext5_lang.chart.tab2;
+            document.getElementById("span_secon_tab_5").innerHTML = LayerWin.dext5_lang.chart.tab2;
+            document.getElementById("span_third_tab_1").innerHTML = LayerWin.dext5_lang.chart.tab3;
+            document.getElementById("span_third_tab_2").innerHTML = LayerWin.dext5_lang.chart.tab3;
+            document.getElementById("span_third_tab_3").innerHTML = LayerWin.dext5_lang.chart.tab3;
+            document.getElementById("span_third_tab_4").innerHTML = LayerWin.dext5_lang.chart.tab3;
+            document.getElementById("span_third_tab_5").innerHTML = LayerWin.dext5_lang.chart.tab3;
+            document.getElementById("span_fourth_tab_1").innerHTML = LayerWin.dext5_lang.chart.tab4;
+            document.getElementById("span_fourth_tab_2").innerHTML = LayerWin.dext5_lang.chart.tab4;
+            document.getElementById("span_fourth_tab_3").innerHTML = LayerWin.dext5_lang.chart.tab4;
+            document.getElementById("span_fourth_tab_4").innerHTML = LayerWin.dext5_lang.chart.tab4;
+            document.getElementById("span_fourth_tab_5").innerHTML = LayerWin.dext5_lang.chart.tab4;
+            document.getElementById("span_fifth_tab_1").innerHTML = LayerWin.dext5_lang.chart.tab5;
+            document.getElementById("span_fifth_tab_2").innerHTML = LayerWin.dext5_lang.chart.tab5;
+            document.getElementById("span_fifth_tab_3").innerHTML = LayerWin.dext5_lang.chart.tab5;
+            document.getElementById("span_fifth_tab_4").innerHTML = LayerWin.dext5_lang.chart.tab5;
+            document.getElementById("span_fifth_tab_5").innerHTML = LayerWin.dext5_lang.chart.tab5;
+
+            document.getElementById("span_category_1").innerHTML = LayerWin.dext5_lang.chart.category1;
+            document.getElementById("span_category_2").innerHTML = LayerWin.dext5_lang.chart.category2;
+            document.getElementById("span_category_3").innerHTML = LayerWin.dext5_lang.chart.category3;
+            document.getElementById("span_category_4").innerHTML = LayerWin.dext5_lang.chart.category4;
+            document.getElementById("span_category_5").innerHTML = LayerWin.dext5_lang.chart.category5;
+            document.getElementById("span_category_6").innerHTML = LayerWin.dext5_lang.chart.category6;
+
+            document.getElementById("rotateGrid").title = LayerWin.dext5_lang.chart.rotateGrid;
+            document.getElementById("minusColumnSize").title = LayerWin.dext5_lang.chart.minusColumnSize;
+            document.getElementById("plusColumnSize").title = LayerWin.dext5_lang.chart.plusColumnSize;
+            document.getElementById("minusRowSize").title = LayerWin.dext5_lang.chart.minusRowSize;
+            document.getElementById("plusRowSize").title = LayerWin.dext5_lang.chart.plusRowSize;
+            
+            document.getElementById("label_title").innerHTML = LayerWin.dext5_lang.chart.chart_title;
+            document.getElementById("span_axes").innerHTML = LayerWin.dext5_lang.chart.axes;
+            document.getElementById("label_axes_x_title").innerHTML = LayerWin.dext5_lang.chart.axes_x_title;
+            document.getElementById("label_axes_y_title").innerHTML = LayerWin.dext5_lang.chart.axes_y_title;
+            document.getElementById("label_axes_min").innerHTML = LayerWin.dext5_lang.chart.axes_min;
+            document.getElementById("label_axes_max").innerHTML = LayerWin.dext5_lang.chart.axes_max;
+            document.getElementById("label_axes_step").innerHTML = LayerWin.dext5_lang.chart.axes_step;
+            document.getElementById("span_color").innerHTML = LayerWin.dext5_lang.chart.color;
+            document.getElementById("span_color_bg").innerHTML = LayerWin.dext5_lang.chart.color_bg;
+            document.getElementById("span_color_reset").innerHTML = LayerWin.dext5_lang.chart.color_reset;
+            document.getElementById("label_legend").innerHTML = LayerWin.dext5_lang.chart.legend;
+            document.getElementById("label_grid").innerHTML = LayerWin.dext5_lang.chart.grid;
+            document.getElementById("label_width").innerHTML = LayerWin.dext5_lang.chart.width;
+            document.getElementById("label_height").innerHTML = LayerWin.dext5_lang.chart.height;
+            document.getElementById("span_chart_title").innerHTML = LayerWin.dext5_lang.chart.chart_title;
+            document.getElementById("label_title_position").innerHTML = LayerWin.dext5_lang.chart.position;
+
+            var titlePositionSelect = document.getElementById("chart_title_position");
+            var opt1 = document.createElement("option");
+            opt1.text = LayerWin.dext5_lang.chart.position_top;
+            opt1.value = "top";
+            var opt2 = document.createElement("option");
+            opt2.text = LayerWin.dext5_lang.chart.position_bottom;
+            opt2.value = "bottom";
+            var opt3 = document.createElement("option");
+            opt3.text = LayerWin.dext5_lang.chart.position_left;
+            opt3.value = "left";
+            var opt4 = document.createElement("option");
+            opt4.text = LayerWin.dext5_lang.chart.position_right;
+            opt4.value = "right";
+
+            titlePositionSelect.appendChild(opt1);
+            titlePositionSelect.appendChild(opt2);
+            titlePositionSelect.appendChild(opt3);
+            titlePositionSelect.appendChild(opt4);
+
+            document.getElementById("label_title_family").innerHTML = LayerWin.dext5_lang.chart.font_family;
+            document.getElementById("label_title_size").innerHTML = LayerWin.dext5_lang.chart.font_size;
+            document.getElementById("label_title_style").innerHTML = LayerWin.dext5_lang.chart.font_style;
+            document.getElementById("chart_title_font_bold").title = LayerWin.dext5_lang.chart.font_style_bold;
+            document.getElementById("chart_title_font_italic").title = LayerWin.dext5_lang.chart.font_style_italic;
+            document.getElementById("label_title_color").innerHTML = LayerWin.dext5_lang.chart.color;
+            document.getElementById("span_axes_x").innerHTML = LayerWin.dext5_lang.chart.axes_x_title;
+            document.getElementById("label_axes_x_family").innerHTML = LayerWin.dext5_lang.chart.font_family;
+            document.getElementById("label_axes_x_size").innerHTML = LayerWin.dext5_lang.chart.font_size;
+            document.getElementById("label_axes_x_style").innerHTML = LayerWin.dext5_lang.chart.font_style;
+            document.getElementById("chart_axes_x_font_bold").title = LayerWin.dext5_lang.chart.font_style_bold;
+            document.getElementById("chart_axes_x_font_italic").title = LayerWin.dext5_lang.chart.font_style_italic;
+            document.getElementById("label_axes_x_color").innerHTML = LayerWin.dext5_lang.chart.color;
+            document.getElementById("span_axes_y").innerHTML = LayerWin.dext5_lang.chart.axes_y_title;
+            document.getElementById("label_axes_y_family").innerHTML = LayerWin.dext5_lang.chart.font_family;
+            document.getElementById("label_axes_y_size").innerHTML = LayerWin.dext5_lang.chart.font_size;
+            document.getElementById("label_axes_y_style").innerHTML = LayerWin.dext5_lang.chart.font_style;
+            document.getElementById("chart_axes_y_font_bold").title = LayerWin.dext5_lang.chart.font_style_bold;
+            document.getElementById("chart_axes_y_font_italic").title = LayerWin.dext5_lang.chart.font_style_italic;
+            document.getElementById("label_axes_y_color").innerHTML = LayerWin.dext5_lang.chart.color;
+            document.getElementById("span_legend").innerHTML = LayerWin.dext5_lang.chart.legend;
+            document.getElementById("label_legend_position").innerHTML = LayerWin.dext5_lang.chart.position;
+            var legendPositionSelect = document.getElementById("chart_legend_position");
+            opt1 = document.createElement("option");
+            opt1.text = LayerWin.dext5_lang.chart.position_top;
+            opt1.value = "top";
+            opt2 = document.createElement("option");
+            opt2.text = LayerWin.dext5_lang.chart.position_bottom;
+            opt2.value = "bottom";
+            opt3 = document.createElement("option");
+            opt3.text = LayerWin.dext5_lang.chart.position_left;
+            opt3.value = "left";
+            opt4 = document.createElement("option");
+            opt4.text = LayerWin.dext5_lang.chart.position_right;
+            opt4.value = "right";
+
+            legendPositionSelect.appendChild(opt1);
+            legendPositionSelect.appendChild(opt2);
+            legendPositionSelect.appendChild(opt3);
+            legendPositionSelect.appendChild(opt4);
+            document.getElementById("label_legend_family").innerHTML = LayerWin.dext5_lang.chart.font_family;
+            document.getElementById("label_legend_size").innerHTML = LayerWin.dext5_lang.chart.font_size;
+            document.getElementById("label_legend_style").innerHTML = LayerWin.dext5_lang.chart.font_style;
+            document.getElementById("chart_legend_font_bold").title = LayerWin.dext5_lang.chart.font_style_bold;
+            document.getElementById("chart_legend_font_italic").title = LayerWin.dext5_lang.chart.font_style_italic;
+            document.getElementById("label_legend_color").innerHTML = LayerWin.dext5_lang.chart.color;
+
+            document.getElementById("btn_ok").innerHTML = LayerWin.dext5_lang.chart.btn_ok;
+            document.getElementById("btn_cancel").innerHTML = LayerWin.dext5_lang.chart.btn_cancel;
+            
+            document.title = LayerWin.dext5_lang.image.frame_title;
+
+            var header = LayerWin.getElementsByClass('EdiTor_Popup_header', document);
+            header[0].onselectstart = function () { return false; };
+        }
+
+        function setPage() {
+            loadData();
+
+            document.getElementById("inputRowSize").value = grid.getRowSize();
+            document.getElementById("inputColumnSize").value = grid.getColumnSize();
+
+            setFontFamilySelect();
+        }
+
+        function loadData() {
+
+            if (element != null) {
+                var decData = DEXTTOP.DEXT5.util.makeDecryptReponseMessage(element.getAttribute("raon_chart"));
+                var json = JSON.parse(decData.replace(/&quot;/g, '"'));
+                chartData = json.data;
+                chartData.width = element.clientWidth;
+                chartData.height = element.clientHeight;
+            }
+            var parent = document.getElementById("gridDiv");
+            grid = new LayerWin.G_RW_GRID("chartGrid", {
+                data: chartData.data,
+                parent: parent,
+                editable: true,
+                showRowIndex: true,
+                showColumnIndex: true,
+                indexDraggable: true,
+                showRowTitle: true,
+                showColumnTitle: true,
+                columnResizable: true,
+                event: {
+                    onCellChange: function (e) {
+                        if (e.rowIndex == 0 && e.columnIndex == 0) {
+                            if (chartData.type.indexOf("scatter") > -1)
+                                e.value = "x";
+                        } else if (e.rowIndex == 0) {
+                            e.afterCallback = setColorList;
+                        }
+                    }
+                }
+            });
+
+            var chartType = chartData.type.split("-");
+            setCategory(chartType[0]);
+            
+
+            var titleText = document.getElementById("chart_title"),
+                titlePosition = document.getElementById("chart_title_position"),
+                titleFamily = document.getElementById("chart_title_font_family"),
+                titleSize = document.getElementById("chart_title_font_size"),
+                titleBold = document.getElementById("chart_title_font_bold"),
+                titleItalic = document.getElementById("chart_title_font_italic"),
+                titleColor = document.getElementById("chart_title_font_color");
+
+            titleText.value = chartData.title.text;
+            titlePosition.value = chartData.title.position;
+            titleFamily.childNodes[0].value = chartData.title.fontFamily;
+            titleFamily.childNodes[0].innerText = chartData.title.fontFamily;
+            titleFamily.value = chartData.title.fontFamily;
+            titleSize.value = chartData.title.fontSize;
+            var fontStyle = chartData.title.fontStyle;
+            if (fontStyle.indexOf("bold") > -1)
+                titleBold.className += " on";
+            if (fontStyle.indexOf("italic") > -1)
+                titleItalic.className += " on";
+            titleColor.style.backgroundColor = chartData.title.fontColor;
+            titleColor.title = titleColor.style.backgroundColor;
+
+            setTitle();
+
+            var xText = document.getElementById("chart_axes_x_title"),
+                xFamily = document.getElementById("chart_axes_x_font_family"),
+                xSize = document.getElementById("chart_axes_x_font_size"),
+                xBold = document.getElementById("chart_axes_x_font_bold"),
+                xItalic = document.getElementById("chart_axes_x_font_italic"),
+                xColor = document.getElementById("chart_axes_x_font_color"),
+                yText = document.getElementById("chart_axes_y_title"),
+                yFamily = document.getElementById("chart_axes_y_font_family"),
+                ySize = document.getElementById("chart_axes_y_font_size"),
+                yBold = document.getElementById("chart_axes_y_font_bold"),
+                yItalic = document.getElementById("chart_axes_y_font_italic"),
+                yColor = document.getElementById("chart_axes_y_font_color");
+
+            xText.value = chartData.axes.x.text;
+            xFamily.childNodes[0].value = chartData.axes.x.fontFamily;
+            xFamily.childNodes[0].innerText = chartData.axes.x.fontFamily;
+            xFamily.value = chartData.axes.x.fontFamily;
+            xSize.value = chartData.axes.x.fontSize;
+            fontStyle = chartData.axes.x.fontStyle;
+            if (fontStyle.indexOf("bold") > -1)
+                xBold.className += " on";
+            if (fontStyle.indexOf("italic") > -1)
+                xItalic.className += " on";
+            xColor.style.backgroundColor = chartData.axes.x.fontColor;
+            xColor.title = xColor.style.backgroundColor;
+
+            yText.value = chartData.axes.y.text;
+            yFamily.childNodes[0].value = chartData.axes.y.fontFamily;
+            yFamily.childNodes[0].innerText = chartData.axes.y.fontFamily;
+            yFamily.value = chartData.axes.y.fontFamily;
+            ySize.value = chartData.axes.y.fontSize;
+            fontStyle = chartData.axes.y.fontStyle;
+            if (fontStyle.indexOf("bold") > -1)
+                yBold.className += " on";
+            if (fontStyle.indexOf("italic") > -1)
+                yItalic.className += " on";
+            yColor.style.backgroundColor = chartData.axes.y.fontColor;
+            yColor.title = yColor.style.backgroundColor;
+
+            setAxesX();
+            setAxesY();
+
+            var bgColor = document.getElementById("chart_bg_color");
+            bgColor.style.backgroundColor = chartData.color.background;
+            bgColor.title = bgColor.style.backgroundColor;
+            setColorList();
+
+            var legend = document.getElementById("chart_legend"),
+                legendPosition = document.getElementById("chart_legend_position"),
+                legendFamily = document.getElementById("chart_legend_font_family"),
+                legendSize = document.getElementById("chart_legend_font_size"),
+                legendBold = document.getElementById("chart_legend_font_bold"),
+                legendItalic = document.getElementById("chart_legend_font_italic"),
+                legendColor = document.getElementById("chart_legend_font_color");
+
+            legend.checked = chartData.legend.display;
+            legendPosition.value = chartData.legend.position;
+            legendFamily.childNodes[0].value = chartData.legend.fontFamily;
+            legendFamily.childNodes[0].innerText = chartData.legend.fontFamily;
+            legendFamily.value = chartData.legend.fontFamily;
+            legendSize.value = chartData.legend.fontSize;
+            fontStyle = chartData.legend.fontStyle;
+            if (fontStyle.indexOf("bold") > -1)
+                legendBold.className += " on";
+            if (fontStyle.indexOf("italic") > -1)
+                legendItalic.className += " on";
+            legendColor.style.backgroundColor = chartData.legend.fontColor;
+            legendColor.title = legendColor.style.backgroundColor;
+
+            setLegend();
+
+            var min = document.getElementById("chart_axes_min"),
+                max = document.getElementById("chart_axes_max"),
+                step = document.getElementById("chart_axes_step"),
+                gridLine = document.getElementById("chart_grid_line"),
+                width = document.getElementById("chart_width"),
+                height = document.getElementById("chart_height");
+            
+            min.value = chartData.axes.min;
+            max.value = chartData.axes.max;
+            step.value = chartData.axes.step;
+            gridLine.checked = chartData.grid;
+            width.value = chartData.width;
+            height.value = chartData.height;
+
+            setChart(chartData.type);
+        }
+
+        function setCategory(name) {
+            var prev = document.getElementsByClassName("chartOn");
+            if(prev[0]) prev[0].className = "";
+
+            var category = document.getElementById("cht_category_" + name);
+            category.className = "chartOn";
+
+            var chartList = charts[name];
+
+            var content = document.getElementById("cht_category_content");
+            while(content.firstChild) {
+                content.removeChild(content.firstChild);
+            }
+            for (var i = 0; i < chartList.length; i++) {
+                var aTag = document.createElement("a");
+                var img = document.createElement("img");
+                aTag.href = "javascript:setChart('" + chartList[i] + "')";
+                img.id = chartList[i];
+                img.title = LayerWin.dext5_lang.chart.charts[name][i];
+                img.src = "../images/editor/dialog/chart/" + img.id + ".jpg"
+                if (chartData.type == img.id)
+                    img.className = "chart on";
+                else
+                    img.className = "chart";
+                aTag.appendChild(img);
+                content.appendChild(aTag);
+            }
+
+            return false;
+        }
+
+        function setChart(id) {
+            var prev = document.getElementsByClassName("chart on");
+            if (prev[0]) prev[0].className = "chart";
+
+            if (this.id) {
+                chartData.type = this.id;
+                this.className = "chart on";
+            } else {
+                chartData.type = id;
+                document.getElementById(id).className = "chart on";
+            }
+
+            setColorList();
+
+
+            var inputRowSize = document.getElementById("inputRowSize"),
+                minusRowSize = document.getElementById("minusRowSize"),
+                plusRowSize = document.getElementById("plusRowSize"),
+                rotateGrid = document.getElementById("rotateGrid"),
+
+                AxesXTitle = document.getElementById("chart_axes_x_title"),
+                AxesYTitle = document.getElementById("chart_axes_y_title"),
+                AxesMin = document.getElementById("chart_axes_min"),
+                AxesMax = document.getElementById("chart_axes_max"),
+                AxesStep = document.getElementById("chart_axes_step"),
+
+                gridLine = document.getElementById("chart_grid_line");
+
+            if (chartData.type.indexOf("radar") > -1) {
+                if (grid.getRowSize() < 4)
+                    setRowSize(4);
+            }
+
+            if (chartData.type.indexOf("circle") > -1 || chartData.type.indexOf("radar-5") > -1) {
+                grid.setShowRowTitle(false);
+                setRowSize(2);
+                inputRowSize.disabled = true;
+                minusRowSize.className = "btn_minus disabled";
+                plusRowSize.className = "btn_plus disabled";
+                rotateGrid.className = "btn_change absolute disabled";
+
+                AxesXTitle.disabled = true;
+                AxesYTitle.disabled = true;
+                if (chartData.type.indexOf("circle") > -1) {
+                    AxesMin.disabled = true;
+                    AxesMax.disabled = true;
+                    AxesStep.disabled = true;
+                } else {
+                    AxesMin.disabled = false;
+                    AxesMax.disabled = false;
+                    AxesStep.disabled = false;
+                }
+
+                gridLine.disabled = true;
+            } else if (chartData.type.indexOf("scatter") > -1) {
+                grid.setCellValue("x", grid.Table.getCell(0, 0));
+                grid.setShowRowTitle(false);
+                inputRowSize.disabled = false;
+                minusRowSize.className = "btn_minus";
+                plusRowSize.className = "btn_plus";
+                rotateGrid.className = "btn_change absolute";
+
+                AxesXTitle.disabled = false;
+                AxesYTitle.disabled = false;
+                AxesMin.disabled = false;
+                AxesMax.disabled = false;
+                AxesStep.disabled = false;
+
+                gridLine.disabled = false;
+            } else {
+                grid.setCellValue("", grid.Table.getCell(0, 0));
+                grid.setShowRowTitle(true);
+                inputRowSize.disabled = false;
+                minusRowSize.className = "btn_minus";
+                plusRowSize.className = "btn_plus";
+                rotateGrid.className = "btn_change absolute";
+
+                if (chartData.type.indexOf("radar") > -1) {
+                    AxesXTitle.disabled = true;
+                    AxesYTitle.disabled = true;
+                    gridLine.disabled = true;
+                } else {
+                    AxesXTitle.disabled = false;
+                    AxesYTitle.disabled = false;
+                    gridLine.disabled = false;
+                }
+                AxesMin.disabled = false;
+                AxesMax.disabled = false;
+                AxesStep.disabled = false;
+            }
+
+            
+
+            setAxesX();
+            setAxesY();
+        }
+
+        function setRowSize(tag, event) {
+            var size = 2;
+            if (!tag.tagName) {
+                size = tag;
+            } else if (event.type == "change") {
+                size = tag.value;
+            } else if (event.type == "keydown") {
+                LayerWin.onlyNumber(event);
+                if (event.keyCode == 13)
+                    size = tag.value;
+                else
+                    return true;
+            } else {
+                if (tag.className.indexOf("plus") > -1)
+                    size = grid.getRowSize() + 1;
+                else
+                    size = grid.getRowSize() - 1;
+            }
+
+            if (chartData.type.indexOf("radar") > -1 && chartData.type.indexOf("5") == -1) {
+                if (size < 4)
+                    size = 4;
+            }
+
+            if (size > 2)
+                grid.setRowSize(size);
+            else
+                grid.setRowSize(2);
+
+            document.getElementById("inputRowSize").value = grid.getRowSize();
+        }
+
+        function setColumnSize(tag, event) {
+            var size = 1;
+            if (!tag.tagName) {
+                size = tag;
+            } else if (event.type == "change") {
+                size = tag.value;
+            } else if (event.type == "keydown") {
+                LayerWin.onlyNumber(event);
+                if (event.keyCode == 13)
+                    size = tag.value;
+                else
+                    return true;
+            } else {
+                if (tag.className.indexOf("plus") > -1)
+                    size = grid.getColumnSize() + 1;
+                else
+                    size = grid.getColumnSize() - 1;
+            }
+
+            if (chartData.type.indexOf("scatter") > -1) {
+                if (size < 2)
+                    size = 2;
+            }
+
+            if (size > 2)
+                grid.setColumnSize(size);
+            else
+                grid.setColumnSize(2);
+
+            document.getElementById("inputColumnSize").value = grid.getColumnSize();
+            setColorList();
+        }
+
+        function setColorList() {
+            var list = document.getElementById("column_list");
+            while (list.firstChild) {
+                list.removeChild(list.firstChild);
+            }
+            var nextColor = 0;
+            var startIndex = 1;
+            if (chartData.type.indexOf("circle") > -1 || chartData.type.indexOf("radar-5") > -1)
+                startIndex = 0;
+
+            for (var i = startIndex; i < grid.getColumnSize() ; i++) {
+                var li = document.createElement("li");
+
+                if (!chartData.color.column[nextColor])
+                    chartData.color.column[nextColor] = getDefaultColor(nextColor);
+
+                var aColor = document.createElement("a");
+                aColor.id = "column_color_" + nextColor;
+                aColor.className = "settingColor";
+                aColor.href = "javascript:void(0);";
+                aColor.title = chartData.color.column[nextColor];
+                aColor.style.backgroundColor = chartData.color.column[nextColor++];
+                aColor.onclick = function () {
+                    LayerWin.showColorPopup(document, this, 'background', 'chart_color', 45, -160);
+                };
+                aColor.onchange = function () {
+                    setColumnColor(this);
+                }
+
+                var name = document.createElement("div");
+                name.innerHTML = grid.getData()[0][i];
+                name.title = grid.getData()[0][i];
+                name.style.width = "70%";
+                name.style.textOverflow = "ellipsis";
+                name.style.overflow = "hidden";
+                li.appendChild(name);
+                li.appendChild(aColor);
+                list.appendChild(li);
+                if (chartData.type == "scatter-2")
+                    i++;
+            }
+        }
+
+        function setBgColor(tag) {
+            tag.title = tag.style.backgroundColor;
+            chartData.color.background = tag.style.backgroundColor;
+        }
+
+        function setColumnColor(tag) {
+            tag.title = tag.style.backgroundColor;
+            chartData.color.column[tag.id.substr(tag.id.length - 1)] = tag.style.backgroundColor;
+        }
+
+        function resetColor() {
+            var bgColor = document.getElementById("chart_bg_color");
+            bgColor.style.backgroundColor = "rgb(255,255,255)";
+            bgColor.title = bgColor.style.backgroundColor;
+            chartData.color.background = "rgb(255,255,255)";
+            for (var i = 0; i < grid.getColumnSize() ; i++) {
+                chartData.color.column[i] = getDefaultColor(i);
+            }
+            setColorList();
+        }
+
+        function setTitle() {
+            var text = document.getElementById("chart_title"),
+                position = document.getElementById("chart_title_position"),
+                family = document.getElementById("chart_title_font_family"),
+                size = document.getElementById("chart_title_font_size"),
+                style = document.getElementById("chart_title_font_style"),
+                bold = document.getElementById("chart_title_font_bold"),
+                italic = document.getElementById("chart_title_font_italic"),
+                color = document.getElementById("chart_title_font_color");
+
+            if (text.value.length > 0) {
+                position.disabled = false;
+                family.disabled = false;
+                size.disabled = false;
+                style.className = "settingStyle";
+                color.className = "settingColor";
+
+                chartData.title.text = text.value;
+                chartData.title.position = position.value;
+                chartData.title.fontFamily = family.value;
+                chartData.title.fontSize = size.value;
+
+                var fontStyle = "";
+                if (bold.className.indexOf("on") > -1)
+                    fontStyle += "bold ";
+                if (italic.className.indexOf("on") > -1)
+                    fontStyle += "italic";
+
+                chartData.title.fontStyle = fontStyle;
+                chartData.title.fontColor = color.style.backgroundColor;
+                color.title = color.style.backgroundColor;
+            } else {
+                chartData.title.text = "";
+                position.disabled = true;
+                family.disabled = true;
+                size.disabled = true;
+                style.className = "settingStyle disabled";
+                color.className = "settingColor disabled";
+            }
+        }
+
+        function setAxesX() {
+            var text = document.getElementById("chart_axes_x_title"),
+                family = document.getElementById("chart_axes_x_font_family"),
+                size = document.getElementById("chart_axes_x_font_size"),
+                style = document.getElementById("chart_axes_x_font_style"),
+                bold = document.getElementById("chart_axes_x_font_bold"),
+                italic = document.getElementById("chart_axes_x_font_italic"),
+                color = document.getElementById("chart_axes_x_font_color");
+
+
+            if (text.value.length > 0 && !text.disabled) {
+                family.disabled = false;
+                size.disabled = false;
+                style.className = "settingStyle";
+                color.className = "settingColor";
+
+                chartData.axes.x.text = text.value;
+                chartData.axes.x.fontFamily = family.value;
+                chartData.axes.x.fontSize = size.value;
+
+                var fontStyle = "";
+                if (bold.className.indexOf("on") > -1)
+                    fontStyle += "bold ";
+                if (italic.className.indexOf("on") > -1)
+                    fontStyle += "italic";
+
+                chartData.axes.x.fontStyle = fontStyle;
+                chartData.axes.x.fontColor = color.style.backgroundColor;
+                color.title = color.style.backgroundColor;
+            } else {
+                chartData.axes.x.text = "";
+                family.disabled = true;
+                size.disabled = true;
+                style.className = "settingStyle disabled";
+                color.className = "settingColor disabled";
+            }
+        }
+
+        function setAxesY() {
+            var text = document.getElementById("chart_axes_y_title"),
+                family = document.getElementById("chart_axes_y_font_family"),
+                size = document.getElementById("chart_axes_y_font_size"),
+                style = document.getElementById("chart_axes_y_font_style"),
+                bold = document.getElementById("chart_axes_y_font_bold"),
+                italic = document.getElementById("chart_axes_y_font_italic"),
+                color = document.getElementById("chart_axes_y_font_color");
+
+
+            if (text.value.length > 0 && !text.disabled) {
+                family.disabled = false;
+                size.disabled = false;
+                style.className = "settingStyle";
+                color.className = "settingColor";
+
+                chartData.axes.y.text = text.value;
+                chartData.axes.y.fontFamily = family.value;
+                chartData.axes.y.fontSize = size.value;
+
+                var fontStyle = "";
+                if (bold.className.indexOf("on") > -1)
+                    fontStyle += "bold ";
+                if (italic.className.indexOf("on") > -1)
+                    fontStyle += "italic";
+
+                chartData.axes.y.fontStyle = fontStyle;
+                chartData.axes.y.fontColor = color.style.backgroundColor;
+                color.title = color.style.backgroundColor;
+            } else {
+                chartData.axes.y.text = "";
+                family.disabled = true;
+                size.disabled = true;
+                style.className = "settingStyle disabled";
+                color.className = "settingColor disabled";
+            }
+        }
+
+        function setLegend() {
+            var legend = document.getElementById("chart_legend"),
+                position = document.getElementById("chart_legend_position"),
+                family = document.getElementById("chart_legend_font_family"),
+                size = document.getElementById("chart_legend_font_size"),
+                style = document.getElementById("chart_legend_font_style"),
+                bold = document.getElementById("chart_legend_font_bold"),
+                italic = document.getElementById("chart_legend_font_italic"),
+                color = document.getElementById("chart_legend_font_color");
+
+            if (legend.checked == true) {
+                position.disabled = false;
+                family.disabled = false;
+                size.disabled = false;
+                style.className = "settingStyle";
+                color.className = "settingColor";
+
+                chartData.legend.display = true;
+                chartData.legend.position = position.value;
+                chartData.legend.fontFamily = family.value;
+                chartData.legend.fontSize = size.value;
+
+                var fontStyle = "";
+                if (bold.className.indexOf("on") > -1)
+                    fontStyle += "bold ";
+                if (italic.className.indexOf("on") > -1)
+                    fontStyle += "italic";
+
+                chartData.legend.fontStyle = fontStyle;
+                chartData.legend.fontColor = color.style.backgroundColor;
+                color.title = color.style.backgroundColor;
+            } else {
+                chartData.legend.display = false;
+                position.disabled = true;
+                family.disabled = true;
+                position.disabled = true;
+                size.disabled = true;
+                style.className = "settingStyle disabled";
+                color.className = "settingColor disabled";
+            }
+
+        }
+
+        function setFontFamilySelect() {
+            var select = document.getElementById("font_family_select");
+
+            var font_famliy = DEXTTOP.DEXT5.util.xml.getNode(DEXTTOP.G_CURREDITOR._configXml, "font_family");
+            var cnt = DEXTTOP.DEXT5.util.xml.count(font_famliy, "font");
+            for (var i = 0; i < cnt; i++) {
+                var font = DEXTTOP.DEXT5.util.xml.getNodeValueIdx(font_famliy, "font", i);
+                var opt = document.createElement("option");
+                opt.innerText = font;
+                opt.style.fontFamily = font;
+                opt.value = font;
+                opt.onmouseover = function (e) {this.parentElement.value = this.value;};
+                select.add(opt);
+            }
+            select.onblur = function (e) { this.style.display = "none"; };
+            select.onclick = function (e) {
+                this.style.display = "none";
+
+                this.target.childNodes[0].value = this.value;
+                this.target.value = this.value;
+                this.target.childNodes[0].innerText = this.value;
+
+                this.target.onchange();
+
+                return false;
+            };
+            select.onkeydown = function (e) {
+                if (e.keyCode == 13 || e.keyCode == 9) {
+                    this.target.childNodes[0].value = this.value;
+                    this.target.value = this.value;
+                    this.target.childNodes[0].innerText = this.value;
+
+                    this.style.display = "none";
+
+                    this.target.focus();
+
+                    return false;
+                }
+            };
+
+            if (select.length > 10)
+                select.size = 10
+            else
+                select.size = select.length;
+
+            select.style.height = (select.size * 17 + 2) + "px";
+        }
+
+        function openFontFamily(tag) {
+            var rect = tag.getBoundingClientRect();
+
+            var select = document.getElementById("font_family_select");
+
+            select.value = tag.value;
+            
+            select.style.display = "block";
+            select.style.left = rect.left + "px";
+            select.style.top = rect.top + rect.height + "px";
+
+            select.target = tag;
+
+            select.focus();
+            
+            return false;
+        }
+
+        function setSetting() {
+            var min = document.getElementById("chart_axes_min"),
+                max = document.getElementById("chart_axes_max"),
+                step = document.getElementById("chart_axes_step"),
+                gridLine = document.getElementById("chart_grid_line"),
+                width = document.getElementById("chart_width"),
+                height = document.getElementById("chart_height");
+
+            chartData.axes.min = min.value;
+            chartData.axes.max = max.value;
+            chartData.axes.step = step.value;
+            chartData.grid = gridLine.checked;
+            chartData.width = width.value;
+            chartData.height = height.value;
+        }
+
+        function setStyle(tag) {
+            if (tag.parentElement.className.indexOf("disabled") > -1)
+                return false;
+
+            if (tag.className.indexOf("on") > -1)
+                tag.className = tag.className.replace(/ on/g, '');
+            else
+                tag.className += " on";
+
+            if (tag.id.indexOf("title") > -1)
+                setTitle();
+            else if (tag.id.indexOf("axes_x") > -1)
+                setAxesX();
+            else if (tag.id.indexOf("axes_y") > -1)
+                setAxesY();
+            else if (tag.id.indexOf("legend") > -1)
+                setLegend();
+        }
+
+        function rotateGrid() {
+            grid.rotateTable();
+            chartData.data = grid.getData();
+            setRowSize(grid.getRowSize());
+            setColumnSize(grid.getColumnSize());
+        }
+
+        function preview() {
+            var img = document.getElementById("preview");
+            dext_create_chart(img, chartData, true);
+        }
+
+        function set_modify_ok() {
+            dext_create_chart(element, chartData);
+        }
+    </script>
+</head>
+<body style="margin:0px; padding:0px; " onload="page_loaded_event(); page_Custom_Control();">
+    <script type="text/javascript">
+        var custom_code = LayerWin._dext_editor._config.custom_code;
+        var custom_height = "";
+
+        if (custom_code == 'CCODE_001') {
+            custom_height = "230px";
+
+            document.write("<style type='text/css'>");
+            document.write(" .DEXT_fiVe_ED_Popup_Type01 .EdiTor_Popup_contents .contents, .DEXT_fiVe_ED_Popup_Type02 .EdiTor_Popup_contents .contents, .DEXT_fiVe_ED_Popup_Type03 .EdiTor_Popup_contents .contents {  background:#FFFFFF; padding-bottom:0px; padding-top:0px; display:block; } ");
+            document.write(" .DEXT_fiVe_ED_Popup_Type01 .EdiTor_Popup_contents .contents .con, .DEXT_fiVe_ED_Popup_Type02 .EdiTor_Popup_contents .contents .con, .DEXT_fiVe_ED_Popup_Type03 .EdiTor_Popup_contents .contents .con { padding:1px 2px; margin:0px 7px; display:block; } ");
+            document.write("</style>");
+        } else {
+            custom_height = "320px";
+        }
+
+        function page_Custom_Control() {
+            if (custom_code == 'CCODE_001') {
+                document.getElementById('tr_continue_insert').style.display = "none";
+            }
+        }
+    </script>
+    <div id="dext_dialog_box" class="DEXT_fiVe_ED_Popup_chart">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span id="span_title" class="subject"></span><span class="text"></span>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / Category tap -->
+        <div class="EdiTor_Popup_contents view" id="tab_1">
+            <div class="con_btn">
+                <a href="javascript:void(0);" id="first_tab_1" class="on"><span id="span_first_tab_1"></span></a>
+                <a href="javascript:popup_toggle(1);" class="off" id="a_secon_tab_1"><span id="span_secon_tab_1"></span></a>
+                <a href="javascript:popup_toggle(2);" class="off"><span id="span_third_tab_1"></span></a>
+                <a href="javascript:popup_toggle(3);" class="off"><span id="span_fourth_tab_1"></span></a>
+                <a href="javascript:popup_toggle(4);" class="off"><span id="span_fifth_tab_1"></span></a>
+            </div>
+            <script type="text/javascript">
+                document.write('<div id="contents_tab_1" class="contents" style="height: ' + custom_height + '; overflow: hidden;">');
+            </script>
+            <div class="con chart_A">
+                <table cellpadding="0" cellspacing="0" class="chartType">
+                    <tbody>
+                        <tr>
+                            <td width="23%;" class="list">
+                                <ul>
+                                    <li id="cht_category_line"><a href="javascript:void(0);" onclick="setCategory('line')"><span class="icon chart01"></span><span id="span_category_1"></span></a></li>
+                                    <li id="cht_category_bar"><a href="javascript:void(0);" onclick="setCategory('bar')"><span class="icon chart02"></span><span id="span_category_2"></span></a></li>
+                                    <li id="cht_category_area"><a href="javascript:void(0);" onclick="setCategory('area')"><span class="icon chart03"></span><span id="span_category_3"></span></a></li>
+                                    <li id="cht_category_circle"><a href="javascript:void(0);" onclick="setCategory('circle')"><span class="icon chart04"></span><span id="span_category_4"></span></a></li>
+                                    <li id="cht_category_radar"><a href="javascript:void(0);" onclick="setCategory('radar')"><span class="icon chart05"></span><span id="span_category_5"></span></a></li>
+                                    <li id="cht_category_scatter"><a href="javascript:void(0);" onclick="setCategory('scatter')"><span class="icon chart06"></span><span id="span_category_6"></span></a></li>
+                                </ul>
+                            </td>
+                            <td width="77%" class="chartArea" id="cht_category_content"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+        <!-- // Category tap  -->
+        <!-- Data tap  -->
+        <div class="EdiTor_Popup_contents none" id="tab_2">
+            <div class="con_btn">
+                <a href="javascript:popup_toggle(0);" class="off"><span id="span_first_tab_2"></span></a>
+                <a href="javascript:void(0);" class="on" id="a_secon_tab_2"><span id="span_secon_tab_2"></span></a>
+                <a href="javascript:popup_toggle(2);" class="off"><span id="span_third_tab_2"></span></a>
+                <a href="javascript:popup_toggle(3);" class="off"><span id="span_fourth_tab_2"></span></a>
+                <a href="javascript:popup_toggle(4);" class="off"><span id="span_fifth_tab_2"></span></a>
+            </div>
+            <script type="text/javascript">
+                document.write('<div id="contents_tab_2" class="contents" style="height: ' + custom_height + '; overflow: view;">');
+            </script>
+                <div class="con chart_data">
+                    <a href="javascript:rotateGrid();" id="rotateGrid" class="btn_change absolute" onclick="if (this.className.indexOf('disabled') > -1) return false;"></a><span class="cellcounting absolute"><input id="inputColumnSize" type="text" maxlength="3" style="width:25px" class="con_input" onkeydown="setColumnSize(this, event);" onchange="setColumnSize(this, event);"><a id="minusColumnSize" class="btn_minus" href="javascript:void(0);" onclick="if(this.className.indexOf('disabled') == -1) setColumnSize(this, event);"></a><a id="plusColumnSize" class="btn_plus" href="javascript:void(0);" onclick="if(this.className.indexOf('disabled') == -1) setColumnSize(this, event);"></a></span>
+                    <span class="absolute" style="width:20px; margin-top:30px;"><input id="inputRowSize" type="text" maxlength="3" style="width:25px" class="con_input" onkeydown="setRowSize(this, event);" onchange="setRowSize(this, event);"><a id="minusRowSize" class="btn_minus" href="javascript:void(0);" onclick="if(this.className.indexOf('disabled') == -1) setRowSize(this, event);"></a><a id="plusRowSize" class="btn_plus" href="javascript:void(0);" onclick="if(this.className.indexOf('disabled') == -1) setRowSize(this, event);"></a></span>
+                    <div id="gridDiv" class="tableArea absolute"></div>
+                </div>
+            </div>
+        </div>
+        <!-- // Data tap -->
+        <!-- Setting tap -->
+        <div class="EdiTor_Popup_contents none" id="tap_3">
+            <div class="con_btn">
+                <a href="javascript:popup_toggle(0);" class="off"><span id="span_first_tab_3"></span></a>
+                <a href="javascript:popup_toggle(1);" class="off" id="a_secon_tab_3"><span id="span_secon_tab_3"></span></a>
+                <a href="javascript:void(0);" class="on"><span id="span_third_tab_3"></span></a>
+                <a href="javascript:popup_toggle(3);" class="off"><span id="span_fourth_tab_3"></span></a>
+                <a href="javascript:popup_toggle(4);" class="off"><span id="span_fifth_tab_3"></span></a>
+            </div>
+            <script type="text/javascript">
+                document.write('<div id="contents_tab_3" class="contents" style="height: ' + custom_height + '; overflow: view;">');
+            </script>
+                <div class="con border">
+                    <table cellspacing="0" cellpadding="0" class="chartSet">
+                        <tbody>
+                            <tr>
+                                <td width="20%"><label for="chart_title" id="label_title">차트 제목 : </label></td>
+                                <td width="80%">
+                                    <input id="chart_title" onchange="setTitle();" type="text" style="width:90%;" class="con_input">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="con">
+                    <table cellpadding="0" cellspacing="0" class="chartSet">
+                        <tbody>
+                            <tr>
+                                <td width="35%">
+                                    <fieldset class="ulc">
+                                        <legend id="span_axes">축</legend>
+                                        <table cellpadding="0" cellspacing="0" class="chartSet">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="42%"><label for="chart_axes_x_title" id="label_axes_x_title">X축 제목 : </label></td>
+                                                    <td width="58%"><input id="chart_axes_x_title" type="text" style="width:100%;*width:90%" class="con_input" onchange="setAxesX();"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="42%"><label for="chart_axes_y_title" id="label_axes_y_title">Y축 제목 : </label></td>
+                                                    <td width="58%"><input id="chart_axes_y_title" type="text" style="width:100%;*width:90%" class="con_input" onchange="setAxesY();"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="42%"><label for="chart_axes_min" id="label_axes_min">최소값 : </label></td>
+                                                    <td width="58%"><input id="chart_axes_min" type="text" style="width:100%;*width:90%" class="con_input" onchange="setSetting();" onkeydown="if (event.keyCode == 173 || event.keyCode == 109 || event.keyCode == 110 || event.keyCode == 189 || event.keyCode == 190) return true; LayerWin.onlyNumber(event);" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="42%"><label for="chart_axes_max" id="label_axes_max">최대값 : </label></td>
+                                                    <td width="58%"><input id="chart_axes_max" type="text" style="width:100%;*width:90%" class="con_input" onchange="setSetting();" onkeydown="if (event.keyCode == 173 || event.keyCode == 109 || event.keyCode == 110 || event.keyCode == 189 || event.keyCode == 190) return true; LayerWin.onlyNumber(event);" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="42%"><label for="chart_axes_step" id="label_axes_step">증가값 : </label></td>
+                                                    <td width="58%"><input id="chart_axes_step" type="text" style="width:100%;*width:90%" class="con_input" onchange="setSetting();" onkeydown="if (event.keyCode == 173 || event.keyCode == 109 || event.keyCode == 110 || event.keyCode == 189 || event.keyCode == 190) return true; LayerWin.onlyNumber(event);" /></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </fieldset>
+                                </td>
+                                <td width="35%">
+                                    <fieldset class="ulc">
+                                        <legend id="span_color">색상</legend>
+                                        <table cellpadding="0" cellspacing="0" class="chartSet">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="70%"><span id="span_color_bg">배경색</span></td>
+                                                    <td width="30%"><a href="javascript:void(0);" id="chart_bg_color" class="settingColor" onchange="setBgColor(this);" onclick="LayerWin.showColorPopup(document, this, 'background', 'chart_color', 45, -120);"></a></td>
+                                                </tr>
+                                                <tr class="forie5">
+                                                    <td width="100%" colspan="2" class="color">
+                                                        <ul id="column_list"></ul>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="100%" colspan="2" class="btn_colorReset"><a href="javascript:void(0);" id="span_color_reset" onclick="resetColor();">색상 초기화</a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </fieldset>
+                                </td>
+                                <td width="30%" style="*height:140px;">
+                                    <table cellpadding="0" cellspacing="0" class="chartSet">
+                                        <tbody>
+                                            <tr>
+                                                <td width="35%"><label for="chart_legend" id="label_legend">범례 :</label></td>
+                                                <td width="65%"><input type="checkbox" id="chart_legend" name="chart_legend" onchange="setLegend();"></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="35%"><label for="chart_grid_line" id="label_grid">배경줄 :</label></td>
+                                                <td width="65%"><input type="checkbox" id="chart_grid_line" onchange="setSetting();"></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="35%"><label for="" id=""> </label></td>
+                                                <td width="65%"></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="35%"><label for="chart_width" id="label_width">너비 : </label></td>
+                                                <td width="65%"><input id="chart_width" type="text" style="width:75%;*width:50%;" class="con_input" onchange="setSetting();" onkeydown="LayerWin.onlyNumber(event);"> px</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="35%"><label for="chart_height" id="label_height">높이 : </label></td>
+                                                <td width="65%"><input id="chart_height" type="text" style="width:75%;*width:50%;" class="con_input" onchange="setSetting();" onkeydown="LayerWin.onlyNumber(event);"> px</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- // Setting tap -->
+        <!-- Form tap -->
+        <div class="EdiTor_Popup_contents none" id="tap_4">
+            <div class="con_btn">
+                <a href="javascript:popup_toggle(0);" class="off"><span id="span_first_tab_4"></span></a>
+                <a href="javascript:popup_toggle(1);" class="off" id="a_secon_tab_4"><span id="span_secon_tab_4"></span></a>
+                <a href="javascript:popup_toggle(2);" class="off"><span id="span_third_tab_4"></span></a>
+                <a href="javascript:void(0);" class="on"><span id="span_fourth_tab_4"></span></a>
+                <a href="javascript:popup_toggle(4);" class="off"><span id="span_fifth_tab_4"></span></a>
+            </div>
+            <script type="text/javascript">
+                document.write('<div id="contents_tab_4" class="contents" style="height: ' + custom_height + '; overflow: view;">');
+            </script>
+                <div class="con">
+                    <table cellpadding="0" cellspacing="0" class="chart_char">
+                        <tbody>
+                            <tr>
+                                <td width="31%">
+                                    <fieldset class="ulc">
+                                        <legend id="span_chart_title">차트 제목</legend>
+                                        <table cellpadding="0" cellspacing="0" class="">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="35%"><label for="chart_title_position" id="label_title_position">위치 : </label></td>
+                                                    <td width="65%"><select id="chart_title_position" style="width: 100px;" onchange="setTitle();"></select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="35%"><label for="chart_title_font_family" id="label_title_family">글꼴 : </label></td>
+                                                    <td width="65%"><select id="chart_title_font_family" style="width: 100px;" onchange="setTitle();" onmousedown="return openFontFamily(this);"><option value=""></option></select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="35%"><label for="chart_title_font_size" id="label_title_size">크기 : </label></td>
+                                                    <td width="65%"><input id="chart_title_font_size" type="text" style="width:70%" class="con_input" onchange="setTitle();" onkeydown="LayerWin.onlyNumber(event);">px</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="35%"><label for="chart_title_font_style" id="label_title_style">스타일 :</label></td>
+                                                    <td width="65%" id="chart_title_font_style" class="settingStyle" ><a href="javascript:void(0);" id="chart_title_font_bold" style="font-weight:bold" onclick="setStyle(this);" title="굵게">B</a><a href="javascript:void(0);" id="chart_title_font_italic" style="font-style:italic;text-indent:-4px;" onclick="setStyle(this);" title="이탤릭">I</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="35%"><label for="chart_title_font_color" id="label_title_color">색상 :</label></td>
+                                                    <td width="65%"><a href="javascript:void(0);" id="chart_title_font_color" class="settingColor" onchange="setTitle();" onclick="if(this.className.indexOf('disabled') == -1) LayerWin.showColorPopup(document, this, 'background', 'chart_color', 45, -160);"></a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </fieldset>
+                                </td>
+                                <td width="31%">
+                                    <fieldset class="ulc">
+                                        <legend id="span_axes_x">X축</legend>
+                                        <table cellpadding="0" cellspacing="0" class="chartSet">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="35%"><label for="chart_axes_x_font_family" id="label_axes_x_family">글꼴 : </label></td>
+                                                    <td width="65%"><select id="chart_axes_x_font_family" style="width: 100px;" onchange="setAxesX();" onmousedown="return openFontFamily(this);"><option value=""></option></select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="35%"><label for="chart_axes_x_font_size" id="label_axes_x_size">크기 : </label></td>
+                                                    <td width="65%"><input id="chart_axes_x_font_size" type="text" style="width:70%" onchange="setAxesX();" class="con_input" onkeydown="LayerWin.onlyNumber(event);">px</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="35%"><label for="chart_axes_x_font_style" id="label_axes_x_style">스타일 : </label></td>
+                                                    <td width="65%" id="chart_axes_x_font_style" class="settingStyle"><a href="javascript:void(0);" id="chart_axes_x_font_bold" style="font-weight:bold" onclick="setStyle(this);" title="굵게">B</a><a href="javascript:void(0);" id="chart_axes_x_font_italic" style="font-style:italic;text-indent:-4px;" onclick="setStyle(this);" title="이탤릭">I</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="35%"><label for="chart_axes_x_font_color" id="label_axes_x_color">색상 : </label></td>
+                                                    <td width="65%"><a href="javascript:void(0);" id="chart_axes_x_font_color" class="settingColor" onchange="setAxesX();" onclick="if(this.className.indexOf('disabled') == -1) LayerWin.showColorPopup(document, this, 'background', 'chart_color', 45, -120);"></a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </fieldset>
+                                    <fieldset class="ulc">
+                                        <legend id="span_axes_y">Y축</legend>
+                                        <table cellpadding="0" cellspacing="0" class="chartSet">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="35%"><label for="chart_axes_y_font_family" id="label_axes_y_family">글꼴 : </label></td>
+                                                    <td width="65%"><select id="chart_axes_y_font_family" style="width: 100px;" onchange="setAxesY();" onmousedown="return openFontFamily(this);"><option value=""></option></select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="35%"><label for="chart_axes_y_font_size" id="label_axes_y_size">크기 : </label></td>
+                                                    <td width="65%"><input id="chart_axes_y_font_size" type="text" style="width:70%" onchange="setAxesY();" class="con_input" onkeydown="LayerWin.onlyNumber(event);">px</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="35%"><label for="chart_axes_y_font_style" id="label_axes_y_style">스타일 : </label></td>
+                                                    <td width="65%" id="chart_axes_y_font_style" class="settingStyle"><a href="javascript:void(0);" id="chart_axes_y_font_bold" style="font-weight:bold" onclick="setStyle(this);" title="굵게">B</a><a href="javascript:void(0);" id="chart_axes_y_font_italic" style="font-style:italic;text-indent:-4px;" onclick="setStyle(this);" title="이탤릭">I</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="35%"><label for="chart_axes_y_font_color" id="label_axes_y_color">색상 : </label></td>
+                                                    <td width="65%"><a id="chart_axes_y_font_color" class="settingColor" onchange="setAxesY();" onclick="if(this.className.indexOf('disabled') == -1) LayerWin.showColorPopup(document, this, 'background', 'chart_color', 45, -260);"></a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </fieldset>
+                                </td>
+                                <td width="31%" style="*height:140px;">
+                                    <fieldset class="ulc">
+                                        <legend id="span_legend">범례</legend>
+                                        <table cellpadding="0" cellspacing="0" class="chartSet">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="35%"><label for="chart_legend_position" id="label_legend_position">위치 : </label></td>
+                                                    <td width="65%"><select id="chart_legend_position" style="width: 100px;" onchange="setLegend();"></select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="35%"><label for="chart_legend_font_family" id="label_legend_family">글꼴 : </label></td>
+                                                    <td width="65%" class="fontFamily"><select id="chart_legend_font_family" style="width: 100px;" onchange="setLegend();" onmousedown="return openFontFamily(this);"><option value=""></option></select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="35%"><label for="chart_legend_font_size" id="label_legend_size">크기 : </label></td>
+                                                    <td width="65%"><input id="chart_legend_font_size" type="text" style="width:70%" class="con_input" onchange="setLegend();" onkeydown="LayerWin.onlyNumber(event);">px</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="35%"><label for="chart_legend_font_style" id="label_legend_style">스타일 : </label></td>
+                                                    <td width="65%" id="chart_legend_font_style" class="settingStyle"><a href="javascript:void(0);" id="chart_legend_font_bold" style="font-weight:bold" onclick="setStyle(this);" title="굵게">B</a><a href="javascript:void(0);" id="chart_legend_font_italic" style="font-style:italic;text-indent:-4px;" onclick="setStyle(this);" title="이탤릭">I</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="35%"><label for="chart_legend_font_color" id="label_legend_color">색상 : </label></td>
+                                                    <td width="65%"><a id="chart_legend_font_color" class="settingColor" href="javascript:void(0);" onchange="setLegend();" onclick="if(this.className.indexOf('disabled') == -1) LayerWin.showColorPopup(document, this, 'background', 'chart_color', -60, -160);"></a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </fieldset>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- // Form tap -->
+        <!-- Preview tap  -->
+        <div class="EdiTor_Popup_contents none" id="tab_5">
+            <div class="con_btn">
+                <a href="javascript:popup_toggle(0);" class="off"><span id="span_first_tab_5"></span></a>
+                <a href="javascript:popup_toggle(1);" class="off" id="a_secon_tab_5"><span id="span_secon_tab_5"></span></a>
+                <a href="javascript:popup_toggle(2);" class="off"><span id="span_third_tab_5"></span></a>
+                <a href="javascript:popup_toggle(3);" class="off"><span id="span_fourth_tab_5"></span></a>
+                <a href="javascript:void(0);" class="on"><span id="span_fifth_tab_5"></span></a>
+            </div>
+            <script type="text/javascript">
+                document.write('<div id="contents_tab_2" class="contents" style="height: ' + custom_height + '; overflow: view;">');
+            </script>
+                <div class="con" style="height:100%; text-align:center;">
+                    <span style="display:inline-block; height:100%; vertical-align:middle;"></span><img style="vertical-align:middle;" id="preview" />
+                </div>
+            </div>
+        </div>
+        <!-- // Preview tap -->
+    <!-- // Contents -->
+    <!-- Footer -->
+    <div class="EdiTor_Popup_footer">
+        <span id="dext_loading" style="display:none;"><img src="../images/editor/dialog/loading.gif" alt="working" style="vertical-align:middle; " /> Processing... </span>
+        <a href="javascript:void(0);" style="cursor:pointer;" class="confirm" id="btn_ok_a"><span id="btn_ok">확인</span></a>
+        <a href="javascript:event_dext_close();" class="cancel" id="abtn_cancel"><span id="btn_cancel">취소</span></a>
+    </div>
+    <!-- // Footer -->
+    </div>
+    <select id="font_family_select" style="display:none; position:absolute; z-index:200; width:100px; height:20px;"></select>
+</body>
+</html>

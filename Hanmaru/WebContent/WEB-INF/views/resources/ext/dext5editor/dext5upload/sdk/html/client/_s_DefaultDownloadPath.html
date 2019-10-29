@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">              
+    <span class="pl_type">[플러그인 전용]</span>   
+    <h3 class="title">DEXT5 Upload :: DefaultDownloadPath</h3>
+    <p class="ttl">XML : &#60;default_download_path&#62;.....&#60;/default_download_path&#62;, Config : config.DefaultDownloadPath</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        다운로드 시 저장경로를 설정합니다. 
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        <b>1. 경로 앞에 "*"를 붙이면 강제로 특정폴더에 자동으로 저장됩니다.</b><br/>
+        -> "*" 뒤에 "폴더"로 지정된 폴더가 생성되지 않는 경우 "*"는 무시됩니다<br />
+        예) "*D:\Temp"<br /><br />
+
+        <b>2. 경로 앞에 "+"를 붙이면 지정된 특정폴더의 하위 폴더에만 저장할 수 있습니다.</b><br />
+        -> "+" 뒤에 "폴더"로 지정된 폴더가 생성되지 않는 경우 "+"는 무시됩니다.<br />
+        예) "+D:\Temp"<br /><br />
+
+        <b>3."*" 또는 "+" 없이 경로를 입력하면 사용자가 기본저장 폴더를 설정하지 않은 경우에 적용 됩니다.</b><br />
+        예) "D:\Temp"<br />
+        ** 사용자가 기본저장 폴더를 설정하는 방법은 업로드영역에서 우클릭 -> 설정을 클릭 하시고<br />
+        &nbsp;&nbsp;&nbsp;찾아보기 버튼으로 경로를 설정 할 수 있습니다.<br />
+        &nbsp;&nbsp;&nbsp;경로를 설정하면 다운로드 시 저장경로를 묻지 않고 바로 저장됩니다<br /><br />
+
+        <b>4. 폴더 선택 창을 강제로 열고자 하는 경우 위의 2, 3번 내용에 앞에 "|"를 붙이면 됩니다.</b><br />
+        예) "|"<br />
+        -> "바탕화면"을 기본 저장위치로 하고 강제로 선택 창이 열립니다.<br />
+        예) "|D:\"<br />
+        -> "폴더" 생성에 실패하는 경우 "바탕화면"을 기본으로 하고, 성공하는 경우 해당 "폴더"가 초기 폴더로 설정되어서 강제로 선택 창이 열립니다.<br />
+        예) "|+D:\"<br />
+        -> "+" 뒤에 지정된 "폴더"의 하위만 선택 가능한 강제로 선택 창이 열리며, "폴더"를 생성하지 못하는 경우 "+"는 무시되고 "|"처럼 동작합니다.<br /><br />
+
+        <b>5. 경로 앞에 "#"을 붙이면 (파일 저장 다이얼로그) 파일의 개수와 상관없이 파일 저장 창이 열립니다.</b><br />
+        -> "#" 뒤에 "폴더"로 지정된 폴더가 생성되지 않는 경우 "바탕화면"을 기본으로 하여 파일 저장 다이얼로그가 열립니다.<br />
+        예) "#D:\Temp"<br /><br />
+
+        <b>6. 저장 위치를 항상 지정하고자 하는 경우 위의 2, 3번 내용에 앞에 "@"를 붙이면 됩니다.</b><br />
+        예) "@"<br />
+        -> "바탕화면"이 기본 저장위치로 설정됩니다.<br />
+        예) "@D:\"<br />
+        -> "폴더" 생성에 실패하는 경우 "바탕화면"을 기본으로 하고, 성공하는 경우 해당 "폴더"가 초기 폴더로 설정됩니다.<br />
+        예) "@+D:\"<br />
+        -> "+" 뒤에 지정된 "폴더"의 하위만 선택 가능한 선택 창이 열리며, "폴더"를 생성하지 못하는 경우 "+"는 무시되고 "@"처럼 동작합니다.<br /><br />
+
+        <b>7. "-" 값 입력 시 설정한 defaultDownloadPath가 삭제 됩니다.</b><br />
+        -> "바탕화면"이 기본폴더로 설정됩니다.<br />
+        예) "-"<br /><br />
+
+        <b>8. Window Special Folder 설정 방법</b><br />
+        Window Special Folder로 다운로드 경로를 지정하고 싶은 경우 아래와 같이 값을 입력 하시면 됩니다.<br />
+
+        1) "1001" : %USERPROFILE% (%SystemDrive%\Users\%USERNAME%) 또는 %USERPROFILE% (%SystemDrive%\Documents and Settings\%USERNAME%)<br />
+        2) "1002" : %USERPROFILE%\Desktop<br />
+        3) "1003" : %USERPROFILE%\Documents<br />
+        4) "1004" : %USERPROFILE%\Downloads<br />
+        5) "1005" : %USERPROFILE%\Favorites<br />
+        6) "1006" : %USERPROFILE%\Music<br />
+        7) "1007" : %USERPROFILE%\AppData\Local<br />
+        사용 예) desktop으로 강제로 다운로드 설정 하고 싶은 경우 값을 "*1002" 와 같은 형태로 설정 하시면 됩니다.
+
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>다운로드 시 저장경로를 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;default_download_path&#62;D:\\temp&#60;/default_download_path&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        DEXT5UPLOAD.config.DefaultDownloadPath  = 'D:\\temp';
+
+        new Dext5Upload("upload1");
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

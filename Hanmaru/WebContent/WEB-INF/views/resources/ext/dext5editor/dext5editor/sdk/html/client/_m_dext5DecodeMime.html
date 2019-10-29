@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">
+    <span class="pl_type">[플러그인 전용]</span>               
+    <h3 class="title">DEXT5 Editor :: dext5DecodeMime</h3>
+    <p class="ttl">string dext5DecodeMime(mimeData)</p>
+    <p class="txt">
+        mimeData를 decode합니다.<br />
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        정상 완료 시 디코딩 소스를 오류 시 "0"을 리턴합니다.<br/>
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">mimeData</span>&nbsp;&nbsp;디코딩할 mimeData입니다.<br />
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        에디터 설정파일(dext5editor/config/dext_editor.xml)의 <b>mime_use 설정값이 "1"</b> 이어야 합니다.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+
+    function decodeMime() {
+        // id가 editor1인 에디터 디자인 영역의 html소스를 mime형태로 변환합니다.
+        var html = DEXT5.getBodyValue('editor1');
+        var mimedata = DEXT5.dext5EncodeMime(html, 0);
+            
+        // 변환된 mimeData를 다시 decode합니다.
+        var decodeHtml = DEXT5.dext5DecodeMime(mimedata);
+    }
+
+&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;  
+ 
+    &lt;!-- 에디터 생성 --&gt;
+    &#60;script type="text/javascript"&#62;
+        new Dext5editor('editor1');
+    &#60;/script&#62;  
+     
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

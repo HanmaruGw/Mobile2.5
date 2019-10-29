@@ -1,0 +1,137 @@
+<div class="settingsContainer" ng-controller="settingController">
+	<!-- 헤더바 -->
+	<div class="headerBar settingsHeaderBar">
+		<div class="headerBarMenu settingsBarMenu" ng-click="slideMenuClick()">
+			<img src="/resources/image/ic-menu-w.png">
+		</div>
+		<div class="headerBarTitle settingsHeaderTitle">
+			<span>{{translateLanguage('setting')}}</span>
+		</div>
+		<div class="headerBarMove approval_attach">
+		
+		</div>
+		<div class="headerBarSearch approval_search">
+			
+		</div>
+		<!-- <div class="headerUnderBar"></div> -->
+	</div>
+	<div class="settingDivWrapper">
+	<div class="settingsSelectDiv">
+		<div class="settingsSelectContents">
+			<div class="settingsSelectLang" ng-click="btnLanguageSetting()">
+				<div class="settingsTypeWrap">
+					<img src="/resources/image/icon/ic-language.png">
+					<span>{{translateLanguage('language_setting')}}</span>
+				</div>
+				<div class="settingsLang">
+					<a class="settingsLangLabel">
+						<span>{{myLanguageName}}</span>
+						<img src="/resources/image/ic-arrow-right-2.png" class="detailSettingsContents">
+					</a>
+				</div>
+			</div>
+			<div class="settingsSelectCompany" ng-click="btnCompanySetting()">
+				<div class="settingsTypeWrap">
+					<img src="/resources/image/icon/ic-company.png">
+					<span>{{translateLanguage('company_setting')}}</span>
+				</div>
+				<div class="settingsCompany">
+					<a class="settingsCompanyLabel">
+						<span>{{myCompanyName}}</span>
+						<img src="/resources/image/ic-arrow-right-2.png" class="detailSettingsContents">
+					</a>
+				</div>
+			</div>
+			<div class="settingsSelectView"  ng-click="btnMainpageSetting()">
+				<div class="settingsTypeWrap">
+					<img src="/resources/image/icon/ic-mainpage.png">
+					<span>{{translateLanguage('main_setting')}}</span>
+				</div>
+				<div class="settingsView">
+					<a class="settingsViewLabel">
+						<span>{{myMainpageName}}</span>
+						<img src="/resources/image/ic-arrow-right-2.png" class="detailSettingsContents">
+					</a>
+				</div>
+			</div>
+			<div class="simplePasswordContents" style="display:none">
+				<div class="settingsTypeWrap">
+					<img src="/resources/image/icon/ic-password.png">
+					<span>간편 비밀번호</span>
+				</div>
+				<div class="simplePasswordModify">
+					<a class="passwordModifyLabel">
+						<span>재설정</span>
+						<img src="/resources/image/ic-arrow-right-2.png" class="detailSettingsContents">
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--리스트-->
+	<div class="settingsCheckDiv">
+		<div class="noticeSettings">
+			<div class="noticeSettingsContents">
+				<span>{{translateLanguage('push_setting')}}</span>
+			</div>
+		</div>
+		<div class="approvalHandleNotice">
+			<div class="approvalHandleContents">
+				<span>{{translateLanguage('approval_push')}}</span>
+			</div>
+			<div class="settingsSelectBtn" ng-click="btnApprovalPush()">
+				<img src="/resources/image/select-on.png" ng-if="approvalPush == true">
+				<img src="/resources/image/select-off.png" ng-if="approvalPush == false">
+			</div>
+		</div>
+		<div class="receiveMailNotice">
+			<div class="receiveMailContents">
+				<span>{{translateLanguage('approval_cc_push')}}</span>
+			</div>
+			<div class="settingsSelectBtn" ng-click="btnDocumentPush()">
+				<img src="/resources/image/select-on.png" ng-if="documentPush == true">
+				<img src="/resources/image/select-off.png" ng-if="documentPush == false">
+			</div>
+		</div>
+		<!-- <div class="scheduleNotice">
+			<div class="scheduleNoticeContents">
+				<span>{{translateLanguage('work_schedule_push')}}</span>
+			</div>
+			<div class="settingsSelectBtn" ng-click="btnSchedulePush()">
+				<img src="/resources/image/select-on.png" ng-if="schedulePush == true">
+				<img src="/resources/image/select-off.png" ng-if="schedulePush == false">
+			</div>
+		</div>
+		<div class="workNoitce">
+			<div class="workNoitceContents">
+				<span>{{translateLanguage('work_task_push')}}</span>
+			</div>
+			<div class="settingsSelectBtn" ng-click="btnWorkPush()">
+				<img src="/resources/image/select-on.png" ng-if="workPush == true">
+				<img src="/resources/image/select-off.png" ng-if="workPush == false">
+			</div>
+		</div>
+		<div class="reportNotice">
+			<div class="reportNoticeContents">
+				<span>{{translateLanguage('work_report_push')}}</span>
+			</div>
+			<div class="settingsSelectBtn" ng-click="btnReportPush()">
+				<img src="/resources/image/select-on.png" ng-if="reportPush == true">
+				<img src="/resources/image/select-off.png" ng-if="reportPush == false">
+			</div>
+		</div> -->
+		<div class="appVersionSettings">
+			<span>Version : {{appVersion}}</span>
+		</div>
+		
+	</div>		
+	</div>
+	
+	
+	<!--로그아웃-->
+	<div class="settingsLogoutBtn" ng-click="btnDoLogout()">
+		<span>{{translateLanguage('logout')}}</span>
+	</div>
+	
+	
+</div>

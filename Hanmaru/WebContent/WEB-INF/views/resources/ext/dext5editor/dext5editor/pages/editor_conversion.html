@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Conversion</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+     
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+        
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.conversionJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script>
+        function page_loaded_event() {
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+            document.getElementById("dext_dialog_box").className = 'DEXT_fiVe_ED_Popup_Type02 DEXT_fiVe_PUi_' + _skin_name;
+
+            var span_title = document.getElementById("span_title");
+            var source_title = document.getElementById("source_title");
+            var target_title = document.getElementById("target_title");
+            var KtoE_title = document.getElementById("KtoE_title");
+            var EtoK_title = document.getElementById("EtoK_title")
+            var msg = document.getElementById("msg");
+            var sapn_btn_ok = document.getElementById("span_btn_ok");
+            var span_btn_cancel = document.getElementById("span_btn_cancel");
+
+            var Range = LayerWin.getFirstRange();
+            var selObjectText = Range.range;
+
+            if (selObjectText == null || selObjectText.toString().length == 0 || selObjectText == undefined) {
+                selObjectText = LayerWin._dext_editor._LastRange;
+            }
+
+            if (selObjectText != null) {
+                try {
+                    if (selObjectText.toString && selObjectText.toString().length > 0) {
+                        sourceContent.value = selObjectText;
+                    } else if (selObjectText.text && selObjectText.text().length > 0) {
+                        sourceContent.value = selObjectText;
+                    }
+                } catch (e) {
+                    sourceContent.value = ""; // selObjectText.text;
+                }
+            }
+            convert();
+
+            var btn_ok = document.getElementById("btn_ok");
+            DEXTTOP.DEXT5.util.addEvent(btn_ok, 'click', function () {
+                dext_create_conversion();
+            });
+
+            span_title.innerHTML = LayerWin.dext5_lang.conversion.span_title;
+            source_title.innerHTML = LayerWin.dext5_lang.conversion.source_title;
+            target_title.innerHTML = LayerWin.dext5_lang.conversion.target_title;
+            KtoE_title.innerHTML = LayerWin.dext5_lang.conversion.KtoE_title;
+            EtoK_title.innerHTML = LayerWin.dext5_lang.conversion.EtoK_title;
+            msg.innerHTML = LayerWin.dext5_lang.conversion.msg;
+            sapn_btn_ok.innerHTML = LayerWin.dext5_lang.conversion.ok;
+            span_btn_cancel.innerHTML = LayerWin.dext5_lang.conversion.cancel;
+
+            var firstFocus = document.getElementById('sourceContent');
+            setCursorPos(firstFocus, true, false);
+            LayerWin.setFocusFirstAndLast(document, firstFocus);
+        }
+
+        function convert() {
+            doConvert(checkValue(), sourceContent, targetContent);
+        }
+
+        function checkValue() {
+            if (EtoK.checked) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+    </script>
+
+</head>
+<body style="margin:0px; padding:0px;" onload="page_loaded_event()">
+    <div class="DEXT_fiVe_ED_Popup_Type02 DEXT_fiVe_PUi_blue" id="dext_dialog_box">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title"></span><span class="text">DEXT5 Editor</span>
+            <div class="close">
+                <a href="javascript:event_dext_close();" title="close"></a>
+            </div>
+        </div>
+        <!-- Header -->
+        <!-- Contents / general -->
+        <div class="EdiTor_Popup_contents view">
+            <div class="contents" style="height: 180px;">
+                <div class="con">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="width:80px; height:auto">
+                                <span id="source_title"></span>
+                            </td>
+                            <td style="width:380px; height:auto">
+                                <textarea id="sourceContent" style="width:350px;height:50px;" onkeyup="convert();"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="radio" name="translate" id="EtoK" value="true" checked="checked" onclick="this.blur()" onchange="convert();" /> <label id="EtoK_title" for="EtoK"></label>
+                            </td>
+                            <td>
+                                <input type="radio" name="translate" id="KtoE" value="false" onclick="this.blur()" onchange="convert();" /> <label id="KtoE_title" for="KtoE"></label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="con">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="width:80px; height:auto">
+                                <span id="target_title"></span>
+                            </td>
+                            <td style="width:380px; height:auto">
+                                <textarea id="targetContent" style="width:350px;height:50px;" readonly></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="vertical-align:bottom;">
+                                <span id="msg" style="color:red;"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a href="javascript:void(0);" class="confirm" id="btn_ok"><span id="span_btn_ok"></span></a>
+            <a href="javascript:event_dext_close();" class="cancel" id="btn_cancel"><span id="span_btn_cancel"></span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

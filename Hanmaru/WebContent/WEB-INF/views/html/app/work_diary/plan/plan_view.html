@@ -1,0 +1,52 @@
+<div class="workDiaryContainer" ng-controller="planViewController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarMenu"  ng-click="popPage('pg_plan_view')">
+			<img src="/resources/image/ic-arrow-left.png">
+		</div>
+		<div class="headerBarTitle planBarTitle">
+			<span>{{translateLanguage('work_plan_list')}}</span>
+		</div>
+		<!-- <div class="headerBarMove">
+			<img src="/resources/image/ic-arrow-bottom.png">
+		</div>
+		<div class="headerBarMove">
+			<img src="/resources/image/ic-arrow-top.png">
+		</div> -->
+		<div class="headerUnderBar"></div>
+	</div>
+	
+	<div class="planViewDiv">
+		<div class="planViewTitle">
+			<div class="planViewTitleLabel">{{planDetailData.Title}}</div>
+			<!-- <div class="icReportViewContents">
+				<span class="ic_report_has_unread"></span>
+			</div> -->
+		</div>
+		<div class="planViewInfo">
+			<div class="planInfoContentsWriter">
+				<span class="planInfoWriterLabel">{{translateLanguage('reg_user_name')}}</span>
+				<span class="planInfoWriterName">{{planDetailData.CreateUser.DisplayName}}</span>
+			</div>
+			<div class="planInfoContentsSharer">
+				<span class="planInfoSharerLabel">{{translateLanguage('work_share_users')}}</span>
+				<div class="planInfoSharerWrap">
+					<span class="planInfoSharerName" ng-repeat="shareUser in planDetailData.ShareUser">{{shareUser.DisplayName}}</span>
+				</div>
+			</div>
+		</div>
+		<div class="planViewContentsWrap">
+			<div class="planViewContentsDiv">
+				<iframe class="planViewContents" width="100%" height="100%" frameborder=0 ng-src="{{bodyUrl}}"  border="no" maginwidth="0" marginheight="0" frameborder="0" ></iframe>
+			</div>
+		</div>
+	</div>
+	<div class="planViewFooterDiv">
+		<div class="planViewModify" ng-click="planModify()">
+			<span>{{translateLanguage('modify')}}</span>
+		</div>
+		<div class="planViewDelete" ng-click="planDelete()">
+			<span>{{translateLanguage('remove')}}</span>
+		</div>
+	</div>
+</div>

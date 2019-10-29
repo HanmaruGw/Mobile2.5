@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: TableClassList</h3>
+    <p class="ttl">XML : &#60;class_list&#62;.....&#60;/class_list&#62;<br />Config : config.TableClassList</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        테이블에 지정 가능한 class명을 설정합니다. 
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        콤마(,)로 구분하여 설정합니다.
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+<b>테이블에 지정 가능한 class명을 "tableClass"로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;table_property&#62;
+        .....
+        &#60;class_list&#62;tableClass&#60;/class_list&#62;
+        .....
+    &#60;/table_property&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+ 
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;  
+    &#60;script type="text/javascript"&#62;
+
+        DEXT5.config.TableClassList = "tableClass";
+
+        new Dext5editor("editor1");
+
+    &#60;/script&#62;       
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

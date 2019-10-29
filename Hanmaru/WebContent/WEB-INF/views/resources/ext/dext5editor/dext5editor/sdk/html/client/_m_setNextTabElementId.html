@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: setNextTabElementId</h3>
+    <p class="ttl">void setNextTabElementId(strId, editor_id)</p>
+    <p class="txt">
+        포커스를 줄 객체 아이디를 설정 하고 tab키를 입력하면 마지막 포커스가 설정한 아이디로 이동합니다. 
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        없음.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">strId   </span>&nbsp;&nbsp;포커스 줄 객체 아이디를 의미합니다.<br />
+        <span class="firebrick">editor_id</span>&nbsp;&nbsp;접근할 에디터의 id를 의미합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        에디터에서 tab 사용으로 마지막 포커스가 설정한 아이디로 이동하고 싶을 때 유용합니다.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+
+    function setNextTabElementId(){
+        // 에디터에서 tab키 사용으로 마지막 포커스를 설정한 ID로 이동합니다.
+        DEXT5.setNextTabElementId('title');
+    }
+
+&#60;/script&#62;	
+
+&#60;input type="text" name="title" id="title" value="" /&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:900px;height:550px"&#62;  
+
+    &#60;!-- 에디터 생성 --&#62;  
+    &#60;script type="text/javascript"&#62;
+        new Dext5editor('editor1');
+    &#60;/script&#62;
+
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

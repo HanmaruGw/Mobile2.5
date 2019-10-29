@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Layout</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var _iframeWin = LayerWin.getIframeWin();
+        var _iframeDoc = LayerWin.getIframeDoc();
+
+        function page_loaded_event() {
+
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+
+            document.getElementById('btn_ok').innerHTML = LayerWin.dext5_lang.ok_cancel.ok;
+            document.getElementById('btn_cancel').innerHTML = LayerWin.dext5_lang.ok_cancel.cancel;
+            document.getElementById('span_title').innerHTML = LayerWin.dext5_lang.layout.title;
+            document.getElementById("dext_dialog_box").className = 'DEXT_fiVe_ED_Popup_Type03 DEXT_fiVe_PUi_' + _skin_name;
+
+            var btn_ok_a = document.getElementById('btn_ok_a');
+            DEXTTOP.DEXT5.util.addEvent(btn_ok_a, 'click', function () { layout_validate(); });
+
+            var temp_dbclick_action = function (evt) {
+                var click_cell = LayerWin.getClickCell(evt, 'td');
+                for (var i in click_cell.childNodes) {
+                    if (click_cell.childNodes[i].nodeType == 1) {
+                        layout_validate();
+                        break;
+                    }
+                }
+            };
+            var temp_table = document.getElementById('temp_table');
+            DEXTTOP.DEXT5.util.addEvent(temp_table, 'dblclick', temp_dbclick_action);
+
+            setCursorPos(temp_table, true, false);
+            LayerWin.setFocusFirstAndLast(document, document.getElementById('temp_table'));
+        }
+
+        function layout_validate() {
+
+            var select_tem = LayerWin.getElementsByClass('con_te_on_btn', document);
+            var layout_tem;
+            if (select_tem.length == 1) {
+                layout_tem = select_tem[0].getElementsByTagName("span")[0].className;
+            }
+            setLayout(layout_tem);
+        }
+
+        function fnLayoutTemplateClickAction(obj) {
+            var _td_array = LayerWin.getElementsByClass('con_te_on_btn', document);
+
+            for (var i = 0; i < _td_array.length; i++) {
+                _td_array[i].className = 'con_te_btn';
+            }
+
+            obj.className = 'con_te_on_btn';
+        }
+    </script>
+</head>
+<body style="margin:0px; padding:0px; " onload="page_loaded_event();">
+    <div id="dext_dialog_box" class="">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span id="span_title" class="subject"></span><span class="text">Dext5 Editor</span>
+            <div class="close">
+                <a href="javascript:event_dext_close();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / Layout  -->
+        <div class="EdiTor_Popup_contents view">
+            <div class="contents">
+                <div class="con con_th">
+                    <table cellpadding="0" cellspacing="0" id="temp_table">
+                        <tr>
+                            <td width="25%" class="con_te_on_btn" onclick="javascript:fnLayoutTemplateClickAction(this);">
+                                <a href="javascript:void(0);"><span class="te01"></span></a>
+                            </td>
+                            <td width="25%" class="con_te_btn" onclick="javascript:fnLayoutTemplateClickAction(this);">
+                                <a href="javascript:void(0);"><span class="te02"></span></a>
+                            </td>
+                            <td width="25%" class="con_te_btn" onclick="javascript:fnLayoutTemplateClickAction(this);">
+                                <a href="javascript:void(0);"><span class="te03"></span></a>
+                            </td>
+                            <td width="25%" class="con_te_btn" onclick="javascript:fnLayoutTemplateClickAction(this);">
+                                <a href="javascript:void(0);"><span class="te04"></span></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="25%" class="con_te_btn" onclick="javascript:fnLayoutTemplateClickAction(this);">
+                                <a href="javascript:void(0);"><span class="te05"></span></a>
+                            </td>
+                            <td width="25%" class="con_te_btn" onclick="javascript:fnLayoutTemplateClickAction(this);">
+                                <a href="javascript:void(0);"><span class="te06"></span></a>
+                            </td>
+                            <td width="25%" class="con_te_btn" onclick="javascript:fnLayoutTemplateClickAction(this);">
+                                <a href="javascript:void(0);"><span class="te07"></span></a>
+                            </td>
+                            <td width="25%" class="con_te_btn" onclick="javascript:fnLayoutTemplateClickAction(this);">
+                                <a href="javascript:void(0);"><span class="te08"></span></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="25%" class="con_te_btn" onclick="javascript:fnLayoutTemplateClickAction(this);">
+                                <a href="javascript:void(0);"><span class="te09"></span></a>
+                            </td>
+                            <td width="25%" class="con_te_btn" onclick="javascript:fnLayoutTemplateClickAction(this);">
+                                <a href="javascript:void(0);"><span class="te10"></span></a>
+                            </td>
+                            <td width="25%" class="con_te_btn" onclick="javascript:fnLayoutTemplateClickAction(this);">
+                                <a href="javascript:void(0);"><span class="te11"></span></a>
+                            </td>
+                            <td width="25%" class="con_te_btn" onclick="javascript:fnLayoutTemplateClickAction(this);">
+                                <a href="javascript:void(0);"><span class="te12"></span></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="25%" class="con_te_btn" onclick="javascript:fnLayoutTemplateClickAction(this);">
+                                <a href="javascript:void(0);"><span class="te13"></span></a>
+                            </td>
+                            <td width="25%" class="con_te_btn" onclick="javascript:fnLayoutTemplateClickAction(this);">
+                                <a href="javascript:void(0);"><span class="te14"></span></a>
+                            </td>
+                            <td width="25%" class="con_te_btn" onclick="javascript:fnLayoutTemplateClickAction(this);">
+                                <a href="javascript:void(0);"><span class="te15"></span></a>
+                            </td>
+                            <td width="25%" class="con_te_btn" onclick="javascript:fnLayoutTemplateClickAction(this);">
+                                <a href="javascript:void(0);"><span class="te16"></span></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a href="javascript:void(0);" class="confirm" id="btn_ok_a"><span id="btn_ok"></span></a>
+            <a href="javascript:event_dext_close();" class="cancel" id="abtn_cancel"><span id="btn_cancel"></span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

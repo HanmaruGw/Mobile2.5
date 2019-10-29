@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- component scan : @Controller 어노테이션 스캔, 등록한다. -->
+	<context:component-scan base-package="com.halla.hanmaru">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository" />
+	</context:component-scan>
+
+	<!-- @ModelAttribute("이름") 에 대한 get 파라미터형식으로의 변환 방지 -->
+	<mvc:annotation-driven ignore-default-model-on-redirect="true"/>
+	
+	<!-- 정적 리소스 접근에 대한 설정(css, js, img 등) -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**/*"/>
+			<bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+				<property name="cacheSeconds" value="0"/>
+				<property name="useExpiresHeader" value="true"/>
+				<property name="useCacheControlHeader" value="true"/>
+				<property name="useCacheControlNoStore" value="true"/>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<!-- 정적 리소스 접근 경로 설정, location 은 실제 위치임 -->
+	<!-- <mvc:resources mapping="/layout/**" location="/WEB-INF/views/layout" /> -->
+	<mvc:resources mapping="/resources/**" location="/WEB-INF/views/resources/" />
+	<mvc:resources mapping="/html/**" location="/WEB-INF/views/html/" />
+
+	<!-- View 설정 -->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="0"/>
+	</bean>
+	 
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/jsp/ directory -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/jsp" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="2"/>
+	</bean>
+
+	<!-- 다운로드 구현할 view 설정 -->
+	<bean id="download" class="com.halla.hanmaru.util.file.DownloadView"/>
+	<bean id="downloadDirResource" class="org.springframework.core.io.FileSystemResource">
+		<constructor-arg>
+			<value>C:\Workspace\EclipseProjects\Hanmaru\download\</value>
+		</constructor-arg>
+	</bean>	
+</beans>

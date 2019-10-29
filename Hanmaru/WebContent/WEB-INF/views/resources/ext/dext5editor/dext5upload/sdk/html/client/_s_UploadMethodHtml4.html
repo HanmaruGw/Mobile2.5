@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">               
+    <h3 class="title">DEXT5 Upload :: UploadMethodHtml4</h3>
+    <p class="ttl">XML : &#60;upload_method_html4&#62;.....&#60;/upload_method_html4&#62;<br />Config : config.UploadMethodHtml4<br /><br />XML : &#60;upload_method_html4 html4_limit_file_size="....."&#62;&#60;/upload_method_html4&#62;<br />Config : config.Html4LimitFileSize</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        <span class="txt">
+            <span class="firebrick">XML:upload_method_html4, Config:UploadMethodHtml4</span>&nbsp;&nbsp;HTML4환경에서 업로드모드를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:html4_limit_file_size, Config:Html4LimitFileSize</span>&nbsp;&nbsp;html4 모드인 경우 서버에서 개별 파일 Max Size Check 여부를 설정합니다. 
+        </span>
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">XML:upload_method_html4, Config:UploadMethodHtml4</span>&nbsp;&nbsp;기본값은 "1" html4모드이고, "0"으로 설정시 swf(플래시) 모드를 사용합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:html4_limit_file_size, Config:Html4LimitFileSize</span>&nbsp;&nbsp;기본값은 "0" 서버에서 개별 파일 Max Size Check를 하지 않고,<br />
+            <span style="padding-left:285px">"1"로 설정시 서버에서 개별 파일 Max Size Check함</span>
+        </span>
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>HTML4환경에서 업로드를 html4 모드로 설정하고, 서버에서 개별 파일 Max Size Check 여부를 check로 설정 합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;uploader_setting&#62;
+    .....
+    &#60;upload_method_html4 html4_limit_file_size="1"&#62;1&#60;/upload_method_html4&#62;
+    .....
+&#60;/uploader_setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        DEXT5UPLOAD.config.UploadMethodHtml4 = '1';
+        DEXT5UPLOAD.config.Html4LimitFileSize = '1';
+
+        new Dext5Upload("upload1");
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

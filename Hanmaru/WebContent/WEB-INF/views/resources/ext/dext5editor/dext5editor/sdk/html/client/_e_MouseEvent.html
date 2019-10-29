@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title nline">DEXT5 Editor :: dext_mouse_event</h3>
+    <p class="ttl">void dext_mouse_event(eventType, event, currentElement)</p>
+    <p class="txt">
+        에디터 작성영역에서 마우스이벤트가 발생했을 경우 발생합니다.
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        없음.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">eventType</span>&nbsp;&nbsp;발생한 마우스이벤트의 종류입니다.<br />
+        <span class="firebrick">event</span>&nbsp;&nbsp;발생한 마우스이벤트입니다.<br />
+        <span class="firebrick">currentElement</span>&nbsp;&nbsp;마우스이벤트가 발생한 요소입니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        에디터의 설정파일(dext5editor/config/dext_editor.xml)의 return_event 설정의 mouse_event 속성값이 1인 경우에 이벤트가 발생합니다.<br />
+        마우스이벤트 종류에 따른 eventType값은 다음과 같습니다.<br />
+        click이벤트 - eventType 값은 "click"<br />
+        contextmenu이벤트 - eventType 값은 "contextmenu"<br />
+        dblclick이벤트 - eventType 값은 "dblclick"<br />
+        mousedown이벤트 - eventType 값은 "mousedown"<br />
+        mouseup이벤트 - eventType 값은 "mouseup"<br />
+        mousemove이벤트 - eventType 값은 "mousemove"
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;
+&#60;script type="text/javascript"&#62;
+
+    function dext_mouse_event(eventType, event, currentElement) {
+        // work something ...
+    }
+
+&#60;/script&#62; 	
+&#60;/head&#62;
+&#60;body&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:900px;height:550px"&#62;  
+
+    &#60;script type="text/javascript"&#62;
+        new Dext5editor("editor1");
+    &#60;/script&#62;        
+
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Upload :: SetSkinColor</h3>
+    <p class="ttl">void SetSkinColor(strColor1, strColor2, strColor3, strColor4, uploadID)</p>
+    <p class="txt">
+        DEXT5UPLOAD의 색상을 사용자가 원하는 색상으로 설정합니다.
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        없음. 
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">uploadID</span>&nbsp;&nbsp;실행할 업로드의 id를 의미합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        <span class="firebrick">strColor1</span>&nbsp;&nbsp;업로드창(상단/ 하단/ 하단 버튼 바탕색)<br/>
+        <span class="firebrick">strColor2</span>&nbsp;&nbsp;업로드창(상단/ 하단 버튼 텍스트 색)<br />
+        <span class="firebrick">strColor3</span>&nbsp;&nbsp;전송창(상단/ 전체 전송률/ 전송 용량률/ 취소 버튼 바탕색)<br />
+        <span class="firebrick">strColor4</span>&nbsp;&nbsp;전송창(상단/ 취소 버튼 텍스트 색)<br />
+        #을 포함한 hex값으로 입력합니다.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+       function setSkinColor() {
+            DEXT5UPLOAD.SetSkinColor("#ff0000", "#f7f140", "#33e8f5", "#c2ffd0", "upload1");
+        }
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;button type="button" onclick="setSkinColor()"&#62;스킨 컬러&#60;/button&#62;
+
+&#60;div style="width:800px;height:200px"&#62;  
+        &#60;script type="text/javascript"&#62;
+            new Dext5Upload("upload1");
+        &#60;/script&#62;
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

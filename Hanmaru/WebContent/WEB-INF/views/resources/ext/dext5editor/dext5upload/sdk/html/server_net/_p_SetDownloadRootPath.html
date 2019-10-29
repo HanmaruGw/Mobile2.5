@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con">
+            <h3 class="title">DEXT5 Upload :: SetDownloadRootPath</h3>
+            <p class="ttl">upload.SetDownloadRootPath</p>
+            <p class="txt">
+                클라이언트에서 다운로드 또는 열기 경로 설정시 경로의 앞부분 일부를 서버에서 설정할 경우 사용합니다.
+                <br />다운로드 또는 열기의 모든 경로에 고정적으로 설정되므로 모든 파일의 경로가 동일할 경우 사용해야 합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                기본값 : 빈값
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+<b>Client</b>
+
+&#60;script type="text/javascript"&#62;
+    function DEXT5UPLOAD_OnCreationComplete(uploadID) {
+        // 실제 경로는 /download/전경사진.jpg 이라고 가정
+        DEXT5UPLOAD.AddUploadedFile('1', '전경사진.jpg', '/전경사진.jpg', '87325', '전경사진.jpg', 'dext5upload');
+    }
+&#60;/script&#62;
+
+<b>Server</b>
+
+Raonwiz.Dext5.UploadHandler upload = new Raonwiz.Dext5.UploadHandler();
+<b>upload.SetDownloadRootPath = "/download";</b>
+upload.Process(context);
+        </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

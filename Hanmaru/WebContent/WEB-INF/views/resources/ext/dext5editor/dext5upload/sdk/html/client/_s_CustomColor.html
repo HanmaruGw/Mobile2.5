@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Upload :: CustomHeaderColor, CustomFooterColor<br />DEXT5 Upload :: CustomProgressBarColor, CustomTextColor</h3>
+    <p class="ttl">XML : &#60;skin_name color1="....."&#62;&#60;/skin_name&#62;, Config : config.CustomHeaderColor<br />XML : &#60;skin_name color2="....."&#62;&#60;/skin_name&#62;, Config : config.CustomFooterColor<br />XML : &#60;skin_name color3="....."&#62;&#60;/skin_name&#62;, Config : config.CustomProgressBarColor<br />XML : &#60;skin_name text_color="....."&#62;&#60;/skin_name&#62;, Config : config.CustomTextColor<br/></p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        업로드 색상을 사용자가 원하는 색상으로 변경합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        <span class="txt"><span class="firebrick">CustomHeaderColor</span>&nbsp;&nbsp;업로드창 (상단/ 하단 / 하단 버튼 바탕색)을 설정합니다.</span><br/>
+        <span class="txt"><span class="firebrick">CustomFooterColor </span>&nbsp;&nbsp;업로드창 (상단 / 하단 버튼 텍스트색)을 설정합니다.</span><br />
+        <span class="txt"><span class="firebrick">CustomProgressBarColor</span>&nbsp;&nbsp;전송창(상단/ 전체 전송률/ 전송 용량률/ 취소 버튼 바탕색)을 설정합니다.</span><br />
+        <span class="txt"><span class="firebrick">CustomTextColor</span>&nbsp;&nbsp;전송창 (상단 / 하단 취소 버튼 텍스트 색)을 설정합니다.</span><br /><br />
+        <span class="txt"> #을 포함한 hex값으로 입력합니다.</span><br />
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>사용자가 원하는 색상으로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;skin_name color1="#ff0000" color2="#f7f140" color3="#33e8f5" text_color="#c2ffd0"&#62;.....&#60;/skin_name&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        DEXT5UPLOAD.config.CustomHeaderColor = '#ff0000';
+        DEXT5UPLOAD.config.CustomFooterColor = '#f7f140';
+        DEXT5UPLOAD.config.CustomProgressBarColor = '#33e8f5';
+        DEXT5UPLOAD.config.CustomTextColor = '#c2ffd0';
+
+        new Dext5Upload("upload1");
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

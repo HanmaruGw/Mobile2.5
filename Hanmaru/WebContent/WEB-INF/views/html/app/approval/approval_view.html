@@ -1,0 +1,157 @@
+<div class="approvalContainer" ng-controller="approvalDetailController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarBack" ng-click="popPage('pg_approval_view')">
+			<img src="/resources/image/approval/ic_back_normal.png">
+		</div>
+		<div class="headerBarTitle">
+			<span>{{displayName != undefined ? displayName : '결재함'}}</span>
+		</div>
+		<div class="headerBarMove approval_attach">
+			<img src="/resources/image/approval/ic_menu_attach_pressed.png" ng-if="approval.Files.length > 0" ng-click="toggleApprovalAttachDD()">
+		</div>
+		<div class="headerBarSearch approval_search">
+			
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	
+	<!--뷰-->
+	<div class="viewContentsTitle">
+		<!-- <div class="titleWrap">
+			<div class="titleLeft">
+				<span class="dataTitle">{{approval.Title}}</span>
+			</div>
+			<div class="titleRight" ng-click="toggleApprovalDetailDD($event)">
+				<img src="/resources/image/approval/ic_menu_arrow_top.png" ng-if="isApprovalDetailDDShow == true">
+				<img src="/resources/image/approval/ic_menu_arrow_bottom.png" ng-if="isApprovalDetailDDShow == false">
+			</div>
+		</div> -->
+		<div class="dropDownTitle" ng-show="isApprovalDetailDDShow == true">
+			<div class="dropDownContents">
+				<p class="doc_number"><span class="subject">문서번호</span>
+					<span>{{approval.DocKey}}</span>
+				</p>
+				<p class="security_level"><span class="subject">보안등급</span>
+					<span>{{approval.Security}}</span>
+				</p>
+				<p class="lifeTime">
+					<span class="subject">보존기간</span>
+					<span ng-if="approval.Period != 'Eternal'">{{(approval.Period | number) / 12}}년</span>
+				</p>
+				<p class="doc_category"><span class="subject">문서분류</span>
+					<span>{{approval.DocClassName}}</span>
+				</p>
+				<p class="doc_drafter"><span class="subject">기안자</span>
+					<span class="peopleName">{{approval.DisplayName}}</span>
+				</p>
+				<p class="doc_draft">
+					<span class="subject">기안일</span>
+					<span ng-if="userInfo.Lang == 'KOR'">{{approval.CreateDate | date:'yyyy년 MM월 dd일 EEEE a h:mm'}}</span>
+					<span ng-if="userInfo.Lang == 'ENG'">{{approval.CreateDate | date:'EEEE, MMMM dd, yyyy a h:mm'}}</span>
+					<span ng-if="userInfo.Lang == 'JPN'">{{approval.CreateDate | date:'EEEE, MMMM dd, yyyy a h:mm'}}</span>
+					<span ng-if="userInfo.Lang == 'CHN'">{{approval.CreateDate | date:'yyyy年M月dd日EEEE a h:mm'}}</span>
+					<span ng-if="userInfo.Lang == 'ETC'">{{approval.CreateDate | date:'EEEE, MMMM dd, yyyy a h:mm'}}</span>
+				</p>
+			</div>
+		</div>
+		
+		<div class="viewContentsDetail">
+			<img src="{{approval.BodyUrl}}" id="tmpApprovalBodyContents" style="display:none">
+			<div class="wrapBodyContents"></div>
+		</div>
+	</div>
+	
+	<!-- 첨부파일 -->
+	<div class="approvalAttachBg" ng-show="isApprovalAttachDDShow == true" ng-click="toggleApprovalAttachDD()"></div>
+	<div class="approvalAttachDialog" ng-show="isApprovalAttachDDShow == true">
+		<ul>
+			<li ng-repeat="file in approval.Files">
+				<div class="file_ext">
+					<img ng-src="/resources/image/extension/ic_file_{{file.FileName.split('.').pop().toLowerCase()}}.png">
+				</div>
+				
+				<div class="file_info">
+					<a ng-click="btnDownloadAttachFile(file.FileURL, file.FileName)">{{file.FileName}}</a>
+					<span class="txt_fileSize">{{getFileSizeUnit(file.FileSize)}}</span>
+				</div>
+			</li>
+		</ul>
+	</div>
+	
+	<!--결재현황-->
+	<div class="approvalDialogBg" ng-show="isApprovalStatusDDShow == true" ng-click="toggleApprovalStatusDD()"></div>
+	<div class="approvalDialog modalView" ng-show="isApprovalStatusDDShow == true">
+		<div class="dialog_topper">
+			<p>결재현황</p>
+			<img src="/resources/image/approval/ic_close_normal.png" ng-click="toggleApprovalStatusDD()">
+		</div>
+		
+		<div class="wrap_dialog_contents">
+			<div class="dialog_group">
+				<ul class="group_top">
+					<li>처리자</li>
+					<li>상태</li>
+					<li>결재일</li>
+					<li>개봉일</li>
+				</ul>
+			</div>
+			<div class="approvalDialogContents">
+				<div class="dialog_contents" ng-repeat="obj in approval.Process">
+					<ul class="group_contents">
+						<li>{{obj.Name}}</li>
+						<li>{{obj.Process}}</li>
+						<li>
+							<span ng-show="obj.CompleteDate.split('-')[0].length == 4">
+								{{obj.CompleteDate | date:'yyyy-MM-dd'}}
+								<span>{{obj.CompleteDate | date:'HH:mm:ss'}}</span>
+							</span>
+						</li>
+						<li>
+							<span ng-show="obj.CreateDate.split('-')[0].length == 4">
+								{{obj.CreateDate | date:'yyyy-MM-dd'}}
+								<span>{{obj.CreateDate | date:'HH:mm:ss'}}</span>
+							</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- 결재하기 -->
+	<div class="approvalProcessDialogBg" ng-show="isApprovalProcessDDShow == true" ng-click="toggleApprovalProcessDD()"></div>
+	<div class="approvalProcessDialog modalView" ng-show="isApprovalProcessDDShow == true">
+		<div class="dialog_topper process">
+			<p>결재</p>
+			<img src="/resources/image/approval/ic_close_normal.png" ng-click="toggleApprovalProcessDD()">
+		</div>
+		
+		<div class="wrap_dialog_contents approvalProcess">
+			<div class="approvalProcessDialogContents">
+				<textarea class="processApprovalOpinion" ng-model="processApprovalOpinion" ng-trim="true" placeholder="의견을 입력하여 주세요">테스트입니다.</textarea>
+			</div>
+			<div class="wrapApprovalProcessDialogBtn">
+				<a ng-show="processApprovalData.btnApproval == '1'" ng-click="btnProcessApproval('Approval')">승인</a>
+				<a ng-show="processApprovalData.btnBudgetControl == '1'" ng-click="btnProcessApproval('BudgetControl')">예산통제</a>
+				<a ng-show="processApprovalData.btnBudgetSupply == '1'" ng-click="btnProcessApproval('BudgetSupply')">추가예산</a>
+				<a ng-show="processApprovalData.btnAssess == '1'" ng-click="btnProcessApproval('Assess')">평가-정</a>
+				<a ng-show="processApprovalData.btnAgree == '1'" ng-click="btnProcessApproval('Agree')">합의</a>
+				<a ng-show="processApprovalData.btnAcceptDecide == '1'" ng-click="btnProcessApproval('AccpetDecide')">담당전결</a>
+				<a ng-show="processApprovalData.btnDiff == '1'" ng-click="btnProcessApproval('Diff')">불합의</a>
+				<a ng-show="processApprovalData.btnAgain == '1'" ng-click="btnProcessApproval('Again')">재검토</a>
+				<a ng-show="processApprovalData.btnReject == '1'" ng-click="btnProcessApproval('Reject')">반려</a>
+			</div>
+		</div>
+	</div>
+	
+	<div class="wrapBtnApproval">
+		<div class="btnApproval hide" ng-click="toggleApprovalProcessDD()">
+			<span>결재</span>
+		</div>
+		<div class="approvalState full" ng-click="toggleApprovalStatusDD()">
+			<span>결재현황</span>
+		</div>
+	</div>
+</div>

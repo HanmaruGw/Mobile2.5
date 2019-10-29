@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Upload :: UseLogoImage</h3>
+    <p class="ttl">XML : &#60;upload_transfer_window&#62;&#60;use_logo_image&#62;.....&#60;/use_logo_image&#62;&#60;/upload_transfer_window&#62;<br />XML : .....&#60;use_logo_image logo_path="....."&#62;&#60;/use_logo_image&#62;.....<br />XML : .....&#60;use_logo_image logo_ver="....."&#62;&#60;/use_logo_image&#62;.....</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        업로드 전송창 Logo를 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">use_logo_image</span>&nbsp;&nbsp;기본값은 "1" 이고, Logo 숨김 설정은 "0" 입니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">logo_path</span>&nbsp;&nbsp;Logo Image 경로를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">logo_ver</span>&nbsp;&nbsp;Logo Image 버전을 관리합니다.
+        </span>    
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>업로드 전송창 Logo를 사용으로 설정하고, Logo의 경로를 "http://www.dext5.com/image/logo.png"로 설정하고, Logo의 버전을 2로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;upload_transfer_window&#62;
+        .....
+        &#60;use_logo_image logo_path="http://www.dext5.com/image/logo.png" logo_ver="2"&#62;1&#60;/use_logo_image&#62;
+        .....
+    &#60;/upload_transfer_window&#62;
+    .....
+&#60;/setting&#62;
+.....
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

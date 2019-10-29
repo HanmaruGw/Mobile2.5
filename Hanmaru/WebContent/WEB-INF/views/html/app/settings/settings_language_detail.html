@@ -1,0 +1,30 @@
+<div class="settingsContainer" ng-controller="settingLanguageController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarBack">
+			<img src="/resources/image/ic-arrow-left.png" ng-click="popPage('pg_setting_language')">
+		</div>
+		<div class="headerBarTitle prevPageTitle">
+			<span>언어 설정</span>
+		</div>
+		<div class="headerBarClose" ng-click="setLanguage()">
+			<span>확인</span>
+		</div>
+		<div class="headerBarSearch approval_search">
+			
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	<div class="settingsLangWrap">
+		<span class="settingsLangTitle">{{translateLanguage('language_setting')}}</span>
+		<div class="settingsLangContainer">
+			<div class="settingsLangList" ng-repeat="language in languageList" ng-click="btnSelectLanguage($index)">
+				<span>{{language.name}}</span>
+				<img src="/resources/image/selectbox-circle-on.png" ng-show="curIdx == $index">
+				<img src="/resources/image/selectbox-circle-off.png" ng-show="curIdx != $index">
+			</div>
+		</div>
+		
+	</div>
+	
+</div>

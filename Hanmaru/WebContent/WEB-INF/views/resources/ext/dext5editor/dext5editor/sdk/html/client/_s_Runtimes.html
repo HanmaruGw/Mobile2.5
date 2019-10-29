@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: Runtimes</h3>
+    <p class="ttl">XML : &#60;runtimes&#62;.....&#60;/runtimes&#62;, Config : config.Runtimes</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        에디터 모드를 설정합니다.<br /> (웹표준모드, 플러그인모드 중 선택) 
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+    html5 설정 시 html5 모드가 우선 적용됩니다.<br />
+    ieplugin 설정 시 ieplugin 모드가 우선 적용되며, 지원되지 않는 브라우저는 html5 모드가 적용됩니다.(ie 전용 모드)<br />
+    versionieplugin 설정 시 적용한 버전 이하에서만 플러그인 모드로 적용됩니다.(ie 전용 모드)<br/>
+    예) 9ieplugin 으로 적용하면 ie9 이하 버전에서 플러그인 모드로 적용됩니다.<br />
+    예) "html5" or "ieplugin" or versionieplugin
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+<b>에디터를 ieplugin 모드로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    &#60;runtimes&#62;ieplugin&#60;/runtimes&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+ 
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;   
+    &#60;script type="text/javascript"&#62;
+
+        DEXT5.config.Runtimes = "ieplugin";
+
+        new Dext5editor("editor1");
+
+    &#60;/script&#62;       
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

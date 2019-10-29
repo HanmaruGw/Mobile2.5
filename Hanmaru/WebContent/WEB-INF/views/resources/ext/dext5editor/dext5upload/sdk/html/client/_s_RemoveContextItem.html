@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">               
+    <h3 class="title">DEXT5 Upload :: RemoveContextItem</h3>
+    <p class="ttl">XML : &#60;remove_context_item&#62;.....&#60;/remove_context_item&#62;, Config : config.RemoveContextItem</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        업로드 context menu(우 클릭 메뉴)에서 삭제 할 항목을 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        (공통)<br/> 파일추가 : add_file <br/> 선택된파일 제거 : remove_current_file <br /> 전체 파일 제거 : remove_all_file <br /> 열기 : open_current_file <br /> 선택된 파일 다운로드 : download_current_file <br /> 전체 다운로드 : download_all_file <br /> 맨 앞으로 : move_first <br /> 앞으로 : move_forward <br /> 뒤로 : move_backward <br /> 맨 뒤로 : move_end<br />
+        <br />(플러그인 전용) <br />폴더로 파일 추가 : add_files_from_folder <br /> 폴더추가 : add_folder <br /> 이미지 붙여넣기 : image_paste <br />다운로드 후 열기 : download_and_open <br />  인쇄 : print <br />설정 : setting <br /> <br />
+        항목 입력 구분자는 ",(콤마) " 입니다.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>context menu(우 클릭 메뉴)에서 add_file(파일추가) 항목을 삭제합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;remove_context_item&#62;add_file&#60;/remove_context_item&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        DEXT5UPLOAD.config.RemoveContextItem  = 'add_file';
+
+        new Dext5Upload("upload1");
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

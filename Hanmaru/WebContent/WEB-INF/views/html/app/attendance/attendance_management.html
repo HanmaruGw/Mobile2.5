@@ -1,0 +1,77 @@
+<div class="attendanceContainer" ng-controller="attendanceController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarMenu" ng-click="slideMenuClick()">
+			<img src="/resources/image/ic-menu.png">
+		</div>
+		<div class="headerBarTitle">
+			<span>{{translateLanguage('time')}}</span>
+		</div>
+		<!-- <div class="headerBarSearch workDiarySearch">
+			<img src="/resources/image/mail_ic-search.png">
+		</div> -->
+		<div class="headerBarSend workDiaryWrite">
+			
+		</div>
+		<div class="headerUnderBar "></div>
+	</div>
+	<div class="attendanceManagementDiv">
+		<div class="attendanceManagementContents">
+			<div class="attendanceManagementDate" ng-click="chooseSearchDate('start')">
+				<input type="text" readonly="readonly" class="txtDateSearch" ng-model="txtNowDate" ng-trim="true">
+			</div>
+			<div class="officeAttendanceTime">
+				<p>{{translateLanguage('time_start_time')}}</p>
+				<div class="attendanceTimeLabel"  ng-click="selectStartTime()">
+					<ul>
+						<li class="attendanceTimeBase">
+							<a class="attendanceSelectTime">{{txtStartTimeName}}</a>
+							<ul class="attendanceTimeList" ng-show="isStartTimeShow == true">
+								<li ng-repeat="time in timeList" ng-click="applyStartTime($index,time)">
+									<a ng-class="{'selected' : selectedStartTimeIdx == $index}">{{time.name}}</a>
+									<img src="/resources/image/ic_check_select.png" ng-show="selectedStartTimeIdx == $index">
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="officeQuittingTime">
+				<p>{{translateLanguage('time_end_time')}}</p>
+				<div class="quittingTimeLabel" ng-click="selectEndTime()">
+					<ul>
+						<li class="quittingTimeBase" >
+							<a class="quittingSelectTime">{{txtEndTimeName}}</a>
+							<ul class="quittingTimeList" ng-show="isEndTimeShow == true">
+								<li ng-repeat="time in timeList" ng-click="applyEndTime($index,time)">
+									<a ng-class="{'selected' : selectedEndTimeIdx == $index}">{{time.name}}</a>
+									<img src="/resources/image/ic_check_select.png" ng-show="selectedEndTimeIdx == $index">
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="attendanceCumulativeTime">
+			<span class="otCumulativeLabel">{{translateLanguage('time_ot_time')}}</span>
+			<div class="attendanceCumulativeWrap">
+				<div class="attendanceWeeklyTime">
+					<div class="weeklyTimeLabel">
+						<span>{{translateLanguage('time_week')}}</span>
+						<span>{{txtOTweek}}</span>
+					</div>
+				</div>
+				<div class="attendanceMonthlyTime">
+					<div class="monthlyTimeLabel">
+						<span>{{translateLanguage('time_month')}}</span>
+						<span>{{txtOTmonth}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="attendanceSaveBtn" ng-show="isShowAttendBtn == true" ng-click="btnSetAttend()">
+		<span>{{translateLanguage('save')}}</span>
+	</div>
+</div>

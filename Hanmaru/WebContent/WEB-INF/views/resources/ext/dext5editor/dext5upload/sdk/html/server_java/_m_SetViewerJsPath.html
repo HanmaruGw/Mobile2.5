@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con ">
+            <h3 class="title">DEXT5 Upload :: SetViewerJsPath</h3>
+            <p class="ttl">void SetViewerJsPath(String viewerJsPath)</p>
+            <p class="txt">
+                웹표준 모드의 뷰어사용시 뷰어에 사용되는 dext5upload/js/dext5upload.viewer.js 파일의 경로를 설정합니다.
+                <br />일반적으로 dext5upload/handler/dext5viewer.jsp를 다른 경로에 사용될 경우 설정합니다.
+                <br />이 경우 dext5viewer.jsp 페이지에서 dext5upload.viewer.js의 경로가 접근 가능하도록 설정해야 합니다.
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">viewerJsPath</span>&nbsp;&nbsp;웹표준 모드의 뷰어사용시 뷰어에 사용되는 dext5upload/js/dext5upload.viewer.js 파일의 경로를 의미합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                기본값 : ../js/dext5upload.viewer.js ( dext5upload/js/dext5upload.viewer.js )
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+Raonwiz.Dext5.UploadHandler upload = new Raonwiz.Dext5.UploadHandler();
+
+<b>upload.SetViewerJsPath("../js/dext5upload.viewer.js");</b>
+
+String result = upload.Process(request, response, event);
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

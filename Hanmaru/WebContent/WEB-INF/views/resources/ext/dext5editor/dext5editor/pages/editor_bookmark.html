@@ -1,0 +1,377 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Bookmark</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var _clicked_bookmark;
+
+        var _iframeWin = LayerWin.getIframeWin();
+        var _iframeDoc = LayerWin.getIframeDoc();
+
+        function page_loaded_event() {
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+
+            document.getElementById("dext_dialog_box").className = 'DEXT_fiVe_ED_Popup_Type03 DEXT_fiVe_PUi_' + _skin_name;
+
+            document.getElementById('span_title').innerHTML = LayerWin.dext5_lang.bookmark.title;
+            document.getElementById('label_name').innerHTML = LayerWin.dext5_lang.bookmark.name;
+            document.getElementById('btn_add').value = LayerWin.dext5_lang.bookmark.btn_add;
+            document.getElementById('btn_mod').value = LayerWin.dext5_lang.bookmark.btn_mod;
+            document.getElementById('btn_del').value = LayerWin.dext5_lang.bookmark.btn_del;
+            document.getElementById('span_list').innerHTML = LayerWin.dext5_lang.bookmark.list;
+            document.getElementById('btn_close').innerHTML = LayerWin.dext5_lang.bookmark.btn_close;
+
+            document.title = LayerWin.dext5_lang.bookmark.frame_title;
+
+            var header = LayerWin.getElementsByClass('EdiTor_Popup_header', document);
+            header[0].onselectstart = function () { return false; };
+
+            if (LayerDoc.compatMode == "BackCompat") {
+                var inputs = document.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type == 'text') {
+                        inputs[i].style.height = '20px';
+                    }
+                }
+            }
+            
+            var btn_add = document.getElementById('btn_add');
+            var btn_mod = document.getElementById('btn_mod');
+            var btn_del = document.getElementById('btn_del');
+
+            btn_mod.disabled = true;
+            btn_mod.className = 'non_btn';
+            btn_del.disabled = true;
+            btn_del.className = 'non_btn';
+
+            var name = document.getElementById('dext_dialog_box').getElementsByTagName('input')[0];
+            var tbody = document.getElementById('bookmark_table');
+
+            var tags = _iframeDoc.body.getElementsByTagName('a');
+            for (var i = 0; i < tags.length; i++) {
+                //if (tags[i].href == null || tags[i].href == '') {
+                // 책갈피 리스트에 <a name=""></a> 같은 id 책갈피가 아닌것들이 목록에 들어가서 id 기준으로 목록 가져오도록 수정 - by hsi 161226
+                if (null == tags[i].id || tags[i].id != '') {
+                    var tr = document.createElement('tr');
+                    if (LayerDoc.compatMode == "BackCompat") {
+                        tr.style.width = '100%';
+                    }
+                    var td = document.createElement('td');
+                    td.className = 't_left';
+                    var span = document.createElement('span');
+
+                    var tbody = document.getElementById('bookmark_table');
+
+                    span.innerHTML = tags[i].id;
+
+                    var a_tag = document.createElement('a');
+                    a_tag.appendChild(span);
+                    a_tag.href = "javascript:void(0)";
+                    a_tag.style.textDecoration = 'none';
+                    a_tag.style.color = '#5d5d5d';
+
+                    a_tag.appendChild(span);
+                    td.appendChild(a_tag);
+                    tr.appendChild(td);
+                    tbody.appendChild(tr);
+
+                    make_event(a_tag, span, tbody);
+                }
+            }
+
+            if (LayerWin.rangy.getSelection(_iframeWin) != '') {
+                var text = LayerWin.rangy.getSelection(_iframeWin);
+                //alert(text.parentNode);
+            }
+
+            var event_click = function (e) {
+                var evt = e || window.event;
+                var target = evt.target ? evt.target : evt.srcElement;
+
+                var text;
+                
+                if (target.tagName == 'SPAN') {
+                    _clicked_bookmark = target;
+                    target.parentNode.parentNode.parentNode.style.background = '#e5e5e5';
+                    text = target.innerHTML;
+                } else if (target.tagName == 'TD') {
+                    _clicked_bookmark = target.getElementsByTagName('span')[0];
+                    target.parentNode.style.background = '#e5e5e5';
+                    text = target.getElementsByTagName('span')[0].innerHTML;
+                } else if (target.tagName == 'A') {
+                    _clicked_bookmark = target.getElementsByTagName('span')[0];
+                    target.parentNode.parentNode.style.background = '#e5e5e5';
+                    text = target.getElementsByTagName('span')[0].innerHTML;
+                }
+
+                for (var i = 0; i < tbody.childNodes.length; i++) {
+                    if (tbody.childNodes[i].getElementsByTagName('span')[0] != _clicked_bookmark) {
+                        tbody.childNodes[i].style.background = 'white';
+                    }
+                }
+
+                name.value = text;
+                btn_add.disabled = true;
+                btn_add.className = 'non_btn';
+                btn_mod.disabled = false;
+                btn_mod.className = 'in_btn';
+                btn_del.disabled = false;
+                btn_del.className = 'in_btn';
+            };
+
+            DEXTTOP.DEXT5.util.addEvent(btn_add, 'click', btn_add_click);
+            DEXTTOP.DEXT5.util.addEvent(btn_mod, 'click', btn_mod_click);
+            DEXTTOP.DEXT5.util.addEvent(btn_del, 'click', btn_del_click);
+            DEXTTOP.DEXT5.util.addEvent(tbody, 'click', event_click);
+
+            setTimeout(function () {
+                setCursorPos(name, true, false);
+                LayerWin.setFocusFirstAndLast(document, document.getElementById('input_name'));
+            }, 1);
+        }
+
+        function btn_add_click() {
+            var name = document.getElementById('dext_dialog_box').getElementsByTagName('input')[0];
+            var btn_add = document.getElementById('btn_add');
+
+            if (name.value != '') {
+                var tbody = document.getElementById('bookmark_table');
+
+                var tbodyLen = tbody.childNodes.length;
+                var bSameName = false;
+                for (var i = 0; i < tbodyLen; i++) {
+                    var oneName = tbody.childNodes[i].getElementsByTagName('span')[0];
+                    if (oneName.innerHTML == name.value) {
+                        alert(LayerWin.dext5_lang.bookmark.message1);
+                        bSameName = true;
+                        break;
+                    }
+                }
+
+                if (bSameName == false) {
+                    var tr = document.createElement('tr');
+                    var td = document.createElement('td');
+                    td.className = 't_left';
+                    var span = document.createElement('span');
+                    span.innerHTML = name.value;
+
+                    var a_tag = document.createElement('a');
+                    a_tag.appendChild(span);
+                    a_tag.href = "javascript:void(0)";
+                    a_tag.style.textDecoration = 'none';
+                    a_tag.style.color = '#5d5d5d';
+
+                    td.appendChild(a_tag);
+                    tr.appendChild(td);
+                    tbody.appendChild(tr);
+
+                    var text = LayerWin.rangy.getSelection(_iframeWin);
+
+                    LayerWin.event_dext_bookmark_add(text, name.value);
+
+                    name.value = '';
+
+                    btn_add.disabled = true;
+                    btn_add.className = 'non_btn';
+
+                    make_event(a_tag, span, tbody);
+
+                    setCursorPos(name, true, false);
+                }
+            }
+        }
+
+        function btn_mod_click() {
+            var name = document.getElementById('dext_dialog_box').getElementsByTagName('input')[0];
+
+            if (_clicked_bookmark) {
+
+                var tbody = document.getElementById('bookmark_table');
+                var tbodyLen = tbody.childNodes.length;
+                var bSameName = false;
+                for (var i = 0; i < tbodyLen; i++) {
+                    var oneName = tbody.childNodes[i].getElementsByTagName('span')[0];
+                    if (oneName.innerHTML == name.value) {
+                        alert(LayerWin.dext5_lang.bookmark.message1);
+                        bSameName = true;
+                        break;
+                    }
+                }
+
+                if (bSameName == false) {
+                    var id = _clicked_bookmark.innerHTML;
+                    var clickedObj;
+
+                    var tags = _iframeDoc.body.getElementsByTagName('a');
+                    for (var i = 0; i < tags.length; i++) {
+                        if (tags[i].href == null || tags[i].href == '') {
+                            if (tags[i].id == id) {
+                                clickedObj = tags[i];
+                                break;
+                            }
+                        }
+                    }
+                    _clicked_bookmark.innerHTML = name.value;
+                    clickedObj.id = name.value;
+                    clickedObj.name = name.value;
+                }
+            }
+        }
+
+        function btn_del_click() {
+            var table = document.getElementById('bookmark_table');
+            var name = document.getElementById('dext_dialog_box').getElementsByTagName('input')[0];
+            var btn_add = document.getElementById('btn_add');
+            var btn_mod = document.getElementById('btn_mod');
+            var btn_del = document.getElementById('btn_del');
+
+            if (_clicked_bookmark) {
+                var id = _clicked_bookmark.innerHTML;
+                var clickedObj;
+
+                var tags = _iframeDoc.body.getElementsByTagName('a');
+                for (var i = 0; i < tags.length; i++) {
+                    if (tags[i].href == null || tags[i].href == '') {
+                        if (tags[i].id == id) {
+                            clickedObj = tags[i];
+                            break;
+                        }
+                    }
+                }
+                table.removeChild(_clicked_bookmark.parentNode.parentNode.parentNode);
+                var cloneObj = clickedObj.cloneNode(true);
+                clickedObj.outerHTML = cloneObj.innerHTML;
+                if (table.hasChildNodes() == false) {
+                    btn_add.disabled = false;
+                    btn_add.className = 'in_btn';
+                }
+            }
+            name.value = '';
+            btn_mod.disabled = true;
+            btn_mod.className = 'non_btn';
+            btn_del.disabled = true;
+            btn_del.className = 'non_btn';
+
+            setCursorPos(document.getElementById('a_close'), false, false);
+        }
+
+        function make_event(a_tag, span, tbody) {
+            var btn_add = document.getElementById('btn_add');
+            var btn_mod = document.getElementById('btn_mod');
+            var btn_del = document.getElementById('btn_del');
+            var name = document.getElementById('dext_dialog_box').getElementsByTagName('input')[0];
+
+            var event_focus = (function (span, tbody) {
+                return function (event) {
+
+                    _clicked_bookmark = span;
+                    text = span.innerHTML;
+
+                    for (var i = 0; i < tbody.childNodes.length; i++) {
+                        if (tbody.childNodes[i].getElementsByTagName('span')[0] != _clicked_bookmark) {
+                            tbody.childNodes[i].style.background = 'white';
+                        } else {
+                            tbody.childNodes[i].style.background = '#e5e5e5';
+                        }
+                    }
+
+                    name.value = text;
+                    btn_add.disabled = true;
+                    btn_add.className = 'non_btn';
+                    btn_mod.disabled = false;
+                    btn_mod.className = 'in_btn';
+                    btn_del.disabled = false;
+                    btn_del.className = 'in_btn';
+                };
+            })(span, tbody);
+            DEXTTOP.DEXT5.util.addEvent(a_tag, 'focus', event_focus);
+
+            var event_press_enter = (function (a_tag) {
+                return function (event) {
+                    var keyCode = ('which' in event) ? event.which : event.keyCode;
+                    var Key_Enter = 13;
+
+                    if (keyCode == Key_Enter) {
+                        name.value = a_tag.getElementsByTagName('span')[0].innerHTML;
+                        setCursorPos(name, false, false);
+                    }
+                };
+            })(a_tag);
+            DEXTTOP.DEXT5.util.addEvent(a_tag, 'keydown', event_press_enter);
+        }
+    </script>
+</head>
+<body style="margin:0px; padding:0px; " onload="page_loaded_event()">
+    <div class="editor_s02_popup" id="dext_dialog_box">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title">책갈피</span><span class="text">DEXT5 Editor</span>
+            <div class="close">
+                <a href="javascript:event_dext_close();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / Option -->
+        <div class="EdiTor_Popup_contents view">
+            <div class="contents">
+                <div class="con border">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="22%" style="text-align:center;">
+                                <label for="input_name" id="label_name">이름</label>
+                            </td>
+                            <td width="78%">
+                                <input id="input_name" type="text" style="width: 180px;" class="con_input" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="con">
+                    <p class="select_btn" style="text-align:center;">
+                        <input type="button" id="btn_add" class="in_btn" value="추가"/><input type="button" id="btn_mod" class="in_btn" value="수정"/><input type="button" id="btn_del" class="in_btn" value="삭제"/>
+                        <!--<a href="javascript:btn_add_click();" id="btn_add">추가</a><a href="javascript:btn_mod_click();"id="btn_mod">수정</a><a href="javascript:btn_del_click();" id="btn_del">삭제</a>-->
+                    </p>
+                    <div class="select_tb">
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td class="t_center">
+                                    <span id="span_list">책갈피 목록</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="select_td">
+                        <table cellpadding="0" cellspacing="0">
+                            <tbody id="bookmark_table"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a href="javascript:event_dext_close();" class="cancel" id="a_close"><span id="btn_close">닫기</span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

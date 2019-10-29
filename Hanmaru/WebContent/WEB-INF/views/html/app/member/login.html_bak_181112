@@ -1,0 +1,23 @@
+<div class="login_wrapper" ng-controller="loginController">
+	<div class="wrap_login_area">
+		<div class="subwrap_login_area">
+			<img class="ic_login_logo" src="/resources/image/bg/login/login_logo.png">
+		
+			<div class="wrap_login_elem input_idpw">
+				<img class="ic_login" src="/resources/image/bg/login/ic_login.png"><br>
+				
+				<input type="text" class="general_id" ng-model="general_id" ng-trim="true" placeholder="아이디">
+				<select class="domain" ng-model="generalLogin_domain" ng-change="applyDomainChange(generalLogin_domain)">
+					<option ng-repeat="site in siteList" value="{{site.Domain}}">@{{site.Domain}}</option>
+				</select>
+				<input type="password" class="general_pw" ng-model="general_pw" ng-trim="true" placeholder="암호">
+			</div>
+			<button type="button" class="btn_generalLogin" ng-click="performGeneralLogin()">Login</button>
+		</div>
+		
+		<span class="wrap_copyright">
+			&copy; HYUNDAI BS&amp;C Co., Ltd. | 
+			문의 : <a href="tel:070-8277-7524">070-8277-7524</a> 
+		</span>
+	</div>
+</div>

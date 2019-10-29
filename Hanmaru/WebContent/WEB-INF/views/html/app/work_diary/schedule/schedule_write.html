@@ -1,0 +1,318 @@
+<div class="workDiaryContainer" ng-controller="scheduleWriteController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarBack" ng-click="popPage('pg_schedule_write')">
+			<img src="/resources/image/ic-arrow-left.png">
+		</div>
+		<div class="headerBarTitle diaryDrop">
+			<span>일정작성</span>
+		</div>
+		<div class="headerBarSend workDiaryWrite" ng-click="btnWriteSchedule()">
+			<img src="/resources/image/work_diary/ic-send.png">
+		</div>
+		<div class="headerBarAttach workDiaryAttach">
+			
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	
+	<div class="workDiaryWriteBack"></div>
+	<div class="diaryWriteDiv">
+		<div class="diaryWriteContents">
+			<div class="writeContentsCalendar">
+				<p>캘린더</p>
+				<div class="calendarOptionSelect" ng-click="btnShowShareCalendar()" >
+					<div ng-show="selectWithCalendar != undefined" style="display:inline-block;padding-top: 0.5vw;">
+						<span ng-show="selectWithCalendar.Name != ''">{{selectWithCalendar.Name}}</span>
+						<span ng-show="selectWithCalendar.Name == ''">내일정</span>
+					</div>
+					<div ng-show="selectWithCalendar == undefined" style="display:inline-block">
+						<span>내일정</span>
+					</div>
+					<img src="/resources/image/work_diary/ic-arrow-right-b.png">
+				</div>
+			</div>
+			<div class="writeScheduleTitle">
+				<p>제목</p>
+				<div class="scheduleTitleEdit">
+					<input type="text" ng-model="txtScheduleTitle" placeholder="제목을 입력해 주세요.">
+				</div>
+			</div>
+			<div class="scheduleContentsDiv">
+				<p>일정</p>
+				<div class="scheduleDateDiv">
+					<div class="scheduleDateWrap">
+						<div class="scheduleFirstDate" ng-click="chooseSearchDate('start')" >
+							<img src="/resources/image/ic-calendar.png" >
+							<p ng-if=" txtSearchStart == '' ">2019-02-12</p>
+							<p ng-if=" txtSearchStart != '' ">{{txtSearchStart}}</p>
+						</div>
+						<div class="scheduleSwungDash" style="margin-left:5px;margin-top:5px;position:absolute;">~</div>
+						<div class="scheduleSecondDate" ng-click="chooseSearchDate('end')" >
+							<img src="/resources/image/ic-calendar.png" >
+							<p ng-if=" txtSearchEnd == '' ">2019-02-12</p>
+							<p ng-if=" txtSearchEnd != '' ">{{txtSearchEnd}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="checkDateWrap">
+				<p></p>
+				<div class="scheduleTimeDiv">
+					<div class="scheduleTimeWrap">
+						<div class="scheduleFirstSelect" >
+						<!-- <div class="scheduleFirstTime" >
+							<input type="text" value="" placeholder="오전 11:00" readonly> -->
+							<select name="scheduleSelectName1" class="firstSelectOption" ng-model="firstSelectTime" ng-show="isTimeAllDayCheck == false">
+								<option value='{{item.time}}' ng-repeat="item in timeOptionList">{{item.time}}</option>
+							</select>
+							
+							<pp ng-show="isTimeAllDayCheck == true">{{firstSelectTime || '오전 12:30'}}</pp>
+						</div>
+					<div class="scheduleSwungDash">~</div>
+						<div class="scheduleSecondSelect" >
+						<!-- <div class="scheduleSecondTime" >
+							<input type="text" value="" placeholder="오전 11:30" readonly> -->							
+							<select name="scheduleSelectName2" class="secondSelectOption" ng-model="secondSelectTime" ng-show="isTimeAllDayCheck == false">
+								<option value='{{item.time}}' ng-repeat="item in timeOptionList">{{item.time}}</option>
+							</select>
+							
+							<pp ng-show="isTimeAllDayCheck == true">{{secondSelectTime || '오전 12:30'}}</pp>
+						</div>
+						<div class="checkAllDate">
+							<div class="allDateWrap" ng-click="timeAllDayCheck()">
+								<img src="/resources/image/selectbox-square-on.png" ng-show="isTimeAllDayCheck == true">
+								<img src="/resources/image/selectbox-square-off.png" ng-show="isTimeAllDayCheck == false">
+								<span>종일</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+				<div class="scheduleDetailContents" ng-show="isDetail == true">
+					<div class="scheduleWorkDiv">
+						<p>작업</p>
+						<div class="scheduleWorkSelect" ng-click="btnShowScheduleWork()">
+							<span ng-show="SelectScheduleWork != undefined">{{SelectScheduleWork.Title}}</span>
+							<span ng-show="SelectScheduleWork == undefined">작업선택</span>
+							<img src="/resources/image/work_diary/ic-arrow-right-b.png">
+						</div>
+					</div>
+					<div class="scheduleAttendeeDiv">
+						<div class="scheduleAttendeeContents">
+							<p>참석자</p>
+							<div style="display:inline-grid;width:75%;margin-left:30px">
+								<!-- 2019-02-05 PK 참석자 리스트 -->
+								<div class="wrap_selected_user" ng-repeat="user in arr_Attendee_list">
+									<span>{{user.DisplayName}}</span>
+								<!-- 
+									<span ng-if="user.UserName != undefined && user.Type == undefined"> 
+										{{user.UserName}}/{{user.PositionName}}/{{user.DeptName}}/{{user.CompName}}
+									</span>
+									<span ng-if="user.UserName == undefined && user.Type == undefined">
+										{{user.DeptName}}
+									</span>
+									<span ng-if="user.Type != undefined">
+										{{user.DisplayName}}
+									</span>
+									-->
+									
+									<a ng-click="btnRemoveAttendee($index)">
+										<img src="/resources/image/icon/ic_x_normal.png">
+									</a>
+								</div>
+							
+								<input type="search" class="txt_attendee_name" ng-model="txt_attendee_name" ng-trim="true" ng-keyup="btnDetectSearch('attendee', $event)" ng-click="btnDetectSearch('attendee', $event)">
+								
+								<div class="search_user_list" ng-if="search_attendee_result.length > 0">
+									<ul>
+										<li ng-repeat="user in search_attendee_result" ng-if="user.DisplayName != undefined" ng-click="addAttendeeSelectedUser(user)">{{user.DisplayName}}</li>
+										<li ng-repeat="user in search_attendee_result" ng-if="user.DisplayName == undefined" ng-click="addAttendeeSelectedUser(user)">{{user.Name}}</li>
+									</ul>
+								</div>
+								
+								<a><img src="/resources/image/ic-add-people.png" ng-click="btnCallOrganSelect($event, 'cal_Attendee')" style="top: 20px;"></a>
+							</div>
+						</div>
+					</div>
+					<div class="scheduleSharerDiv">
+						<div class="scheduleSharerContents">
+							<p>공유자</p>
+							<div style="display:inline-grid;width:75%;margin-left:30px">
+								<!-- 2019-02-05 PK 공유자 리스트 -->
+								<div class="wrap_selected_user" ng-repeat="user in arr_Jointowner_list">
+									<span>{{user.DisplayName}}</span>
+									
+									<!--
+									<span ng-if="user.UserName != undefined && user.Type == undefined"> 
+										{{user.UserName}}/{{user.PositionName}}/{{user.DeptName}}/{{user.CompName}}
+									</span>
+									<span ng-if="user.UserName == undefined && user.Type == undefined">
+										{{user.DeptName}}
+									</span>
+									<span ng-if="user.Type != undefined">
+										{{user.Name}}
+									</span>
+									 -->
+									
+									<a ng-click="btnRemoveJointowner($index)">
+										<img src="/resources/image/icon/ic_x_normal.png">
+									</a>
+								</div>
+								
+								<input type="search" class="txt_jointowner_name" ng-model="txt_jointowner_name" ng-trim="true" ng-keyup="btnDetectSearch('jointowner', $event)" ng-click="btnDetectSearch('jointowner', $event)">
+								
+								<div class="search_user_list" ng-if="search_jointowner_result.length > 0">
+									<ul>
+										<li ng-repeat="user in search_jointowner_result" ng-if="user.DisplayName != undefined" ng-click="addJointownerSelectedUser(user)">{{user.DisplayName}}</li>
+										<li ng-repeat="user in search_jointowner_result" ng-if="user.DisplayName == undefined" ng-click="addJointownerSelectedUser(user)">{{user.Name}}</li>
+									</ul>
+								</div>
+								
+								<a><img src="/resources/image/ic-add-people.png" ng-click="btnCallOrganSelect($event, 'cal_Jointowner')" style="top: 20px;"></a>
+							</div>
+						</div>
+						<!-- <div class="shareSelectWrap">
+							<p class="shareSelectVoid"></p>
+							<div class="shareSelectTitle">
+								<input type="radio" name="nameShareSelect">
+								<span>제목만공유</span>
+							</div>
+							<div class="shareSelectAll">
+								<input type="radio" name="allShareSelect">
+								<span>전체공유</span>
+							</div>
+						</div> -->					
+					</div>
+					<div class="scheduleReservationDiv">
+						<p>자원예약</p>
+						<div class="scheduleReservationContents" ng-click="btnShowMettingReserv()">
+							<span ng-show="selectWithMetting != undefined">{{selectWithMetting.Resource_name}}</span>
+							<span ng-show="selectWithMetting == undefined">회의실 예약</span>
+							<img src="/resources/image/work_diary/ic-arrow-right-b.png">
+							<!-- <img src="/resources/image/ic-cir-delete.png">  회의실이 선택되면 생기는 이미지--> 
+						</div>
+					</div>
+					<div class="scheduleOptionDiv">
+						<p>옵션</p>
+						<div class="colorOptionDiv">						
+							<ul ng-repeat="color in arr_Color_List">
+								<li class="colorPickerOption" ng-show="color.isCheck == false" ng-click="OptionColorSelect(color)" style="background:#{{color.Value}}" >
+								<li class="colorPickerOption" ng-show="color.isCheck == true" ng-click="OptionColorSelect(color)" style="background:#{{color.Value}};transform:scale(1.2, 1.2);" >
+							</ul>
+						</div>
+					</div>
+					<div class="schedulelAttachDiv">
+						<p class="scheduleAttachTitle">첨부파일</p>
+						<div class="scheduleFileNoList">
+							<label ng-click="initAttachFile()">
+								<img src="/resources/image/ic-attach-file.png" ng-click="initAttachFile()">
+								<input type="file" ng-model="chooser_attach_file" class="mail_attach_file" mail-attach-file-change="changeAttachFile">
+							</label>
+							<div class="scheduleFileAttach" ng-repeat="attach in attach_list">
+								<!-- <p class="scheduleFileInfo">참고하세요.txt<span>17.0bytes</span></p> -->
+								<p class="scheduleFileInfo">{{attach.name}}<span>{{getFileSizeUnit(attach.size)}}</span></p>
+								<img src="/resources/image/ic-close.png" ng-click="btnRemoveAttach($index)">
+							</div>
+						</div>	
+					</div>
+				</div>
+				<div class="scheduleDetailBtn" ng-show="isDetail == false" ng-click="btnDetail()">
+					<div>자세히</div>
+				</div>
+				<div colspan="3" class="scheduleEditorWrap">
+					<iframe id="scheduleContents" class="contents" src="/html/app/_include/ext/dext5editor.html" frameborder="0"></iframe>
+				</div><!-- 해당 영역에 에디터 툴 들어옵니다 -->
+			</div>
+		</div>
+		
+	<!-- 공유캘린더 다이얼로그 시작 -->
+	<div class="dialogShareCalendarBase" ng-show="isDlgShareCalendar == true">
+		<div class="dialogShareCalendar">
+			<div class="dialogShareCalendarTop">
+				<span>공유 캘린더</span>
+				<img src="/resources/image/ic-delete.png" ng-click="dismissDlgShareCalendar($event)">
+			</div>
+			<div class="dialogShareCalendarWrap">
+				<div class="dialogShareCalendarContents" ng-repeat="cal in arrShareCalendar" ng-click="btnToggleShareCalendar(cal)">
+					<div class="dialogCalendarList">
+						<img src="/resources/image/selectbox-square-on.png" ng-show="cal.IsChecked==true">
+						<img src="/resources/image/selectbox-square-off.png" ng-show="cal.IsChecked==false">
+						<span>{{cal.Name}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="dialogShareCalendarCheck">
+				<div class="dialogShareCalendarBtn">
+					<a><span class="dialogShareCalendarAction" ng-click="applyShareCalendar($event)">확인</span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 공유캘린더 다이얼로그 끝 -->
+	
+	<!-- 작업선택 다이얼로그 시작 -->
+	<div class="dialogShareCalendarBase" ng-show="isDlgScheduleWork == true">
+		<div class="dialogShareCalendar" style="height:140vw;">
+			<div class="dialogShareCalendarTop">
+				<span>작업 선택</span>
+				<img src="/resources/image/ic-delete.png" ng-click="dismissDlgScheduleWork($event)">
+			</div>
+			<div class="dialogShareCalendarWrap" style="height:77.5%;">
+				<div class="dialogShareCalendarContents" ng-repeat="cal in arrScheduleWork" ng-click="selectScheduleWork(cal)">
+					<div class="dialogCalendarList">
+						<img src="/resources/image/selectbox-square-on.png" ng-show="cal.IsChecked==true">
+						<img src="/resources/image/selectbox-square-off.png" ng-show="cal.IsChecked==false">
+						<span>{{cal.Title}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="dialogShareCalendarCheck">
+				<div class="dialogShareCalendarBtn">
+					<a><span class="dialogShareCalendarAction" ng-click="applyScheduleWork($event)">확인</span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 작업선택 다이얼로그 끝 -->
+	
+	<!-- 회의실 선택 다이얼로그 시작 -->
+	<div class="dialogConferenceSelectBase" ng-show="isMeetingReserv == true">
+		<div class="dialogConferenceSelect">
+			<div class="dialogConferenceSelectTop">
+				<span>회의실 선택</span>
+				<img src="/resources/image/ic-delete.png" ng-click="dismissMettingReserv()">
+			</div>
+			<div class="dialogConferenceSelectWrap">
+				<div class="dialogConferenceSelectContents">
+					<div class="dialogConferenceList" ng-repeat="met in arrMettingRoom" ng-click="btnCheckMettingReserv(met)">
+						<img src="/resources/image/selectbox-circle-on.png" ng-show="met.IsChecked==true">
+						<img src="/resources/image/selectbox-circle-off.png" ng-show="met.IsChecked==false">
+						<span>{{met.Resource_name}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="dialogConferenceCheck">
+				<div class="dialogConferenceBtn" ng-click="applyMettingReserv()">
+					<a><span class="dialogConferenceAction">적용</span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 회의실 선택 다이얼로그 끝 -->
+		
+		<!-- <div class="scheduleAddDiv">
+			<div class="scheduleAddBtn"><button>항목 추가</button></div>
+			<div class="scheduleAddList">
+				<ul class="scheduleListTop">
+					<li class="scheduleManager">담당자</li>
+					<li><input type="text"></li>
+					<li><input type="text"></li>
+				</ul>
+			</div>
+		</div> -->
+	</div>
+	
+	

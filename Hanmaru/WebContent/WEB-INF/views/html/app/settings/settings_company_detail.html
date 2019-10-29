@@ -1,0 +1,31 @@
+<div class="settingsContainer" ng-controller="settingCompanyController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarBack">
+			<img src="/resources/image/ic-arrow-left.png" ng-click="popPage('pg_setting_company')">
+		</div>
+		<div class="headerBarTitle prevPageTitle">
+			<span>회사 설정</span>
+		</div>
+		<div class="headerBarClose" ng-click="setCompany()">
+			<!-- <img src="/resources/image/ic-close.png"> -->
+			<span>확인</span>
+		</div>
+		<div class="headerBarSearch approval_search">
+			
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	<div class="settingsCompanyWrap">
+		<span class="concurrentCompany">{{translateLanguage('company_setting')}}</span>
+		<div class="settingsCompanyContainer">
+			<div class="settingsCompanyList" ng-repeat="company in companyList" ng-click="btnSelectCompany($index)">
+				<span>{{company.name}}</span>
+				<img src="/resources/image/selectbox-circle-on.png" ng-show="curIdx == $index">
+				<img src="/resources/image/selectbox-circle-off.png" ng-show="curIdx != $index">
+			</div>
+		</div>
+		
+	</div>
+	
+</div>

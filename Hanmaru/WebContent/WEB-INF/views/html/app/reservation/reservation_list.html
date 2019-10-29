@@ -1,0 +1,80 @@
+<div class="reservationContainer" ng-controller="reservListController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarMenu" ng-click="slideMenuClick()">
+			<img src="/resources/image/menu_img.png">
+		</div>
+		<div class="headerBarTitle">
+			<span>{{translateLanguage('resource_menu_my')}}</span>
+		</div>
+		<div class="headerBarMove approval_attach" ng-click="reservSearch()">
+			<img src="/resources/image/reservation/ic_menu_search_normal.png">
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	
+	<div class="reservSearchDrop" ng-show="reservSearchShow == true" >
+		<div class="reservDropContents" >
+			<div class="reservDropSubs">
+				<p>{{translateLanguage('find')}}</p>
+				<div class="reservSubs">
+					<select name="reservSelectName" class="reservSelectOption" ng-model="SearchType" ng-change="applySearchType(SearchType)">
+						<option ng-repeat="type in SearchTypeOptions" value="{{type.value}}">{{type.name}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="reservDropKeyword">
+				<p></p>
+				<div class="reservKeyword">
+					<input type="text" placeholder="검색어를 입력하세요." ng-model="searchText">
+				</div>
+			</div>
+			<div class="reservDropTime">
+				<p>{{translateLanguage('resource_reserve_date')}}</p>
+				<div class="reservFirstTime" ng-click="chooseSearchDate('start')">
+					<input type="text" class="txtDateSearch" readonly="readonly" ng-model="txtSearchStart" ng-trim="true">
+					<img src="/resources/image/mail/ic-calendar.png">
+				</div>
+				<div class="reservSecondTime" ng-click="chooseSearchDate('end')">
+					<input type="text" class="txtDateSearch" readonly="readonly" ng-model="txtSearchEnd" ng-trim="true">
+					<img src="/resources/image/mail/ic-calendar.png">
+				</div>
+			</div>
+			<div class="reservCheckBtn" ><span ng-click="searchReserv($event)">{{translateLanguage('find')}}</span></div>
+		</div>
+	</div>
+	<div class="mailSearchBack" ng-show="reservSearchShow" ng-click="toggleReservSearchDD()"></div>
+	<div class="reservDataVoid" ng-show="reservList.length == 0">
+		<span class="reservSearchResult">{{translateLanguage('warn_empty_message')}}</span>
+		<span class="searchResultBlank"></span>
+	</div>
+	<!--리스트-->
+	<div class="reservContentsList">
+		<div class="reservListWrap">
+			<div class="reservList" ng-repeat="reservItem in reservList" >
+				<div class="reservListDetailWrap" ng-click="btnReservDetail(reservItem)" ng-style="{'border-left': getReservState(reservItem.State)}">
+					<div class="reservListTop">
+						<p class="reservListTitle">{{reservItem.Title}}</p>
+					</div>
+					<p class="reservName"><span>{{translateLanguage('resource_owner_')}} : </span>{{reservItem.Owner}}</p>
+					<p class="reservState">{{reservItem.Resource_Name}}<br/>{{reservItem.STARTTime}} ~ {{reservItem.ENDTime}}</p>
+					<div class="reservStateWrapper">
+						<span class="reservListStateFinish" ng-if="reservItem.State == 0">{{translateLanguage('resource_state_0')}}</span>
+						<span class="reservListStateReserv" ng-if="reservItem.State == 1">{{translateLanguage('resource_state_1')}}</span>
+						<span class="reservListStateRequest" ng-if="reservItem.State == 2">{{translateLanguage('resource_state_2')}}</span>
+						<span class="reservListStateStart" ng-if="reservItem.State == 3">{{translateLanguage('resource_state_3')}}</span>
+						<span class="reservListStateCancel" ng-show="reservItem.State != 0" ng-click="reservCancel(reservItem.SEQ)">{{translateLanguage('resource_cancel')}}</span>
+					</div>
+				</div>
+				<!-- <div class="reservCancel" ng-show="reservItem.State == 1" ng-click="reservCancel(reservItem.SEQ)"><span>예약 취소</span></div> -->
+			</div>
+		</div>
+	</div>
+	
+	<!--예약-->
+	<div class="reservBtn" ng-click="reservBtn()">
+		<span>{{translateLanguage('resource_simple_reserv')}}</span>
+	</div>
+	
+	
+</div>

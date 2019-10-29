@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Release</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	</head>
+	<body style="margin:0px; padding:0px;">
+        <div id="editorContentArea"></div>
+        <script src="../config/dext_lang.js?ver=3.5.1267154.1700.01" type="text/javascript"></script>
+        <script src="../config/editor_crossdomain_config.js?ver=3.5.1267154.1700.01" type="text/javascript"></script>
+        <script src="../js/editor_core.js?ver=3.5.1267154.1700.01" type="text/javascript"></script>
+        <script src="../js/editor_htmlparser.js?ver=3.5.1267154.1700.01" type="text/javascript"></script>
+        <script src="../js/editor_htmlProcess.js?ver=3.5.1267154.1700.01" type="text/javascript"></script>
+        <script src="../js/editor_htmlProcessUtil.js?ver=3.5.1267154.1700.01" type="text/javascript"></script>
+        <script src="../js/jscolor/jscolor.js?ver=3.5.1267154.1700.01" type="text/javascript"></script>
+        <script type="text/javascript">
+            if (typeof (DEXTTOP.DEXT5) != 'undefined') {
+                if (DEXTTOP.DEXT5.ReleaseVer > '3.5.1125677.1800.01' && DEXTTOP.DEXT5.config.UseLang != 'ko-kr') {
+                    document.write('<link href="../css/editor_' + DEXTTOP.DEXT5.config.UseLang + '.css?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+                } else {
+                    document.write('<link href="../css/editor.css?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+                }
+                document.write('<link href="../css/editor_' + DEXTTOP.DEXT5.config.IconName + '.css?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+            }
+        </script>
+        <script type="text/javascript">
+            //var local_frame = null;
+            _dext_editor = null;
+
+            function dext_frame_loaded_event(_editor_id, _config, _frame) {
+                //local_frame = _frame;
+
+                function loadJavascript(url, callback) {
+                    var head = document.getElementsByTagName("head")[0];
+                    var script = document.createElement("script");
+                    script.type = "text/javascript";
+
+                    if (typeof (callback) === "function") {
+                        var loaded = false;
+                        var _error = false;
+                        script.onreadystatechange = function () { if (this.readyState == 'loaded' || this.readyState == 'complete') { if (loaded || _error) { return; } loaded = true; callback(); } }
+                        script.onload = function () { if (loaded || _error) { return; } loaded = true; callback(); }
+                        // script.onerror = function () { _error = true; alert('ERROR : Cannot load the [' + url + ']'); }
+                        script.onerror = function () { _error = true; }
+                    }
+
+                    script.src = url;
+                    head.appendChild(script);
+                }
+
+                if (_config.useLocalFont == "1") {
+                    if (DEXTTOP.DEXT5.browser.ie) {
+                        fn_createDialogHelperObject(_config);
+                    }
+                }
+
+                if (_config.plugInUse == "1") {
+                    if (DEXTTOP.DEXT5.browser.ie) {
+                        startCreationPluginObject(_config);
+                    }
+                    else { }
+                }
+
+                try {
+                    var loadEditorFn = function () {
+                        _dext_editor = new DEXT5_EDITOR(_editor_id, _config, _frame); _frame.editor = _dext_editor; _dext_editor.start();
+                        if (_config.useChart == "1") {
+                            if (!(DEXTTOP.DEXT5.UserAgent.os.name == "Windows" && DEXTTOP.DEXT5.browser.safari)) {
+                                if (!(DEXTTOP.DEXT5.browser.ie && DEXTTOP.DEXT5.browser.ieVersion < 9)) {
+                                    loadJavascript("../js/chartjs/chart.min.js?ver=" + DEXTTOP.DEXT5.ReleaseVer);
+                                    loadJavascript("../js/grid/grid.min.js?ver=" + DEXTTOP.DEXT5.ReleaseVer);
+                                }
+                            }
+                        }
+                        if (_config.sourceViewtype == "3") {
+                            loadJavascript("../js/editor_pretty.min.js?ver=" + DEXTTOP.DEXT5.ReleaseVer);
+                        }
+                        DEXT5_CONTEXT._config = _config; _config = null; _frame = null;
+                    };
+
+                    loadJavascript("../js/lang/" + _config.lang + ".js?ver=" + DEXTTOP.DEXT5.ReleaseVer, function () {
+                        if (!DEXTTOP.DEXT5.browser.mobile && (_config.useMouseTableInoutdent || _config.dragResize == "1")) {
+                            loadJavascript("../js/editor_dragresize.min.js?ver=" + DEXTTOP.DEXT5.ReleaseVer, loadEditorFn);
+                        } else {
+                            loadEditorFn();
+                        }
+                    });
+                }
+                catch (e) { alert("ErrCode : 1002"); }
+            }
+        </script>
+	</body>
+</html>

@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con ">
+            <h3 class="title">DEXT5 Upload :: SetNtlmAuthentication</h3>
+            <p class="ttl">void SetNtlmAuthentication(String domain, String username, String password)</p>
+            <p class="txt">
+                파일을 업로드 하려는 위치가 계정이 있는 네트워크 드라이브이거나,
+                <br />다운로드 하려는 파일의 위치가 계정이 있는 네트워크 드라이브일 경우
+                <br />네트워크 드라이브의 인증 정보를 설정해야 합니다.
+                <br />JAVA에서는 SMB 프로토콜을 사용하며, 역슬래시(\)가아닌 슬래시(/)로 경로설정이 되어야합니다.
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">domain</span>&nbsp;&nbsp;Network Drive 접속 Domain을 의미합니다.<br />
+                <span class="firebrick">username</span>&nbsp;&nbsp;Network Drive 인증 User Name를 의미합니다.<br />
+                <span class="firebrick">password</span>&nbsp;&nbsp;Network Drive 인증 Password를 의미합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                <span class="firebrick">1. SMB Protocol 연결 설정</span>
+                   <br />SMB Protocol 사용을 위한 연결설정을 해야 합니다.
+                   <br />ex) upload.SetNtlmAuthentication("smb://SMB Domain 또는 IP", "ID", "Password");
+                <br /><span class="firebrick">2. Multipart Temp Path 설정</span>
+                   <br />JAVA에서 Multpart Stream이 특정 폴더에 저장된 후 그 Stream을 실제 저장 폴더에 쓰고,
+                   <br />이 폴더는 Smb Protocol 경로설정이 불가하므로 해당 서버의 특정 Temp 경로를 설정해야 합니다.
+                   <br />이 설정을 하지 않으면 해당 폴더가 파일 업로드시 사용되는 Temp Path로 설정되어 연결Error 발생
+                   <br />ex) upload.SetMultipartTempPath("D:\\temp");
+                <br /><span class="firebrick">3. 파일 업로드시 사용되는 Temp Path 설정</span>
+                   <br />파일 업로드시 사용되는 Temp Path를 SMB Protocol의 경로로 설정해야 합니다.
+                   <br />ex) upload.SetTempPath("smb://SMB Domain 또는 IP/temp ");
+                <br /><span class="firebrick">4. 파일이 업로드 될 최종 Path 설정</span>
+                   <br />파일이 업로드 될 최종 Path를 SMB Protocol의 경로로 설정해야 합니다.
+                   <br />ex) upload.SetPhysicalPath("smb://SMB Domain 또는 IP/savePath");
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+Raonwiz.Dext5.UploadHandler upload = new Raonwiz.Dext5.UploadHandler();
+
+<b>upload.SetNtlmAuthentication("smb://SMB Domain 또는 IP", "ID", "Password");</b>
+<b>upload.SetMultipartTempPath("D:\\temp");</b>
+<b>upload.SetTempPath("smb://SMB Domain 또는 IP/temp ");</b>
+<b>upload.SetPhysicalPath("smb://SMB Domain 또는 IP/savePath");</b>
+
+String result = upload.Process(request, response, event);
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

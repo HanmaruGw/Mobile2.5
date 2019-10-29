@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: EditorHolder</h3>
+    <p class="ttl">config.EditorHolder</p>
+    <p class="txt">
+        에디터를 특정 영역에서 생성할 수 있도록 합니다.        
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        에디터를 특정 영역에서 생성하고자 하는 경우 생성할 영역의 id값을 입력합니다.<br />
+        DEXT5.config.EditorHolder = "아이디값" 으로 설정합니다.
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;
+	
+&#60;script type="text/javascript"&#62;
+
+    // 에디터에 생성할 객체의 ID를 editor_area 로 설정합니다.
+    function fn_load() { 
+        DEXT5.config.EditorHolder = "editor_area";
+        new Dext5editor("editor1");
+    }
+
+&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;body onload="fn_load()"&#62;     
+    
+    &#60;!-- ..... 생략 ..... --&#62;       
+    
+    &#60;div id="editor_area"&#62;
+
+    &#60;!-- 에디터를 생성할 영역입니다. --&#62;
+
+    &#60;/div&#62; 
+&#60;/body&#62;
+
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

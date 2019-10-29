@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con">
+            <h3 class="title">DEXT5 Upload :: UploadCompleteBeforeEvent</h3>
+            <p class="ttl">void Dext5_UploadCompleteBeforeEventEx<br />(Raonwiz.Dext5.Process.Entity.UploadEventEntity parameterEntity)</p>
+            <p class="txt">
+                파일 업로드시 서버에 저장한 후 바로 발생합니다.
+                <br />업로드된 파일의 DRM을 해제와 같은 파일처리 작업이 필요할 경우 사용합니다.
+                <br />아직 클라이언트 측으로 출력을 내보내기 전이므로, 이곳에서 Response값을 변경하시면 클라이언트로 적용된 값이 전달됩니다.
+                <br />이미지 핸들링 api를 사용할 경우에도 사용합니다. (해당 이미지 경로변경이 있을 경우)
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">parameterEntity</span>&nbsp;&nbsp;다운로드 요청시 정보를 추출할 수 있고 정보를 변경할 수 있는 Object를 의미합니다.<br />
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                dext5handler.ashx에서 "upload.Process(context);" 전에<br />아래와 같이 이벤트 처리기가 등록되면 이벤트가 발생됩니다.<br /><br />upload.UploadCompleteBeforeEventEx +=<br />new Raonwiz.Dext5.UploadHandlerBeforeCompleteDelegateEx(Dext5_UploadCompleteBeforeEventEx);
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+upload.UploadCompleteBeforeEventEx +=
+        new Raonwiz.Dext5.UploadHandlerBeforeCompleteDelegateEx(Dext5_UploadCompleteBeforeEventEx);
+upload.Process(context);
+        
+private void Dext5_UploadCompleteBeforeEventEx(Raonwiz.Dext5.Process.Entity.UploadEventEntity parameterEntity)
+{
+    //업로드 요청 Context 정보를 추출합니다.
+    HttpContext context = parameterEntity.Context;
+    //업로드하려는 파일의 물리적 경로(파일명 포함)를 추출합니다.
+    string newFileLocation = parameterEntity.NewFileLocation;
+    //업로드하려는 파일의 Response 경로(파일명 포함)를 추출합니다.
+    string responseFileServerPath = parameterEntity.ResponseFileServerPath;
+    //업로드하려는 파일의 Response 파일명을 추출합니다.
+    string responseFileName = parameterEntity.ResponseFileName;
+    //업로드하려는 파일의 Group ID를 추출합니다.
+    string responseGroupId = parameterEntity.ResponseGroupId;
+    //업로드하려는 파일의 Index(총 업로드하려는 파일들 중의 Index)를 추출합니다.
+    //마지막 파일은 index 뒤에 z가 붙습니다.
+    string fileIndex = parameterEntity.FileIndex;
+            
+    //업로드하려는 파일의 물리적 경로(파일명 포함)를 변경합니다.
+    parameterEntity.NewFileLocation = newFileLocation;
+    //업로드하려는 파일의 Response 경로(파일명 포함)를 변경합니다.
+    parameterEntity.ResponseFileServerPath = responseFileServerPath;
+    //업로드하려는 파일의 Response 파일명을 변경합니다.
+    parameterEntity.ResponseFileName = responseFileName;
+    //업로드하려는 파일의 Response Custom Value를 설정합니다.
+    //특수기호(:,::,*,|,\b)가 포함되면 ResponseCustomValue가 설정되지 않습니다.
+    parameterEntity.ResponseCustomValue = "ResponseCustomValue";
+    //업로드하려는 파일의 Response Group ID를 설정합니다.
+    //특수기호(:,::,*,|,\b)가 포함되면 ResponseGroupId가 설정되지 않습니다.
+    parameterEntity.ResponseGroupId = responseGroupId;
+            
+    //업로드 요청시 특정 상황에 에러처리를 할 경우 사용합니다.
+    //Error Code를 설정하실 때에는 900이상의 3자리로 설정
+    upload.SetCustomError("999", "사용자오류");
+}
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

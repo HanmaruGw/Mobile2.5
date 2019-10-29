@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Replace</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+	
+	<script type="text/javascript">
+        function page_loaded_event() {
+
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+
+            document.getElementById("editor_popup_replace").className = 'DEXT_fiVe_ED_Popup_Type01 DEXT_fiVe_PUi_' + _skin_name;
+
+            document.getElementById("span_title").innerHTML = LayerWin.dext5_lang.replace.capital_small_letter + ' ' + LayerWin.dext5_lang.replace.name;
+
+            document.getElementById("span_capital_small_letter").innerHTML = LayerWin.dext5_lang.replace.capital_small_letter;
+            document.getElementById("label_small_change").innerHTML = LayerWin.dext5_lang.replace.small_change;
+            document.getElementById("label_capital_change").innerHTML = LayerWin.dext5_lang.replace.capital_change;
+            document.getElementById("label_first_capital").innerHTML = LayerWin.dext5_lang.replace.first_capital;
+            document.getElementById("span_replace_letter").innerHTML = LayerWin.dext5_lang.replace.replace;
+
+            document.getElementById("btn_cancel").innerHTML = LayerWin.dext5_lang.ok_cancel.cancel;
+
+            document.title = LayerWin.dext5_lang.replace.frame_title;
+
+            document.getElementById("tosavepathurl").value = LayerWin._dext_editor._config.toSavePathURL;
+
+            var header = LayerWin.getElementsByClass("EdiTor_Popup_header", document);
+            header[0].onselectstart = function () { return false; };
+            document.getElementById("btn_cancel").focus();
+
+            ////////////////////
+            if (LayerDoc.compatMode == "BackCompat") {
+                var inputs = document.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type == 'text') {
+                        inputs[i].style.height = '20px';
+                    }
+                }
+            }
+            ///////////////////
+            setCursorPos(document.getElementById('small_change'), false, false);
+            LayerWin.setFocusFirstAndLast(document, document.getElementById('small_change'));
+        }
+
+	</script>
+</head>
+<body style="margin:0px; padding:0px;" onload="page_loaded_event()" >
+    <div id="editor_popup_replace" class="editor_popup">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title"></span><span class="text">Dext5 Editor</span>
+            <div class="close">
+                <a href="javascript:event_dext_table_cancel();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / general -->
+        <div class="EdiTor_Popup_contents">
+            <div class="contents">
+                <input type="hidden" id="tosavepathurl" name="tosavepathurl" value="" />
+                <div class="con">
+                    <fieldset class="ulc select_btn">  
+                        <legend id="span_capital_small_letter"></legend>
+                        <input name="capital_small_letter" id="small_change" type="radio" style="vertical-align:middle;" checked/>
+                        <label for="small_change" id="label_small_change" style="vertical-align:middle;"></label><br />
+                        <input name="capital_small_letter" id="capital_change" type="radio" style="vertical-align:middle;"/>
+                        <label for="capital_change" id="label_capital_change" style="vertical-align:middle;"></label><br />
+                        <input name="capital_small_letter" id="first_capital" type="radio" style="vertical-align:middle;"/>
+                        <label for="first_capital" id="label_first_capital" style="vertical-align:middle;"></label>
+                        <a href="javascript:event_dext_capital_small_letter_completed(); javascript:event_dext_table_cancel();" style="cursor:pointer" class="change_btn"><span id="span_replace_letter"></span></a>             
+                    </fieldset>      
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a href="javascript:event_dext_table_cancel();" class="cancel"><span id="btn_cancel"></span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

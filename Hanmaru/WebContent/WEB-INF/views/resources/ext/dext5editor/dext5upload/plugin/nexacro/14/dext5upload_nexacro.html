@@ -1,0 +1,134 @@
+﻿<html>
+<head>
+    <title>DEXT5 Upload with nexacro Runtime</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">	
+	<script type="text/javascript">
+		document.write('<scr' + 'ipt src="../../../js/dext5upload.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+	</script>
+    <script type="text/javascript">	
+		var G_EventReturnValue;
+		
+		var G_GetNewUploadListForText_ResultObj = null;
+		var G_GetSelectedNewUploadListForText_ResultObj = null;
+		var G_GetAllFileListForText_ResultObj = null;
+		var G_GetSelectedAllFileListForText_ResultObj = null;
+		var G_GetAllFileMergeListForText_ResultObj = null;
+		var G_GetDeleteListForText = null;
+			
+		var G_GetNewUploadListForJson_ResultObj = null;
+		var G_GetSelectedNewUploadListForJson_ResultObj = null;
+		var G_GetAllFileListForJson_ResultObj = null;
+		var G_GetSelectedAllFileListForJson_ResultObj = null;
+		var G_GetAllFileMergeListForJson_ResultObj = null;
+		var G_GetDeleteListForJson_ResultObj = null;
+		
+		function fn_onusernotify(userdata) {			
+			if (window.NEXACROWEBBROWSER) {
+				window.NEXACROWEBBROWSER.on_fire_onusernotify(window.NEXACROWEBBROWSER, userdata);
+			}
+			else {
+				window.document.title = userdata;
+			}
+		}
+		
+		function fn_transfer_complete_done(uploadID) {
+			fn_GetFileInfo(uploadID);
+		}
+		
+		function fn_GetFileInfo(uploadID) {
+			G_GetNewUploadListForText_ResultObj = DEXT5UPLOAD.GetNewUploadListForText(uploadID);
+			G_GetSelectedNewUploadListForText_ResultObj = DEXT5UPLOAD.GetSelectedNewUploadListForText(uploadID);
+			G_GetAllFileListForText_ResultObj = DEXT5UPLOAD.GetAllFileListForText(uploadID);
+			G_GetSelectedAllFileListForText_ResultObj = DEXT5UPLOAD.GetSelectedAllFileListForText(uploadID);
+			G_GetAllFileMergeListForText_ResultObj = DEXT5UPLOAD.GetAllFileMergeListForText(uploadID);
+			G_GetDeleteListForText = DEXT5UPLOAD.GetDeleteListForText(uploadID);
+			
+			G_GetNewUploadListForJson_ResultObj = DEXT5UPLOAD.GetNewUploadListForJson(uploadID);
+			G_GetSelectedNewUploadListForJson_ResultObj = DEXT5UPLOAD.GetSelectedNewUploadListForJson(uploadID);
+			G_GetAllFileListForJson_ResultObj = DEXT5UPLOAD.GetAllFileListForJson(uploadID);
+			G_GetSelectedAllFileListForJson_ResultObj = DEXT5UPLOAD.GetSelectedAllFileListForJson(uploadID);
+			G_GetAllFileMergeListForJson_ResultObj = DEXT5UPLOAD.GetAllFileMergeListForJson(uploadID);
+			G_GetDeleteListForJson_ResultObj = DEXT5UPLOAD.GetDeleteListForJson(uploadID);
+		}
+		
+		function fn_bodyOnload() {
+			fn_onusernotify("DEXT5_UPLOAD_WEBBROWSER_INIT");			
+		}
+		
+		// DEXT5 Upload 생성 완료 이벤트
+		function DEXT5UPLOAD_OnCreationComplete(uploadID) {	
+			fn_onusernotify("DEXT5UPLOAD_OnCreationComplete");
+		}
+		
+		// 전체 파일 추가 완료 이벤트
+		function DEXT5UPLOAD_AfterAddItemEndTime(uploadID) {			
+			fn_onusernotify("DEXT5UPLOAD_AfterAddItemEndTime");
+		}
+		
+		// 전체 파일 삭제 완료 이벤트
+		function DEXT5UPLOAD_DeleteItemEndTime(uploadID, deleteItemCount) {		
+			G_EventReturnValue = deleteItemCount;
+
+			fn_onusernotify("DEXT5UPLOAD_DeleteItemEndTime");
+		}
+		
+		// 업로드 취소 이벤트
+		function DEXT5UPLOAD_UploadingCancel(uploadID, uploadedFileListObj) {
+			G_EventReturnValue = uploadedFileListObj;
+			
+			fn_onusernotify("DEXT5UPLOAD_UploadingCancel");
+		}
+		
+		// 업로드 에러 이벤트
+		function DEXT5UPLOAD_OnError(uploadID, code, message, uploadedFileListObj) {
+			G_EventReturnValue = {code: code, message: message, uploadedFileListObj: uploadedFileListObj};
+			
+			fn_onusernotify("DEXT5UPLOAD_OnError");
+		}
+		
+		// 파일 다운로드 이벤트
+		function DEXT5UPLOAD_AfterDownload(uploadID, strDownloadPath, nViewOrSave) {
+			G_EventReturnValue = {strDownloadPath: strDownloadPath, nViewOrSave: nViewOrSave};
+			
+			fn_onusernotify("DEXT5UPLOAD_AfterDownload");
+		}
+
+        // 파일선택 이벤트
+		function DEXT5UPLOAD_SelectItem(strUploadId, itemInfo) {
+		    G_EventReturnValue = itemInfo;
+		    fn_onusernotify("DEXT5UPLOAD_SelectItem");
+		}
+		
+		// 변수 초기화
+		function DEXT5UPLOAD_OnTransfer_Start(uploadID) {
+			G_GetNewUploadListForText_ResultObj = null;
+			G_GetSelectedNewUploadListForText_ResultObj = null;
+			G_GetAllFileListForText_ResultObj = null;
+			G_GetSelectedAllFileListForText_ResultObj = null;
+			G_GetAllFileMergeListForText_ResultObj = null;
+			G_GetDeleteListForText = null;
+		
+			G_GetNewUploadListForJson_ResultObj = null;
+			G_GetSelectedNewUploadListForJson_ResultObj = null;
+			G_GetAllFileListForJson_ResultObj = null;
+			G_GetSelectedAllFileListForJson_ResultObj = null;
+			G_GetAllFileMergeListForJson_ResultObj = null;
+			G_GetDeleteListForJson_ResultObj = null;
+		
+			return true;
+		}
+		// 전송 완료 이벤트		
+		function DEXT5UPLOAD_OnTransfer_Complete(uploadID) {
+			fn_GetFileInfo(uploadID);
+			
+			fn_onusernotify("DEXT5UPLOAD_OnTransfer_Complete");
+		}
+    </script>
+</head>		
+<body onload="fn_bodyOnload();"  style="padding:0; margin:0; height:100%; text-align: center; overflow: hidden; border: 0;">
+	<div id="dext_Holder" style="width: 100%; height: 100%; margin: 0 auto; overflow: hidden;"></div>
+</body>
+</html>

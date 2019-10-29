@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con ">
+            <h3 class="title">DEXT5 Upload :: MakeThumbnailEX</h3>
+            <p class="ttl">string MakeThumbnailEX<br />(string pSourceFileFullPath, string pTargetFileFullPath, int pNewWidth, int pNewHeight, bool pDeleteSourceFile)</p>
+            <p class="txt">
+                파일 업로드 시 이미지 파일인 경우 특정 위치에 이미지에 대한 Thumbnail 처리를 할 경우 사용됩니다.
+                <br />이벤트 UploadCompleteBeforeEvent, UploadCompleteEvent 에서 사용이 가능합니다.
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                <span class="firebrick">string</span>&nbsp;&nbsp;Thumbnail 처리된 이미지의 물리적 경로를 의미합니다.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">pSourceFileFullPath</span>&nbsp;&nbsp;이미지 파일의 물리적 경로를 의미합니다.<br />
+                <span class="firebrick">pTargetFileFullPath</span>&nbsp;&nbsp;Thumbnail 처리되는 파일이 저장될 물리적 경로를 의미합니다.<br />
+                <span class="firebrick">pNewWidth</span>&nbsp;&nbsp;Thumbnail의 Width 값을 의미합니다.<br />
+                <span class="firebrick">pNewHeight</span>&nbsp;&nbsp;Thumbnail의 Height 값을 의미합니다.<br />
+                <span class="firebrick">pDeleteSourceFile</span>&nbsp;&nbsp;원본 파일의 삭제 여부를 설정합니다. true: 삭제, false: 삭제안함<br />
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+string newFileLocation = parameterEntity.NewFileLocation;
+using (Raonwiz.Dext5.Common.Dext5Image dextImage = new Raonwiz.Dext5.Common.Dext5Image())
+{
+    try
+    {
+        string tempFilePath = string.Empty;
+        string sourceFileFullPath = newFileLocation;
+        
+        <b>string targetFileFullPath = @"c:\temp\test_thumb.jpg";</b>
+        <b>tempFilePath = dextImage.MakeThumbnailEX(sourceFileFullPath, targetFileFullPath, 200, 0, false);</b>
+
+    }
+    catch (Exception ex) { }
+}
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

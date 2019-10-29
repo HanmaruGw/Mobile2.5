@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Open File</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>    
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+
+        if (Dext5LayerWin._dext_editor._config.openDocument.useHtml5FileOpen == "1") {
+            document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.fileEncodingJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+        }
+    </script>    
+	<script type="text/javascript">
+	    var file_field_id = LayerWin._dext_editor._config.fileFieldID;
+	    var user_field_id = LayerWin._dext_editor._config.userFieldID;
+	    var user_field_value = LayerWin._dext_editor._config.userFieldValue;
+
+	    function page_loaded_event() {
+	        //window.frameElement.title = LayerWin.dext5_lang.iframe_title.image;
+	        set_page_lang();
+
+	        if (Dext5LayerWin._dext_editor._config.openDocument.useHtml5FileOpen != "1") {
+	            var _upload_frame = document.getElementById("upload_frame");
+
+	            var eventHandler = function () {
+	                var _body;
+
+	                try {
+	                    _body = (_upload_frame.contentDocument) ? _upload_frame.contentDocument.body : _upload_frame.contentWindow.document.body;
+	                }
+	                catch (e) {
+	                    _body = _upload_frame.document.body;
+	                }
+
+	                if ('textContent' in _body) { _web_url = _body.textContent; } else { _web_url = _body.innerText; }
+
+	                if (_web_url == "null") {
+	                    event_dext_open_file_upload_completed("");
+	                } else {
+	                    var open_str = "";
+	                    // 신규 암호화 로직 추가로 인하여 수정 - by jeongmin 18.08.06
+	                    if (LayerWin._dext_editor._config.security.encryptParam != "0") {
+	                        _web_url = DEXTTOP.DEXT5.util.makeDecryptReponseMessage(_web_url);
+	                        _web_url = DEXTTOP.DEXT5.util.makeEncryptParamFinal(_web_url);
+	                        open_str = DEXTTOP.DEXT5.ajax.postData(document.getElementById("upload_url").value, "uploadtype=" + DEXTTOP.DEXT5.util.makeEncryptParamFinal("openfile") + "&savefilepath=" + _web_url + "&savefileext=" + DEXTTOP.DEXT5.util.makeEncryptParamFinal("temp") + "&pe=" + LayerWin._dext_editor._config.security.encryptParam);
+	                    } else {
+	                        open_str = DEXTTOP.DEXT5.ajax.postData(document.getElementById("upload_url").value, "uploadtype=openfile&savefilepath=" + _web_url + "&savefileext=temp");
+	                    }
+	                    event_dext_open_file_upload_completed(open_str);
+	                }
+	            }
+
+	            DEXTTOP.DEXT5.util.addEvent(_upload_frame, "load", eventHandler, true);
+	        }	        
+
+	        set_page();
+
+	        var Range = LayerWin.getFirstRange();
+	        var selObjectText = Range.range;
+	        if (selObjectText == null || selObjectText.toString().length == 0 || selObjectText == undefined) {
+	            selObjectText = LayerWin._dext_editor._LastRange;
+	        }
+
+	        var btn_ok_a = document.getElementById('btn_ok_a');
+	        btn_ok_a.onclick = function () {
+	            dext_upload_open_file();
+	        };
+	        if (LayerDoc.compatMode == "BackCompat") {
+	            var inputs = document.getElementsByTagName('input');
+	            for (var i = 0; i < inputs.length; i++) {
+	                if (inputs[i].type == 'text') {
+	                    inputs[i].style.height = '20px';
+	                }
+	            }
+	        }
+
+	        setCursorPos(document.getElementById(file_field_id), false, false);
+	        LayerWin.setFocusFirstAndLast(document, document.getElementById(file_field_id));
+	    }
+
+	    function set_page() {
+	        var _upload_url = LayerWin._dext_editor._config.post_url;
+	        document.getElementById("upload_url").value = _upload_url;
+
+	        var _proxy_url = LayerWin._dext_editor._config.proxy_url;
+	        var enforceDocumentDomain = false;
+            try {
+                enforceDocumentDomain = dext5EnforceDocumentDomain;
+            } catch (e) { }
+	        var currentDocDomain = document.domain;
+	        if (enforceDocumentDomain) {
+	            currentDocDomain += '|';
+	        }
+
+	        // 신규 암호화 로직 추가로 인하여 수정 - by jeongmin 18.08.06
+	        if (LayerWin._dext_editor._config.security.encryptParam != "0") {
+	            document.getElementById("document_domain").value = DEXTTOP.DEXT5.util.makeEncryptParamFinal(currentDocDomain);
+	            document.getElementById("uploadtype").value = DEXTTOP.DEXT5.util.makeEncryptParamFinal("openfilesave");
+	            document.getElementById("proxy_url").value = DEXTTOP.DEXT5.util.makeEncryptParamFinal(_proxy_url);
+	            document.getElementById("pe").value = LayerWin._dext_editor._config.security.encryptParam;
+	        } else {
+	            document.getElementById("document_domain").value = currentDocDomain;
+	            document.getElementById("uploadtype").value = "openfilesave";
+	            document.getElementById("proxy_url").value = _proxy_url;
+	            document.getElementById("pe").parentNode.removeChild(document.getElementById("pe"));
+	        }
+
+	        var fileDataObj = document.getElementById(file_field_id);
+
+	    }
+
+	    function set_page_lang() {
+	        var _skin_name = LayerWin._dext_editor._config.style.skinName;
+
+	        document.getElementById("dext_dialog_box").className = 'DEXT_fiVe_ED_Popup_Type01 DEXT_fiVe_PUi_' + _skin_name;
+	        document.getElementById("span_title").innerHTML = LayerWin.dext5_lang.file_open.title;
+	        document.getElementById("btn_ok").innerHTML = LayerWin.dext5_lang.file_open.btn_ok;
+	        document.getElementById("btn_cancel").innerHTML = LayerWin.dext5_lang.file_open.btn_cancel;
+	        document.getElementById("label_file_info").innerHTML = LayerWin.dext5_lang.insert_file.label_file_info;
+	        document.getElementById("p_support_extension").innerHTML = LayerWin.dext5_lang.file_open.support_extension;
+	        document.getElementById("file_input_search").innerHTML = LayerWin.dext5_lang.file_open.file_search; // 찾아보기
+
+	        document.title = LayerWin.dext5_lang.file_open.frame_title;
+
+	        var fileDataObj = document.getElementById("Filedata");
+	        fileDataObj.id = file_field_id;
+	        fileDataObj.name = file_field_id;
+
+	        var userDataObj = document.getElementById("userField");
+	        userDataObj.id = user_field_id;
+	        userDataObj.name = user_field_id;
+	        userDataObj.value = user_field_value;
+
+	        var header = LayerWin.getElementsByClass('EdiTor_Popup_header', document);
+	        header[0].onselectstart = function () { return false; };
+	    }
+	</script>
+</head>
+<body style="margin:0px; padding:0px; " onload="page_loaded_event();">
+		<div id="dext_dialog_box" class="DEXT_fiVe_ED_Popup_Type01">
+			<!-- Header -->
+			<div class="EdiTor_Popup_header">
+				<span id="span_title" class="subject">파일열기</span><span class="text">DEXT5 Editor</span>
+				<div class="close">
+					<a href="javascript:event_dext_image_upload_cancel();" title="close"></a>
+				</div>
+			</div>
+			<!-- // Header -->
+			<!-- Contents / general -->
+			<div class="EdiTor_Popup_contents view">
+                <input type="hidden" id="upload_url" name="upload_url" value="" />
+				<form name="dext_upload_form"  id="dext_upload_form" method="post" target="upload_frame" enctype="multipart/form-data" action="">
+					<div id="div_config">
+                        <input type="hidden" id="pe" name="pe" value="1" />
+                        <input type="hidden" id="document_domain" name="document_domain" value="" />
+                        <input type="hidden" id="proxy_url" name="proxy_url" value="" />
+						<input type="hidden" id="uploadtype" name="uploadtype" value="openfilesave" />
+						<input type="hidden" id="savefilename" name="savefilename" value="" />
+						<input type="hidden" id="savefileext" name="savefileext" value="" />
+						<input type="hidden" id="serverdomain" name="serverdomain" value="" />
+						<input type="hidden" id="tosavepathurl" name="tosavepathurl" value="" />
+                        <input type="hidden" id="savafoldernamerule" name="savafoldernamerule" value="" />
+                        <input type="hidden" id="savafilenamerule" name="savafilenamerule" value="" />
+                        <input type="hidden" id="userField" value="" />
+					</div>
+					<div class="contents" style="overflow:hidden;height:100px;padding-top:20px">
+						<div class="con">
+							<table cellpadding="0" cellspacing="0">
+								<tr>
+									<td width="30%">
+										<label for="Filedata" id="label_file_info">파일 경로</label>
+									</td>
+									<td width="70%">
+                                    <span id="file_find_sec">
+                                    <input name="image_url" id="image_url" type="text" class="con_input" style="width:165px; float:left;background:#fff" disabled="disabled" />
+                                    <span id="find_file_nm" style="width:67px; height:20px; *margin-left:-3px;_margin-left:-3px; background-position: 0px 0px; display:block; float:left; cursor:pointer; background-repeat:no-repeat;">
+                                        <span id="file_input_search" class="file_input_button2">찾아보기</span>
+                                        <input class="noline" type="file" id="Filedata" name="Filedata" style="margin-top:-35px;*margin-top: -28px; margin-left:-170px;width:245px;height:25px; opacity:0; filter:alpha(opacity=0); -moz-opacity:0; cursor:pointer;" onchange="fileOnchange(this);"/>    
+                                        <a href="javascript:void(0);" id="a_file"></a>
+                                    </span>
+                                    </span>
+									</td>
+								</tr>
+							</table>
+                            <p id="p_support_extension" class="" style="border-top:1px solid #eee;margin-top:20px;padding-top:10px;font-size:11px;"></p>
+						</div>
+					</div>
+                    <iframe id="upload_frame" name="upload_frame" frameborder="0" style="width:0px; height:0px; display:none;" title="DEXT5Editor Upload"></iframe>
+				</form>
+			</div>
+			<!-- // Contents -->
+			<!-- Footer -->
+			<div class="EdiTor_Popup_footer">
+				<span id="dext_loading" style="display:none;"><img src="../images/editor/dialog/loading.gif" alt="working" style="vertical-align:middle; " /> Uploading... </span>
+				<a href="javascript:void(0);" class="confirm" id="btn_ok_a"><span id="btn_ok">확인</span></a>
+				<a href="javascript:event_dext_image_upload_cancel();" class="cancel" id="abtn_cancel"><span id="btn_cancel">취소</span></a>
+			</div>
+			<!-- // Footer -->
+		</div>
+</body>
+</html>

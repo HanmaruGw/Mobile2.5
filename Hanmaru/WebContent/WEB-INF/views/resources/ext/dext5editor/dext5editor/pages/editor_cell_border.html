@@ -1,0 +1,296 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Cell Property</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <style type="text/css">
+        .color li { width:14px; height:14px; float:left; padding:0px; margin:1px; border:0px none; list-style-type:none; cursor:pointer; }
+    </style>
+	
+	<script type="text/javascript">
+	    function set_page() {
+
+	        var _skin_name = LayerWin._dext_editor._config.style.skinName;
+
+	        document.getElementById("editor_popup_table").className = 'DEXT_fiVe_ED_Popup_Type01 DEXT_fiVe_PUi_' + _skin_name;
+
+	        document.getElementById("span_title").innerHTML = LayerWin.dext5_lang.cell_border.title;
+
+	        document.getElementById("label_line_style").innerHTML = LayerWin.dext5_lang.cell_border.line_style;
+	        document.getElementById("label_line_kind").innerHTML = LayerWin.dext5_lang.cell_border.line_kind;
+	        document.getElementById("label_line_thickness").innerHTML = LayerWin.dext5_lang.cell_border.line_thickness;
+	        document.getElementById("span_line_color").innerHTML = LayerWin.dext5_lang.cell_border.line_color;
+            document.getElementById("span_edge_select").innerHTML = LayerWin.dext5_lang.cell_border.edge_select;
+			document.getElementById("span_edge_select_none").innerHTML = LayerWin.dext5_lang.cell_border.edge_select_none;
+			document.getElementById("title_edge_select_none").title = LayerWin.dext5_lang.cell_border.edge_select_none;
+			document.getElementById("span_edge_select_total").innerHTML = LayerWin.dext5_lang.cell_border.edge_select_total;
+			document.getElementById("title_edge_select_total").title = LayerWin.dext5_lang.cell_border.edge_select_total;
+
+	        document.getElementById("btn_ok").innerHTML = LayerWin.dext5_lang.cell_border.btn_ok;
+	        document.getElementById("btn_cancel").innerHTML = LayerWin.dext5_lang.cell_border.btn_cancel;
+
+	        document.title = LayerWin.dext5_lang.cell_border.frame_title;
+
+	        var header = LayerWin.getElementsByClass('EdiTor_Popup_header', document);
+	        header[0].onselectstart = function () { return false; };
+	        document.getElementById("btn_cancel").focus();
+
+	        var _line_style_value = LayerWin.dext5_lang.arr_line_style_value.value;
+	        _cnt = _line_style_value.length;
+	        for (var i = 0; i < _cnt; i++) {
+	            _value = LayerWin.dext5_lang.arr_line_style_value.value[i];
+	            _text = LayerWin.dext5_lang.arr_line_style_value.text[i];
+	            var option = document.createElement("OPTION");
+	            option.value = _value;
+	            option.text = _text;
+	            document.getElementById("line_style").options.add(option);
+	        }
+	        document.getElementById("line_style").options[0].selected = "selected";
+	        var _line_kind_value = LayerWin.dext5_lang.arr_line_kind_value.value;
+	        _cnt = _line_kind_value.length;
+	        for (var i = 0; i < _cnt; i++) {
+	            _value = LayerWin.dext5_lang.arr_line_kind_value.value[i];
+	            _text = LayerWin.dext5_lang.arr_line_kind_value.text[i];
+	            var option = document.createElement("OPTION");
+	            option.value = _value;
+	            option.text = _text;
+	            document.getElementById("line_kind").options.add(option);
+	        }
+	        document.getElementById("line_kind").options[0].selected = "selected";
+	        document.getElementById("line_thickness").value = "1";
+
+	    }
+
+        function lineCountCheck(object,mode,max,min) {
+
+            if (parseInt(object.value, 10) < parseInt(min, 10)) {
+                if (mode == "L") {
+                    alert(LayerWin.dext5_lang.msg.detailTableInsertLineThicknessMinAlert);
+                    object.focus();
+                }
+                object.value = min;
+            } else if (parseInt(object.value, 10) > parseInt(max, 10)) {
+                if (mode == "L") {
+                    alert(LayerWin.dext5_lang.msg.detailTableInsertLineThicknessMaxAlert);
+                    object.focus();
+                }
+                object.value = max;
+            }
+
+        }
+
+        function edgeClick(id) {
+            var split_img_url = (document.getElementById("edge_" + id).src).split("/");
+            if (split_img_url[split_img_url.length - 1] == "editor_line_arrow_" + id + "_d_img.gif") {
+                document.getElementById("edge_" + id).src = "../images/editor/dialog/editor_line_arrow_" + id + "_img.gif";
+                var edge_border_value = "";
+                if(document.getElementById("line_kind").value == "") {
+                    edge_border_value += document.getElementById("line_thickness").value + "px";
+                } else {
+                    edge_border_value += document.getElementById("line_kind").value;
+                }
+                edge_border_value += " " + document.getElementById("line_style").value;
+                edge_border_value += " " + document.getElementById("line_color").style.borderTopColor;
+                if (id == "top") {
+                    document.getElementById("edge_border").style.borderTop = edge_border_value;
+                } else if (id == "left") {
+                    document.getElementById("edge_border").style.borderLeft = edge_border_value;
+                } else if (id == "right") {
+                    document.getElementById("edge_border").style.borderRight = edge_border_value;
+                } else if (id == "bottom") {
+                    document.getElementById("edge_border").style.borderBottom = edge_border_value;
+                }
+            } else if (split_img_url[split_img_url.length - 1] == "editor_line_arrow_" + id + "_img.gif") {
+                document.getElementById("edge_" + id).src = "../images/editor/dialog/editor_line_arrow_" + id + "_d_img.gif";
+                if (id == "top") {
+                    document.getElementById("edge_border").style.borderTop = "";
+                } else if (id == "left") {
+                    document.getElementById("edge_border").style.borderLeft = "";
+                } else if (id == "right") {
+                    document.getElementById("edge_border").style.borderRight = "";
+                } else if (id == "bottom") {
+                    document.getElementById("edge_border").style.borderBottom = "";
+                }
+            }
+        }
+
+        function edgeNoneTotalClick(mode) {
+            if (mode == "total") {
+                document.getElementById("edge_top").src = "../images/editor/dialog/editor_line_arrow_top_img.gif";
+                document.getElementById("edge_left").src = "../images/editor/dialog/editor_line_arrow_left_img.gif";
+                document.getElementById("edge_right").src = "../images/editor/dialog/editor_line_arrow_right_img.gif";
+                document.getElementById("edge_bottom").src = "../images/editor/dialog/editor_line_arrow_bottom_img.gif";
+                var edge_border_value = "";
+                if (document.getElementById("line_kind").value == "") {
+                    edge_border_value += document.getElementById("line_thickness").value + "px";
+                } else {
+                    edge_border_value += document.getElementById("line_kind").value;
+                }
+                edge_border_value += " " + document.getElementById("line_style").value;
+                edge_border_value += " " + document.getElementById("line_color").style.borderTopColor;
+                document.getElementById("edge_border").style.borderTop = edge_border_value;
+                document.getElementById("edge_border").style.borderLeft = edge_border_value;
+                document.getElementById("edge_border").style.borderRight = edge_border_value;
+                document.getElementById("edge_border").style.borderBottom = edge_border_value;
+            } else if (mode == "none") {
+                document.getElementById("edge_top").src = "../images/editor/dialog/editor_line_arrow_top_d_img.gif";
+                document.getElementById("edge_left").src = "../images/editor/dialog/editor_line_arrow_left_d_img.gif";
+                document.getElementById("edge_right").src = "../images/editor/dialog/editor_line_arrow_right_d_img.gif";
+                document.getElementById("edge_bottom").src = "../images/editor/dialog/editor_line_arrow_bottom_d_img.gif";
+                document.getElementById("edge_border").style.borderTop = "";
+                document.getElementById("edge_border").style.borderLeft = "";
+                document.getElementById("edge_border").style.borderRight = "";
+                document.getElementById("edge_border").style.borderBottom = "";
+            }
+        }
+
+        function lineColorChange() {
+            var split_edge_top = (document.getElementById("edge_top").src).split("/");
+            var split_edge_left = (document.getElementById("edge_left").src).split("/");
+            var split_edge_right = (document.getElementById("edge_right").src).split("/");
+            var split_edge_bottom = (document.getElementById("edge_bottom").src).split("/");
+            if (document.getElementById("edge_border").style.borderTop == document.getElementById("edge_border").style.borderLeft &&
+               document.getElementById("edge_border").style.borderTop == document.getElementById("edge_border").style.borderRight &&
+               document.getElementById("edge_border").style.borderTop == document.getElementById("edge_border").style.borderBottom &&
+               split_edge_top[split_edge_top.length - 1] == "editor_line_arrow_top_img.gif" &&
+               split_edge_left[split_edge_left.length - 1] == "editor_line_arrow_left_img.gif" &&
+               split_edge_right[split_edge_right.length - 1] == "editor_line_arrow_right_img.gif" &&
+               split_edge_bottom[split_edge_bottom.length - 1] == "editor_line_arrow_bottom_img.gif"
+               ) {
+
+                document.getElementById("edge_border").style.borderTopColor = document.getElementById("line_color").style.borderTopColor;
+                document.getElementById("edge_border").style.borderLeftColor = document.getElementById("line_color").style.borderTopColor;
+                document.getElementById("edge_border").style.borderRightColor = document.getElementById("line_color").style.borderTopColor;
+                document.getElementById("edge_border").style.borderBottomColor = document.getElementById("line_color").style.borderTopColor;
+
+            }
+        }
+
+	</script>
+
+
+
+</head>
+<body style="margin:0px; padding:0px;" onload="set_page()" >
+    <div id="editor_popup_table" class="editor_popup">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title"></span><span class="text">Dext5 Editor</span>
+            <div class="close">
+                <a href="javascript:event_dext_table_cancel();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <input type="hidden" id="tab_value" name="tab_value" value="1"/>
+        <!-- Contents / general -->
+        <div class="EdiTor_Popup_contents view">
+            <div class="contents" style="height: 295px; overflow: hidden;">
+                <div class="speech_balloons" id="access_div" style="position:absolute; display:none; width:287px;" >
+                    <span class="sp_t" style="width:270px;"><p></p></span>
+                    <span class="sp_arrow"><img src="../images/editor/dialog/speech_arrow.gif" width="15" height="16" alt="web accessibility"/></span>
+                </div>
+                <div class="con">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="25%">
+                                <label id="label_line_style" for="line_style"></label>
+                            </td>
+                            <td width="25%">
+                                <select name="line_style" id="line_style" style="width:80px;"></select>
+                            </td>
+                            <td width="25%">
+                                <label id="label_line_kind" for="line_kind"></label>
+                            </td>
+                            <td width="25%">
+                                <select name="line_kind" id="line_kind" style="width:80px;"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            
+                            <td>
+                                <span id="span_line_color"></span>
+                            </td>
+                            <td>
+                                <div class="tbd" style="cursor:pointer;" onclick="javascript:LayerWin.showColorPopup(document,document.getElementById('line_color'),'borderTopColor','line_color',-5,5,lineColorChange);">
+                                    <span style="border-top-color:#000000;" id="line_color" class="tbd_color"></span>
+                                </div>
+                            </td>
+                            <td>
+                                <label id="label_line_thickness" for="line_thickness"></label>
+                            </td>
+                            <td>
+                                <table cellpadding="0" cellspacing="0" style="line-height:normal; table-layout:auto;"><tbody><tr><td>
+                                <div class="no_ab">
+                                <input name="line_thickness" id="line_thickness" type="text" class="con_input" onkeydown="LayerWin.onlyNumber(event);" maxlength="4"/>
+                                <ul>
+                                    <li><a style="cursor:pointer"><img src="../images/editor/dialog/btn/editor_ta_btn.gif" width="15" height="10" onclick="LayerWin.click_plus_func(document.getElementById('line_thickness'),10,1)" alt=""/></a></li>
+                                    <li><a style="cursor:pointer"><img src="../images/editor/dialog/btn/editor_ba_btn.gif" width="15" height="10" onclick="LayerWin.click_minus_func(document.getElementById('line_thickness'),0,1)" alt=""/></a></li>
+                                </ul>
+                                </div>
+                                </td></tr></tbody></table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="con">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="24%"><span id="span_edge_select"></span></td>
+                            <td width="40%">
+                                <div class="select_outline">
+                                    <p><a id="title_edge_select_none" href="javascript:edgeNoneTotalClick('none');" title="" class="none"><span></span></a><span id="span_edge_select_none"></span></p>
+                                    <p><a id="title_edge_select_total" href="javascript:edgeNoneTotalClick('total');" title="" class="line"><span></span></a><span id="span_edge_select_total"></span></p>
+                                </div>
+                            </td>
+                            <td width="36%" style="height:95px; ">
+                                <table class="select_border" cellpadding="0" cellspacing="0" style="table-layout:auto;">
+                                    <tr>
+                                        <td class="line_lrtb"></td>
+                                        <td class="line_tb" style="vertical-align:top;"><img id="edge_top" style="cursor:pointer;" src="../images/editor/dialog/editor_line_arrow_top_img.gif" width="13" height="13" alt="" onclick="edgeClick('top');"/></td>
+                                        <td class="line_lrtb"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="line_lr" style="text-align:left;"><img id="edge_left" style="cursor:pointer;" src="../images/editor/dialog/editor_line_arrow_left_img.gif" width="13" height="13" alt="" onclick="edgeClick('left');"/></td>
+                                        <td class="line_m"><img id="edge_border" src="../images/editor/dialog/dext_img.gif" style="width:42px; height:42px; border-top:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; border-bottom:1px solid #000000;" alt=""/></td>
+                                        <td class="line_lr" style="text-align:right;" ><img id="edge_right" style="cursor:pointer;" src="../images/editor/dialog/editor_line_arrow_right_img.gif" width="13" height="13" alt="" onclick="edgeClick('right');"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="line_lrtb"></td>
+                                        <td class="line_tb" style="vertical-align:bottom;"><img id="edge_bottom" style="cursor:pointer;" src="../images/editor/dialog/editor_line_arrow_bottom_img.gif" width="13" height="13" alt="" onclick="edgeClick('bottom');"/></td>
+                                        <td class="line_lrtb"></td>
+                                    </tr>
+                                </table>
+                           </td>
+                          </tr> 
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+			<span id="dext_loading" style="display:none;"><img src="../images/editor/dialog/loading.gif" alt="working" style="vertical-align:middle; " /> Uploading... </span>
+            <a href="javascript:event_dext_cell_border_completed();" class="confirm" id="ok_btn"><span id="btn_ok"></span></a>
+            <a href="javascript:event_dext_table_cancel();" class="cancel"><span id="btn_cancel"></span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

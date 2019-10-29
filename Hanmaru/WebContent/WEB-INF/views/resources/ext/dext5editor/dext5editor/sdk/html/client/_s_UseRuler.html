@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: UseRuler</h3>
+    <p class="ttl">
+        XML : &#60;use_ruler&#62;.....&#60;/use_ruler&#62;, Config : config.Ruler.Use<br />
+        XML : &#60;use_ruler ruler_init_position="....."&#62;&#60;/use_ruler&#62;, Config : config.Ruler.InitPosition<br />
+        XML : &#60;use_ruler view_pointer="....."&#62;&#60;/use_ruler&#62;, Config : config.Ruler.ViewPointer<br />
+        XML : &#60;use_ruler view_guide_line="....."&#62;&#60;/use_ruler&#62;, Config : config.Ruler.ViewGuideLine<br />
+        XML : &#60;use_ruler view_ruler="....."&#62;&#60;/use_ruler&#62;, Config : config.Ruler.ViewRuler
+    </p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        <span class="txt">
+            <span class="firebrick">XML:use_ruler,Config:Use</span>&nbsp;&nbsp;가로 눈금자 표시 사용여부를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:ruler_init_position,Config:InitPosition</span>&nbsp;&nbsp;눈금자 포인터의 위치 값(픽셀)을 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:view_pointer,Config:ViewPointer</span>&nbsp;&nbsp;눈금자 포인터 아이콘 표시 사용여부를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:view_guide_line,Config:ViewGuideLine</span>&nbsp;&nbsp;에디터 작성 영역에 눈금자 포인터 기준선(세로) 표시 사용여부를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:view_ruler,Config:ViewRuler</span>&nbsp;&nbsp;에디터 작성 영역 상단에 눈금자 이미지 표시 사용여부를 설정합니다.
+        </span>
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">XML:use_ruler,Config:Use</span>&nbsp;&nbsp;기본값은 "0" 이고 눈금자 사용 안함, "1"로 설정 시 눈금자 사용으로 설정합니다. 
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:ruler_init_position,Config:InitPosition</span>&nbsp;&nbsp;기본값은 "680px" 입니다. 
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:view_pointer,Config:ViewPointer</span>&nbsp;&nbsp;기본값은 "1" 이고 표시, "0" 으로 설정 시 포인트 아이콘을 표시 안함으로 설정합니다. 
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:view_guide_line,Config:ViewGuideLine</span>&nbsp;&nbsp;기본값은 "1" 이고 표시, "0" 으로 설정 시 눈금자 포인트 기준선 표시 안함으로 설정합니다. 
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:view_ruler,Config:ViewRuler</span>&nbsp;&nbsp;기본값은 "1" 이고 표시, "0" 으로 설정 시 눈금자 이미지 표시 안함으로 설정합니다. 
+        </span>
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+<b>가로 눈금자 표시 사용여부를 사용으로 설정합니다.</b>
+<b>눈금자 포인터의 위치 값(픽셀)을 800px로 설정합니다.</b>
+<b>눈금자 포인터 아이콘 표시 사용여부를 사용으로 설정합니다.</b>
+<b>에디터 작성 영역에 눈금자 포인터 기준선(세로) 표시 사용여부를 사용으로 설정합니다.</b>
+<b>에디터 작성 영역 상단에 눈금자 이미지 표시 사용여부를 사용으로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;use_ruler ruler_init_position="800px" view_pointer="1" view_guide_line="1" view_ruler="1"&#62;1&#60;/use_ruler&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+ 
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;    
+    &#60;script type="text/javascript"&#62;
+        
+        DEXT5.config.Ruler = {
+            Use: '1',
+            InitPosition: '800px',
+            ViewPointer: '1',
+            ViewGuideLine: '1',
+            ViewRuler: '1'
+        }
+
+        new Dext5editor("editor1");
+
+    &#60;/script&#62;       
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

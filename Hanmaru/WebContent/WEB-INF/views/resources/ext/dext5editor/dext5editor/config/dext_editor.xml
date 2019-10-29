@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dext5>
+  <license>
+    <!-- m.hd-bsnc.com에 대한 라이센스 정보입니다. -->
+    <product_key>Q81F-I52W-1Q43-42GN</product_key>
+    <license_key>BJ8vhJrQGeNTNkI43NC63NX022C4MJX9rJrjrAVDXJVzqHUNBbytPmhkPzNWDmQrv85qPb7hCztrCbLqvnIrvV1jD86ZQTE7PjMtIV09QV01IgtUIWxrQjc9PjEWPjkWPb6rCbLqvnIrvV1jD874QHtWQfd4xTGURi7NITNuPTaRIfQqIfNHTnttQfdaPfeUQjcZQHt=</license_key>
+    <mime_use mimeCharset="utf-8">0</mime_use>
+    <print_preview></print_preview>
+    <print_header>Header</print_header>
+    <print_footer>Footer</print_footer>
+    <trust_sites desc="도메인 앞에 '-'붙이면 신뢰사이트 삭제, 등록하려는 사이트가 여러개인 경우 콤마(,)로 구분하여 입력">
+        m.hd-bsnc.com
+    </trust_sites>
+  </license>
+  <xss_protection>
+    <xss_use allow_events_attribute="1" desc="0: 사용안함, 1: 사용함, allow_events_attribute - 객체의 Attribute에 설정된 이벤트들을 허용할지 여부, 0:허용하지 않음 1: 허용">1</xss_use>
+    <xss_remove_tags desc="script,img,..."></xss_remove_tags>
+    <xss_remove_events desc="onclick,onload,... 모두 삭제는 all">onclick,onerror,onload</xss_remove_events>
+  </xss_protection>
+  <!-- 
+  <top_menu>
+    <menu>m_file</menu>
+    <menu>m_edit</menu>
+    <menu>m_view</menu>
+    <menu>m_insert</menu>
+    <menu>m_form</menu>
+    <menu>m_table</menu>
+    <menu>m_tool</menu>
+    <menu>m_help</menu>
+  </top_menu>
+  <tool_bar_1>
+    <tool>new</tool>
+    <tool>save</tool>
+    <tool>print</tool>
+    <tool>pagebreak</tool>
+    <tool>separator</tool>
+    <tool>undo</tool>
+    <tool>redo</tool>
+    <tool>separator</tool>
+    <tool>copy</tool>
+    <tool>cut</tool>
+    <tool>paste</tool>
+    <tool>separator</tool>
+    <tool>select_all</tool>
+    <tool>replace</tool>
+    <tool>separator</tool>
+    <tool>symbol</tool>
+    <tool>horizontal_line</tool>
+    <tool>hyperlink_create</tool>
+    <tool>insert_datetime</tool>
+    <tool>detail_insert_datetime</tool>
+    <tool>separator</tool>
+    <tool>emoticon</tool>
+    <tool>doc_bg_image</tool>
+    <tool>image_create</tool>
+    <tool>image_editor</tool>
+    <tool>insert_link_media</tool>
+    <tool>media_create</tool>
+    <tool>insert_file</tool>
+    <tool>separator</tool>
+    <tool>table_insert</tool>
+    <tool>insert_row_down</tool>
+    <tool>delete_column</tool>
+    <tool>insert_column_right</tool>
+    <tool>table_delete</tool>
+    <tool>merge_cell</tool>
+    <tool>split_cell</tool>
+    <tool>table_same_width</tool>
+    <tool>table_same_height</tool>
+    <tool>cell_bg_color</tool>
+    <tool>separator</tool>
+    <tool>accessibility_validation</tool>
+    <tool>setting</tool>
+    <tool>full_screen</tool>    
+  </tool_bar_1>
+  <tool_bar_2>
+    <tool>formatting</tool>
+    <tool>font_family</tool>
+    <tool>font_size</tool>
+    <tool>line_height</tool>
+    <tool>separator</tool>
+    <tool>bold</tool>
+    <tool>italic</tool>
+    <tool>underline</tool>
+    <tool>strike_through</tool>
+    <tool>superscript</tool>
+    <tool>subscript</tool>
+    <tool>remove_format</tool>
+    <tool>remove_css</tool>
+    <tool>separator</tool>
+    <tool>font_color</tool>
+    <tool>font_bg_color</tool>    
+    <tool>separator</tool>
+    <tool>list_number</tool>
+    <tool>list_bullets</tool>
+    <tool>separator</tool>
+    <tool>align_left</tool>
+    <tool>align_center</tool>
+    <tool>align_right</tool>
+    <tool>align_full</tool>
+    <tool>separator</tool>
+    <tool>indent</tool>
+    <tool>outdent</tool>
+  </tool_bar_2>
+  <status_bar desc="ex) design,source,preview,text">
+    <status>design</status>
+    <status>source</status>
+    <status>preview</status>
+    <status>text</status>
+  </status_bar>
+  -->
+  <remove_item>
+    <!--
+		<item>underline</item>
+		<item>flash_create</item>
+		<item>superscript</item>
+		<item>subscript</item>
+		<item>remove_format</item>
+		<item>copy</item>
+		<item>font_bg_color</item>
+		<item>list_number</item>
+		<item>list_bullets</item>
+		-->
+  </remove_item>
+  <remove_context_item>
+    <!--
+      <item desc="표 복사하기">table_copy</item>
+      <item desc="표 붙여넣기">intable_paste</item>
+      <item desc="표 내용 붙여넣기">table_content_paste</item>
+      <item desc="가로줄/세로줄 삽입">insert_row_column</item>
+      <item desc="가로줄 삽입">insert_row</item>
+      <item desc="세로줄 삽입">insert_column</item>
+      <item desc="가로줄 복제">table_row_clone</item>
+      <item desc="표 삭제">table_delete</item>
+      <item desc="가로줄 삭제">delete_row</item>
+      <item desc="세로줄 삭제">delete_column</item>
+      <item desc="셀 나누기">split_cell</item>
+      <item desc="표 들여쓰기">table_indent</item>
+      <item desc="표 내어쓰기">table_outdent</item>
+      <item desc="선택">table_select</item>
+      <item desc="수직정렬">align_vertical</item>
+      <item desc="가로줄 속성">row_property</item>
+      <item desc="세로줄 속성">column_property</item>
+      <item desc="표 도구">table_tool</item>
+      <item desc="셀 합치기">merge_cell</item>
+      <item desc="셀 크기조정">cell_size</item>
+      <item desc="표 속성">table_property</item>
+      <item desc="셀 속성">cell_property</item>
+      -->
+  </remove_context_item>
+  <font_size>
+    <size>9pt</size>
+    <size>10pt</size>
+    <size>12pt</size>
+    <size>14pt</size>
+    <size>16pt</size>
+    <size>20pt</size>
+    <size>24pt</size>
+    <size>30pt</size>
+    <size>36pt</size>
+  </font_size>
+  <font_family use_local_font="0" use_recently_font="0">
+    <font>맑은 고딕</font>
+    <font>굴림</font>
+    <font>굴림체</font>
+    <font>궁서</font>
+    <font>궁서체</font>
+    <font>돋움</font>
+    <font>돋움체</font>
+    <font>바탕</font>
+    <font>바탕체</font>
+    <font>Arial</font>
+    <font>Tahoma</font>
+    <font>Times New Roman</font>
+    <font>Verdana</font>
+  </font_family>
+  <line_height>
+    <line>1</line>
+    <line>1.2</line>
+    <line>1.5</line>
+    <line>1.8</line>
+    <line>2</line>
+    <line>2.5</line>
+    <line>3</line>
+  </line_height>
+  <setting>
+    <runtimes desc="html5,ieplugin,versionieplugin">html5</runtimes>
+    <encoding>utf-8</encoding>
+    <ie_compatible desc="IE 랜더링 모드을 설정합니다. 예) EmulateIE8 또는 8 등 버전만 입력 합니다."></ie_compatible>
+    <xmlnsname></xmlnsname>
+    <lang>ko-kr</lang>
+    <width>100%</width>
+    <height>100%</height>
+    <skinname></skinname>
+    <font_family>맑은 고딕</font_family>
+    <font_size>12pt</font_size>
+    <line_height mode="2">1.2</line_height>
+    <show_font_real desc="0: 기본값 사용, 1: 실제 폰트명, 크기 사용">1</show_font_real>
+    <accessibility>0</accessibility>
+    <show_topmenu desc="1: 보이기, 0: 숨기기">1</show_topmenu>
+    <show_toolbar grouping="1" desc="3: 모두보이기, 2: 두번째 툴바만 보이기, 1: 첫번째 툴바만 보이기, 0: 툴바 모두 숨기기">3</show_toolbar>
+    <show_statusbar loading="1" desc="1: 보이기, 0: 숨기기">1</show_statusbar>
+    <showdialog_pos desc="1: 작성화면에 맞춤, 그렇지 않으면 (메인)프레임창 중앙">1</showdialog_pos>
+    <source_viewtype desc="0: 들여쓰기 사용안함/줄바꿈 사용, 1: 들여쓰기 사용/줄바꿈 사용안함, 2: 들여쓰기/줄바꿈 사용함">2</source_viewtype>
+    <wrap_ptag_to_source desc="1: setValue 할 때 block 태그를 제외한 태그는 ptag로 감싸줌, 2: 내용이 없는 textNode는 제외">2</wrap_ptag_to_source>
+    <user_css_url always_set="0" desc="http:// 를 포함하는 전체 url, always_set - 설정된 User CSS를 항상 포함할지 여부, 0:최초 로드시에만 포함 1: 항상 포함"></user_css_url>
+    <xhtml_value desc="0: 사용하지 않음, 1: xhtml 형식">0</xhtml_value>
+    <view_mode_auto_height desc="0: 사용하지 않음, 1: 내용에 따라 height가 늘어남">0</view_mode_auto_height>
+    <system_title desc="기본값: DEXT5 Editor,  0: 사용하지 않음, 사용자 입력값 사용"></system_title>
+    <table_auto_adjust desc="0: 사용하지 않음, 1: 테이블관련 내용 수정시 사이즈 자동 보정">0</table_auto_adjust>
+    <use_ruler ruler_init_position="680" view_pointer="1" view_guide_line="1" view_ruler="1">0</use_ruler>
+    <auto_body_fit desc="룰러 위치에 따른 줄내림 0:미사용, 1:사용함">0</auto_body_fit>
+    <use_horizontal_line url="horizontal_line.png">0</use_horizontal_line>
+    <image_base_url desc="문서의 모든 상대 URL에 대한 기본 URL / 대상을 지정합니다 (http://localhost/dext5/)"></image_base_url>
+    <context_menu_disable>0</context_menu_disable>
+    <enter_tag></enter_tag>
+    <img_default_size desc="이미지 삽입창의 Width, Height 기본 값을 지정합니다." width="" height=""></img_default_size>
+    <table_property allow_inoutdent_text="1" width="" height="" class="" inoutdent="" init_inoutdent="" td_height="" row_max_count="13" col_max_count="13" adjust_cursor_in_table="1" desc="테이블 생성시 width height className 기본값 설정 inoutdent : 표 들여쓰기 내어쓰기 기본값 설정, init_inoutdent : 표생성시 들여쓰기되어 생성될값, td_height: 생성시 td 기본 height">
+      <class_list desc="테이블에 지정가능한 ClassName"></class_list>
+      <line_style desc="테이블 선모양 리스트">solid,dotted,dashed,double,groove,ridge,inset,outset,none</line_style>
+      <no_resize_class></no_resize_class>
+      <show_line_for_border_none>0</show_line_for_border_none>
+      <use_mouse_inoutdent>0</use_mouse_inoutdent>
+    </table_property>
+    <set_default_style dext_set_style="1" body_id="dext_body" desc="0:기본값, 1:에디터 body영역만 스타일 적용, 2:getAPI 사용시 태그에 inline으로 스타일 적용">2</set_default_style>
+    <paste_to_image desc="0: 우클릭 시 이미지로 붙여넣기 항목 생성, 1: 기본 붙여넣기에 이미지로 붙여넣기 적용" desc2="plugin버전만 해당">1</paste_to_image>
+    <remove_space_in_tagname>0</remove_space_in_tagname>
+    <view_mode_browser_menu desc="0: View모드에서 우클릭시 브라우저 메뉴 열리게 함, 1: View모드에서 우클릭시 브라우저 메뉴 열리지 않게 함">0</view_mode_browser_menu>
+    <view_mode_allow_copy desc="0: ctrl+c 허용 안함, 1: ctrl+c 허용함">1</view_mode_allow_copy>
+    <drag_and_drop_allow>1</drag_and_drop_allow>
+    <formlist_url desc="템플릿 양식을 설정하는 파일경로를 적용할 수 있음."></formlist_url>
+    <default_mode></default_mode>
+	  <resizebar>0</resizebar>
+    <drag_resize apply_browser="ie,edge,chrome,firefox,opera,safari" apply_div_class="DEXT_fiVe_Layer" desc="0: 기본값,브라우저 기본 리사이즈 사용, 1: editor에서 제공하는 리사이즈를 사용">1</drag_resize>
+    <remove_comment desc="주석 삭제: 1, 삭제 안함: 0">1</remove_comment>
+    <user_help_url desc="http:// 를 포함하는 전체 url"></user_help_url>
+    <use_correct_in_outdent desc="붙여넣기 시 p태그의 text-indent 또는 margin-left 값이 음수인 경우에 보정">1</use_correct_in_outdent>
+    <browser_bugfixed>
+      <ie11_jaso>0</ie11_jaso>
+    </browser_bugfixed>
+    <auto_destroy move_cursor="0" desc="move_cursor: 1인 경우 에디터 destroy시 커서를 다른 객체로 옮겨줌">0</auto_destroy>
+    <security>
+      <encrypt_param>1</encrypt_param>
+    </security>
+  </setting>
+  <uploader_setting use_html5mode="1">
+    <develop_langage desc="NET(C# 또는 ASP 환경인 경우), JAVA(JAVA 환경인 경우)">NET</develop_langage>
+    <handler_url></handler_url>
+    <handler_url_save_for_notes desc="http://를 포함한 전체 경로"></handler_url_save_for_notes>
+    <server_domain></server_domain>
+    <to_save_path_url></to_save_path_url>
+    <to_save_file_path_url></to_save_file_path_url>
+    <save_foldername_rule desc="/, YYYY/, YYYY/MM/, YYYY/MM/DD/">YYYY/MM/</save_foldername_rule>
+    <save_file_foldername_rule desc="/, YYYY/, YYYY/MM/, YYYY/MM/DD/">YYYY/MM/</save_file_foldername_rule>
+    <save_filename_rule desc="Reserved Field"></save_filename_rule>
+    <image_convert_format desc="jpg or empty"></image_convert_format>
+    <image_convert_width>0</image_convert_width>
+    <image_convert_height>0</image_convert_height>
+    <image_auto_fit desc="0: 사용하지 않음, 1 : 에디터 Width 크기에 맞춤">1</image_auto_fit>
+    <allow_media_file_type desc="동영상 삽입시 허용할 확장자 설정">wmv,asf</allow_media_file_type>
+    <allow_image_file_type desc="이미지 삽입시 허용할 확장자 설정">jpg,jpeg,png,gif,bmp</allow_image_file_type>
+    <allow_flash_file_type desc="플래시 삽입시 허용할 확장자 설정">swf,flv</allow_flash_file_type>
+    <allow_insert_file_type desc="파일 삽입시 허용할 확장자 설정"></allow_insert_file_type>
+    <attach_file_image desc="0: 허용안함, 1: 허용 (파일 삽입 시 파일 관련 이미지 삽입 허용)">1</attach_file_image>
+  </uploader_setting>
+
+  <extra_setting>
+    <paste_image_base64 desc="0: 사용하지 않음, 1 : base64 사용">0</paste_image_base64>
+    <empty_tag_remove desc="0 : 사용하지 않음, 1 : 삭제">1</empty_tag_remove>
+    <custom_code></custom_code>
+  </extra_setting>
+</dext5>

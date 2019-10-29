@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con">
+            <h3 class="title">DEXT5 Upload :: SetZipFileName</h3>
+            <p class="ttl">upload.SetZipFileName</p>
+            <p class="txt">
+                웹표준 모드에서 멀티 파일 다운로드시 zip 파일명을 설정합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                기본값 : download.zip
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+Raonwiz.Dext5.UploadHandler upload = new Raonwiz.Dext5.UploadHandler();
+
+<b>upload.SetZipFileName = "download.zip";</b>
+
+upload.Process(context);
+        </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<div class="mainContainer" ng-controller="mainListController">
+	<!-- 헤더바 -->
+	<div class="headerBar headTopBg">
+		<div class="headerBarMenu" ng-click="slideMenuClick()">
+			<img src="/resources/image/main/menu_img.png">
+		</div>
+		<div class="headerBarTitle">
+			<img class="mainLogo" src="/resources/image/main/hanmaru.png" >	
+		</div>
+		<div class="headerBarMove approval_attach">
+
+		</div>
+		<div class="headerBarSearch approval_search">
+			
+		</div>
+		<!-- <div class="headerUnderBar"></div> -->
+		
+	</div>
+	<div class="mainNaviBar">
+		<ul>
+			<li ng-click="btnMainPage()"><a>{{translateLanguage('home_news')}}</a></li>
+			<li ng-click="btnWorkDiaryPage()"><a>{{translateLanguage('home_work')}}</a></li>
+			<li ng-click="btnMailPage()"><a>{{translateLanguage('home_mail')}}</a></li>
+			<li ng-click="btnApprovalPage()"><a>{{translateLanguage('home_approval')}}</a></li>
+			<li ng-click="btnBoardPage()"><a>{{translateLanguage('home_board')}}</a></li>
+			<li ng-click="btnOrganPage()"><a>{{translateLanguage('home_organ')}}</a></li>
+			<li ng-click="btnResourcePage()"><a>{{translateLanguage('home_resource')}}</a></li>
+		</ul>
+	</div>
+	<div class="mainContentsDiv">
+		<div class="mainVisualWrap" ng-click="boardDetail($event, mainData.Head, mainData.Head.BoardType, mainData.Head.BoardTitle)">
+			<img class="mainVisualImage" ng-src="{{headImage}}">
+			<span  class="mainVisualTitle">
+				<span>{{headSubject}}</span>
+			</span>
+		</div>
+		<div class="contentsSlideDiv">
+			<div class="contentsSlideWrap">
+				<div class="contentsSlideFixBox" ng-repeat="hallaIn in hallaInList" ng-click="boardDetail($event, hallaIn, hallaIn.BoardType, hallaIn.BoardTitle)">
+					<div class="contentsSlideFixImgDiv">
+						<img ng-src="{{hallaIn.Image}}" ng-if="hallaIn.Image != undefined || hallaIn.Image != ''">	
+					</div>
+					<p>{{hallaIn.Subject}}</p>
+				</div>
+			</div>
+		</div>
+		<div>
+			<img class="mainBannerImage" ng-src="{{bannerImage}}" ng-click="btnMainBanner($event)">
+		</div>
+		<div class="mainNoticeDiv">
+			<div class="mainNoticeWrap">
+				<span>사우소식</span>
+				<a><img src="/resources/image/main/ic_more_normal.png" ng-click="btnPartnerMore()"></a>
+			</div>
+			<div class="mainNoticeList">
+				<div class="noticeListWrap">
+					<ul>
+						<li ng-repeat="notice in noticeList">
+							<a ng-click="boardDetail($event, notice, notice.BoardType, '사우소식')">{{notice.Subject}}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="mainHallaRoadDiv">
+			<div class="mainHallaRoadWrap">
+				<span>인사별령</span>
+				<a><img src="/resources/image/main/ic_more_normal.png" ng-click="btnOrganMore()"></a>
+			</div>
+			<div class="mainHallaRoadList">
+				<div class="hallaRoadListWrap">
+					<ul>
+						<li ng-repeat="press in pressList">
+							<a ng-click="boardDetail($event, press, press.BoardType, '인사발령')">{{press.Subject}}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>

@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">               
+    <h3 class="title">DEXT5 Upload :: LargeFiles</h3>
+    <p class="ttl">XML : &#60;large_files unit="....."&#62;.....&#60;/large_files&#62;, Config : config.LargeFiles.Size<br/>XML : &#60;large_files max_count="....."&#62;&#60;/large_files&#62;, Config : config.LargeFiles.MaxCount<br />XML : &#60;large_files max_total_size="....."&#62;&#60;/large_files&#62;, Config : config.LargeFiles.MaxTotalSize<br />XML : &#60;large_files text="....."&#62;&#60;/large_files&#62;, Config : config.LargeFiles.Text<br />XML : &#60;large_files color="....."&#62;&#60;/large_files&#62;, Config : config.LargeFiles.Color</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        업로드 기준 파일 크기 이상이면 대용량 텍스트 노출 기능을 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">XML:large_files, Config:LargeFiles.Size</span>&nbsp;&nbsp;기본값 "0" 이면 대용량 텍스트 미노출이고, 사용자 설정값"으로 설정시 대용량 텍스트를 노출합니다.<br />
+            <span style="padding-left:213px">XML:파일 단위는 large_files unit 속성값에 B(byte), KB(kilobyte), MB(megabyte), GB(gigabyte) 으로 설정합니다.</span><br />
+            <span style="padding-left:213px">Config:파일 단위는 B(byte), KB(kilobyte), MB(megabyte), GB(gigabyte) 으로 설정합니다.</span>
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:max_count, Config:LargeFiles.MaxCount</span>&nbsp;&nbsp;최대 대용량 파일 개수 제한 값
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:max_total_size, Config:LargeFiles.MaxTotalSize</span>&nbsp;&nbsp;최대 전체 대용량 파일 용량 값<br />
+            <span style="padding-left:285px">XML:파일 단위는 large_files unit 속성값에</span><br />
+            <span style="padding-left:315px">B(byte), KB(kilobyte), MB(megabyte), GB(gigabyte) 으로 설정합니다.</span><br />
+            <span style="padding-left:285px">Config:파일 단위는 B(byte), KB(kilobyte), MB(megabyte), GB(gigabyte) 으로 설정합니다.</span>
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:text, Config:LargeFiles.Text</span>&nbsp;&nbsp;대용량 문구 변경 값
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:color, Config:LargeFiles.Color</span>&nbsp;&nbsp;대용량 텍스트 컬러 값
+        </span><br /><br />
+
+        setting 항목 중 (최대 파일 개수 제한 값(max_total_file_count), 업로드 된 파일의 용량 제한 값(max_total_file_size))이<br />        
+        대용량 설정 속성 값(최대 파일 개수 제한 값(max_count),총 업로드 된 파일의 용량 제한 값(max_total_size))보다<br />         
+        최우선으로 적용 됩니다.<br/><br />
+        예) 최대 파일 개수 제한 값(max_total_file_count)이 5 이고, 최대 대용량 파일 개수 제한 값(max_count)이 10 이라면<br />
+        최대 파일 개수 제한 값(max_total_file_count)인 5가 우선 적용 됩니다.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>업로드 할 파일 크기가 10MB 이상이면 '대용량2' 라는 텍스트가 #ff0000 색상으로 노출되어 생성합니다.</b>
+<b>대용량 파일에 대한 Max Count는 10개로, Max Total Size는 500MB로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;large_files unit="MB" max_count="10" max_total_size="500" text="대용량2" color="#ff0000"&#62;10&#60;/large_files&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        DEXT5UPLOAD.config.LargeFiles = {                       
+            Size: '10MB',
+            MaxCount: '10',
+            MaxTotalSize: '500MB',
+            Text: '대용량2',
+            Color: '#ff0000'
+        }
+
+        new Dext5Upload("upload1");
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con">
+            <h3 class="title">DEXT5 Upload :: UploadBeforeInitializeEvent</h3>
+            <p class="ttl">void Dext5_UploadBeforeInitializeEventEx<br />(Raonwiz.Dext5.Process.Entity.UploadEventEntity parameterEntity)</p>
+            <p class="txt">
+                파일 업로드시 서버에 저장하기 전에 발생합니다.
+                <br />파일에 대한 저장 경로 또는 파일명을 변경해야 하는 경우 사용합니다.
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">parameterEntity</span>&nbsp;&nbsp;업로드 요청시 정보를 추출할 수 있고 정보를 변경할 수 있는 Object를 의미합니다.<br />
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                dext5handler.ashx에서 "upload.Process(context);" 전에<br />아래와 같이 이벤트 처리기가 등록되면 이벤트가 발생됩니다.<br /><br />upload.UploadBeforeInitializeEventEx +=<br />new Raonwiz.Dext5.UploadHandlerBeforeInitializeDelegateEx(Dext5_UploadBeforeInitializeEventEx);
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+upload.UploadBeforeInitializeEventEx +=
+        new Raonwiz.Dext5.UploadHandlerBeforeInitializeDelegateEx(Dext5_UploadBeforeInitializeEventEx);
+upload.Process(context);
+        
+private void Dext5_UploadBeforeInitializeEventEx(Raonwiz.Dext5.Process.Entity.UploadEventEntity parameterEntity)
+{
+    //업로드 요청 Context 정보를 추출합니다.
+    HttpContext context = parameterEntity.Context;
+    //업로드하려는 파일의 물리적 경로(파일명 포함)를 추출합니다.
+    string newFileLocation = parameterEntity.NewFileLocation;
+    //업로드하려는 파일의 파일명을 추출합니다.
+    string responseFileName = parameterEntity.ResponseFileName;
+            
+    //업로드하려는 파일의 물리적 경로(파일명 포함)를 변경합니다.
+    parameterEntity.NewFileLocation = newFileLocation;
+    //업로드하려는 파일의 파일명을 변경합니다.
+    parameterEntity.ResponseFileName = responseFileName;
+            
+    //업로드 요청시 특정 상황에 에러처리를 할 경우 사용합니다.
+    //Error Code를 설정하실 때에는 900이상의 3자리로 설정
+    upload.SetCustomError("999", "사용자오류");
+}
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

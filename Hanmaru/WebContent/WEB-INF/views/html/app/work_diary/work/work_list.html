@@ -1,0 +1,128 @@
+<div class="workDiaryContainer" ng-controller="workTaskController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarMenu" ng-click="slideMenuClick()">
+			<img src="/resources/image/ic-menu.png">
+		</div>
+		<div class="headerBarTitle">
+			<span>{{translateLanguage('work_task_list')}}</span>
+		</div>
+		<div class="headerBarSearch workDiarySearch" ng-click="taskSearchBtn($event)">
+			<img src="/resources/image/mail_ic-search.png">
+		</div>
+		<div class="headerBarSend workDiaryWrite" ng-click="callWorkListTemplete($event)">
+			<img src="/resources/image/work_diary/ic-writing.png">
+		</div>
+		<div class="headerUnderBar "></div>
+	</div>
+	
+	<!-- Search -->
+	<!-- <div class="diaryListSearchDiv" ng-show="isShowTaskSearch">
+		<div class="diaryListRecentTime">
+			<div class="diaryListFirstTime" ng-click="chooseSearchDate('start')">
+				<input type="text" class="txtDateSearch" readonly="readonly" ng-model="txtSearchStart">
+				<img src="/resources/image/calendar.png">
+			</div>
+			<div class="diaryListSecondTime" ng-click="chooseSearchDate('end')">
+				<input type="text" class="txtDateSearch" readonly="readonly" ng-model="txtSearchEnd">
+				<img src="/resources/image/calendar.png">
+			</div>
+		</div>
+		<div class="diaryListSelectOption">
+			<div class="diaryListSelectWrap">
+				<select name="diarySelectName" class="diaryListSelectMenu" ng-model="searchType" ng-change="applySearchType(searchType)">
+				<option ng-repeat="type in SearchTypeOptions" value="{{type.name}}">{{type.value}}</option>
+				<option value=''>전체</option>
+				<option value=''>제목</option>
+				<option value=''>본문</option>
+				<option value=''>제목+본문</option>
+				<option value=''>발신자</option>
+			</select>
+			</div>
+			<div class="diaryListSearchKeyword">
+				<input type="text" ng-model="taskSearchValue">
+				<img src="/resources/image/board/ic_search_normal.png" ng-click="taskSearching()">
+			</div>
+		</div>
+	</div> -->
+	
+	<!-- Search -->
+	<div class="diaryListSearchDiv"  ng-show="isShowTaskSearch == true">
+		<div class="diaryListRecentTime">
+			<div class="diaryListFirstTime" ng-click="chooseSearchDate('start')">
+				<img src="/resources/image/ic-calendar.png">
+				<input type="text" class="txtDateSearch" ng-model="txtSearchStart" ng-trim="true" readonly>
+			</div>
+			<div class="diarySwungDash">~</div>
+			<div class="diaryListSecondTime" ng-click="chooseSearchDate('end')">
+				<img src="/resources/image/ic-calendar.png">
+				<input type="text" class="txtDateSearch" ng-model="txtSearchEnd" ng-trim="true" readonly>
+			</div>
+		</div>
+		
+		<div class="diaryListSelectOption">
+			<div class="approvalSearchOption" ng-click="searchTypeOption()">
+				<ul class="approvalSearchSelect">
+					<li class="approvalSelectFirst">
+						<span class="selectFirstName">{{searchType.name}}</span>
+						<img src="/resources/image/mail/ic-select-arrow-bottom.png">
+						<ul class="selectSearch" ng-show="searchOptionShow == true">
+							<li class="selectSearchList" ng-repeat="type in SearchTypeOptions" value="{{type.name}}" ng-click="applySearchType($index,type)">
+								<span class="selectListTxt" ng-class="{'selected' : curSearchType == $index}">{{type.name}}</span>
+								<img src="/resources/image/ic_check_select.png" ng-show="curSearchType == $index">
+							</li>
+						</ul>	
+					</li>
+				</ul>
+			</div>
+			<div class="approvalSearchKeyword">
+				<input type="text" placeholder="검색어 입력"  ng-model="taskSearchValue">
+				<button ng-click="taskSearching()">{{translateLanguage('search')}}</button>
+				<!-- ng-model="SearchValue" ng-trim="true"
+				ng-click="btnSearchMail()" -->
+			</div>		
+		</div>
+	</div>
+	<!-- search end -->
+	
+	
+	<div class="workDiaryListBack" ng-show="isShowTaskSearch == true || isShowTempleteDlg == true" ng-click="closeTaskDlg()"></div>
+	<!-- 템플릿 선택(내작업) 다이얼로그 시작 -->
+	<div class="dialogTemplateSelect" ng-show="isShowTempleteDlg == true">
+		<div class="dialogTemplateSelectTop">
+			<span>{{translateLanguage('template_select')}}</span>
+			<img src="/resources/image/ic-delete.png" ng-click="closeTaskDlg()">
+		</div>
+		<div class="dialogTemplateSelectWrap">
+			<div class="dialogTemplateSelectContents">
+				<div class="dialogTemplateList" ng-repeat="template in templateList" ng-click="selectTemplate($index,template)">
+					<img src="/resources/image/selectbox-circle-on.png" ng-show="curIdx == $index">
+					<img src="/resources/image/selectbox-circle-off.png" ng-show="curIdx != $index">
+					<span>{{template.DisplayName}}</span>
+				</div>
+			</div>
+		</div>
+		<div class="dialogTemplateCheck">
+			<div class="dialogTemplateBtn" ng-click="applyTemplate()">
+				<a><span class="dialogTemplateAction" >{{translateLanguage('apply')}}</span></a>
+			</div>
+		</div>
+	</div>
+	<!-- 템플릿 선택(내작업) 다이얼로그 끝 -->
+	
+	<div class="workDiaryDataVoid" ng-show="taskList.length <= 0">
+		<span class="workDiarySearchResult">{{translateLanguage('warn_empty_message')}}</span>
+		<span class="searchResultBlank"></span>
+	</div>
+	<div class="workListDiv">
+		<div class="workListContents" exec-on-scroll-to-bottom="readTaskNextPage">
+			<div class="workListLabel" ng-repeat="taskListItem in taskList" ng-click="moveTaskView($event,taskListItem)">
+				<span>{{taskListItem.Title}}</span>
+				<p>{{taskListItem.StartDate}} ~ {{taskListItem.EndDate}}</p>
+			</div>
+		</div>
+	</div>
+	<div class="workWriteBtn" ng-click="callWorkListTemplete($event)">
+		<span>{{translateLanguage('work_task_write')}}</span>
+	</div>
+</div>

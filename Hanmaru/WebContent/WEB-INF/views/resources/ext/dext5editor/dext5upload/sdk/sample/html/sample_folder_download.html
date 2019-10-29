@@ -1,0 +1,146 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Download Sample</title>
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+    <link href="../css/sample.common.css" rel="stylesheet" />    
+    <script src="../js/sample.common.js" type="text/javascript"></script>
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+
+    <script src="../../../js/dext5upload.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+        var G_UploadID;
+
+        function fn_addFile() {
+            var tempPath = location.href;
+            tempPath = tempPath.substring(0, tempPath.lastIndexOf('/'));
+            tempPath = tempPath.substring(0, tempPath.lastIndexOf('/'));
+
+            // 실제 서버상의 파일을 작성합니다.
+            DEXT5UPLOAD.AddUploadedFile('1', '전경\\전경사진.jpg', tempPath + '/images/Panorama/ViewPhotos.jpg', '87325', '', G_UploadID);
+            DEXT5UPLOAD.AddUploadedFile('2', '풍경\\이미지\\풍경이미지.bmp', tempPath + '/images/Scenery/image/CreativeImages.bmp', '2359350', '', G_UploadID);
+            DEXT5UPLOAD.AddUploadedFile('3', '계절\\봄\\느낌\\봄을느껴봅시다.gif', tempPath + '/images/season/spring/feeling/Lets_feel_the_spring.gif', '192866', '', G_UploadID);
+            
+            // DEXT5UPLOAD.AddUploadedFile('3', 'dext5_logo.png', 'http://www.dext5.com/page/images/dext5_logo.png', '2232', '', G_UploadID);
+        }
+
+        // 생성완료 이벤트
+        function DEXT5UPLOAD_OnCreationComplete(uploadID) {
+            G_UploadID = uploadID;
+
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML = '업로드 생성 완료 : ' + uploadID + '<br/>';
+
+            fn_addFile();
+        }
+
+        // 오류 이벤트
+        function DEXT5UPLOAD_OnError(uploadID, code, message, uploadedFileListObj) {
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML += 'Error : ' + code + ', ' + message + '<br/>';
+
+            if (uploadedFileListObj != null && uploadedFileListObj != '') {
+                logBox.innerHTML += '업로드 된 파일 리스트 - <br/>';
+                var uploadedFileLen = uploadedFileListObj.length;
+                for (var i = 0; i < uploadedFileLen; i++) {
+                    logBox.innerHTML += uploadedFileListObj[i].uploadName + ', ' + uploadedFileListObj[i].uploadPath + '</br>';
+
+                    // guid: uploadedFileListObj[i].guid
+                    // originName: uploadedFileListObj[i].originName
+                    // fileSize: uploadedFileListObj[i].fileSize
+                    // uploadName: uploadedFileListObj[i].uploadName
+                    // uploadPath: uploadedFileListObj[i].uploadPath
+                    // logicalPath: uploadedFileListObj[i].logicalPath
+                    // order: uploadedFileListObj[i].order
+                    // status: uploadedFileListObj[i].status
+                    // mark: uploadedFileListObj[i].mark
+                    // responseCustomValue: uploadedFileListObj[i].responseCustomValue
+                }
+            }
+        }
+
+        // 취소 이벤트
+        function DEXT5UPLOAD_UploadingCancel(uploadID, uploadedFileListObj) {
+            G_UploadID = uploadID;
+
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML += '전송 취소 이벤트 : ' + G_UploadID + '<br/>';
+
+            if (uploadedFileListObj != null && uploadedFileListObj != '') {
+                logBox.innerHTML += '업로드 된 파일 리스트 - <br/>';
+                var uploadedFileLen = uploadedFileListObj.length;
+                for (var i = 0; i < uploadedFileLen; i++) {
+                    logBox.innerHTML += uploadedFileListObj[i].uploadName + ', ' + uploadedFileListObj[i].uploadPath + '</br>';
+
+                    // guid: uploadedFileListObj[i].guid
+                    // originName: uploadedFileListObj[i].originName
+                    // fileSize: uploadedFileListObj[i].fileSize
+                    // uploadName: uploadedFileListObj[i].uploadName
+                    // uploadPath: uploadedFileListObj[i].uploadPath
+                    // logicalPath: uploadedFileListObj[i].logicalPath
+                    // order: uploadedFileListObj[i].order
+                    // status: uploadedFileListObj[i].status
+                    // mark: uploadedFileListObj[i].mark
+                    // responseCustomValue: uploadedFileListObj[i].responseCustomValue
+                }
+            }
+        }
+    </script>
+</head>
+<body style="text-align:center;">
+    <ul class="info_lst_box">
+        <li>• 폴더 구조로 다운로드를 하실 수 있습니다. (플러그인 모드만 지원)</li>
+    </ul>
+
+    <div class="btn_lst_box">
+        <button type="button" value="다운로드" class="input_image" onclick="fn_downloadFile()">다운로드</button>&nbsp;
+        <button type="button" value="전체 다운로드" class="input_image" style="width:110px;" onclick="fn_downloadAllFile()">전체 다운로드</button>&nbsp;
+        <button type="button" value="파일총개수" class="input_image" style="width:90px;" onclick="fn_getTotalFileCount()">파일총개수</button>&nbsp;
+        <button type="button" value="파일총용량" class="input_image" style="width:90px;" onclick="fn_getTotalFileSize()">파일총용량</button>&nbsp;
+        <button type="button" value="업로드 숨기기" class="input_image" style="width:90px;" onclick="fn_uploadHidden('')">업로드 숨기기</button>&nbsp;
+        <button type="button" value="업로드 보이기" class="input_image" style="width:90px;" onclick="fn_uploadShow('')">업로드 보이기</button>&nbsp;
+    </div>
+    <div style="width: 800px; margin: 0 auto;">
+        <script type="text/javascript">
+
+            // 해당 config 이외의 설정도 가능합니다. (www.dext5.com > 개발센터 참조)
+            //DEXT5UPLOAD.config.InitXml = 'dext5upload.config.xml';
+            //DEXT5UPLOAD.config.SkinName = 'pink';
+            //DEXT5UPLOAD.config.Width = '200px';
+            //DEXT5UPLOAD.config.Height = '500px';
+            //DEXT5UPLOAD.config.MaxTotalFileSize = '20GB';
+            //DEXT5UPLOAD.config.MaxOneFileSize = '20KB';
+            //DEXT5UPLOAD.config.MaxTotalFileCount = '9';
+            //DEXT5UPLOAD.config.MultiFileSelect = false;
+            //DEXT5UPLOAD.config.ExtensionAllowOrLimit = '0';
+            //DEXT5UPLOAD.config.ExtensionArr = 'png';            
+            //DEXT5UPLOAD.config.FolderNameRule = "/uploadfolder";
+            //DEXT5UPLOAD.config.Mode = 'view'; // edit, view
+            //DEXT5UPLOAD.config.ButtonBarEdit = "add,send,remove,remove_all";
+            //DEXT5UPLOAD.config.ButtonBarView = "open,download,download_all";
+            //DEXT5UPLOAD.config.Lang = "en-us"; // ko-kr, en-us, ja-jp, zh-cn, zh-tw
+            //DEXT5UPLOAD.config.UploadHolder = "uploadHoder_PlaceHolder";
+            //DEXT5UPLOAD.config.IgnoreSameUploadName = "1";
+            
+            DEXT5UPLOAD.config.Mode = 'view'; // edit, view
+            DEXT5UPLOAD.config.Runtimes = 'ieplugin';
+            DEXT5UPLOAD.config.FolderTransfer = '1';
+            DEXT5UPLOAD.config.FolderDetailHeader = '1';
+
+            var upload = new Dext5Upload("dext5upload");
+
+        </script>
+    </div>
+
+    <br /><br />
+
+    <!-- 로그영역 -->
+    <div id="logBox" class="logBox" style="overflow: auto;"></div>
+    <!-- //로그영역 -->
+</body>
+</html>

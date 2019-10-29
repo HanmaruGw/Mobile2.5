@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: Accessibility</h3>
+    <p class="ttl">XML : &#60;use_horizontal_line&#62;.....&#60;/use_horizontal_line&#62;<br />XML : &#60;use_horizontal_line url="....."&#62;&#60;/use_horizontal_line&#62;, Config : config.UseHorizontalLine</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        <span class="txt">
+            <span class="firebrick">XML:use_horizontal_line</span>&nbsp;&nbsp;세로 기준선 표시 사용여부를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:url,Config:UseHorizontalLine</span>&nbsp;&nbsp;기준선 이미지 경로를 설정합니다.
+        </span>
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">XML:use_horizontal_line</span>&nbsp;&nbsp;"0" 으로 설정 시 사용 안함, "1"로 설정 시 세로 기준선 표시 사용으로 설정합니다. 
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:url,Config:UseHorizontalLine</span>&nbsp;&nbsp;http://를 포함한 전체 이미지 경로를 콤마(,)로 구분하여 입력합니다. 
+        </span>
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+<b>세로 기준선 표시 사용여부를 사용으로 설정합니다.</b>
+<b>기준선 이미지 경로를 http://www.dext5.com/custom_horizontal_line.png 으로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;use_horizontal_line url="http://www.dext5.com/custom_horizontal_line.png"&#62;1&#60;/use_horizontal_line&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+ 
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;    
+    &#60;script type="text/javascript"&#62;
+        
+        DEXT5.config.UseHorizontalLine = "http://www.dext5.com/custom_horizontal_line.png";
+
+        new Dext5editor("editor1");
+
+    &#60;/script&#62;       
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

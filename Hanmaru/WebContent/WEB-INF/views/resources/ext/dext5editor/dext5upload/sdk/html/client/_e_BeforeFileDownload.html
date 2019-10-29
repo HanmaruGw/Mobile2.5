@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">               
+    <h3 class="title">DEXT5 Upload :: BeforeFileDownload</h3>
+    <p class="ttl">boolean DEXT5UPLOAD_BeforeFileDownload(uploadID, nWebFile, strItemKey, strItemOrgName, strItemUrlOrPath, largeFiles, isLastEvent)</p>
+    <p class="txt">
+        다운로드 전 발생합니다. 
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        <span class="firebrick">boolean</span>&nbsp;&nbsp;true일 경우 파일을 다운로드하고, false일 경우 다운로드하지 않습니다.
+    </p> 
+    <p class="mttl01">parameters</p>
+    <p class="txt">
+        <span class="firebrick">uploadID</span>&nbsp;&nbsp;다운로드 요청한 업로드의 id를 의미합니다.<br/>
+        <span class="firebrick">nWebFile</span>&nbsp;&nbsp;Web파일과 Local 파일의 구분 값을 의미합니다. (0:local, 1:web)<br />
+        <span class="firebrick">strItemKey</span>&nbsp;&nbsp;파일의 Unique Key를 의미합니다.<br />
+        <span class="firebrick">strItemOrgName</span>&nbsp;&nbsp;파일의 원본 파일명을 의미합니다.<br/>
+        <span class="firebrick">strItemUrlOrPath</span>&nbsp;&nbsp;파일의 저장위치를 의미합니다.<br/>
+        <span class="firebrick">largeFiles</span>&nbsp;&nbsp;파일 대용량를 의미합니다.<br/>
+        <span class="firebrick">isLastEvent</span>&nbsp;&nbsp;개별 다운로드와 전체 다운로드 구별을 의미합니다. 
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        DEXT5 Upload 설정 config.xml에서 use_download_event 값이 1일 경우 발생합니다. 
+    </p>   
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;	
+
+&#60;script type="text/javascript"&#62;
+        function DEXT5UPLOAD_BeforeFileDownload(uploadID, nWebFile, strItemKey, strItemOrgName, strItemUrlOrPath, largeFiles, isLastEvent) {
+            // 다운로드 전 처리할 내용
+
+            return true or false;
+        }
+&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+        &#60;script type="text/javascript"&#62;
+            new Dext5Upload("upload1");
+        &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

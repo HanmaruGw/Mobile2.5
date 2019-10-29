@@ -1,0 +1,24 @@
+<script type="text/javascript" src="/resources/script/lib/jq/jquery-2.1.3.min.js"></script> 
+<script type="text/javascript" src="/resources/ext/dext5editor/dext5editor/js/dext5editor.js"></script>
+<script type="text/javascript">
+	DEXT5.config.Runtimes = "html5";
+	var scheduleContentsEditor = new Dext5editor("scheduleContentsEditor");
+	
+	$(function(){
+		$('#btnSetBodyValue').click(function(){
+			DEXT5.setBodyValueEx($('#tmpScheduleContents').val(), "scheduleContentsEditor");
+		});
+		$('#btnGetBodyValue').click(function(){
+			$('#tmpScheduleContents').val(DEXT5.getBodyValueEx());
+		});
+		$('#btnResetBodyValue').click(function(){
+			DEXT5.setBodyValueEx('', "scheduleContentsEditor");
+			$('#tmpScheduleContents').val('');
+			$(this).blur();
+		});
+	});
+</script>
+<button id="btnSetBodyValue" style="display:none">값호출</button>
+<button id="btnGetBodyValue" style="display:none">값호출</button>
+<button id="btnResetBodyValue" style="display:none">값호출</button>
+<textarea id="tmpScheduleContents" style="display:none"></textarea>

@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: getBodyValueExLikeDiv</h3>
+    <p class="ttl">string getBodyValueExLikeDiv(editor_id)</p>
+    <p class="txt">
+        에디터 디자인 영역의 HTML 소스에서 <b>&#60;body&#62; 부터 &#60;/body&#62;까지의 소스를 div태그</b>로 가져옵니다.<br />
+        디자인 영역의 배경화면을 div에 적용시킬 때 유용합니다.<br />
+        작성한 글을 보여주는 부분이 div 태그일 때 유용합니다.<br />
+        <span class="txt_red2">(이 함수를 사용하시려면 Editor에 글을 적용할 때 <b>setBodyValueExLikeDiv</b> 함수를 사용해야 합니다.)</span>
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        에디터 디자인 영역의 body 태그를 div 태그로 리턴합니다.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">editor_id</span>&nbsp;&nbsp;소스를 가져올 에디터의 id를 의미합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        에디터를 1개만 생성했을 경우 parameter를 입력하지 않아도 body 태그 소스를 div로 가져올 수 있습니다.<br />
+        예) id가 editor1인 에디터를 생성했을 경우<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEXT5.getBodyValueExLikeDiv('editor1'), DEXT5.getBodyValueExLikeDiv() <br /> 
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;모두 editor1 에디터 디자인 영역의 body 태그 소스를 div 태그로 가져옵니다.<br />
+        <br />
+        에디터를 2개 이상 생성했을 경우 parameter를 <b>반드시</b> 입력해야 합니다.<br />
+        예) id가 editor1, editor2인 에디터를 생성했을 경우<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEXT5.getBodyValueExLikeDiv('editor1') &nbsp;editor1 에디터 디자인 영역의 body 태그를 div태그로 가져옵니다.<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEXT5.getBodyValueExLikeDiv('editor2') &nbsp;editor2 에디터 디자인 영역의 body 태그를 div태그로 가져옵니다.<br />
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&lt;!-- ..... 생략 ..... --&gt;
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;
+&#60;script type="text/javascript"&#62;
+
+    function getValue() {
+        if (DEXT5.isEmpty()) {
+            //에디터에 입력 내용이 없을 경우 경고창을 띄워주고 빠져나옵니다.
+            alert('내용을 입력하세요.');
+            return;
+        } else {
+            //에디터에서 작성된 내용이 id가 div_view인 div에 나타납니다.
+            document.getElementById('div_view').innerHTML = DEXT5.getBodyValueExLikeDiv();
+        }
+    }
+
+&#60;/script&#62;
+
+&lt;!-- ..... 생략 ..... --&gt;       
+
+&lt;div style="width:900px;height:550px"&gt;
+
+    &#60;!-- 에디터 생성 --&#62;
+    &#60;script type="text/javascript"&#62;
+        new Dext5editor('editor1');
+    &#60;/script&#62;
+
+&lt;div&gt;
+ 
+&#60;!-- 에디터에서 작성된 내용을 담을 div --&#62;
+&#60;div id="div_view"&#62;&#60;/div&#62;
+        
+&#60;input type="button" value="getBodyValueExLikeDiv" onclick="javascript:getValue()" /&#62;
+
+&lt;!-- ..... 생략 ..... --&gt;       
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

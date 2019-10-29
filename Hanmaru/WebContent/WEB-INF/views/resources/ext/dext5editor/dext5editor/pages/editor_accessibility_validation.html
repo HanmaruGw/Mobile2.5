@@ -1,0 +1,613 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Accessibility Validation</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+    <style type="text/css">
+        .color li
+        {
+            width: 14px;
+            height: 14px;
+            float: left;
+            padding: 0px;
+            margin: 1px;
+            border: 0px none;
+            list-style-type: none;
+            cursor: pointer;
+        }
+    </style>
+    <script type="text/javascript">
+
+        var _iframeWin = LayerWin.getIframeWin();
+        var _clicked_tr;
+
+        function page_loaded_event() {
+            var _upload_frame = document.getElementById("upload_frame");
+
+            var eventHandler = function () {
+                var _body;
+                try {
+                    _body = (_upload_frame.contentDocument) ? _upload_frame.contentDocument.body : _upload_frame.contentWindow.document.body;
+                }
+                catch (e) {
+                    _body = _upload_frame.document.body;
+                }
+                if ('textContent' in _body) { _web_url = _body.textContent; } else { _web_url = _body.innerText; }
+            }
+
+            set_page();
+
+            if (document.compatMode == "BackCompat") {
+                var inputs = document.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type == 'text') {
+                        inputs[i].style.height = '20px';
+                    }
+                }
+            }
+
+            var btn_ok = document.getElementById('btn_ok');
+            DEXTTOP.DEXT5.util.addEvent(btn_ok, 'click', btn_ok_click);
+        }
+
+        function set_page() {
+
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+            document.getElementById("editor_popup_table").className = 'DEXT_fiVe_ED_Popup_Type01 DEXT_fiVe_PUi_' + _skin_name;
+            
+            document.getElementById('span_title').innerHTML = LayerWin.dext5_lang.accessibility.title;
+            document.getElementById('label_desc').innerHTML = LayerWin.dext5_lang.accessibility.label_desc;
+            document.getElementById('label_title').innerHTML = LayerWin.dext5_lang.accessibility.label_title;
+            //document.getElementById('span_list').innerHTML = LayerWin.dext5_lang.accessibility.span_list;
+            document.getElementById('label_elem').innerHTML = LayerWin.dext5_lang.accessibility.label_elem;
+            document.getElementById('label_cont').innerHTML = LayerWin.dext5_lang.accessibility.label_cont;
+            document.getElementById('label_chk_skip').innerHTML = LayerWin.dext5_lang.accessibility.chk_skip;
+            document.getElementById('btn_ok').value = LayerWin.dext5_lang.accessibility.btn_ok;
+            document.getElementById('btn_close').innerHTML = LayerWin.dext5_lang.accessibility.btn_close;
+            
+            document.title = LayerWin.dext5_lang.accessibility.frame_title;
+
+            var violationNodes = LayerWin.getViolationNodes(DEXTTOP.G_CURREDITOR).violateNodes;
+            var violationNodesLen = violationNodes.length;
+            var violationSamNodes = LayerWin.getViolationNodes(DEXTTOP.G_CURREDITOR).idSamNodes;
+            var violationSamNodesLen = violationSamNodes.length;
+            var violation_body = document.getElementById('violation_body');
+
+            if (violationNodesLen <= 0 && violationSamNodesLen <= 0) {
+                document.getElementById('input_field').style.display = 'none';
+                document.getElementById('btn_field').style.display = 'none';
+            }
+
+            if (violationNodesLen <= 0 && violationSamNodesLen <= 0) {
+                var btn_close = document.getElementById('btn_close');
+                LayerWin.setFocusFirstAndLast(document, btn_close.parentNode);
+                setCursorPos(btn_close.parentNode, true, false);
+            }
+
+            for (var i = 0; i < violationNodesLen; i++) {
+                var keyid = violationNodes[i].getAttribute('dext5customdata');
+                var elemData = null;
+                if (keyid != null && keyid != undefined) {
+                    elemData = LayerWin.getDextCustomData(keyid);
+                }
+                
+                var tr = document.createElement('tr');
+                var td1 = document.createElement('td');
+                var td2 = document.createElement('td');
+                var td3 = document.createElement('td');
+                tr.style.cursor = 'pointer';
+                tr.style.height = '35px';
+                td1.style.width = '51px';
+                //td3.style.width = '44px';
+                td1.className = 't_left';
+                td1.style.borderRight = 'solid 1px #e0e0e0';
+                td2.className = 't_left';
+                td2.style.borderRight = 'solid 1px #e0e0e0';
+                if (DEXTTOP.DEXT5.browser.ie && DEXTTOP.DEXT5.browser.quirks) {
+                    td2.style.width = '254px';
+                } else {
+                    td2.style.width = '230px';
+                }
+                td3.className = 't_center';
+
+                var span = document.createElement('span');
+                var tagName;
+                if (elemData) {
+                    tagName = elemData.type;
+                    if (tagName == 'link_media') {
+                        tagName = elemData.type2;
+                    }
+                    span.innerHTML = tagName.toUpperCase();
+                } else {
+                    tagName = violationNodes[i].tagName;
+                    span.innerHTML = violationNodes[i].tagName;
+                }
+
+                var txtSpan = document.createElement('span');
+                var txtVal = '';
+                var explain_html = '';
+                tagName = tagName.toLowerCase();
+
+                if (tagName == 'table') {
+                    if ((LayerWin._dext_editor._config.accessibilityValidationItems.indexOf('table_caption') > -1 || LayerWin._dext_editor._config.accessibilityValidationItems == "") && (violationNodes[i].caption == null || violationNodes[i].caption.innerHTML == '')) {
+                        txtVal = LayerWin.dext5_lang.accessibility_msg.nocaption;
+                        explain_html = '<a title="' + LayerWin.dext5_lang.access_explain.table_caption + '" onclick="access_explain(LayerWin.dext5_lang.access_explain.table_caption, this, event);" href="javascript:void(0);">';
+                        explain_html += '<img alt="web_accessibility_description" style="border: 0px currentColor;" title="' + LayerWin.DEXTTOP.DEXT5.util.replaceAll(LayerWin.dext5_lang.access_explain.table_caption, '<br>', '&nbsp;') + '" id="access_img" src="../images/editor/dialog/editor_a.gif">';
+                    }
+                    if ((LayerWin._dext_editor._config.accessibilityValidationItems.indexOf('table_summary') > -1 || LayerWin._dext_editor._config.accessibilityValidationItems == "") && violationNodes[i].summary == '') {
+                        
+                        //txtVal = txtVal == '' ? LayerWin.dext5_lang.accessibility_msg.nosummary : txtVal + ' <br />' + LayerWin.dext5_lang.accessibility_msg.nosummary;
+                        if (txtVal == '') {
+                            txtVal = LayerWin.dext5_lang.accessibility_msg.nosummary;
+                            explain_html = '<a onclick="access_explain(LayerWin.dext5_lang.access_explain.table_summary, this, event);" href="javascript:void(0);">';
+                            explain_html += '<img alt="web_accessibility_description" style="border: 0px currentColor;" title="' + LayerWin.DEXTTOP.DEXT5.util.replaceAll(LayerWin.dext5_lang.access_explain.table_summary, '<br>', '&nbsp;') + '" id="access_img" src="../images/editor/dialog/editor_a.gif">';
+                        } else {
+                            txtVal = txtVal + ' <br />' + LayerWin.dext5_lang.accessibility_msg.nosummary;
+                            explain_html = '<a onclick="access_explain(LayerWin.dext5_lang.access_explain.table_caption_summary, this, event);" href="javascript:void(0);">';
+                            explain_html += '<img alt="web_accessibility_description" style="border: 0px currentColor;" title="' + LayerWin.DEXTTOP.DEXT5.util.replaceAll(LayerWin.dext5_lang.access_explain.table_caption_summary, '<br>', '&nbsp;') + '" id="access_img" src="../images/editor/dialog/editor_a.gif">';
+                        }
+                    }
+                } else if ('frame,a'.indexOf(tagName) > -1) {
+                    txtVal = LayerWin.dext5_lang.accessibility_msg.notitle;
+                    if (tagName == 'a') {
+                        explain_html = '<a onclick="access_explain(LayerWin.dext5_lang.access_explain.hyperlink, this, event);" href="javascript:void(0);">';
+                        explain_html += '<img alt="web_accessibility_description" style="border: 0px currentColor;" title="' + LayerWin.DEXTTOP.DEXT5.util.replaceAll(LayerWin.dext5_lang.access_explain.hyperlink, '<br>', '&nbsp;') + '" id="access_img" src="../images/editor/dialog/editor_a.gif">';
+                    } else if (tagName == 'frame') {
+                        explain_html = '<a onclick="access_explain(LayerWin.dext5_lang.access_explain.iframe, this, event);" href="javascript:void(0);">';
+                        explain_html += '<img alt="web_accessibility_description" style="border: 0px currentColor;" title="' + LayerWin.DEXTTOP.DEXT5.util.replaceAll(LayerWin.dext5_lang.access_explain.iframe, '<br>', '&nbsp;') + '" id="access_img" src="../images/editor/dialog/editor_a.gif">';
+                    }
+                } else {
+                    if (tagName == "iframe") {
+                        txtVal = LayerWin.dext5_lang.accessibility_msg.notitle;
+                        explain_html = '<a onclick="access_explain(LayerWin.dext5_lang.access_explain.iframe, this, event);" href="javascript:void(0);">';
+                        explain_html += '<img alt="web_accessibility_description" style="border: 0px currentColor;" title="' + LayerWin.DEXTTOP.DEXT5.util.replaceAll(LayerWin.dext5_lang.access_explain.iframe, '<br>', '&nbsp;') + '" id="access_img" src="../images/editor/dialog/editor_a.gif">';
+                    }else {
+                        txtVal = LayerWin.dext5_lang.accessibility_msg.nodesc;
+                        explain_html = '<a onclick="access_explain(LayerWin.dext5_lang.access_explain.image, this, event);" href="javascript:void(0);">';
+                        explain_html += '<img alt="web_accessibility_description" style="border: 0px currentColor;" title="' + LayerWin.DEXTTOP.DEXT5.util.replaceAll(LayerWin.dext5_lang.access_explain.image, '<br>', '&nbsp;') + '" id="access_img" src="../images/editor/dialog/editor_a.gif">';
+                    }
+                }
+                
+                explain_html += '</a>';
+                explain_html = '<div>' + explain_html + '</div>';
+                td3.innerHTML = explain_html;
+
+                txtSpan.innerHTML = '<span style="color:red; font-weight:bold;">' + txtVal + '</span>';
+
+                var a_tag = document.createElement('a');
+                a_tag.appendChild(span);
+                a_tag.href = "javascript:void(0)";
+                a_tag.style.textDecoration = 'none';
+                a_tag.style.color = '#5d5d5d';
+
+                td2.appendChild(txtSpan);
+                td1.appendChild(a_tag);
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                violation_body.appendChild(tr);
+
+                violationNode_make_event(a_tag, tr, violation_body, violationNodes[i]);
+
+                if (i == 0) {
+                    var title_tr = document.getElementById('title_tr');
+                    var alt_tr = document.getElementById('alt_tr');
+                    var tagName = violationNodes[0].tagName.toLowerCase();
+
+                    if (tagName == 'table') {
+                        title_tr.style.display = '';
+                        alt_tr.style.display = '';
+
+                    } else if (('frame,a'.indexOf(violationNodes[0].tagName) > -1) || (elemData && (elemData.type == "iframe" || elemData.type2 == "iframe"))) {
+                        title_tr.style.display = '';
+                        alt_tr.style.display = 'none';
+                    } else {
+                        title_tr.style.display = 'none';
+                        alt_tr.style.display = '';
+                    }
+                    LayerWin.setFocusFirstAndLast(document, a_tag);
+                    setCursorPos(a_tag, true, false);
+                }
+            }
+            
+            ////////////// 아이디 중복 리스트 /////////////
+            for (var i = 0; i < violationSamNodesLen; i++) {
+                var arrSamNodes = violationSamNodes[i];
+                var arrSamNodesLen = arrSamNodes.length;
+                for (var j = 0; j < arrSamNodesLen; j++) {
+                    var tr = document.createElement('tr');
+                    tr.style.cursor = 'pointer';
+                    tr.setAttribute('DEXT5_SAMENODE', 'DEXT5_SAMENODE');
+                    tr.style.height = '35px';
+                    var td1 = document.createElement('td');
+                    var td2 = document.createElement('td');
+                    var td3 = document.createElement('td');
+                    td1.style.width = '51px';
+                    //td3.style.width = '50px';
+                    td1.className = 't_left';
+                    td1.style.borderRight = 'solid 1px #e0e0e0';
+                    td2.className = 't_left';
+                    td2.style.borderRight = 'solid 1px #e0e0e0';
+                    if (DEXTTOP.DEXT5.browser.ie && DEXTTOP.DEXT5.browser.quirks) {
+                        td2.style.width = '254px';
+                    } else {
+                        td2.style.width = '230px';
+                    }
+                    td3.className = 't_center';
+
+                    var explain_html = '<a onclick="access_explain(LayerWin.dext5_lang.access_explain.id_redundant, this, event);" href="javascript:void(0);">';
+                    explain_html += '<img style="border: 0px currentColor;" id="access_img" title="' + LayerWin.dext5_lang.access_explain.id_redundant + '" src="../images/editor/dialog/editor_a.gif">';
+                    explain_html += '</a>';
+                    explain_html = '<div>' + explain_html + '</div>';
+                    td3.innerHTML = explain_html;
+
+                    var span = document.createElement('span');
+                    var tagName = arrSamNodes[j].tagName;
+                    span.innerHTML = arrSamNodes[j].tagName;
+
+                    var txtSpan = document.createElement('span');
+
+                    txtSpan.innerHTML = '<span style="color:red; font-weight:bold;">' + LayerWin.dext5_lang.accessibility_msg.sameid + '</span> <img style="border: 0px currentColor;" alt="arrow" src="../images/editor/dialog/arrow01.png"> <span id="orgId" style="color:blue">' + arrSamNodes[j].getAttribute('id') + '</span>';
+
+                    var a_tag = document.createElement('a');
+                    a_tag.appendChild(span);
+                    a_tag.href = "javascript:void(0)";
+                    a_tag.style.textDecoration = 'none';
+                    a_tag.style.color = '#5d5d5d';
+
+                    td2.appendChild(txtSpan);
+                    td1.appendChild(a_tag);
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    tr.appendChild(td3);
+                    violation_body.appendChild(tr);
+
+                    idSamNode_make_event(a_tag, tr, violation_body, arrSamNodes[j]);
+
+                    if ((i == 0 && j == 0)&& violationNodesLen <= 0) {
+                        LayerWin.setFocusFirstAndLast(document, a_tag);
+                        setCursorPos(a_tag, true, false);
+                    }
+                }
+            }
+
+            var _clicked_node;
+            var event_click = function (e) {
+                var evt = e || window.event;
+                var target = evt.target ? evt.target : evt.srcElement;
+
+                var trNode = target;
+                while (target != 'tr') {
+                    trNode = trNode.parentNode;
+                    if (!trNode.tagName) {
+                        return;
+                    }
+                    if (trNode.tagName.toLowerCase() == 'tr')
+                        break;
+                }
+
+                if (trNode.getAttribute('DEXT5_SAMENODE')) {
+                    document.getElementById('desc_tr').style.display = 'none';
+                    document.getElementById('id_tr').style.display = '';
+                } else {
+                    document.getElementById('desc_tr').style.display = '';
+                    document.getElementById('id_tr').style.display = 'none';
+                }
+
+                _clicked_node = trNode;
+                trNode.style.background = '#e5e5e5';
+
+                for (var i = 0; i < violation_body.childNodes.length; i++) {
+                    if (violation_body.childNodes[i].nodeType == 1 && (violation_body.childNodes[i] != _clicked_node)) {
+                        violation_body.childNodes[i].style.background = 'white';
+                    }
+                }
+                setCursorPos(_clicked_node.cells[0].getElementsByTagName('a')[0], true, false);
+                if (navigator.userAgent.match(/iPad|iPhone/)) {
+                    _clicked_node.cells[0].getElementsByTagName('a')[0].focus();
+                }
+            };
+            DEXTTOP.DEXT5.util.addEvent(violation_body, 'click', event_click);
+
+
+            if (violationNodesLen > 0) {
+                document.getElementById('desc_tr').style.display = '';
+                document.getElementById('id_tr').style.display = 'none';
+            } else if (violationSamNodesLen > 0) {
+                document.getElementById('desc_tr').style.display = 'none';
+                document.getElementById('id_tr').style.display = '';
+            }
+
+            if (violationNodesLen <= 0 && violationSamNodesLen <= 0) {
+                var tr = document.createElement('tr');
+                var td = document.createElement('td');
+                td.colSpan = '3';
+                td.className = 't_center';
+                var htmlVal = '<span>' + LayerWin.dext5_lang.accessibility.no_list + '</span>';
+                td.innerHTML = htmlVal;
+                tr.appendChild(td);
+                violation_body.appendChild(tr);
+            }
+        }
+
+        function idSamNode_make_event(a_tag, tr, tbody, violationNode) {
+            var _clicked_node = tr;
+            var event_focus = (function (tr, tbody) {
+                return function (event) {
+                    if (LayerWin._dext_editor.violationNode) {
+                        LayerWin.removeClassName(LayerWin._dext_editor.violationNode, 'DEXT_accessibility');
+                    }
+
+                    for (var i = 0; i < tbody.childNodes.length; i++) {
+                        if (tbody.childNodes[i].nodeType == 1 && (tbody.childNodes[i] != _clicked_node)) {
+                            tbody.childNodes[i].style.background = 'white';
+                        } else if (tbody.childNodes[i].nodeType == 1) {
+                            tbody.childNodes[i].style.background = '#e5e5e5';
+                        }
+                    }
+                    LayerWin._dext_editor.violationNode = violationNode;
+                    _clicked_tr = tr;
+
+                    //////////////////////////////////
+                    setTimeout(function () {
+                        try {
+                            LayerWin._iframeWin.scroll(0, 0);
+                            var objrect = LayerWin.getClientRect(LayerWin._dext_editor.violationNode);
+                            LayerWin._iframeWin.scroll(objrect.left, objrect.top);
+                            if (!LayerWin.checkExistClassName(LayerWin._dext_editor.violationNode.className, 'DEXT_accessibility')) {
+                                LayerWin.setClassName(LayerWin._dext_editor.violationNode, 'DEXT_accessibility');
+                            }
+
+                        } catch (e) { }
+                    }, 1);
+                    /////////////////////////////////
+                    var input_title = document.getElementById('input_title');
+                    var input_alt = document.getElementById('input_alt');
+                    var chk_skip = document.getElementById('chk_skip');
+                    var input_ld = document.getElementById('input_id');
+                    input_ld.value = '';
+                    if (violationNode.getAttribute('id')) {
+                        input_ld.value = violationNode.getAttribute('id');
+                    }
+                    input_title.value = '';
+                    input_alt.value = '';
+                    chk_skip.checked = false;
+
+
+                };
+            })(tr, tbody);
+            DEXTTOP.DEXT5.util.addEvent(a_tag, 'focus', event_focus);
+        }
+
+        function violationNode_make_event(a_tag, tr, tbody, violationNode) {
+            var keyid = violationNode.getAttribute('dext5customdata');
+            var elemData = null;
+            if (keyid != null && keyid != undefined) {
+                elemData = LayerWin.getDextCustomData(keyid);
+            }
+
+            var _clicked_node = tr;
+
+            var event_focus = (function (tr, tbody) {
+                return function (event) {
+
+                    if (LayerWin._dext_editor.violationNode) {
+                        LayerWin.removeClassName(LayerWin._dext_editor.violationNode, 'DEXT_accessibility');
+                    }
+
+                    for (var i = 0; i < tbody.childNodes.length; i++) {
+                        if (tbody.childNodes[i].nodeType == 1 && (tbody.childNodes[i] != _clicked_node)) {
+                            tbody.childNodes[i].style.background = 'white';
+                        } else if (tbody.childNodes[i].nodeType == 1) {
+                            tbody.childNodes[i].style.background = '#e5e5e5';
+                        }
+                    }
+                    LayerWin._dext_editor.violationNode = violationNode;
+                    _clicked_tr = tr;
+
+                    //////////////////////////////////
+                    setTimeout(function () {
+                        try {
+                            LayerWin._iframeWin.scroll(0, 0);
+                            var objrect = LayerWin.getClientRect(LayerWin._dext_editor.violationNode);
+                            LayerWin._iframeWin.scroll(objrect.left, objrect.top);
+                            if (!LayerWin.checkExistClassName(LayerWin._dext_editor.violationNode.className, 'DEXT_accessibility')) {
+                                LayerWin.setClassName(LayerWin._dext_editor.violationNode, 'DEXT_accessibility');
+                            }
+
+                        } catch (e) { }
+                    }, 1);
+                    /////////////////////////////////
+
+                    var title_tr = document.getElementById('title_tr');
+                    var alt_tr = document.getElementById('alt_tr');
+                    var input_title = document.getElementById('input_title');
+                    var input_alt = document.getElementById('input_alt');
+                    var chk_skip = document.getElementById('chk_skip');
+                    document.getElementById('input_id').value = '';
+
+                    input_title.value = "";
+                    input_alt.value = "";
+                    var dext5webaccskip = violationNode.getAttribute('dext5webaccskip');
+                    if (dext5webaccskip != null && dext5webaccskip != undefined) {
+                        chk_skip.checked = true;
+                    } else {
+                        chk_skip.checked = false;
+                    }
+                    var tagName = violationNode.tagName.toLowerCase();
+                    if (tagName == 'table') {
+                        document.getElementById('label_title').innerHTML = LayerWin.dext5_lang.accessibility.table_caption;
+                        document.getElementById('label_desc').innerHTML = LayerWin.dext5_lang.accessibility.table_summary;
+
+                        title_tr.style.display = 'none';
+                        alt_tr.style.display = 'none';
+
+                        if (LayerWin._dext_editor._config.accessibilityValidationItems.indexOf('table_caption') > -1 || LayerWin._dext_editor._config.accessibilityValidationItems == "")
+                            title_tr.style.display = '';
+
+                        if (LayerWin._dext_editor._config.accessibilityValidationItems.indexOf('table_summary') > -1 || LayerWin._dext_editor._config.accessibilityValidationItems == "")
+                            alt_tr.style.display = '';
+
+                        if (violationNode.caption != null) {
+                            input_title.value = violationNode.caption.innerHTML;
+                        }
+                        input_alt.value = violationNode.summary;
+
+                    } else if (('frame,a'.indexOf(tagName) > -1) || (elemData && (elemData.type == "iframe" || elemData.type2 == "iframe"))) {
+                        document.getElementById('label_title').innerHTML = LayerWin.dext5_lang.accessibility.label_title;
+                        document.getElementById('label_desc').innerHTML = LayerWin.dext5_lang.accessibility.label_desc;
+
+                        if (elemData) {
+                            input_title.value = elemData.title;
+                        } else {
+                            input_title.value = violationNode.title;
+                        }
+                        title_tr.style.display = '';
+                        alt_tr.style.display = 'none';
+                    } else {
+                        document.getElementById('label_title').innerHTML = LayerWin.dext5_lang.accessibility.label_title;
+                        document.getElementById('label_desc').innerHTML = LayerWin.dext5_lang.accessibility.label_desc;
+
+                        input_alt.value = violationNode.alt;
+                        title_tr.style.display = 'none';
+                        alt_tr.style.display = '';
+                    }
+                };
+            })(tr, tbody);
+            DEXTTOP.DEXT5.util.addEvent(a_tag, 'focus', event_focus);
+
+         }
+
+        function accessibility_close() {
+            if (LayerWin._dext_editor.violationNode) {
+                LayerWin.removeClassName(LayerWin._dext_editor.violationNode, 'DEXT_accessibility');
+            }
+            event_dext_close();
+            DEXTTOP.DEXT5.setEditorChangeMode('source', LayerWin._dext_editor.ID);
+            DEXTTOP.DEXT5.setEditorChangeMode('design', LayerWin._dext_editor.ID);
+        }
+
+        function btn_ok_click() {
+            var targetCell = _clicked_tr.cells[(_clicked_tr.cells.length - 1)];
+            dext_setAccessibility(LayerWin._dext_editor.violationNode, targetCell);
+        }
+
+        function access_explain(explain_msg, obj, e) {
+            var list_div = document.getElementById('list_div');
+            if (!e) e = window.Event;
+
+            //var x = e.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft);
+            var y = e.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
+            LayerWin.showAccessPopup(document, document.getElementById('access_img'), document.getElementById('access_div'), explain_msg, -270, ((y + list_div.scrollTop)-60));
+        }
+    </script>
+</head>
+<body style="margin: 0px; padding: 0px;" onload="page_loaded_event();">
+    <div id="editor_popup_table" class="editor_popup">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title"></span><span class="text"></span>
+            <div class="close">
+                <a href="javascript:accessibility_close();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <input type="hidden" id="tab_value" name="tab_value" value="1" />
+        <!-- Contents / general -->
+        <div id="tab_div1" class="EdiTor_Popup_contents view">
+            <div id="contents_1" class="contents" style="height: 390px; overflow: hidden;">
+                <div class="speech_balloons" id="access_div" style="position:absolute; display:none; width:267px;" >       
+                    <span class="sp_t" style="width:250px;"><p></p></span>
+                </div>
+                <div class="con border">
+                    <div class="select_tb">
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td width="52px" class="t_center" style="border-right:solid 1px #e0e0e0;"><span id="label_elem"></span></td>
+                                <td width="*" class="t_center" style="border-right:solid 1px #e0e0e0;"><span id="label_cont"></span></td>
+                                <td width="53px" class="t_center"></td>
+                                <td width="14px"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="list_div" class="select_td" style="height:250px">
+                        <table cellpadding="0" cellspacing="0">
+                            <tbody id="violation_body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="con border" id="input_field">
+                    <table cellpadding="0" cellspacing="0" style="height:52px">
+                        <tr id="desc_tr">
+                            <td width="75%">
+                                <table cellpadding="0" cellspacing="0">
+                                    <tr id="title_tr">
+                                        <td width="20%">
+                                            <label for="input_title" id="label_title"></label>
+                                        </td>
+                                        <td width="80%">
+                                            <input id="input_title" type="text" style="width: 190px;" class="con_input" />
+                                        </td>
+                                    </tr>
+                                    <tr id="alt_tr">
+                                        <td width="20%">
+                                            <label for="input_alt" id="label_desc"></label>
+                                        </td>
+                                        <td width="80%">
+                                            <input id="input_alt" type="text" style="width: 190px;" class="con_input" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="25%" style="text-align:right;">
+                                <input id="chk_skip" type="checkbox" />
+                                <label style="vertical-align:middle;" id="label_chk_skip" for="chk_skip"></label>
+                            </td>
+                        </tr>
+                        <tr id="id_tr">
+                            <td>
+                                <table cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td width="20%">
+                                            <label for="input_id" id="label_id">ID</label>
+                                        </td>
+                                        <td width="80%">
+                                            <input id="input_id" type="text" style="width: 190px;" class="con_input" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="con" id="btn_field">
+                    <p class="select_btn" style="text-align:center;">
+                        <input type="button" id="btn_ok" class="in_btn" style="cursor:pointer;" value=""/>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a href="javascript:accessibility_close();" class="cancel"><span id="btn_close"></span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

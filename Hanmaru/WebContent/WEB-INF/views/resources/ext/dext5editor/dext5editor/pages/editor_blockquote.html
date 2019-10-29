@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>blockquote</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<script src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/script>');
+    </script>
+	
+	<script type="text/javascript">
+	    function set_page() {
+	        var _skin_name = LayerWin._dext_editor._config.style.skinName;
+	        document.getElementById("editor_popup_table").className = 'DEXT_fiVe_ED_Popup_Type03 DEXT_fiVe_PUi_' + _skin_name;
+	        document.getElementById("span_title").innerHTML = LayerWin.dext5_lang.blockquote.title;
+	        document.getElementById("btn_ok").innerHTML = LayerWin.dext5_lang.blockquote.btn_ok;
+	        document.getElementById("btn_cancel").innerHTML = LayerWin.dext5_lang.blockquote.btn_cancel;
+
+	        document.title = LayerWin.dext5_lang.blockquote.frame_title;
+	        try {
+	            document.getElementById("btn_cancel").focus();
+	        } catch (e) { }
+
+	        var header = LayerWin.getElementsByClass("EdiTor_Popup_header", document);
+	        header[0].onselectstart = function () { return false; };
+
+	        document.getElementById("tempblockquote").value = "1";
+
+	        var temp_dbclick_action = function (evt) {
+	            dext_blockquote();
+	        };
+	        var temp_table = document.getElementById('temp_table');
+	        DEXTTOP.DEXT5.util.addEvent(temp_table, 'dblclick', temp_dbclick_action);
+            
+	        setCursorPos(document.getElementById('temp_table'), true, false);
+	        LayerWin.setFocusFirstAndLast(document, document.getElementById('temp_table'));
+	    }
+
+	    function blockquoteClick(select) {
+
+	        for (var i = 1; i <= 10; i++) {
+	            if (i == parseInt(select, 10)) {
+	                document.getElementById("a_tempbquote" + i).className = "con_bq_on_btn";
+	            } else {
+	                document.getElementById("a_tempbquote" + i).className = "con_bq_btn";
+	            }
+	        }
+	        document.getElementById("tempblockquote").value = select;
+	    }
+	</script>
+</head>
+<body style="margin:0px; padding:0px;" onload="set_page();">
+    <div id="editor_popup_table" class="editor_popup">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title"></span><span class="text">Dext5 Editor</span>
+            <div class="close">
+                <a href="javascript:event_dext_close();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+
+        <!-- Contents -->
+        <div class="EdiTor_Popup_contents">          
+            <div id="contents" class="contents" style="height:110px;overflow: hidden">
+                <div class="con con_th2">
+                <input type="hidden" id="tempblockquote" name="tempblockquote" value=""/>
+                    <table cellpadding="0" cellspacing="0" id="temp_table">
+                        <tr>
+                            <td width="20%" class="">
+                                <a href="javascript:blockquoteClick('1');" class="con_bq_btn" id="a_tempbquote1"><span class="ty01"></span></a>
+                            </td>
+                            <td width="20%" class="">
+                                <a href="javascript:blockquoteClick('2');" class="con_bq_btn" id="a_tempbquote2"><span class="ty02"></span></a>
+                            </td>
+                            <td width="20%" class="">
+                                <a href="javascript:blockquoteClick('3');" class="con_bq_btn" id="a_tempbquote3"><span class="ty03"></span></a>
+                            </td>
+                            <td width="20%" class="">
+                                <a href="javascript:blockquoteClick('4');" class="con_bq_btn" id="a_tempbquote4"><span class="ty04"></span></a>
+                            </td>
+                            <td width="20%" class="">
+                                <a href="javascript:blockquoteClick('5');" class="con_bq_btn" id="a_tempbquote5"><span class="ty05"></span></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%" class="">
+                                <a href="javascript:blockquoteClick('6');" class="con_bq_btn" id="a_tempbquote6"><span class="ty06"></span></a>
+                            </td>
+                            <td width="20%" class="">
+                                <a href="javascript:blockquoteClick('7');" class="con_bq_btn" id="a_tempbquote7"><span class="ty07"></span></a>
+                            </td>
+                            <td width="20%" class="">
+                                <a href="javascript:blockquoteClick('8');" class="con_bq_btn" id="a_tempbquote8"><span class="ty08"></span></a>
+                            </td>
+                            <td width="20%" class="">
+                                <a href="javascript:blockquoteClick('9');" class="con_bq_btn" id="a_tempbquote9"><span class="ty09"></span></a>
+                            </td>
+                            <td width="20%" class="">
+                                <a href="javascript:blockquoteClick('10');" class="con_bq_btn" id="a_tempbquote10"><span class="ty10"></span></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <!-- // Contents -->
+
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+			<span id="dext_loading" style="display:none;"><img src="../images/editor/dialog/loading.gif" alt="working" style="vertical-align:middle; " /> Uploading... </span>
+            <a href="javascript:dext_blockquote();" class="confirm" id="ok_btn"><span id="btn_ok"></span></a>
+            <a href="javascript:dext_blockquoteCancel();" class="cancel"><span id="btn_cancel"></span></a>
+        </div>
+        <!-- // Footer -->
+     </div>
+</body>
+</html>

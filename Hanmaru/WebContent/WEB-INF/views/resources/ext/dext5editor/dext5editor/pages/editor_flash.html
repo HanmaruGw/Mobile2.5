@@ -1,0 +1,754 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>flash</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+
+        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+            document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.ajaxUploadJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+        }
+    </script>
+
+	<script type="text/javascript">
+	    var file_field_id = LayerWin._dext_editor._config.fileFieldID;
+	    var user_field_id = LayerWin._dext_editor._config.userFieldID;
+	    var user_field_value = LayerWin._dext_editor._config.userFieldValue;
+
+	    var elemModify = DEXTTOP.G_SELECTED_ELEMENT;
+	    var elemData = null;
+	    //if (elemModify && elemModify.tagName.toLowerCase() != "embed") parent.DEXTTOP.G_SELECTED_ELEMENT = elemModify = null;
+	    if (elemModify != null) {
+	        try {
+	            var keyid = elemModify.getAttribute('dext5customdata');
+	            if (keyid != null && keyid != undefined) {
+	                elemData = LayerWin.getDextCustomData(keyid);
+	            } else {
+	                DEXTTOP.G_SELECTED_ELEMENT = elemModify = null;
+	            }
+	        } catch (e) {
+	            elemModify = null;
+	        }
+	    }
+
+	    function page_loaded_event() {
+
+	        var _td1InnerHtml = '', _td2InnerHtml = '', _td3InnerHtml = '';
+	        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+	            _td1InnerHtml += '<input id="radio_file_info" name="InputFlag" onclick="InputFlag_change(this);" type="radio" value="1" checked="checked" />';
+
+	            _td2InnerHtml += '<label for="radio_file_info" id="label_file_info"></label>';
+
+	            _td3InnerHtml += '<input type="hidden" id="drop_zone_uploadtype" name="drop_zone_uploadtype" value="flash" /><input type="hidden" id="file_text" name="file_text" />';	            
+	            _td3InnerHtml += '<div class="DEXT_fiVe_ED_Popup_DropZone DEXT_fiVe_ED_Popup_DropZone_2" id="drop_zone" style="border:dashed 1px gray; width:323px; height:40px; line-height:40px; text-align:center; color:gray; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"></div>';
+	            _td3InnerHtml += '<div style="position:absolute; left:0px; top:-40px;"><input class="noline" type="file" id="Filedata" name="Filedata" style="width:0px; height:0px" onchange="fileOnchange(this, \'flash\');" /></div>';
+	        }
+	        else {
+	            _td1InnerHtml += '<input id="radio_file_info" name="InputFlag" onclick="InputFlag_change(this);" type="radio" value="1" checked="checked" />';
+
+	            _td2InnerHtml += '<label for="radio_file_info" id="label_file_info"></label>';
+
+	            _td3InnerHtml += '<input name="image_url" id="image_url" type="text" class="con_input" style="width:245px; float:left;background:#fff" disabled="disabled" />';
+	            _td3InnerHtml += '<span id="find_file_nm" style="width:67px; height:20px; *margin-left:-3px;_margin-left:-3px; background-position: 0px 0px; display:block; float:left; cursor:pointer; background-repeat:no-repeat;">';
+	            _td3InnerHtml += '<span id="file_input_search" class="file_input_button2">찾아보기</span>';
+	            _td3InnerHtml += '<input class="noline" type="file" id="Filedata" name="Filedata" style="margin-top:-35px;*margin-top: -28px; margin-left:-245px;width:325px;height:25px; opacity:0; filter:alpha(opacity=0); -moz-opacity:0; cursor:pointer;" onchange="fileOnchange(this, \'flash\');"/>';
+	            _td3InnerHtml += '<a href="javascript:void(0);" id="a_file"></a></span>';
+	        }
+
+	        var _td1 = document.createElement('td');
+	        _td1.width = '5%';
+	        _td1.innerHTML = _td1InnerHtml;
+
+	        var _td2 = document.createElement('td');
+	        _td2.width = '22%';
+	        _td2.innerHTML = _td2InnerHtml;
+
+	        var _td3 = document.createElement('td');
+
+	        _td3.width = '73%';
+	        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+	            _td3.rowSpan = '2';
+	            _td3.id = '_td_drop_zone';
+	        }
+
+	        _td3.innerHTML = _td3InnerHtml;
+
+	        document.getElementById('file_tag_or_drop_zone').appendChild(_td1);
+	        document.getElementById('file_tag_or_drop_zone').appendChild(_td2);
+	        document.getElementById('file_tag_or_drop_zone').appendChild(_td3);
+
+	        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+	            setDragAndDropEvent('drop_zone');
+
+	            // url입력 input태그 hidden
+	            document.getElementById('drop_zone').removeAttribute('hidden')
+	            document.getElementById('web_url').setAttribute('hidden', 'hidden');
+	        }
+	        
+	        set_page_lang();
+
+	        if (LayerWin._dext_editor._config.uploadUseHTML5 != "1") {
+	            var _upload_frame = document.getElementById("upload_frame");
+
+	            var eventHandler = function () {
+	                var _body;
+
+	                try {
+	                    _body = (_upload_frame.contentDocument) ? _upload_frame.contentDocument.body : _upload_frame.contentWindow.document.body;
+	                }
+	                catch (e) {
+	                    _body = _upload_frame.document.body;
+	                }
+
+	                if ('textContent' in _body) { _web_url = _body.textContent; } else { _web_url = _body.innerText; }
+	                event_dext_flash_upload_completed(_web_url);
+	            }
+
+	            DEXTTOP.DEXT5.util.addEvent(_upload_frame, "load", eventHandler, true);
+	        }
+
+	        set_page();
+
+	        if (LayerDoc.compatMode == "BackCompat") {
+	            document.getElementById('flash_att_div').style.marginTop = '7px';
+
+	            var inputs = document.getElementsByTagName('input');
+	            for (var i = 0; i < inputs.length; i++) {
+	                if (inputs[i].type == 'text') {
+	                    inputs[i].style.height = '20px';
+	                }
+	            }
+	        }
+
+	        var margin_left_spinUp = document.getElementById("margin_left_spinUp");
+	        var margin_right_spinUp = document.getElementById("margin_right_spinUp");
+	        var margin_top_spinUp = document.getElementById("margin_top_spinUp");
+	        var margin_bottom_spinUp = document.getElementById("margin_bottom_spinUp");
+
+	        var margin_left_spinDown = document.getElementById("margin_left_spinDown");
+	        var margin_right_spinDown = document.getElementById("margin_right_spinDown");
+	        var margin_top_spinDown = document.getElementById("margin_top_spinDown");
+	        var margin_bottom_spinDown = document.getElementById("margin_bottom_spinDown");
+
+	        var flash_margin_left = document.getElementById('flash_margin_left');
+	        var flash_margin_right = document.getElementById('flash_margin_right');
+	        var flash_margin_top = document.getElementById('flash_margin_top');
+	        var flash_margin_bottom = document.getElementById('flash_margin_bottom');
+
+	        DEXTTOP.DEXT5.util.addEvent(margin_left_spinUp, 'click', function () { LayerWin.click_plus_func(flash_margin_left, 1000, 1); });
+	        DEXTTOP.DEXT5.util.addEvent(margin_right_spinUp, 'click', function () { LayerWin.click_plus_func(flash_margin_right, 1000, 1); });
+	        DEXTTOP.DEXT5.util.addEvent(margin_top_spinUp, 'click', function () { LayerWin.click_plus_func(flash_margin_top, 1000, 1); });
+	        DEXTTOP.DEXT5.util.addEvent(margin_bottom_spinUp, 'click', function () { LayerWin.click_plus_func(flash_margin_bottom, 1000, 1); });
+
+	        DEXTTOP.DEXT5.util.addEvent(margin_left_spinDown, 'click', function () { LayerWin.click_minus_func(flash_margin_left, 0, 1); });
+	        DEXTTOP.DEXT5.util.addEvent(margin_right_spinDown, 'click', function () { LayerWin.click_minus_func(flash_margin_right, 0, 1); });
+	        DEXTTOP.DEXT5.util.addEvent(margin_top_spinDown, 'click', function () { LayerWin.click_minus_func(flash_margin_top, 0, 1); });
+	        DEXTTOP.DEXT5.util.addEvent(margin_bottom_spinDown, 'click', function () { LayerWin.click_minus_func(flash_margin_bottom, 0, 1); });
+
+	        DEXTTOP.DEXT5.util.addEvent(flash_margin_left, 'keydown', LayerWin.onlyNumber);
+	        DEXTTOP.DEXT5.util.addEvent(flash_margin_right, 'keydown', LayerWin.onlyNumber);
+	        DEXTTOP.DEXT5.util.addEvent(flash_margin_top, 'keydown', LayerWin.onlyNumber);
+	        DEXTTOP.DEXT5.util.addEvent(flash_margin_bottom, 'keydown', LayerWin.onlyNumber);
+
+
+	        var flash_width = document.getElementById('flash_width');
+	        var flash_height = document.getElementById('flash_height');
+
+	        DEXTTOP.DEXT5.util.addEvent(flash_width, 'keydown', LayerWin.onlyNumber);
+	        DEXTTOP.DEXT5.util.addEvent(flash_height, 'keydown', LayerWin.onlyNumber);
+
+	        /*
+	        var select_protocol = document.getElementById('select_protocol');
+	        var web_url = document.getElementById('web_url');
+	        LayerWin.createSelectProtocols(select_protocol, web_url);
+	        */
+
+	        var btn_ok_a = document.getElementById('btn_ok_a');
+	        if (elemData != null) {
+	            DEXTTOP.DEXT5.util.addEvent(btn_ok_a, 'click', function () { set_modify_ok(); });
+	            set_modify_field();
+	        } else {
+	            DEXTTOP.DEXT5.util.addEvent(btn_ok_a, 'click', function () { dext_upload_flash(); });
+	        }
+
+	        //setCursorPos(document.getElementById(file_field_id), false, false);
+	        setCursorPos(document.getElementById('tab_1'), false, false);
+	        LayerWin.setFocusFirstAndLast(document, document.getElementById('tab_1'));
+	        
+	    }
+
+	    function set_page() {
+
+	        var _upload_url = LayerWin._dext_editor._config.post_url;
+	        document.getElementById("upload_url").value = _upload_url;
+
+	        var _proxy_url = LayerWin._dext_editor._config.proxy_url;
+	        var enforceDocumentDomain = false;
+            try {
+                enforceDocumentDomain = dext5EnforceDocumentDomain;
+            } catch (e) { }
+	        var currentDocDomain = document.domain;
+	        if (enforceDocumentDomain) {
+	            currentDocDomain += '|';
+	        }
+
+	        // 신규 암호화 로직 추가로 인하여 수정 - by jeongmin 18.08.06
+	        if (LayerWin._dext_editor._config.security.encryptParam != "0") {
+	            document.getElementById("document_domain").value = DEXTTOP.DEXT5.util.makeEncryptParamFinal(currentDocDomain);
+	            document.getElementById("uploadtype").value = DEXTTOP.DEXT5.util.makeEncryptParamFinal("flash");
+	            document.getElementById("proxy_url").value = DEXTTOP.DEXT5.util.makeEncryptParamFinal(_proxy_url);
+	            document.getElementById("pe").value = LayerWin._dext_editor._config.security.encryptParam;
+	        } else {
+	            document.getElementById("document_domain").value = currentDocDomain;
+	            document.getElementById("uploadtype").value = "flash";
+	            document.getElementById("proxy_url").value = _proxy_url;
+	            document.getElementById("pe").parentNode.removeChild(document.getElementById("pe"));
+	        }
+	    }
+
+	    function set_page_lang() {
+	        var _skin_name = LayerWin._dext_editor._config.style.skinName;
+	        document.getElementById("dext_dialog_box").className = 'DEXT_fiVe_ED_Popup_Type02 DEXT_fiVe_PUi_' + _skin_name;
+
+	        setSelectBoxOption(LayerWin.dext5_lang.flash.arr_scale_opt, "scale_option", "flash_scale", LayerWin.dext5_lang.flash.arr_scale_opt.value.length);
+	        setSelectBoxOption(LayerWin.dext5_lang.flash.arr_allowScriptAccess_opt, "allowScriptAccess_option", "flash_allowScriptAccess", LayerWin.dext5_lang.flash.arr_allowScriptAccess_opt.value.length);
+	        setSelectBoxOption(LayerWin.dext5_lang.flash.arr_quality_opt, "quality_option", "flash_quality", LayerWin.dext5_lang.flash.arr_quality_opt.value.length);
+	        //setSelectBoxOption(LayerWin.dext5_lang.flash.arr_align_opt, "align_option", "flash_align", LayerWin.dext5_lang.flash.arr_align_opt.value.length);
+
+	        document.getElementById("span_first_tap_1").innerHTML = LayerWin.dext5_lang.flash.first_tap;
+	        document.getElementById("span_first_tap_2").innerHTML = LayerWin.dext5_lang.flash.first_tap;
+	        document.getElementById("span_secon_tap_1").innerHTML = LayerWin.dext5_lang.flash.secon_tap;
+	        document.getElementById("span_secon_tap_2").innerHTML = LayerWin.dext5_lang.flash.secon_tap;
+
+	        document.getElementById("span_title").innerHTML = LayerWin.dext5_lang.flash.title;
+	        document.getElementById("label_file_info").innerHTML = LayerWin.dext5_lang.flash.file_info;
+	        document.getElementById("label_tag_insert").innerHTML = LayerWin.dext5_lang.flash.tag_insert;
+	        document.getElementById("label_width").innerHTML = LayerWin.dext5_lang.flash.width;
+	        document.getElementById("label_height").innerHTML = LayerWin.dext5_lang.flash.height;
+            
+	        document.getElementById("label_margin_left").innerHTML = LayerWin.dext5_lang.flash.margin_left;
+	        document.getElementById("label_margin_right").innerHTML = LayerWin.dext5_lang.flash.margin_right;
+	        document.getElementById("label_margin_top").innerHTML = LayerWin.dext5_lang.flash.margin_top;
+	        document.getElementById("label_margin_bottom").innerHTML = LayerWin.dext5_lang.flash.margin_bottom;
+
+	        document.getElementById("url_label_file_info").innerHTML = LayerWin.dext5_lang.flash.file_url;
+
+	        document.getElementById("label_scale").innerHTML = LayerWin.dext5_lang.flash.scale;
+	        document.getElementById("label_allowScriptAccess").innerHTML = LayerWin.dext5_lang.flash.allowScriptAccess;
+	        document.getElementById("label_quality").innerHTML = LayerWin.dext5_lang.flash.quality;
+	        //document.getElementById("label_align").innerHTML = LayerWin.dext5_lang.flash.align;
+	        document.getElementById("label_menu").innerHTML = LayerWin.dext5_lang.flash.menu;
+	        document.getElementById("label_play").innerHTML = LayerWin.dext5_lang.flash.play;
+	        document.getElementById("label_loop").innerHTML = LayerWin.dext5_lang.flash.loop;
+	        document.getElementById("label_allowFullScreen").innerHTML = LayerWin.dext5_lang.flash.allowFullScreen;
+
+	        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+	            if (DEXTTOP.DEXT5.browser.mobile == true || DEXTTOP.DEXT5.UserAgent.device.type == 'mobile') {
+	                document.getElementById("drop_zone").innerHTML = LayerWin.dext5_lang.upload.drop_zone_content2; // 모바일 드랍존 문구
+	            }
+	            else {
+	                document.getElementById("drop_zone").innerHTML = LayerWin.dext5_lang.upload.drop_zone_content; // 드랍존 문구
+	            }
+	        }
+	        else {
+	            document.getElementById("file_input_search").innerHTML = LayerWin.dext5_lang.flash.file_search; // 찾아보기
+	        }
+
+	        document.getElementById("btn_ok").innerHTML = LayerWin.dext5_lang.flash.btn_ok;
+	        document.getElementById("btn_cancel").innerHTML = LayerWin.dext5_lang.flash.btn_cancel;
+
+	        document.title = LayerWin.dext5_lang.flash.frame_title;
+
+	        var fileDataObj = document.getElementById("Filedata");
+	        fileDataObj.id = file_field_id;
+	        fileDataObj.name = file_field_id;
+
+	        var userDataObj = document.getElementById("userField");
+	        userDataObj.id = user_field_id;
+	        userDataObj.name = user_field_id;
+	        userDataObj.value = user_field_value;
+	        
+	        var header = LayerWin.getElementsByClass('EdiTor_Popup_header', document);
+	        header[0].onselectstart = function () { return false; };
+	    }
+
+	    function set_modify_field() {
+	        document.getElementById('flash_tag_div').style.display = 'none';
+
+	        var filedata = document.getElementById(file_field_id);
+	        var web_url = document.getElementById('web_url');
+
+	        var ta_flash_tag = document.getElementById('ta_flash_tag');
+	        var _width = document.getElementById('flash_width');
+	        var _height = document.getElementById('flash_height');
+
+	        var flash_margin_left = document.getElementById('flash_margin_left');
+	        var flash_margin_right = document.getElementById('flash_margin_right');
+	        var flash_margin_top = document.getElementById('flash_margin_top');
+	        var flash_margin_bottom = document.getElementById('flash_margin_bottom');
+            
+	        var _scale = document.getElementById('flash_scale');
+	        var _scriptaccess = document.getElementById('flash_allowScriptAccess');
+	        var _quality = document.getElementById('flash_quality');
+	        //var _align = document.getElementById('flash_align');
+
+	        var _menu = document.getElementById('flash_menu');
+	        var _play = document.getElementById('flash_play');
+	        var _loop = document.getElementById('flash_loop');
+	        var _allowFullScreen = document.getElementById('flash_allowFullScreen');
+
+	        var arr_src = elemData.src.split('/');
+	        web_url.value = arr_src[arr_src.length - 1];
+
+	        var InputFlag = document.getElementsByName('InputFlag');
+	        InputFlag[0].disabled = 'disabled';
+	        InputFlag[1].disabled = 'disabled';
+	        filedata.disabled = 'disabled';
+
+	        _width.value = LayerWin.parseIntOr0(elemModify.style.width) == 0 ? parseInt(elemModify.width, 10) : parseInt(elemModify.style.width, 10);
+	        _height.value = LayerWin.parseIntOr0(elemModify.style.height) == 0 ? parseInt(elemModify.height, 10) : parseInt(elemModify.style.height, 10);
+	        flash_margin_left.value = LayerWin.parseIntOr0(elemData.margin_left, 10) == 0 ? '' : parseInt(elemData.margin_left, 10);
+	        flash_margin_right.value = LayerWin.parseIntOr0(elemData.margin_right, 10) == 0 ? '' : parseInt(elemData.margin_right, 10);
+	        flash_margin_top.value = LayerWin.parseIntOr0(elemData.margin_top, 10) == 0 ? '' : parseInt(elemData.margin_top, 10);
+	        flash_margin_bottom.value = LayerWin.parseIntOr0(elemData.margin_bottom, 10) == 0 ? '' : parseInt(elemData.margin_bottom, 10);
+	        _scale.value = elemData.scale;
+	        _scriptaccess.value = elemData.allowScriptAccess;
+	        _quality.value = elemData.quality;
+	        //_align.value = elemData.align;
+	        if (elemData.menu == false || elemData.menu == 'false') _menu.checked = false;
+	        if (elemData.play == false || elemData.play == 'false') _play.checked = false;
+	        if (elemData.loop == false || elemData.loop == 'false') _loop.checked = false;
+	        if (elemData.allowFullScreen == false || elemData.allowFullScreen == 'false') _allowFullScreen.checked = false;
+
+	        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+	            var modify_default_radio = document.getElementById('radio_url');
+	            var modify_radio = document.getElementById('radio_file_info');
+
+	            modify_radio.removeAttribute('checked');
+	            modify_default_radio.setAttribute('checked', 'checked');
+
+	            InputFlag_change(modify_default_radio);
+	        }
+	    }
+
+	    function set_modify_ok() {
+
+	        var _width = document.getElementById('flash_width');
+	        var _height = document.getElementById('flash_height');
+	        var flash_margin_left = document.getElementById('flash_margin_left');
+	        var flash_margin_right = document.getElementById('flash_margin_right');
+	        var flash_margin_top = document.getElementById('flash_margin_top');
+	        var flash_margin_bottom = document.getElementById('flash_margin_bottom');
+	        var _scale = document.getElementById('flash_scale');
+	        var _scriptaccess = document.getElementById('flash_allowScriptAccess');
+	        var _quality = document.getElementById('flash_quality');
+	        //var _align = document.getElementById('flash_align');
+
+	        var _menu = document.getElementById('flash_menu');
+	        var _play = document.getElementById('flash_play');
+	        var _loop = document.getElementById('flash_loop');
+	        var _allowFullScreen = document.getElementById('flash_allowFullScreen');
+
+	        elemModify.style.width = LayerWin.parseIntOr0(_width.value) == 0 ? '300px' : _width.value + 'px';
+	        elemModify.style.height = LayerWin.parseIntOr0(_height.value) == 0 ? '300px' : _height.value + 'px';
+	        //elemModify.align = _align.value;
+
+	        elemData.width = LayerWin.parseIntOr0(_width.value) == 0 ? '300' : _width.value;
+	        elemData.height = LayerWin.parseIntOr0(_height.value) == 0 ? '300' : _height.value;
+
+	        elemModify.style.marginLeft = flash_margin_left.value == "" ? '' : flash_margin_left.value + "px";
+	        elemModify.style.marginRight = flash_margin_right.value == "" ? '' : flash_margin_right.value + "px";
+	        elemModify.style.marginTop = flash_margin_top.value == "" ? '' : flash_margin_top.value + "px";
+	        elemModify.style.marginBottom = flash_margin_bottom.value == "" ? '' : flash_margin_bottom.value + "px";
+
+	        elemData.margin_left = flash_margin_left.value == "" ? '' : flash_margin_left.value + "px";
+	        elemData.margin_right = flash_margin_right.value == "" ? '' : flash_margin_right.value + "px";
+	        elemData.margin_top = flash_margin_top.value == "" ? '' : flash_margin_top.value + "px";
+	        elemData.margin_bottom = flash_margin_bottom.value == "" ? '' : flash_margin_bottom.value + "px";
+	         
+	        elemData.scale = _scale.value;
+	        elemData.allowScriptAccess = _scriptaccess.value;
+	        elemData.quality = _quality.value;
+	        //elemData.align = _align.value;
+	        elemData.menu = _menu.checked;
+	        elemData.play = _play.checked;
+	        elemData.loop = _loop.checked;
+	        elemData.allowFullScreen = _allowFullScreen.checked;
+
+	        LayerWin._dext_editor.UndoManager.putUndo();
+
+	        event_dext_image_upload_cancel();
+	    }
+
+	    function setSelectBoxOption(arr_opt, node, sel_id, count) {
+
+	        var _select = document.getElementById(sel_id);
+	        for (var i = 0; i < count; i++) {
+	            //var _scale_option = parent.DEXT5.util.xml.getNodeIdx(xml_doc, node, i);
+	            _select.options.add(new Option(arr_opt.text[i], arr_opt.value[i]), _select.options.length);
+	        }
+	    }
+
+	    function flash_popup_toggle() {
+	        var flash_popTap = LayerWin.getElementsByClass("EdiTor_Popup_contents", document);
+	        var div_tab_arr = LayerWin.getElementsByClass("con_btn", document);
+	        for (var i = 0; flash_popTap.length > i; i++) {
+	            if (flash_popTap[i].className == "EdiTor_Popup_contents view") {
+	                flash_popTap[i].className = "EdiTor_Popup_contents none";
+	            } else {
+	                flash_popTap[i].className = "EdiTor_Popup_contents view";
+	                if (i == 0) {
+	                    setCursorPos(document.getElementById(file_field_id), false, false);
+	                } else if (i == 1) {
+	                    setCursorPos(document.getElementById('flash_scale'), false, false);
+	                }
+	                LayerWin.setFocusFirstAndLast(document, div_tab_arr[i].getElementsByTagName('a')[0]);
+	            }
+	        }
+	    }
+
+	    function InputFlag_change(obj) {
+
+	        var web_url = document.getElementById("web_url");
+
+	        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+	            var drop_zone = document.getElementById("drop_zone");
+	            var td_drop_zone = document.getElementById("_td_drop_zone");
+
+	            if (!elemModify) {
+	                web_url.value = "";
+	            }
+
+	            if (obj.value == "1") {
+	                drop_zone.removeAttribute('hidden')
+	                drop_zone.setAttribute('style', 'border:dashed 1px gray; width:323px; height:40px; text-align:center; display:table-cell; vertical-align:middle; color:gray;');
+
+	                td_drop_zone.setAttribute('rowspan', '2');
+
+	                web_url.setAttribute('hidden', 'hidden');
+	            }
+	            else if (obj.value == "2") {
+	                drop_zone.setAttribute('hidden', 'hidden');
+	                drop_zone.removeAttribute('style');
+
+	                td_drop_zone.removeAttribute('rowspan')
+
+	                web_url.removeAttribute('hidden');
+
+	                if (!elemModify) {
+	                    web_url.value = "http://";
+	                    web_url.removeAttribute("disabled");
+	                    setCursorPos(web_url, true, false);
+	                }
+	                
+	            }
+	        }
+	        else {
+	            var file_data = document.getElementById(file_field_id);
+
+	            file_data.setAttribute("disabled", "disabled");
+
+	            web_url.value = "";
+	            web_url.setAttribute("disabled", "disabled");
+
+
+	            if (obj.value == "1") {
+	                file_data.removeAttribute("disabled");
+
+	            } else if (obj.value == "2") {
+	                web_url.value = "http://";
+	                web_url.removeAttribute("disabled");
+	                setCursorPos(web_url, true, false);
+	            }
+	        }
+
+	        
+	    }
+    </script>
+
+</head>
+<body style="margin:0px; padding:0px;" onload="page_loaded_event()" >
+	<div class="editor_s01_popup ed_green" id="dext_dialog_box">
+		<!-- Header -->
+		<div class="EdiTor_Popup_header">
+			<span class="subject" id="span_title">Flash</span><span class="text">DEXT5 Editor</span>
+			<div class="close">
+				<a href="javascript:event_dext_flash_upload_cancel();" title="close"></a>
+			</div>
+		</div>
+		<!-- // Header -->
+
+		<!-- Contents / general -->
+		<div class="EdiTor_Popup_contents view">
+            <div class="con_btn">
+                <a href="javascript:void(0);" class="on" id="tab_1"><span id="span_first_tap_1"></span></a>
+                <a href="javascript:flash_popup_toggle();" class="off"><span id="span_secon_tap_1"></span></a>
+            </div>
+            <div class="contents"  style="height: 300px;">
+                <div class="con border">
+                    <input type="hidden" id="upload_url" name="upload_url" value="" />
+                <form name="dext_upload_form" id="dext_upload_form" method="post" target="upload_frame" enctype="multipart/form-data" action="">
+                    <div id="div_config">
+                        <input type="hidden" id="pe" name="pe" value="1" />
+                        <input type="hidden" id="document_domain" name="document_domain" value="" />
+                        <input type="hidden" id="proxy_url" name="proxy_url" value="" />
+                        <input type="hidden" id="uploadtype" name="uploadtype" value="flash" />
+                        <input type="hidden" id="savefilename" name="savefilename" value="" />
+                        <input type="hidden" id="savefileext" name="savefileext" value="" />
+                        <input type="hidden" id="serverdomain" name="serverdomain" value="" />
+                        <input type="hidden" id="tosavepathurl" name="tosavepathurl" value="" />
+                        <input type="hidden" id="savafoldernamerule" name="savafoldernamerule" value="" />
+                        <input type="hidden" id="savafilenamerule" name="savafilenamerule" value="" />
+                        <input type="hidden" id="userField" value="" />
+                    </div>
+                    <table cellpadding="0" cellspacing="0">
+
+                        <tr id="file_tag_or_drop_zone"></tr>
+
+                        <tr>
+                            <td>
+                                <input id="radio_url" name="InputFlag" onclick="InputFlag_change(this);" type="radio" value="2" />
+                            </td>
+                            <td>
+                                <label for="radio_url" id="url_label_file_info">URL입력</label>
+                            </td>
+                            <td>
+                                <input type="text" id="web_url" name="web_url" style="width: 320px;" class="con_input" disabled="disabled" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="height: 11px;" class="ue_line_b">
+                                <iframe id="upload_frame" name="upload_frame" frameborder="0" style="width: 0px; height: 0px;" title="DEXT5Editor Upload"></iframe>
+                            </td>
+                        </tr>
+                    </table>
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="25%">
+                                <label for="flash_width" id="label_width"></label>
+                            </td>
+                            <td width="25%">
+                                <input name="flash_width" id="flash_width" maxlength="4" size="14" type="text" style="width: 55px;" class="con_input" value="300" />
+                                px
+                            </td>
+                            <td width="25%">
+                                <label for="flash_height" id="label_height"></label>
+                            </td>
+                            <td width="25%">
+                                <input name="flash_height" id="flash_height" type="text" maxlength="4" size="14" style="width: 55px;" class="con_input" value="300" />
+                                px
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="flash_margin_left" id="label_margin_left">좌여백</label>
+                            </td>
+                            <td>
+                            <table style="line-height: normal; table-layout: auto; width:100% !important;" cellpadding="0" cellspacing="0" >
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="no_a" >
+                                                <input name="flash_margin_left" id="flash_margin_left" type="text" class="con_input" />
+                                                <ul>
+                                                    <li id="margin_left_spinUp">
+                                                        <a href="javascript:void(0);" style="cursor: pointer;"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ta_btn.gif" alt="up"/></a>
+                                                    </li>
+                                                    <li id="margin_left_spinDown">
+                                                        <a href="javascript:void(0);" style="cursor: pointer;"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ba_btn.gif" alt="down"/></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            </td>
+                                        <td>px</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </td>
+                            <td>
+                                <label for="flash_margin_right" id="label_margin_right">우여백</label>
+                            </td>
+                            <td>
+                                <table style="line-height: normal; table-layout: auto; width:100% !important;" cellpadding="0" cellspacing="0" >
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="no_a" >
+                                                    <input name="flash_margin_right" id="flash_margin_right" type="text" class="con_input" />
+                                                    <ul>
+                                                        <li id="margin_right_spinUp">
+                                                            <a href="javascript:void(0);" style="cursor: pointer;"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ta_btn.gif" alt="up"/></a>
+                                                        </li>
+                                                        <li id="margin_right_spinDown">
+                                                            <a href="javascript:void(0);" style="cursor: pointer;"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ba_btn.gif" alt="down"/></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                </td>
+                                            <td>px</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="flash_margin_top" id="label_margin_top">상여백</label>
+                            </td>
+                            <td>
+                            <table style="line-height: normal; table-layout: auto; width:100% !important;" cellpadding="0" cellspacing="0" >
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="no_a" >
+                                                <input name="flash_margin_top" id="flash_margin_top" type="text" class="con_input" />
+                                                <ul>
+                                                    <li id="margin_top_spinUp">
+                                                        <a href="javascript:void(0);" style="cursor: pointer;"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ta_btn.gif" alt="up"/></a>
+                                                    </li>
+                                                    <li id="margin_top_spinDown">
+                                                        <a href="javascript:void(0);" style="cursor: pointer;"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ba_btn.gif" alt="down"/></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            </td>
+                                        <td>px</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </td>
+                            <td>
+                                <label for="flash_margin_bottom" id="label_margin_bottom">하여백</label>
+                            </td>
+                            <td>
+                                <table style="line-height: normal; table-layout: auto; width:100% !important;" cellpadding="0" cellspacing="0" >
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="no_a" >
+                                                    <input name="flash_margin_bottom" id="flash_margin_bottom" type="text" class="con_input" />
+                                                    <ul>
+                                                        <li id="margin_bottom_spinUp">
+                                                            <a href="javascript:void(0);" style="cursor: pointer;"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ta_btn.gif" alt="up"/></a>
+                                                        </li>
+                                                        <li id="margin_bottom_spinDown">
+                                                            <a href="javascript:void(0);" style="cursor: pointer;"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ba_btn.gif" alt="down"/></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                </td>
+                                            <td>px</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    </form>
+                </div>
+                <div class="con" id="flash_tag_div">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="">
+                                <input id="cb_tag_insert" type="checkbox" value="" />
+                                <label style="vertical-align: middle;" for="cb_tag_insert" id="label_tag_insert"></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="height: 95px;">
+                                <textarea id="ta_flash_tag" name="ta_flash_tag" cols="" rows="" style="width: 455px; height: 90px;" spellcheck="false"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+			<!-- // Contents -->
+
+            <!-- Contents / Template  -->
+			<div class="EdiTor_Popup_contents none">
+				<div class="con_btn">
+					<a href="javascript:flash_popup_toggle();" class="off"><span id="span_first_tap_2"></span></a>
+					<a href="javascript:void(0);" class="on"><span id="span_secon_tap_2"></span></a>
+				</div>
+				<div id="flash_att_div" class="contents" style="height:280px;">
+					<div class="con border">
+						<table cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="22%"><label for="flash_scale" id="label_scale"></label></td>
+								<td width="28%">
+                                    <select name="flash_scale" id="flash_scale" style="width:100px;">
+									    <option value="">default</option>
+								    </select>
+								</td>
+								<td><label for="flash_allowScriptAccess" id="label_allowScriptAccess"></label></td>
+								<td>
+								<select name="flash_allowScriptAccess" id="flash_allowScriptAccess" style="width:100px;">
+								    <option value="">default</option>
+								</select></td>
+							</tr>
+							<tr>
+                                <!--<td><label for="flash_align" id="label_align"></label></td>
+								<td>
+								<select name="flash_align" id="flash_align" style="width:100px;">
+									<option value="">default</option>
+								</select></td>-->
+								<td><label for="flash_quality" id="label_quality"></label></td>
+								<td>
+								<select name="flash_quality" id="flash_quality" style="width:100px;">
+									<option value="">default</option>
+								</select></td>
+                                <td rowspan="2"></td>
+							</tr>
+						</table>
+					</div>
+                    
+					<div class="con">
+						<table cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="50%">
+								<input type="checkbox" id="flash_menu" checked="checked"/>
+								<label style="vertical-align:middle;" id="label_menu" for="flash_menu"></label></td>
+								<td width="50%">
+								<input type="checkbox" id="flash_play" checked="checked"/>
+								<label style="vertical-align:middle;" id="label_play" for="flash_play"></label></td>
+							</tr>
+							<tr>
+								<td>
+								<input type="checkbox" id="flash_loop" checked="checked"/>
+								<label style="vertical-align:middle;" id="label_loop" for="flash_loop"></label></td>
+								<td>
+								<input type="checkbox" id="flash_allowFullScreen" checked="checked"/>
+								<label style="vertical-align:middle;" id="label_allowFullScreen" for="flash_allowFullScreen"></label></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- // Contents -->
+
+			<!-- Footer -->
+			<div class="EdiTor_Popup_footer">
+				<span id="dext_loading" style="display:none;"><img src="../images/editor/dialog/loading.gif" alt="working" style="vertical-align:middle; " /> Uploading... </span>
+				<a href="javascript:void(0);" class="confirm" id="btn_ok_a"><span id="btn_ok">확인</span></a>
+				<a href="javascript:event_dext_flash_upload_cancel();"  class="cancel" id="abtn_cancel"><span id="btn_cancel">취소</span></a>
+			</div>
+			<!-- // Footer -->
+		</div>
+</body>
+</html>

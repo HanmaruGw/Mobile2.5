@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: ImageConvertWidth</h3>
+    <p class="ttl">XML : &#60;image_convert_width&#62;.....&#60;/image_convert_width&#62;, Config : config.ImageConvertWidth</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        이미지파일 업로드 시 저장될 이미지의 너비를 변환 할 때 사용하는 옵션입니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        기본값은 "0" 입니다.<br />
+        image_convert_width가 빈 값 또는 "0" 이고,<br />
+        image_convert_height 의 값이 0 보다 큰 정수일 때 입력 값을 기준으로 원본 비율의 width 값을 계산하여 jpg로 변환합니다. 
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+<b>이미지파일 업로드 시 저장될 이미지의 너비를 100으로 변환합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;uploader_setting&#62;
+    .....
+    &#60;image_convert_width&#62;100&#60;/image_convert_width&#62;
+    .....
+&#60;/uploader_setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+ 
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;   
+    &#60;script type="text/javascript"&#62;
+
+        DEXT5.config.ImageConvertWidth = "100";
+
+        new Dext5editor("editor1");
+
+    &#60;/script&#62;       
+&#60;/div&#62;        
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

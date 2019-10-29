@@ -1,0 +1,78 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Editor Sample</title>
+	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+	
+	<!-- 샘플 페이지 동작을 위한 파일입니다. -->
+    <link href="../css/sample.common.css" rel="stylesheet" />   
+    <script src="../vender/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../js/sample.common.js" type="text/javascript"></script>
+	<!-- 샘플 페이지 동작을 위한 파일입니다. -->
+	
+    <script src="../../../js/dext5editor.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+    // DEXT5 Editor 생성완료 이벤트
+    function dext_editor_loaded_event(DEXT5Editor) {
+        var logBox = document.getElementById("logBox");
+
+        logBox.innerHTML = 'DEXT5 Editor 로드 완료 : ' + DEXT5Editor.editor.ID + '\n';
+    }
+	
+	function fn_display(){
+		document.getElementById('editor_holder').style.display = '';
+		
+		// 숨겨진 영역에 생성하였을 때 다시 보여주는 로직에서 아래 API를 호출하면 됩니다.
+		DEXT5.startUpEditor();
+	}
+	
+	function fn_display_none(){
+		document.getElementById('editor_holder').style.display = 'none';
+	}
+    </script>
+</head>
+<body>
+    <ul class="info_lst_box">
+        <li>• 에디터를 숨겨진 영역(display: none)에 생성을 한 경우에는<br>
+        <span style="margin-left:12px;">숨겨진 영역을 보여줄 때 DEXT5.startUpEditor API를 호출하시면 됩니다.</li>
+    </ul>
+
+    <div class="btn_lst_box" style="overflow:hidden">
+        <div style="float:left;display:inline-block">
+            <button type="button" value="display" class="input_image" style="width: 130px;" onclick="fn_display()">보이기</button>&nbsp;
+			<button type="button" value="display_none" class="input_image" style="width: 130px;" onclick="fn_display_none()">숨기기</button>
+        </div>      
+    </div>
+    <div id="editor_holder" style="width: 800px; margin: 0 auto;clear:both; display:none;">
+        <script type="text/javascript">
+            
+            //DEXT5.config.InitXml = "dext_editor.xml";
+            //DEXT5.config.HandlerUrl = "http://www.dext5.com/handler/upload_handler.ashx";
+            //DEXT5.config.SkinName = "blue";
+            //DEXT5.config.ToSavePathURL = "dext5data";
+            //DEXT5.config.Lang = "ko-kr"; // ko-kr, en-us, ja-jp, zh-cn, zh-tw
+            //DEXT5.config.Mode = "view";
+            //DEXT5.config.focusInitObjId = "title"; // 에디터가 로드된 후 설정한 아이디를 가진 객체에 포커스를 줌.
+            //DEXT5.config.NextTabElementId = "nextInput";
+            //DEXT5.config.IgnoreSameEditorName = "1";
+
+            DEXT5.config.Width = "800px";
+            DEXT5.config.Height = "400px";
+            //DEXT5.config.RunTimes = '';   // 웹표준모드 : html5, 플러그인모드(IE전용) : ieplugin, version이하 플러그인(IE전용) : versionieplugin
+
+            // 에디터의 팝업창과 우클릭 메뉴를 부모창에 띄우기 위한 설정.
+            // 에디터를 iframe 형태로 띄우는 경우 사이즈가 작아서 팝업창이나 우클릭 메뉴가 가려질 때 설정하면 유용합니다.
+            //DEXT5.config.DialogWindow = parent.window;
+
+            var editor1 = new Dext5editor("dext5editor"); 
+        </script>
+    </div>
+    <br />
+    <!-- 로그영역 -->
+    <textarea id="logBox" class="logBox" style="overflow: auto;height:210px" readonly="true"></textarea>
+    <!-- //로그영역 -->
+</body>
+</html>

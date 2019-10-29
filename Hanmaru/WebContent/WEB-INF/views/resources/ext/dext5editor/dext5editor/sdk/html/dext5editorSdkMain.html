@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con">
+            <div class="sdk_content">
+                <h3 class="title">설치 및 기본설정</h3><br />
+                <table class="h_table">
+                    <caption>기본 설정 가이드</caption>
+                    <colgroup>
+                        <col style="!important;" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>
+                                <span class="firebrick">※ 제품을 연동하기 전 꼭 아래내용을 읽어주세요!</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="t_bg01">
+                                <pre class="pre">
+<span style="font-weight:bold; text-decoration:underline;">DEXT5 Editor는 웹상에서 문서를 작성하기 위한 솔루션으로 다음과 같이 구성되어 있습니다.</span>
+
+<div class="cord" style="font-size:10pt;"> <span class="firebrick">- Client Module</span> : 화면 구성 및 파일을 전송하는 클라이언트쪽 모듈 [ Javascript, CSS, Images, XML, IE Plugin, Pages(팝업HTML) ]
+ <span class="firebrick">- Server Module</span> : 클라이언트로 부터 전송된 데이터를 서버쪽에서 처리해 주는 모듈 [ .NET(ashx, dll), JAVA(jsp, jar), PHP(php) ]
+</div>
+
+<span style="font-weight:bold; text-decoration:underline;">* 설치규격</span>
+
+<div class="cord" style="font-size:10pt;"> <span class="firebrick">- 지원 운영체제</span> : Microsoft Windows 2000 Server 이상, Linux, Unix 등
+ <span class="firebrick">- 지원 웹 언어</span> : JSP JDK 1.5 이상 (JDK 1.4 별도문의), ASP, ASP.NET 2.0 이상, PHP (별도문의)
+ <span class="firebrick">- 지원 웹 서버</span> : JDK 1.5 이상 (JDK 1.4 별도문의)을 사용하는 WAS, Microsoft .NET Framework 2.0 이상을 사용하는 IIS
+</div>
+
+<span style="font-weight:bold; text-decoration:underline;">* DEXT5 Editor 폴더 설명</span>
+
+<div class="cord" style="font-size:10pt;"> <span class="firebrick">- config</span>
+   DEXT5 Editor의 환경설정을 담당하는 dext_editor.xml 을 포함하고 있습니다.
+ <span class="firebrick">- css</span>
+   DEXT5 Editor에 필요한 스타일시트 파일을 포함하고 있습니다.
+ <span class="firebrick">- dext5editordata</span>
+   저장경로에 대한 별도 설정이 없다면, 기본적으로 파일이 저장되는 ROOT 경로입니다.
+ <span class="firebrick">- handler</span>
+   파일을 서버에 저장하는 서버 모듈을 포함하고 있습니다. (.NET, JAVA, PHP 모듈)
+ <span class="firebrick">- images</span>
+   DEXT5 Editor에 필요한 이미지 파일을 포함하고 있습니다.
+ <span class="firebrick">- js</span>
+   DEXT5 Editor에 필요한 자바스크립트 파일을 포함하고 있습니다.    
+ <span class="firebrick">- pages</span>
+   DEXT5 Editor에서 사용되는 다이얼로그창, 템플릿 등 필요한 HTML 파일을 포함하고 있습니다.
+ <span class="firebrick">- plugin</span>
+   플러그인 파일을 포함하고 있습니다. (Microsoft Internet Explorer의 기능 확장팩)
+ <span class="firebrick">- sample</span>
+   DEXT5 Editor의 기본 예제들을 포함하고 있습니다. (테스트 완료 후 삭제 하십시오)
+</div>
+
+<span style="font-weight:bold; text-decoration:underline;">* 설치방법</span>
+
+<div class="cord" style="font-size:10pt;"> <span class="firebrick">1. config\dext_editor.xml 설정</span>
+    dext5 > license > product_key, license_key 에 발급받은 키를 설정합니다.
+
+ <span class="firebrick">2. DEXT5 Editor Core 전체 폴더 업로드(하위폴더 및 파일포함)</span>
+    WEB서버와 WAS가 분리되어 있는 경우 handler, handler\JAVA, handler\.NET, handler\PHP 폴더는 WAS서버에 업로드 합니다.
+    나머지 폴더는 WEB서버에 설치합니다.(WEB서버와 경로를 맞춰 WAS에 설치합니다.)
+
+ <span class="firebrick">3. 웹 언어별 설정</span>
+  1) ASP, ASP.NET :
+    config\dext_editor.xml 설정 : dext5 > uploader_setting > develop_langage 에 NET 으로 설정합니다.
+    (필요에 따라 handler_url을 설정합니다. ex: /handler/upload_handler.ashx)
+    handler\.NET 폴더의 dll 파일들을 해당 사이트 bin 폴더에 복사한 후,
+    첨부된 web.config의 내용을 사이트 web.config 에 적용합니다.
+
+  2) JSP(JAVA) :
+    config\dext_editor.xml 설정 : dext5 > uploader_setting > develop_langage 에 JAVA 로 설정합니다.
+    (필요에 따라 handler_url을 설정합니다. ex: /handler/upload_handler.jsp)
+    handler\java 폴더의 jar 파일들을 해당 사이트 WEB-INF\lib 폴더에 복사합니다.
+    jar 파일 변경시에는 서버를 재기동합니다.
+
+  3) PHP :
+    config\dext_editor.xml 설정 : dext5 > uploader_setting > develop_langage 에 PHP 로 설정합니다.
+    (필요에 따라 handler_url을 설정합니다. ex: /handler/upload_handler.php)
+    dext5 폴더를 가상디렉토리로 설정합니다.
+
+ <span class="firebrick">4. 권한설정</span>
+  아래의 경로에 쓰기 권한을 추가합니다.
+  1) 환경 설정 정보가 저장되는 파일
+     ex) config\dext_editor.xml
+  2) 파일이 업로드 되는 기본 폴더
+     ex) /dext5editordata
+
+ <span class="firebrick">5. Sample Page 확인</span>
+  Web Server에 맞게 /dext5editor/sample/index.html 연결
+     ex) http://localhost/dext5editor/sample/index.html
+</div>
+
+<span style="font-weight:bold; text-decoration:underline;">* DEXT5 Editor 서버 모듈 구성</span>
+
+<div class="cord" style="font-size:10pt;"> 기본적으로 파일을 업로드하면, 기본 설치폴더/dext5editordata 폴더에 파일이 업로드가 되며,
+ WEB 서버와 WAS가 분리된 경우 WAS쪽 폴더(/dext5editordata)에 업로드 됩니다.
+</div>
+
+<span style="font-weight:bold; text-decoration:underline;">* DEXT5 Editor를 생성하는 기본 방법</span>
+
+<div class="cord" style="font-size:10pt;"> <span class="firebrick">1) Javascript file include</span>
+    &#60;head&#62;...&#60;/head&#62; 태그 사이에 아래의 코드를 추가합니다.
+    &#60;script type="text/javascript" src="DEXT5Editor설치폴더URL/js/dext5editor.js"&#62;
+
+ <span class="firebrick">2) 에디터 객체 생성</span>
+    &#60;body&#62;...&#60;/body&#62; 태그 사이에 에디터가 들어갈 위치에 에디터 생성 코드를 삽입합니다.
+    &#60;script type="text/javascript"&#62;
+        var dext5Editor = new Dext5editor("생성할 에디터 이름");
+    &#60;/script&#62;
+</div>
+
+<span style="font-weight:bold; text-decoration:underline;">* DEXT5 Editor 환경 설정 방법</span>
+
+<div class="cord" style="font-size:10pt;"> <span class="firebrick">환경설정 방법은 Config xml 방식과 Javascript Property 방식을 지원합니다.</span>
+
+ 1) 클라이언트 가이드의 환경설정파일 부분을 참고하여,
+    /dext5editor/config/dext_editor.xml 파일에 설정 (기본 환경설정 파일이며, 다른 파일로 변경 가능합니다.)
+
+ 2) 클라이언트 가이드의 Properties 부분을 참고하여, 아래와 같이 설정 (이렇게 설정된 값이 Xml 설정방식보다 우선 적용됩니다.)
+    ex) 
+    DEXT5.config.Width = "900px";
+    var dext5Editor = new Dext5editor("생성할 에디터 이름");
+</div>
+
+<span style="font-weight:bold; text-decoration:underline;">*Runtimes 설정과 각 브라우저에 따른 DEXT5 Editor 모듈 설명</span>
+
+<div class="cord" style="font-size:10pt;"> DEXT5 Editor는 Html5를 지원하지 않는 브라우저 및 추가기능 제공을 위하여 Hybrid 방식의 동작을 지원합니다.
+ 해당방식은 다음과 같이 설정할 수 있습니다.
+<span class="firebrick">
+ ex) 
+     DEXT5.config.Runtimes = "html5";
+      →비설치형으로 동작하며, html5를 지원하는 않는 브라우저의 접속 시 html4 모드로 동작합니다.
+     DEXT5.config.Runtimes = "ieplugin";
+      → IE 이외의 브라우저에서는 비설치형으로 동작하며, MS IE의 경우 설치형으로 동작합니다.
+     DEXT5.config.Runtimes = "9ieplugin";    
+      → IE 이외의 브라우저에서는 비설치형으로 동작하며, MS IE9 이하의 경우 설치형으로 동작합니다.
+</span>
+</div>
+                    </pre>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

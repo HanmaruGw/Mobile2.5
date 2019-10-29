@@ -1,0 +1,85 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Editor Tab Sample</title>
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+	
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+    <link href="../css/sample.common.css" rel="stylesheet" />   
+    <script src="../vender/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../js/sample.common.js" type="text/javascript"></script>
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+
+    <script src="../../../js/dext5editor.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+         
+    // DEXT5 Editor 생성완료 이벤트
+    function dext_editor_loaded_event(DEXT5Editor) {
+        var logBox = document.getElementById("logBox");
+
+        logBox.innerHTML = 'DEXT5 Editor 로드 완료 : ' + DEXT5Editor.editor.ID + '\n';
+
+        var _htmlValue = "<p>국내최초 Hybrid Solution</p>";
+        _htmlValue += "<p>&nbsp;</p>";
+        _htmlValue += "<p>DEXT5 Editor !!!</p>";
+
+        DEXT5.setBodyValue(_htmlValue, DEXT5Editor.ID);
+    }
+
+    var editorContent = ['', '', '']; // Editor Content
+    var editorSavePath = ['', '', '']; // Editor SavePath
+    var currentTab = 0; 
+    function fn_changeTab(new_tab) {
+
+        // 같은 탭 클릭시 return
+        if (new_tab == currentTab)
+            return;
+
+        // 기존 탭의 content,savepath를 array에 담아놓는다
+        editorSavePath[currentTab] = DEXT5.getEditor('dext5editor').strOldSaveFileName;
+        editorContent[currentTab] = DEXT5.getBodyValue('dext5editor');
+
+        // 변경된 탭의 content,savepath를 에디터에 셋팅한다.
+        DEXT5.getEditor('dext5editor').strOldSaveFileName = editorSavePath[new_tab];
+        DEXT5.setBodyValue(editorContent[new_tab]);
+
+        // 현재 탭 저장
+        currentTab = new_tab;
+    }
+    </script>
+</head>
+
+<body>
+    <ul class="info_lst_box">
+        <li>• 페이지를 탭으로 구성할 경우 예제입니다.</li>
+    </ul>
+
+    <div class="btn_lst_box">
+      <button type="button" value="탭1" class="input_image" style="width: 130px;" onclick="fn_changeTab(0)">탭1</button>&nbsp;
+      <button type="button" value="탭2" class="input_image" style="width: 130px;" onclick="fn_changeTab(1)">탭2</button>&nbsp;
+      <button type="button" value="탭3" class="input_image" style="width: 130px;" onclick="fn_changeTab(2)">탭3</button>&nbsp;
+    </div>
+
+    <div style="width: 800px; margin: 0 auto;clear:both">
+        <script type="text/javascript">
+            DEXT5.config.Width = "800px";
+            DEXT5.config.Height = "400px";
+            DEXT5.config.OpenDocument.BeforeOpenEvent = "1"; // 파일열기하고 파일저장시 열린 파일에 자동으로 덮어쓰기하기 위해 설정합니다.
+            DEXT5.config.RunTimes = 'ieplugin';
+
+            // 에디터의 팝업창과 우클릭 메뉴를 부모창에 띄우기 위한 설정.
+            // 에디터를 iframe 형태로 띄우는 경우 사이즈가 작아서 팝업창이나 우클릭 메뉴가 가려질 때 설정하면 유용합니다.
+            //DEXT5.config.DialogWindow = parent.window;
+            
+            var editor1 = new Dext5editor("dext5editor");
+        </script>
+    </div>
+    <br />
+    <!-- 로그영역 -->
+    <textarea id="logBox" class="logBox" style="overflow: auto;" readonly="true"></textarea>
+    <!-- //로그영역 -->
+</body>
+</html>

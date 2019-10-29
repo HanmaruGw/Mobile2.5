@@ -1,0 +1,324 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Symbol</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+        
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="' + LayerWin._dext_editor._config.symbolUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+
+        function page_loaded_event() {
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+            document.getElementById('dext_dialog_box').className = 'DEXT_fiVe_ED_Popup_Type02 DEXT_fiVe_PUi_' + _skin_name;
+
+            var span_subject = document.getElementById('span_subject');
+            var label_category = document.getElementById('label_category');
+            var select_category = document.getElementById('select_category');
+            var div_big = document.getElementById('div_big');
+            var tbody_symbol = document.getElementById('tbody_symbol');
+            var input_output = document.getElementById('input_output');
+            var ok_btn = document.getElementById('ok_btn');
+            var span_ok = document.getElementById('span_ok');
+            var span_cancel = document.getElementById('span_cancel');
+
+            if (typeof EDITOR_SYMBOL !== "undefined") {
+                var config_lang = LayerWin._dext_editor._config.lang.replace("-", "");
+                var symbolObj = EDITOR_SYMBOL["symbol_" + config_lang];
+                LayerWin.dext5_lang.symbol = symbolObj;
+            }
+
+            span_subject.innerHTML = LayerWin.dext5_lang.symbol.subject;
+            label_category.innerHTML = LayerWin.dext5_lang.symbol.category;
+            span_ok.innerHTML = LayerWin.dext5_lang.ok_cancel.ok;
+            span_cancel.innerHTML = LayerWin.dext5_lang.ok_cancel.cancel;
+
+            document.title = LayerWin.dext5_lang.symbol.frame_title;
+            
+            if (LayerWin.DEXTTOP.G_CURREDITOR._config.currFontFamily != '') {
+                div_big.parentNode.innerHTML = '<div id="div_big" class="ssym" style="font-family: ' + LayerWin.DEXTTOP.G_CURREDITOR._config.currFontFamily + ' !important;height:32px;line-height:32px;*line-height:30px"></div>';
+                input_output.parentNode.innerHTML = '<div id="input_output" style="width:460px; border:solid 1px #d4d4d4; color:#000; height:20px; line-height:20px; font-family:' + LayerWin.DEXTTOP.G_CURREDITOR._config.currFontFamily + ' !important;" contenteditable="true"></div>';
+            }
+
+            var cnt = LayerWin.dext5_lang.symbol.arr_symbol.value.length;
+            for (var i = 0; i < cnt; i++) {
+                var opt = document.createElement('option');
+                opt.value = LayerWin.dext5_lang.symbol.arr_symbol.value[i];
+                opt.innerHTML = LayerWin.dext5_lang.symbol.arr_symbol.text[i];
+                select_category.appendChild(opt);
+            }
+
+            change_fn();
+
+            var change_sel = (function (select_category)
+            { return function (event) { change_fn(); DEXTTOP.DEXT5.util.stopEvent(event); } })(select_category);
+
+            DEXTTOP.DEXT5.util.addEvent(select_category, 'change', change_sel);
+
+            DEXTTOP.DEXT5.util.addEvent(ok_btn, 'click', function () { symbol_ok(); });
+
+            var input_output = document.getElementById("input_output");
+            DEXTTOP.DEXT5.util.addEvent(input_output, "keydown", inoutPutKeyCtrl);
+
+            DEXTTOP.DEXT5.util.addEvent(input_output, "paste", inoutPutKeyCtrl);
+
+            /*
+            if (LayerDoc.compatMode == "BackCompat") {
+                var inputs = document.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type == 'text') {
+                        inputs[i].style.height = '20px';
+                    }
+                }
+            }
+            */
+
+            var header = LayerWin.getElementsByClass('EdiTor_Popup_header', document);
+            header[0].onselectstart = function () { return false; };
+
+            document.getElementById('table_symbol').onselectstart = function () { return false; };
+
+            setCursorPos(select_category, true, false);
+            LayerWin.setFocusFirstAndLast(document, select_category);
+        }
+
+        function inoutPutKeyCtrl(event) {
+
+            var keyCode = ('which' in event) ? event.which : event.keyCode;
+            var Key_V = 86;
+            var KeyDelete = 46;
+
+            var Key_Arrow_Left = 37;
+            var Key_Arrow_Up = 38;
+            var Key_Arrow_Right = 39;
+            var Key_Arrow_Down = 40;
+
+            var Key_Back_Space = 8;
+
+            if (event.ctrlKey && keyCode == Key_V || event.type == 'paste') {
+                DEXTTOP.DEXT5.util.cancelEvent(event);
+            } else {
+                var input_output = document.getElementById("input_output");
+
+                var txtCnt = input_output.textContent;
+                if (!txtCnt)
+                    txtCnt = input_output.innerText;
+
+                if (txtCnt.length >= 38) {
+                    if (!event.shiftKey && !event.altKey && !event.ctrlKey && keyCode != KeyDelete && keyCode != Key_Arrow_Left && keyCode != Key_Arrow_Up && keyCode != Key_Arrow_Right && keyCode != Key_Arrow_Down && keyCode != Key_Back_Space)
+                        DEXTTOP.DEXT5.util.cancelEvent(event);
+                }
+            }
+        }
+
+        function change_fn() {
+            var tbody_symbol = document.getElementById('tbody_symbol');
+            var select_category = document.getElementById('select_category');
+            var val = select_category.value;
+
+            var sym_arr = null;
+
+            if (typeof EDITOR_SYMBOL === "undefined") {
+                if (val == 'general') {
+                    sym_arr = G_BASE_SYMBOL_GENERAL;
+                } else if (val == 'math') {
+                    sym_arr = G_BASE_SYMBOL_MATH;
+                } else if (val == 'circle_en') {
+                    sym_arr = G_BASE_SYMBOL_CIRCLE_EN;
+                } else if (val == 'circle_ko') {
+                    sym_arr = G_BASE_SYMBOL_CIRCLE_KO;
+                } else if (val == 'box') {
+                    sym_arr = G_BASE_SYMBOL_BOX;
+                } else if (val == 'unit') {
+                    sym_arr = G_BASE_SYMBOL_UNIT;
+                }
+            } else if (typeof EDITOR_SYMBOL !== "undefined") {
+                sym_arr = EDITOR_SYMBOL[val];
+            }
+
+            var symbol_num = 0;
+
+            while (tbody_symbol.hasChildNodes()) {
+                tbody_symbol.removeChild(tbody_symbol.lastChild);
+            }
+
+            if (typeof sym_arr === "undefined") {
+                return;
+            }
+
+            for (var i = 0; i < 7; i++) {
+                var _tr_symbol = document.createElement('tr');
+                for (var j = 0; j < 16; j++) {
+                    var _td_symbol = document.createElement('td');
+                    _td_symbol.style.fontSize = '12px';
+
+                    if (symbol_num >= sym_arr.length) {
+                        _td_symbol.innerHTML = '';
+                    } else {
+                        var _a_symbol = document.createElement('a');
+                        _a_symbol.href = 'javascript:void(0);';
+                        _a_symbol.style.textDecoration = 'none';
+                        _a_symbol.style.color = 'black';
+                        _a_symbol.innerHTML = sym_arr[symbol_num];
+
+                        if (LayerWin.DEXTTOP.G_CURREDITOR._config.currFontFamily != '') {
+                            _a_symbol.style.fontFamily = LayerWin.DEXTTOP.G_CURREDITOR._config.currFontFamily;    
+                        }
+
+                        _td_symbol.appendChild(_a_symbol);
+
+                        var click_func = function (_a_symbol) {
+                            var outInput = document.getElementById('input_output');
+
+                            if (_a_symbol.innerHTML != "") {
+                                if (outInput.innerHTML == '<br>' || outInput.innerHTML == '<br />' || outInput.innerHTML == '<br/>') {
+                                    outInput.innerHTML = _a_symbol.innerHTML;
+                                } else {
+                                    var txtCnt = outInput.textContent;
+                                    if (!txtCnt)
+                                        txtCnt = outInput.innerText;
+
+                                    // FireFox에서 위 if에서 txtCnt가 있지만 빈값이면 false가 되는 현상이 있어 아래 if 추가함.
+                                    if (!txtCnt)
+                                        txtCnt = "";
+
+                                    if (txtCnt.length < 38)
+                                        outInput.innerHTML += _a_symbol.innerHTML;
+                                }
+                            }
+                        };
+                        var click_event = (function (_a_symbol)
+                        { return function (event) { click_func(_a_symbol); DEXTTOP.DEXT5.util.stopEvent(event); } })(_a_symbol);
+                        DEXTTOP.DEXT5.util.addEvent(_td_symbol, "click", click_event);
+
+                        var mouseOver_func = function (_td_symbol, _a_symbol) {
+                            _td_symbol.style.backgroundColor = '#dfe1e5';
+                            _td_symbol.style.cursor = 'pointer';
+
+                            document.getElementById('div_big').innerHTML = _a_symbol.innerHTML;
+                        };
+                        var mouseOver_event = (function (_td_symbol, _a_symbol)
+                        { return function (event) { mouseOver_func(_td_symbol, _a_symbol); DEXTTOP.DEXT5.util.stopEvent(event); } })(_td_symbol, _a_symbol);
+                        DEXTTOP.DEXT5.util.addEvent(_td_symbol, "mouseover", mouseOver_event);
+
+                        var focus_func = function (_a_symbol) {
+                            document.getElementById('div_big').innerHTML = _a_symbol.innerHTML;
+                        };
+
+                        var mouseOut_func = function (_td_symbol) {
+                            _td_symbol.style.backgroundColor = '#FFFFFF';
+                            document.getElementById('div_big').innerHTML = '';
+                        };
+                        var mouseOut_event = (function (_td_symbol)
+                        { return function (event) { mouseOut_func(_td_symbol); DEXTTOP.DEXT5.util.stopEvent(event); } })(_td_symbol);
+                        DEXTTOP.DEXT5.util.addEvent(_td_symbol, "mouseout", mouseOut_event);
+
+                        var blur_func = function (_td_symbol) {
+                            _td_symbol.style.backgroundColor = '#FFFFFF';
+                            document.getElementById('div_big').innerHTML = '';
+                        };
+
+                        var focus_event = (function (_a_symbol)
+                        { return function (event) { focus_func(_a_symbol); DEXTTOP.DEXT5.util.stopEvent(event); } })(_a_symbol);
+                        DEXTTOP.DEXT5.util.addEvent(_a_symbol, "focus", focus_event);
+
+                        var blur_event = (function (_td_symbol)
+                        { return function (event) { blur_func(_td_symbol); DEXTTOP.DEXT5.util.stopEvent(event); } })(_td_symbol);
+                        DEXTTOP.DEXT5.util.addEvent(_a_symbol, "blur", blur_event);
+
+                        var focus_move_event = (function (tbody_symbol, i, j) {
+                            return function (event) {
+                                var keyCode = ('which' in event) ? event.which : event.keyCode;
+                                var Key_Arrow_Left = 37;
+                                var Key_Arrow_Up = 38;
+                                var Key_Arrow_Right = 39;
+                                var Key_Arrow_Down = 40;
+                                var Key_Tab = 9;
+
+                                if (keyCode == Key_Arrow_Left) {
+                                    LayerWin.move_next_a_tag(event, tbody_symbol, i, j, 0, -1);
+                                } else if (keyCode == Key_Arrow_Right) {
+                                    LayerWin.move_next_a_tag(event, tbody_symbol, i, j, 0, 1);
+                                } else if (!event.ctrlKey && keyCode == Key_Arrow_Up) {
+                                    LayerWin.move_next_a_tag(event, tbody_symbol, i, j, -1, 0);
+                                } else if (!event.ctrlKey && keyCode == Key_Arrow_Down) {
+                                    LayerWin.move_next_a_tag(event, tbody_symbol, i, j, 1, 0);
+                                } else if (event.ctrlKey && keyCode == Key_Arrow_Up) {
+                                    setCursorPos(document.getElementById('select_category'), false, false);
+                                    DEXTTOP.DEXT5.util.cancelEvent(event);
+                                } else if (event.ctrlKey && keyCode == Key_Arrow_Down) {
+                                    setCursorPos(document.getElementById('input_output'), false, false);
+                                    DEXTTOP.DEXT5.util.cancelEvent(event);
+                                }
+                            }
+                        })(tbody_symbol, i, j);
+                        DEXTTOP.DEXT5.util.addEvent(_a_symbol, "keydown", focus_move_event);
+                    }
+                    _tr_symbol.appendChild(_td_symbol);
+                    symbol_num++;
+                }
+                tbody_symbol.appendChild(_tr_symbol);
+            }
+        }
+    </script>
+</head>
+<body style="margin:0px; padding:0px; " onload="javascript:page_loaded_event();">
+    <div class="" id="dext_dialog_box">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_subject">특수기호</span><span class="text">DEXT5 Editor</span>
+            <div class="close">
+                <a href="javascript:event_dext_close();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / general -->
+        <div class="EdiTor_Popup_contents view">
+            <div class="contents">
+                <div class="con">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="18%">
+                                <label for="select_category" id="label_category"></label>
+                            </td>
+                            <td width="70%">
+                                <select id="select_category" name="" style="width: 170px;"></select>
+                            </td>
+                            <td width="12%" class="t_center">
+                                <div id="div_big" class="ssym"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="con" style="padding-top: 0px !important;">
+                    <table id="table_symbol" cellpadding="0" cellspacing="0" class="con_ta_border DEXT_sEleCt_none"><tbody id="tbody_symbol"></tbody></table>
+                </div>
+                <div class="con" style="padding-top: 0px !important;">
+                    <div id="input_output" style="width:455px; border:solid 1px #d4d4d4; color:#000; height:20px; line-height:20px;" contenteditable="true"></div>
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a id="ok_btn" class="confirm" href="javascript:void(0);"><span id="span_ok">확인</span></a> <a href="javascript:event_dext_close();" class="cancel"><span id="span_cancel">취소</span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

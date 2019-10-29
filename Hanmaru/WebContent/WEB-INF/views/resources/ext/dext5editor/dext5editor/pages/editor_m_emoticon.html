@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Emoticon</title>
+	<meta id="extViewportMeta" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var xhr_config;
+
+        function page_loaded_event() {
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+
+            document.getElementById("dext_dialog_box").className = 'DEXT_fiVe_ED_Popup_Type03 DEXT_fiVe_PUi_' + _skin_name;
+
+            document.getElementById('span_title').innerHTML = LayerWin.dext5_lang.emoticon.title;
+            document.getElementById('span_emotion_1').innerHTML = LayerWin.dext5_lang.emoticon_alt.tab1;
+            document.getElementById('span_emotion_2').innerHTML = LayerWin.dext5_lang.emoticon_alt.tab1;
+            document.getElementById('span_object_1').innerHTML = LayerWin.dext5_lang.emoticon_alt.tab2;
+            document.getElementById('span_object_2').innerHTML = LayerWin.dext5_lang.emoticon_alt.tab2;
+            document.getElementById('span_cancel').innerHTML = LayerWin.dext5_lang.emoticon.btn_close;
+
+            document.title = LayerWin.dext5_lang.emoticon.frame_title;
+
+            var header = LayerWin.getElementsByClass("EdiTor_Popup_header", document);
+            header[0].onselectstart = function () {
+                return false;
+            };
+
+            var _config_url = LayerWin._dext_editor._config.emoticon_url;
+
+            xhr_config = DEXTTOP.DEXT5.util.ajax.xml_http_request();
+            xhr_config.onreadystatechange = function () {
+                if (xhr_config.readyState == 4) {
+                    if (xhr_config.status == 200) { var xml_doc = xhr_config.responseXML; setEmoticon(xml_doc) }
+                    else if (xhr_config.status == 404) { alert("ErrCode : 1003"); }
+                }
+            };
+            xhr_config.open("GET", _config_url + "?t=" + (new Date).getTime(), false);
+            xhr_config.send(null);
+
+            ////////////////////
+            if (LayerDoc.compatMode == "BackCompat") {
+                var inputs = document.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type == 'text') {
+                        inputs[i].style.height = '20px';
+                    }
+                }
+            }
+            ///////////////////
+        }
+
+        function setEmoticon(xml_data) {
+            var set_cnt = DEXTTOP.DEXT5.util.xml.count(xml_data, "items");
+            var _emoticon = {};
+
+            var _item_set, _item_div, _set_ul, _head_div, cont_div, _conbtn_div;
+            var _item_id, _temp_div, _temp_a, _temp_img;
+            var _temp_url, _temp_alt, _temp_title, _set_text, _set_anchor;
+
+            var _ul = document.getElementsByTagName('ul');
+
+            for (var _set_step = 0; _set_step < set_cnt; _set_step++) {
+                _item_set = DEXTTOP.DEXT5.util.xml.getNodeIdx(xml_data, "items", _set_step);
+
+                var item_cnt = DEXTTOP.DEXT5.util.xml.count(_item_set, "item");
+
+                var _emoticon;
+
+                for (var _item_step = 0; _item_step < item_cnt; _item_step++) {
+                    _temp_alt = '';
+                    _temp_alt = DEXTTOP.DEXT5.util.xml.getNodeIdx(_item_set, "item", _item_step).getAttribute("alt");
+                    //_emoticon = parent.DEXT5.util.xml.getNodeIdx(_item_set, "item", _item_step);
+                    var _emoticon = DEXTTOP.DEXT5.util.xml.getNodeValueIdx(_item_set, "item", _item_step);
+
+                    _item = document.createElement("li");
+                    _item.style.border = "1px solid #ffffff";
+                    _temp_img = document.createElement("img");
+
+                    // xml에 Full URL 지정 가능하도록
+                    // "/"로 시작하거나 http,https 로 시작 하는 경우 rootPath를 +하지 않는다.
+                    _temp_url = _emoticon;
+                    if (_temp_url.toLowerCase().indexOf("http:") == 0 || _temp_url.toLowerCase().indexOf("https:") == 0) {
+
+                    } else if (_temp_url.toLowerCase().indexOf("/") == 0) {
+
+                    } else {
+                        _temp_url = DEXTTOP.DEXT5.rootPath + _emoticon;
+                    }
+                    _temp_img.src = _temp_url;
+
+                    if (_temp_alt == null) {
+                        _temp_alt = getEmoticonNameValue(_temp_url);
+                    }
+                    _temp_img.alt = _temp_alt;
+                    _temp_img.title = _temp_alt;
+                    
+                    if (_set_step == 1) {
+                        //_temp_img.style.marginTop = '20px';
+                    }
+
+                    _item.appendChild(_temp_img);
+                    _ul[_set_step].appendChild(_item);
+
+                }
+                ////////event/////////////////////////
+                _ul[_set_step].onclick = function (e) {
+                    var evt = e || window.event;
+                    var target = evt.target || evt.srcElement;
+
+                    var _image_url, _image_alt, _imge_width, _imge_height;
+
+                    if (target.tagName == 'IMG') {
+                        _image_url = target.src;
+                        _image_alt = target.alt;
+                        _imge_width = target.width;
+                        _imge_height = target.height;
+                    } else if (target.tagName == 'LI') {
+                        _image_url = target.firstChild.src;
+                        _image_alt = target.alt;
+                        _imge_width = target.firstChild.width;
+                        _imge_height = target.firstChild.height;
+                    }
+
+                    if (!!_image_url && _image_url.length > 0) {
+                        event_dext_emoticon_completed(_image_url, _image_alt, _imge_width, _imge_height);
+                    }
+                };
+
+                _ul[_set_step].onmouseover = function (e) {
+                    var evt = e || window.event;
+                    var target = evt.target || evt.srcElement;
+
+                    if (target.tagName == 'IMG') {
+                        target.parentNode.style.borderColor = "#e24b1c";
+                    } else if (target.tagName == 'LI') {
+                        target.style.borderColor = "#e24b1c";
+                    }
+                };
+
+                _ul[_set_step].onmouseout = function (e) {
+                    var evt = e || window.event;
+                    var target = evt.target || evt.srcElement;
+
+                    if (target.tagName == 'IMG') {
+                        target.parentNode.style.borderColor = "#ffffff";
+                    } else if (target.tagName == 'LI') {
+                        target.style.borderColor = "#ffffff";
+                    }
+                };
+                /////////////////////////////////////
+            }
+        }
+
+        function getEmoticonNameValue(str_url) {
+            var strAlt = "";
+
+            var arrStr = str_url.split('/');
+
+            try {
+                arrStr = arrStr[arrStr.length - 1];
+                arrStr = arrStr.split('.');
+                strAlt = arrStr[0];
+                strAlt = LayerWin.dext5_lang.emoticon_alt[strAlt];
+            } catch (e) { }
+
+            if (strAlt == undefined) strAlt = "";
+            return strAlt;
+
+        }
+
+
+        function popup_toggle() {
+            var popTap = LayerWin.getElementsByClass("EdiTor_Popup_contents", document);
+            for (var i = 0; popTap.length > i; i++) {
+                if (popTap[i].className == "EdiTor_Popup_contents view") {
+                    popTap[i].className = "EdiTor_Popup_contents none";
+                } else {
+                    popTap[i].className = "EdiTor_Popup_contents view";
+                }
+            }
+        }
+    </script>
+</head>
+<body style="margin:0px; padding:0px;" onload="page_loaded_event()">
+    <div id="dext_dialog_box" class="dext_editor">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span id="span_title" class="subject">이모티콘</span><span class="text">DEXT5 Editor</span>
+            <div class="close">
+                <a href="javascript:event_dext_emoticon_cancel();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / emotion -->
+        <div class="EdiTor_Popup_contents view">
+            <div class="con_btn">
+                <a class="on" style="cursot:pointer;"><span id="span_emotion_1">감정</span></a> <a href="javascript:popup_toggle();" class="off"><span id="span_object_1">사물</span></a>
+            </div>
+            <div class="contents" style="height:150px;">
+                <div class="con">
+                    <ul class="emoticon" style="height:140px !important;">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="EdiTor_Popup_contents none">
+            <div class="con_btn">
+                <a class="off" href="javascript:popup_toggle();"><span id="span_emotion_2">감정</span></a> <a class="on" style="cursor:pointer;"><span id="span_object_2">사물</span></a>
+            </div>
+            <div class="contents" style="height:150px;">
+                <div class="con">
+                    <ul class="emoticon" style="height:140px !important;">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Contents / object -->
+        
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a id="btn_cancel" href="javascript:event_dext_emoticon_cancel();" class="cancel"><span id="span_cancel">취소</span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

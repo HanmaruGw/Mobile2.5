@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Upload :: SetUploadedFile</h3>
+    <p class="ttl">void SetUploadedFile(ItemIndex, FileUniqueKey, FileName, FilePath, FileSize, CustomValue, UploadId)</p>
+    <p class="txt">
+        업로드 리스트 컨트롤에 이미 업로드 되어 있는 웹파일의 정보를 변경합니다. 
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        없음.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">ItemIndex</span>&nbsp;&nbsp;0부터 시작하는 정보를 변경할 파일의 순서를 의미합니다.<br />
+        <span class="firebrick">FileUniqueKey</span>&nbsp;&nbsp;변경 할 파일의 Unique Key를 의미합니다.<br />
+        <span class="firebrick">FileName</span>&nbsp;&nbsp;변경 할 파일의 이름을 의미합니다.<br />
+        <span class="firebrick">FilePath</span>&nbsp;&nbsp;변경 할 파일의 저장위치를 의미합니다.(파일의 물리적 경로 또는 가상경로로 설정)<br />
+        <span class="firebrick">FileSize</span>&nbsp;&nbsp;변경 할 파일의 크기를 의미합니다.<br />
+        <span class="firebrick">CustomValue</span>&nbsp;&nbsp;변경할 Custom Download 사용시 사용될 값을 의미합니다.<br />
+        <span class="firebrick">UploadId</span>&nbsp;&nbsp;파일정보를 변경 할 업로드 객체의 id를 의미합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+       없음.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+        function setUploadedFile() {
+            DEXT5UPLOAD.SetUploadedFile(0, '2', '이미지2.jpg', '/Dext5UploadData/이미지.jpg', '5000', 'Custom Value2', 'upload1');
+        }
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px;"&#62;
+        &#60;script type="text/javascript"&#62;
+            new Dext5Upload("upload1");
+        &#60;/script&#62;       
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con">
+            <h3 class="title">DEXT5 Upload :: Multipart가 설정에 의해 미리 읽히는 경우</h3>
+            <p class="ttl">Multipart가 설정에 의해 미리 읽히는 경우에 대한 처리</p>
+            <p class="txt">
+                JAVA에서는 Multipart를 한번 읽게되면 다시 읽을 수 없습니다.
+                <br />Spring Framework에는 서버에서 Multipart를 컨트롤 할 수 있도록 Framework을 제공하는데
+                <br />이 컨트롤을 사용하기 위해서는 Spring Framework에서 Multipart를 읽도록 하는 설정이 있습니다.
+                <br />이 설정이 있을 경우 DEXT5 Upload에서 파일업로드시 파일을 읽을 수 없으므로 에러가 발생됩니다.
+                <br />그래서 DEXT5 Upload에서 정상적인 파일업로드가 진행되기 위해서는 해당 설정을 제외하거나, Url Pattern을 분리해야 합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">설정 방법</p>
+            <div class="cord">
+                <pre class="pre">
+<span class="firebrick">Multipart를 미리 읽도록 하는 설정</span>
+
+.....
+&#60;!-- Multipart를 받기 위한 Resolver 추가 --&#62;
+&#60;beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"&#62;
+    &#60;beans:property name="maxUploadSize" value="-1" /&#62;
+    &#60;beans:property name="maxInMemorySize" value="1048576" /&#62;
+    &#60;beans:property name="uploadTempDir" ref="uploadDirResource" /&#62;
+&#60;/beans:bean&#62;
+
+&#60;beans:bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource"&#62;
+    &#60;beans:constructor-arg&#62;
+        &#60;beans:value&#62;D:/temp/&#60;/beans:value&#62;
+    &#60;/beans:constructor-arg&#62;
+&#60;/beans:bean&#62;
+.....
+
+<span class="firebrick">Url Pattern을 분리</span>
+
+프로젝트 root의 WEB-INF/web.xml에서 servlet 설정 부분을 다음과 같이 설정하시면 됩니다.
+
+&#60;servlet&#62;
+    &#60;servlet-name&#62;servlet1&#60;/servlet-name&#62;
+    &#60;servlet-class&#62;org.springframework.web.servlet.DispatcherServlet&#60;/servlet-class&#62;
+    &#60;init-param&#62;
+        &#60;param-name&#62;contextConfigLocation&#60;/param-name&#62;
+        &#60;param-value&#62;/WEB-INF/spring/servlet-context1.xml&#60;/param-value&#62;
+    &#60;/init-param&#62;
+    &#60;load-on-startup&#62;1&#60;/load-on-startup&#62;
+&#60;/servlet&#62;
+&#60;servlet-mapping&#62;
+    &#60;servlet-name&#62;servlet1&#60;/servlet-name&#62;
+    &#60;url-pattern&#62;/*.do&#60;/url-pattern&#62;
+&#60;/servlet-mapping&#62;
+      
+&#60;servlet&#62;
+    &#60;servlet-name&#62;servlet2&#60;/servlet-name&#62;
+    &#60;servlet-class&#62;org.springframework.web.servlet.DispatcherServlet&#60;/servlet-class&#62;
+    &#60;init-param&#62;
+        &#60;param-name&#62;contextConfigLocation&#60;/param-name&#62;
+        &#60;param-value&#62;/WEB-INF/spring/servlet-context2.xml&#60;/param-value&#62;
+    &#60;/init-param&#62;
+    &#60;load-on-startup&#62;1&#60;/load-on-startup&#62;
+&#60;/servlet&#62;
+&#60;servlet-mapping&#62;
+    &#60;servlet-name&#62;servlet2&#60;/servlet-name&#62;
+    &#60;url-pattern&#62;/dext5upload.dx&#60;/url-pattern&#62;
+&#60;/servlet-mapping&#62;
+
+servlet2에 설정된 Url Pattern 설정으로 업로드 핸들러 Url Pattern을 구분해 주시면 됩니다.
+해당 Url Pattern은 servlet-context2.xml 파일의 스프링프레임워크 설정 값이 적용됩니다.
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

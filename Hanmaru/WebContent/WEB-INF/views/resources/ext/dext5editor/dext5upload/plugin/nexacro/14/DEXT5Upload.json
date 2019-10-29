@@ -1,0 +1,14 @@
+﻿{
+	"name": "DEXT5Upload",
+	"version": "14.0.0.500",
+	"description": "DEXT5Upload Library",
+	"scripts": [
+		"dext5upload/js/dext5upload.js",
+		"dext5upload/plugin/nexacro/14/dext5upload.nexacro14.js"
+	],
+	"objInfo": [
+		"dext5upload/plugin/nexacro/14/DEXT5Upload.info",
+		"dext5upload/plugin/nexacro/14/DEXT5UploadEnum.info"
+	]
+}
+//@ sourceURL=DEXT5Upload.json

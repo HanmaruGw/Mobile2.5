@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">               
+    <h3 class="title">DEXT5 Upload :: FileNameRuleEx</h3>
+    <p class="ttl">XML : &#60;file_name_rule_ex&#62;.....&#60;/file_name_rule_ex&#62;, Config : config.FileNameRuleEx</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        업로드 되는 파일명이 중복될 때 파일명 뒤에 기호를 추가하여 생성됩니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        기본값은 "_" 입니다.<br/>
+        기호는 "_" 또는 "#" 으로 설정하면 해당 문자가 파일명 뒤에 붙어 저장됩니다.<br />
+        값을 "i" 로 설정시 파일명 뒤에 "숫자"가 자동 증가합니다.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>파일명이 중복될 때 숫자로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;uploader_setting&#62;
+    .....
+    &#60;file_name_rule_ex&#62;i&#60;/file_name_rule_ex&#62;
+    .....
+&#60;/uploader_setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        DEXT5UPLOAD.config.FileNameRuleEx = "i";
+
+        new Dext5Upload("upload1");
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

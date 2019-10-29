@@ -1,0 +1,100 @@
+<div class="login_wrapper" ng-controller="loginController">
+	<div class="wrap_login_logo">
+		<img class="logo" src="/resources/image/bg/login/hanmaru.png">
+		<span class="description">HALLA One-body Communication Portal</span>
+	</div>
+	
+	<div class="wrap_login_area">
+		<div class="wrap_tab_login">
+			<ul>
+				<li><a ng-class="{'selected' : login_tab_index == 0}" ng-click="switchLoginMode(0)">간편 로그인</a></li>
+				<li><a ng-class="{'selected' : login_tab_index == 1}" ng-click="switchLoginMode(1)">일반 로그인</a></li>
+			</ul>
+		</div>
+		<div>
+			<div class="wrap_login_elem">
+				<div class="wrap_login_simple">
+					<div class="dot"></div>
+					<div class="dot"></div>
+					<div class="dot"></div>
+					<div class="dot"></div>
+					<div class="dot"></div>
+					<div class="dot last"></div>
+				</div>
+				<input type="number" id="txt_pinCode" ng-model="pinCode" ng-keyup="doInputPinCode($event)" ng-trim="true">
+			</div>
+			<div class="wrap_login_elem input_idpw" style="display:none">
+				<input type="text" class="general_id" ng-model="general_id" ng-trim="true" placeholder="아이디를 입력하세요">
+				<select class="domain" ng-model="generalLogin_domain" ng-change="applyDomainChange(generalLogin_domain)">
+					<option ng-repeat="site in siteList" value="{{site.Domain}}">@{{site.Domain}}</option>
+				</select>
+				<input type="password" class="general_pw" ng-model="general_pw" ng-trim="true" placeholder="비밀번호를 입력하세요">
+			</div>
+			<button type="button" class="btn_generalLogin" ng-click="performGeneralLogin()">SIGN IN</button>
+			
+			<div class="wrapSimpleLoginSetting">&nbsp;
+				<a class="btnAutoLogin" ng-click="btnToggleAutoLogin($event)">
+					<img src="/resources/image/icon/ic_circle_check_normal.png" ng-if="isAutoLogin == false">
+					<img src="/resources/image/icon/ic_circle_check_selected.png" ng-if="isAutoLogin == true">
+					자동 로그인
+				</a>
+				
+				<a class="btnShowSimpleLogin" ng-click="showSimpleLoginDialog($event)">
+					<img src="/resources/image/icon/login_button_setting_normal.png"/>
+					간편비밀번호 설정
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="wrap_simpleLogin" style="display:none">
+		<div class="bg_simpleLogin" ng-click="hideSimpleLoginDialog($event)"></div>
+		<div class="simpleLogin">
+			<div class="simpleLogin_header">
+				간편 비밀번호 설정
+			</div>
+			<div class="simpleLogin_body">
+				<input type="text" class="txt_simpleLoginID" ng-model="simpleLogin_id" ng-trim="true" placeholder="아이디를 입력하세요">
+				<select class="txt_simpleLoginDomain" ng-model="simpleLogin_domain" ng-change="applySimpleLoginDomainChange(simpleLogin_domain)">
+					<option ng-repeat="site in siteList" value="{{site.Domain}}">@{{site.Domain}}</option>
+				</select>
+				<br>
+				<input type="password" class="txt_simpleLoginPW" ng-model="simpleLogin_pw" ng-trim="true" placeholder="비밀번호를 입력하세요">
+			</div>
+			<div class="simpleLogin_footer">
+				<a ng-click="btnFindUserAccount($event)">확인</a>
+			</div>
+		</div>
+	</div>
+	<div class="wrap_simpleLoginSetting" style="display:none">
+		<div class="bg_simpleLoginSetting" ng-click="hideSimpleLoginSettingDialog($event)"></div>
+		<div class="simpleLoginSetting">
+			<div class="simpleLoginSetting_header">
+				간편 비밀번호 설정
+			</div>
+			<div class="simpleLoginSetting_body">
+				<div class="wrap_simpleLoginSetting_dot">
+					<div class="dot"></div>
+					<div class="dot"></div>
+					<div class="dot"></div>
+					<div class="dot"></div>
+					<div class="dot"></div>
+					<div class="dot last"></div>
+				</div>
+				<input type="number" id="txt_setPinCode" ng-model="setPinCode" ng-keyup="doInputSetPinCode($event)" ng-trim="true">
+			</div>
+			<div class="simpleLoginSetting_footer">
+				<a ng-click="btnSetSimpleLogin($event)">확인</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="wrap_copyright_area">
+	<div class="wrap_copyright_logo">
+		<img src="/resources/image/bg/login/halla.png">
+	</div>
+	<div class="wrap_copyright">
+		<span class="txt_cs">Custom Center  |   (02) 3434 – 5272 / 5274</span>
+		<span class="txt_copyright">Copyright© HALLA GROUP. All rights reserved</span>
+	</div>
+</div>

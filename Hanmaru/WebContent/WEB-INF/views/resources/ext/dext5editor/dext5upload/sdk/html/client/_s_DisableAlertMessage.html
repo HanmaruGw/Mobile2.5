@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">               
+    <h3 class="title">DEXT5 Upload :: DisableAlertMessage</h3>
+    <p class="ttl">XML :<br />&#60;disable_alert_message&#62;<br />&nbsp;&nbsp;&nbsp;&nbsp;&#60;disable_delete_confirm&#62;.....&#60;/disable_delete_confirm&#62;<br />&nbsp;&nbsp;&nbsp;&nbsp;&#60;duplication&#62;.....&#60;/duplication&#62;<br />&nbsp;&nbsp;&nbsp;&nbsp;&#60;delete_unchosen&#62;.....&#60;/delete_unchosen&#62;<br />&nbsp;&nbsp;&nbsp;&nbsp;&#60;download_unchosen&#62;.....&#60;/download_unchosen&#62;<br />&nbsp;&nbsp;&nbsp;&nbsp;&#60;open_unchosen&#62;.....&#60;/open_unchosen&#62;<br />&#60;/disable_alert_message&#62;<br />Config :<br />config.DisableAlertMessage = {<br />&nbsp;&nbsp;&nbsp;&nbsp;DisableDeleteConfirm: '',<br />&nbsp;&nbsp;&nbsp;&nbsp;Duplication: '',<br />&nbsp;&nbsp;&nbsp;&nbsp;DeleteUnchosen: '',<br />&nbsp;&nbsp;&nbsp;&nbsp;DownloadUnchosen: '',<br />&nbsp;&nbsp;&nbsp;&nbsp;OpenUnchosen: '',<br />}</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        업로드 모든 confirm창을 표시하거나 숨기는 기능을 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt"> 
+        <span class="txt">
+            <span class="firebrick">XML:disable_delete_confirm, Config:DisableDeleteConfirm</span>&nbsp;&nbsp;기본값은 "0" 이고 "모든 confirm창 활성", "1"로 설정시 "모든 confirm창 비활성"입니다.<br/>
+            <span style="padding-left:318px">"2"로 설정시 "선택 항목제거만 confirm창 비활성"이고,</span><br />
+            <span style="padding-left:318px">"3"로 설정시 "전체 항목제거만 confirm창 비활성"입니다.</span><br />
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:duplication, Config:Duplication</span>&nbsp;&nbsp;"파일 추가 중복 시" alert창 비활성합니다.<br />
+            <span style="padding-left:196px">기본값은 "1" 이고, "0"으로 설정시 파일 추가 중복 시 alert창 활성합니다.</span><br />
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:delete_unchosen, Config:DeleteUnchosen</span>&nbsp;&nbsp;"파일 삭제 시" 선택된 파일이 없을 경우 alert창 비활성합니다.<br />
+            <span style="padding-left:255px">기본값은 "1" 이고, "0"으로 설정시 파일 삭제시 선택된 파일이 없을 경우 alert창 활성합니다.</span><br />
+        </span><br />       
+        <span class="txt">
+            <span class="firebrick">XML:download_unchosen, Config:DownloadUnchosen</span>&nbsp;&nbsp;"파일 다운로드 시" 선택된 파일이 없을 경우 alert창 비활성합니다.<br />
+            <span style="padding-left:292px">기본값은 "1" 이고, "0"으로 설정시 파일 삭제시 선택된 파일이 없을 경우 alert창 활성합니다.</span><br />
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:open_unchosen, Config:OpenUnchosen</span>&nbsp;&nbsp;"파일 열기 시" 선택된 파일이 없을 경우 alert창 비활성합니다.<br />
+            <span style="padding-left:243px">기본값은 "1" 이고, "0"으로 설정시 파일 삭제시 선택된 파일이 없을 경우 alert창 활성합니다.</span><br />
+        </span>  
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>모든 confirm창을 표시하거나 숨기는 기능을 설정합니다.</b>
+<b>파일 삭제에 대한 모든 confirm창 비활성으로 설정합니다.</b>
+<b>파일 추가 중복 시 alert창 활성으로 설정합니다.</b>
+<b>파일 삭제 시 alert창 활성으로 설정합니다.</b>
+<b>파일 다운로드 시 alert창 활성으로 설정합니다.</b>
+<b>파일 열기 시 alert창 활성으로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;disable_alert_message&#62;
+        &#60;disable_delete_confirm&#62;1&#60;/disable_delete_confirm&#62;
+        &#60;duplication&#62;0&#60;/duplication&#62;
+        &#60;delete_unchosen&#62;0&#60;/delete_unchosen&#62;
+        &#60;download_unchosen&#62;0&#60;/download_unchosen&#62;
+        &#60;open_unchosen&#62;0&#60;/open_unchosen&#62;
+    &#60;/disable_alert_message&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        DEXT5UPLOAD.config.DisableAlertMessage = {
+            DisableDeleteConfirm: '1',
+            Duplication: '0',
+            DeleteUnchosen: '0',
+            DownloadUnchosen: '0',
+            OpenUnchosen: '0'
+        }
+
+        new Dext5Upload("upload1");
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

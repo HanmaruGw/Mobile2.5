@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: Accessibility</h3>
+    <p class="ttl">XML : &#60;accessibility&#62;.....&#60;/accessibility&#62;, Config : config.Accessibility<br />XML : &#60;accessibility validation_item="....."&#62;&#60;/accessibility&#62;, Config : config.AccessibilityValidationItems</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+         웹 접근성 단계 설정 및 웹 접근성 검증 항목 중 검증 하고자 하는 항목들을 선택하여 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+    웹 접근성 단계는 Accessibility로 설정합니다.<br /> 
+    "0" 으로 설정 시 웹 접근성 미설정<br />
+    "1" 로 설정 시 웹 접근성 위반하면 경고창으로 알려준 후 다음 단계로 진행<br />
+    "2" 로 설정 시 웹 접근성 위반하면 경고창으로 알려준 후 수정될 때까지 다음단계로 진행하지 않습니다.<br /><br />
+    웹 접근성 검증 항목은<br/> 
+    표 제목 "table_caption", 표 설명 "table_summary", 아이프레임 제목 "iframe_title", 프레임 제목 "frame_title", 이미지 설명 "img_alt", 링크 제목 "a_title", 중복 ID 사용 "duplicate_id" 입니다.
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+<b>웹 접근성 단계를 최고단계로 설정합니다.</b>
+<b>에디터에 작성된 테이블을 웹 접근성 검증 합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;accessibility validation_item="table_caption,table_summary"&#62;2&#60;/accessibility&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+ 
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;    
+    &#60;script type="text/javascript"&#62;
+        
+        DEXT5.config.Accessibility = "2";
+        DEXT5.config.AccessibilityValidationItems = "table_caption,table_summary";
+
+        new Dext5editor("editor1");
+
+    &#60;/script&#62;       
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

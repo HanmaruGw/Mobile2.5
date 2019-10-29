@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: ShowStatusBar</h3>
+    <p class="ttl">XML : &#60;show_statusbar&#62;.....&#60;/show_statusbar&#62;, Config : config.ShowStatusBar</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        에디터의 보기화면(statusBar)은 "디자인", "HTML", "미리보기", "TEXT" 탭으로 구성되어 있습니다.<br />
+        이 설정은 보기화면(statusBar)을 보이거나 숨기는 기능을 설정합니다.<br/>
+        사용 용도에 따라서 상태바 숨김으로 설정을 원할 때 사용하면 유용 할 수 있습니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+    기본값은 "1" 이고 상태바 보임, "0" 로 설정시 숨김으로 설정합니다.
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+<b>에디터 보기화면(statusBar)을 숨김으로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;show_statusbar&#62;0&#60;/show_statusbar&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+ 
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;  
+    &#60;script type="text/javascript"&#62;
+
+        DEXT5.config.ShowStatusBar = "0";
+
+        new Dext5editor("editor1");
+
+    &#60;/script&#62;       
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

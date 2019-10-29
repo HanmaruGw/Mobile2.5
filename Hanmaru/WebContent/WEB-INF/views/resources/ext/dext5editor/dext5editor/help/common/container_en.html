@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 User Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../css/help.css" rel="stylesheet" type="text/css">
+<script src="../js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function heightResize() {
+        $('#lnb').css('height', $(window).height() - 20 + 'px')
+    }
+    $(function () {
+        heightResize();
+    })
+    $(window).resize(heightResize)
+
+    function click_evt(obj) {
+        var iframeObj = document.getElementById("contentBox");
+        iframeObj.src = obj.href;
+
+        return false;  
+    }
+    $(function () {
+        $("ul").css("display", "none");
+        $("#lnb h3").click(function () {
+            if ($("+ul", this).css("display") == "none") {
+                $("ul").slideUp("fast");
+                $("+ul", this).slideDown("fast");
+                $("h3").removeClass("selected");
+                $(this).addClass("selected");
+            } else if ($("#lnb h3:first")) {
+                $("ul").css("display", "none");
+                $("+ul", this).slideUp("fast");
+                $("h3").removeClass("selected");
+            } else {
+                $("+ul", this).slideUp("fast");
+                $(this).removeClass("selected");
+            }
+        }).mouseover(function () {
+            $(this).addClass("over");
+        }).mouseout(function () {
+            $(this).removeClass("over");
+        });
+    });
+</script>
+</head>
+<body topmargin="0" leftmargin="0" scroll="no" marginheight="0" marginwidth="0">
+<h2 class="blind">DEXT5 Editor User Manual</h2>
+<table style="width: 100%; height: 100%;" border="0" cellspacing="0" cellpadding="0">
+    <tbody>
+    <tr>
+        <td valign="top" style="width: 230px;height:100%;">
+        <div id="lnb" class="dext5help_content_left" style="padding:10px;overflow:auto;">
+            <h3 class="title2" title="DEXT5 Editor About"><a href="../pages/en/about.html" onclick="return click_evt(this);">DEXT5 Editor</a></h3>      
+            <h3 class="title"><a href="../pages/en/files.html" onclick="return click_evt(this);">Files</a></h3>
+            <ul class="subbox">
+                <li><a href="../pages/en/files.html#newDoc" onclick="return click_evt(this);" title="New document"><span class="icon1_01"></span> New document</a></li>
+                <li><a href="../pages/en/files.html#fileOpen" onclick="return click_evt(this);" title="File Open"><span class="icon1_02"></span> File Open</a></li>
+                <li><a href="../pages/en/files.html#openTemplate" onclick="return click_evt(this);" title="Template"><span class="icon1_03"></span> Template</a></li>
+                <li><a href="../pages/en/files.html#openLayout" onclick="return click_evt(this);" title="Layout"><span class="icon1_08"></span> Layout</a></li>
+                <li><a href="../pages/en/files.html#save" onclick="return click_evt(this);" title="Save"><span class="icon1_04"></span> Save</a></li>
+                <li><a href="../pages/en/files.html#loadautosave" onclick="return click_evt(this);" title="Load auto-save content"><span class="icon1_05"></span> Load auto-save content</a></li>
+                <li><a href="../pages/en/files.html#print" onclick="return click_evt(this);" title="Print"><span class="icon1_06"></span> Print</a></li>
+                <li><a href="../pages/en/files.html#pagebreak" onclick="return click_evt(this);" title="Page Break"><span class="icon1_07"></span> Page Break</a></li>
+            </ul>
+            <h3 class="title"><a href="../pages/en/edit.html" onclick="return click_evt(this);">Edit</a></h3>
+            <ul class="subbox">
+                <li><a href="../pages/en/edit.html#undo" onclick="return click_evt(this);" title="Undo"><span class="icon2_01"></span> Undo</a></li>
+                <li><a href="../pages/en/edit.html#redo" onclick="return click_evt(this);" title="Redo"><span class="icon2_02"></span> Redo</a></li>
+                <li><a href="../pages/en/edit.html#copy" onclick="return click_evt(this);" title="Copy"><span class="icon2_03"></span> Copy</a></li>
+                <li><a href="../pages/en/edit.html#cut" onclick="return click_evt(this);" title="Cut"><span class="icon2_04"></span> Cut</a></li>
+                <li><a href="../pages/en/edit.html#paste" onclick="return click_evt(this);" title="Paste"><span class="icon2_05"></span> Paste</a></li>
+                <li><a href="../pages/en/edit.html#selectAll" onclick="return click_evt(this);" title="Select all"><span class="icon2_06"></span> Select all</a></li>
+                <li><a href="../pages/en/edit.html#find" onclick="return click_evt(this);" title="Search"><span class="icon2_07"></span> Search</a></li>
+                <li><a href="../pages/en/edit.html#replace" onclick="return click_evt(this);" title="Replace"><span class="icon2_08"></span> Replace</a></li>
+            </ul>
+            <h3 class="title"><a href="../pages/en/view.html" onclick="return click_evt(this);">View</a></h3>
+            <ul class="subbox">
+                <li><a href="../pages/en/view.html#fullScreen" onclick="return click_evt(this);" title="Full-screen"><span class="icon3_01"></span> Full-screen</a></li>
+                <li><a href="../pages/en/view.html#showDesign" onclick="return click_evt(this);" title="Design"><span class="icon3_02"></span> Design</a></li>
+                <li><a href="../pages/en/view.html#showSource" onclick="return click_evt(this);" title="HTML"><span class="icon3_03"></span>  HTML</a></li>
+                <li><a href="../pages/en/view.html#showPreview" onclick="return click_evt(this);" title="Preview"><span class="icon3_04"></span> Preview</a></li>
+                <li><a href="../pages/en/view.html#showText" onclick="return click_evt(this);" title="Text"><span class="icon3_05"></span> Text</a></li>
+            </ul>
+            <h3 class="title"><a href="../pages/en/insert.html" onclick="return click_evt(this);">Insert</a></h3>
+            <ul class="subbox">
+                <li><a href="../pages/en/insert.html#docBgImg" onclick="return click_evt(this);" title="Document Background Image"><span class="icon4_01"></span> Document Background Image</a></li>
+                <li><a href="../pages/en/insert.html#image" onclick="return click_evt(this);" title="Image"><span class="icon4_02"></span> Image</a></li>
+                <li><a href="../pages/en/insert.html#link_media" onclick="return click_evt(this);" title="Entity&gt;Share Media"><span class="icon4_03"></span> Entity&gt;Share Media</a></li>
+                <li><a href="../pages/en/insert.html#iframe" onclick="return click_evt(this);" title="Entity&gt;Iframe"><span class="icon4_04"></span> Entity&gt;Iframe</a></li>
+                <li><a href="../pages/en/insert.html#flash" onclick="return click_evt(this);" title="Entity&gt;Flash"><span class="icon4_05"></span> Entity&gt;Flash</a></li>
+                <li><a href="../pages/en/insert.html#Media" onclick="return click_evt(this);" title="Entity&gt;Media"><span class="icon4_06"></span> Entity&gt;Media</a></li>
+                <li><a href="../pages/en/insert.html#insertFile" onclick="return click_evt(this);" title="File Insert"><span class="icon4_07"></span> File Insert</a></li>
+                <li><a href="../pages/en/insert.html#hyperlink" onclick="return click_evt(this);" title="Hyperlink"><span class="icon4_08"></span> Hyperlink</a></li>
+                <li><a href="../pages/en/insert.html#bookmark" onclick="return click_evt(this);" title="Horizon Properties"><span class="icon4_09"></span> Bookmark</a></li>
+                <li><a href="../pages/en/insert.html#hLine" onclick="return click_evt(this);" title="Bookmark"><span class="icon4_12"></span> Horizon Properties</a></li>
+                <li><a href="../pages/en/insert.html#symbol" onclick="return click_evt(this);" title="Symbol"><span class="icon4_10"></span> Symbol</a></li>
+                <li><a href="../pages/en/insert.html#emoticon" onclick="return click_evt(this);" title="Emoticon"><span class="icon4_11"></span> Emoticon</a></li>
+            </ul>
+            <h3 class="title"><a href="../pages/en/form.html" onclick="return click_evt(this);">Format</a></h3>
+            <ul class="subbox">
+                <li><a href="../pages/en/form.html#Heading" onclick="return click_evt(this);" title="Heading"><span class="icon5_01"></span> Heading</a></li>
+                <li><a href="../pages/en/form.html#font" onclick="return click_evt(this);" title="Font"><span class="icon5_02"></span> Font</a></li>
+                <li><a href="../pages/en/form.html#size" onclick="return click_evt(this);" title="Size"><span class="icon5_03"></span> Size</a></li>
+                <li><a href="../pages/en/form.html#distanceLine" onclick="return click_evt(this);" title="Line Spacing"><span class="icon5_04"></span> Line Height</a></li>
+                <li><a href="../pages/en/form.html#bold" onclick="return click_evt(this);" title="Bold"><span class="icon5_05"></span> Bold</a></li>
+                <li><a href="../pages/en/form.html#italic" onclick="return click_evt(this);" title="Italic"><span class="icon5_06"></span> Italic</a></li>
+                <li><a href="../pages/en/form.html#underline" onclick="return click_evt(this);" title="Stress"><span class="icon5_07"></span> Underline</a></li>
+                <li><a href="../pages/en/form.html#strike" onclick="return click_evt(this);" title="Strikethrough"><span class="icon5_08"></span> Strike through</a></li>
+                <li><a href="../pages/en/form.html#upperText" onclick="return click_evt(this);" title="Superscript"><span class="icon5_09"></span> Superscript</a></li>
+                <li><a href="../pages/en/form.html#underText" onclick="return click_evt(this);" title="Subscript"><span class="icon5_10"></span> Subscript</a></li>
+                <li><a href="../pages/en/form.html#clearStyle" onclick="return click_evt(this);" title="Clear Formatting"><span class="icon5_11"></span> Remove Format</a></li>
+                <li><a href="../pages/en/form.html#clearCssStyle" onclick="return click_evt(this);" title="Clear CSS"><span class="icon5_17"></span> Remove CSS</a></li>
+                <li><a href="../pages/en/form.html#textNumber" onclick="return click_evt(this);" title="Bullets Number"><span class="icon5_12"></span> Number Bullet</a></li>
+                <li><a href="../pages/en/form.html#textMark" onclick="return click_evt(this);" title="Bullets"><span class="icon5_13"></span> Bullet</a></li>
+                <li><a href="../pages/en/form.html#inChar" onclick="return click_evt(this);" title="Indent"><span class="icon5_14"></span> Indent</a></li>
+                <li><a href="../pages/en/form.html#outChar" onclick="return click_evt(this);" title="Outdent"><span class="icon5_15"></span> Outdent</a></li>
+                <li><a href="../pages/en/form.html#sortVertical" onclick="return click_evt(this);" title="Horizontal Alignment"><span class="icon5_16"></span> Align</a></li>
+            </ul>
+            <h3 class="title"><a href="../pages/en/table.html" onclick="return click_evt(this);">Table</a></h3>
+            <ul class="subbox">
+                <li><a href="../pages/en/table.html#newTableGeneral" onclick="return click_evt(this);" title="New table - General"><span class="icon6_23"></span> New table - General</a></li>
+                <li><a href="../pages/en/table.html#newTableBack" onclick="return click_evt(this);" title="New Table - Background And Title Cell"><span class="icon6_23"></span> New Table - Background And Title Cell</a></li>
+                <li><a href="../pages/en/table.html#newTableTemplate" onclick="return click_evt(this);" title="New Table – Template"><span class="icon6_23"></span> New Table – Template</a></li>
+                <li><a href="../pages/en/table.html#deleteTable" onclick="return click_evt(this);" title="Table delete"><span class="icon6_04"></span> Table Delete</a></li>
+                <li><a href="../pages/en/table.html#insertRowCol" onclick="return click_evt(this);" title="Row/Column Insert"><span class="icon6_05"></span> Row/Column Insert</a></li>
+                <li><a href="../pages/en/table.html#insertRow" onclick="return click_evt(this);" title="Insert Row"><span class="icon6_06"></span> Insert Row</a></li>
+                <li><a href="../pages/en/table.html#insertCol" onclick="return click_evt(this);" title="Insert Column"><span class="icon6_07"></span> Insert Column</a></li>
+                <li><a href="../pages/en/table.html#deleteRow" onclick="return click_evt(this);" title="Delete row"><span class="icon6_08"></span> Delete Row</a></li>
+                <li><a href="../pages/en/table.html#deleteCol" onclick="return click_evt(this);" title="Delete column"><span class="icon6_09"></span> Delete Column</a></li>
+                <li><a href="../pages/en/table.html#mergeCell" onclick="return click_evt(this);" title="Merge cells"><span class="icon6_10"></span> Merge Cells</a></li>
+                <li><a href="../pages/en/table.html#divideCell" onclick="return click_evt(this);" title="Split cell"><span class="icon6_11"></span> Split Cell</a></li>
+                <li><a href="../pages/en/table.html#copyRow" onclick="return click_evt(this);" title="Row clone"><span class="icon6_12"></span> Row Clone</a></li>
+                <li><a href="../pages/en/table.html#select" onclick="return click_evt(this);" title="Select"><span class="icon6_13"></span> Select</a></li>
+                <li><a href="../pages/en/table.html#resizeCell" onclick="return click_evt(this);" title="Cell size"><span class="icon6_14"></span> Cell size</a></li>
+                <li><a href="../pages/en/table.html#verticalAlign" onclick="return click_evt(this);" title="Vertical align"><span class="icon6_15"></span> Vertical Align</a></li>
+                <li><a href="../pages/en/table.html#rowProperty" onclick="return click_evt(this);" title="Row property"><span class="icon6_16"></span> Row Property</a></li>
+                <li><a href="../pages/en/table.html#colProperty" onclick="return click_evt(this);" title="Column property"><span class="icon6_17"></span> Column Property</a></li>
+                <li><a href="../pages/en/table.html#tableTool" onclick="return click_evt(this);" title="Table Tools"><span class="icon6_18"></span> Table Tools</a></li>
+                <li><a href="../pages/en/table.html#tableProperty" onclick="return click_evt(this);" title="Table Properties"><span class="icon6_19"></span> Table Properties</a></li>
+                <li><a href="../pages/en/table.html#cellPropertyGeneral" onclick="return click_evt(this);" title="Cell Properties - General"><span class="icon6_20"></span> Cell Property - General</a></li>
+                <li><a href="../pages/en/table.html#cellPropertyBack" onclick="return click_evt(this);" title="Cell property - Background"><span class="icon6_21"></span> Cell property - Background</a></li>
+                <li><a href="../pages/en/table.html#calculationformula" onclick="return click_evt(this);" title="Calculation Formula"><span class="icon6_22"></span> Calculation Formula</a></li>
+            </ul>
+            <h3 class="title"><a href="../pages/en/tool.html" onclick="return click_evt(this);">Tools</a></h3>
+            <ul class="subbox">
+                <li><a href="../pages/en/tool.html#replaceChar" onclick="return click_evt(this);" title="Changes to capital/small"><span class="icon7_01"></span> Changes to capital/small</a></li>
+                <li><a href="../pages/en/tool.html#config" onclick="return click_evt(this);" title="Setting"><span class="icon7_02"></span> Setting</a></li>
+            </ul> 
+            <h3 class="title" style="letter-spacing:-0.05em"><a href="../pages/en/access.html" onclick="return click_evt(this);">Web Accessibility Validation</a></h3>
+            <ul class="subbox">
+                <li><a href="../pages/en/access.html#tableTag" onclick="return click_evt(this);" title="Table Tag"><span class="icon8_01"></span> Table Tag</a></li>
+                <li><a href="../pages/en/access.html#imageTag" onclick="return click_evt(this);" title="Image Tags"><span class="icon8_02"></span> Image Tags</a></li>
+                <li><a href="../pages/en/access.html#iframeTag" onclick="return click_evt(this);" title="Iframe Tags"><span class="icon8_03"></span> Iframe Tags</a></li>
+                <li><a href="../pages/en/access.html#aTag" onclick="return click_evt(this);" title="A Tag"><span class="icon8_04"></span> A Tag</a></li>
+                <li><a href="../pages/en/access.html#idCheck" onclick="return click_evt(this);" title="Duplicate ID check"><span class="icon8_05"></span> Duplicate ID check</a></li>
+                <li><a href="../pages/en/access.html#noAccess" onclick="return click_evt(this);" title="Skip setting"><span class="icon8_06"></span> Skip Setting</a></li>
+            </ul>
+            <h3 class="title title4"><a href="../pages/en/etc.html" onclick="return click_evt(this);">Problem Solution</a></h3>  
+            <ul class="subbox last">
+                <li><a href="../pages/en/etc.html" onclick="return click_evt(this);">&nbsp;Hangul Input Problem(Firefox 41.0 version)</a></li>
+            </ul>                 
+        </div>
+        </td>
+		<td valign="top" style="height:100%;border-left:1px solid #cacaca">
+		    <iframe name="right" id="contentBox" width="100%" height="100%" src="../pages/en/about.html" frameborder="0" scrolling="auto" style="width: 100%; height: 100%;"></iframe>
+		</td>
+    </tr>
+</tbody>
+</table>
+</body>
+</html>
+

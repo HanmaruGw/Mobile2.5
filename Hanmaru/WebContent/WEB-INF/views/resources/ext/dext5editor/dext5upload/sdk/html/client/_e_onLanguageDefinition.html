@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con">
+            <h3 class="title">DEXT5 Upload :: onLanguageDefinition</h3>
+            <p class="ttl">void DEXT5UPLOAD_onLanguageDefinition(uploadID, objLang)</p>
+            <p class="txt">
+                DEXT5UPLOAD 객체를 생성 시 발생합니다.<br />
+                각 Text의 문구를 바꾸기 원할 때 사용됩니다.
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">uploadID</span>&nbsp;&nbsp;업로드의 id를 의미합니다.<br />
+                <span class="firebrick">objLang</span>&nbsp;&nbsp;다국어 설정값(lang)에 따른 텍스트 객체를 의미합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+        function DEXT5UPLOAD_onLanguageDefinition(uploadID, objLang) {
+            // uplaod UI상에 보여지는 텍스트 내용
+            //objLang.file_name : 파일 이름
+            //objLang.file_size : 파일 크기
+            //objLang.file_unit : 개
+            //objLang.btn_open : 열기
+            //objLang.file_inserted : 추가됨
+            //objLang.btn_add : 파일추가
+            //objLang.btn_send : 전송하기
+            //objLang.btn_remove : 항목제거
+            //objLang.btn_remove_All : 전체 항목제거
+            //objLang.btn_download : 다운로드
+            //objLang.btn_download_All : 전체 다운로드
+        }
+&#60;/script&#62;
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+        &#60;script type="text/javascript"&#62;
+            new Dext5Upload("upload1");
+        &#60;/script&#62;
+&#60;/div&#62;
+        </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

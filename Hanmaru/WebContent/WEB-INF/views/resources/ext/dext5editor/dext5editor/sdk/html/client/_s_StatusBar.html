@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: StatusBar</h3>
+    <p class="ttl">XML : &#60;status_bar&#62;.....&#60;/status_bar&#62;, Config : config.StatusBarItem</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        에디터의 보기화면(statusBar) 메뉴를 원하는 탭으로 표시하거나 숨기는 기능을 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        <table style="width: 500px;" class="h1_table">
+            <caption>상태바의 메뉴</caption>
+            <colgroup>
+                <col style="width: 50%; text-align: left;">
+                <col style="width: 50%; text-align: left;">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>
+                        메뉴명
+                    </th>
+                    <th>
+                        command 명
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        디자인
+                    </td>
+                    <td>
+                        design
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        HTML
+                    </td>
+                    <td>
+                        source
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        미리보기
+                    </td>
+                    <td>
+                        preview
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        TEXT
+                    </td>
+                    <td>
+                        text
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+<b>에디터 보기화면(statusBar) 메뉴를 디자인, HTML, 미리보기로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;status_bar&#62;
+    &#60;status&#62;design&#60;/status&#62;
+    &#60;status&#62;source&#60;/status&#62;
+    &#60;status&#62;preview&#60;/status&#62;
+&#60;/status_bar&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+ 
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;    
+    &#60;script type="text/javascript"&#62;
+
+        DEXT5.config.StatusBarItem = "design,source,preview";
+
+        new Dext5editor("editor1");
+
+    &#60;/script&#62;       
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

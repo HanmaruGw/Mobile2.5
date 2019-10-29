@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con">
+            <h3 class="title">DEXT5 Upload :: 서버에서 환경설정 파일 읽기</h3>
+            <p class="ttl">서버에서 환경설정 파일 읽기</p>
+            <p class="txt">
+                DEXT5 Upload의 기능에 대한 설정은 기본적으로 XML에 설정하게 되어있습니다.
+                <br />만일 XML에 파일 저장 경로등과 같은 값의 노출이 문제가 되는 경우 XML파일을 암호화 하여 처리 하는 방식을 의미합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">방법 설명</p>
+            <div class="cord">
+                <pre class="pre">
+<b>1. Upload handler 파일안에 환경설정파일(xml)의 물리적 폴더를 지정해주셔야 합니다. (환경설정 파일 읽기를 사용할 경우)</b>
+
+SetConfigPhysicalPath = "환경설정파일(xml)이 존재하는 서버의 폴더 경로"
+
+.NET : upload.SetConfigPhysicalPath = @"D:\\config";
+JAVA : upload.SetConfigPhysicalPath("D:\\config");
+
+
+<b>2. 폴더 지정 후 업로드 해당 페이지에 환경 설정 값을 적용 합니다.</b>
+
+&#60;script type="text/javascript"&#62;
+.....
+DEXT5UPLOAD.config.InitServerXml = "http://localhost/handler/dext5handler.jsp?f=dext5upload.config.xml";
+.....
+new Dext5Upload();
+&#60;/script&#62;
+
+※ InitServerXml의 환경설정은 Full URL(http 포함)로 다음과 같이 설정합니다.
+Full URL은 DEXT5 Upload Handler경로로 지정하며, f 파라미터의 값은 서버에서 처리할 XML 파일명을 지정합니다.
+예시)
+DEXT5UPLOAD.config.InitServerXml = "http://localhost/dext5upload/handler/dext5handler.jsp?f=dext5upload.config.xml";
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

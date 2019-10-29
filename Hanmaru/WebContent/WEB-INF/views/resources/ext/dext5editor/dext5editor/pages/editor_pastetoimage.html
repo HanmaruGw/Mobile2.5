@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Paste To Image</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var imageType, tempScale, previewX, previewY;
+    </script>
+</head>
+<body style="margin:0; padding:0;" onload="paste_to_image_loaded_event()">
+    <div class="" id="dext_dialog_box">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title"></span><span class="text"></span>
+            <div class="close"><a href="javascript:event_dext_close();" title="close"></a></div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / general -->
+        <div class="EdiTor_Popup_contents view">
+            <div class="contents" style="overflow:hidden;">
+                <div class="con con_f">
+                    <div class="con_left select_btn" style="width:292px">
+                        <p style="display: none;"><button class="save_btn"><span id="span_save_client"></span></button></p>
+                        <!-- 포맷 -->
+                        <fieldset class="ulc">
+                            <legend id="legent_format"></legend>
+                            <ul class="List">
+                                <li class="Li"><input id="image_type_jpg" name="image_type" type="radio" value="jpg" checked="checked" /><label for="image_type_jpg" style="vertical-align:middle;">JPG</label></li>
+                                <li class="Li" style="position:relative;">
+                                    <label for="image_quality" id="label_quality"></label>
+                                    <div class="no_a" style="position:absolute; right:0; top:0">
+                                        <input class="con_input" id="image_quality" style="width: 30px; vertical-align:middle;" type="text" />
+                                        <ul style="vertical-align:middle;">
+                                            <li id="quality_spinUp"><a style="cursor: pointer; margin:0; padding:0; border:none;" href="javascript:void(0);"><img src="../images/editor/dialog/btn/editor_ta_btn.gif" width="15" height="10" style="margin:0; padding:0;" /></a></li>
+                                            <li id="quality_spinDown"><a style="cursor: pointer;  margin:0; padding:0; border:none;" href="javascript:void(0);"><img src="../images/editor/dialog/btn/editor_ba_btn.gif" width="15" height="10" style="margin:0; padding:0;" /></a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="Li"><input id="image_type_png" name="image_type" type="radio" value="png" /><label for="image_type_png">PNG</label></li>
+                                <!--<li class="Li"><input name="" type="radio" value="" /><label>GIF</label></li>-->
+                            </ul>
+                        </fieldset>
+                        <!--//  포맷 -->
+                        <!-- 회전 -->
+                        <fieldset class="ulc">
+                            <legend id="rotate"></legend>
+                            <ul class="List">
+                                <li class="Li01"><input id="image_rotate_0" name="image_rotate" type="radio" value="0" checked="checked"/><label for="image_rotate_0">0</label></li>
+                                <li class="Li01"><input id="image_rotate_90" name="image_rotate" type="radio" value="90" /><label for="image_rotate_90">90</label></li>
+                                <li class="Li01"><input id="image_rotate_180" name="image_rotate" type="radio" value="180" /><label for="image_rotate_180">180</label></li>
+                                <li class="Li01"><input id="image_rotate_270" name="image_rotate" type="radio" value="270" /><label for="image_rotate_270">270</label></li>
+                            </ul>
+                        </fieldset>
+                        <!--// 회전 -->
+                        <!-- 크기 -->
+                        <fieldset class="ulc">
+                            <legend id="size"></legend>
+                            <ul class="List">
+                                <li class="Li" style="position:relative;">
+                                    <label for="image_width" id="label_width"></label>
+                                    <div class="no_a" style="position:absolute; right:0px; top:0; width:60px;">
+                                        <input class="con_input" id="image_width" style="width: 40px; vertical-align:middle;" type="text" />px
+                                        <!--<ul style="vertical-align:middle;">
+                                            <li id="margin_left_spinUp"><a style="cursor: pointer; margin:0; padding:0; border:none;" href="javascript:void(0);"><img src="../images/editor/dialog/btn/editor_ta_btn.gif" width="15" height="10" style="margin:0; padding:0;" /></a></li>
+                                            <li id="margin_left_spinDown"><a style="cursor: pointer;  margin:0; padding:0; border:none;" href="javascript:void(0);"><img src="../images/editor/dialog/btn/editor_ba_btn.gif" width="15" height="10" style="margin:0; padding:0;" /></a></li>
+                                        </ul>-->
+                                    </div>
+                                </li>
+                                <li class="Li" style="position:relative;">
+                                    <label for="image_height" id="label_height"></label>
+                                    <div class="no_a" style="position: absolute; right: 0px; top: 0; width: 60px;">
+                                        <input class="con_input" id="image_height" style="width: 40px; vertical-align:middle;" type="text" />px
+                                        <!--<ul style="vertical-align:middle;">
+                                            <li id="margin_left_spinUp"><a style="cursor: pointer; margin:0; padding:0; border:none;" href="javascript:void(0);"><img src="../images/editor/dialog/btn/editor_ta_btn.gif" width="15" height="10" style="margin:0; padding:0;" /></a></li>
+                                            <li id="margin_left_spinDown"><a style="cursor: pointer;  margin:0; padding:0; border:none;" href="javascript:void(0);"><img src="../images/editor/dialog/btn/editor_ba_btn.gif" width="15" height="10" style="margin:0; padding:0;" /></a></li>
+                                        </ul>-->
+                                    </div>
+                                </li>
+                                <li class="Li"><input type="checkbox" id="lock_size_rate" checked="checked"/><label for="lock_size_rate" id="label_lock_size_rate">너비/높이 비율유지</label></li>
+                                <li class="LI" style="text-align:right"><a href="javascript:void(0);"><span id="span_origin_size">원래크기</span></a></li>
+                            </ul>
+                        </fieldset>
+                        <!--// 크기 -->
+                    </div>
+                    <div class="con_left F_viEw" style="width:198px;">
+                        <dl class="">
+                            <dt id="dt_preview"></dt>
+                            <dd><canvas id="canvas_preview" width="198" height="198"></canvas></dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer PLeft">
+            <span class="LeFt"><input type="checkbox" id="lock_origin_size" /><label style="vertical-align:middle;" for="lock_origin_size" id="label_lock_origin_size"></label></span>
+            <a href="javascript:void(0);" class="insert_img" id="image_btn"><span id="span_insert_image"></span></a>
+            <a href="javascript:void(0);" class="insert_img" id="html_btn"><span id="span_insert_html"></span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

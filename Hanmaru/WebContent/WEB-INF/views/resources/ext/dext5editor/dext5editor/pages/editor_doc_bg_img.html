@@ -1,0 +1,419 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Document Background Image</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+
+        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+            document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.ajaxUploadJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+        }
+    </script>
+
+    <style type="text/css">
+        .color li {
+            width: 14px;
+            height: 14px;
+            float: left;
+            padding: 0px;
+            margin: 1px;
+            border: 0px none;
+            list-style-type: none;
+            cursor: pointer;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var file_field_id = LayerWin._dext_editor._config.fileFieldID;
+        var user_field_id = LayerWin._dext_editor._config.userFieldID;
+        var user_field_value = LayerWin._dext_editor._config.userFieldValue;
+        var _init_image_url = '';
+
+        function page_loaded_event() {
+
+            var _td1InnerHtml = '', _td2InnerHtml = '';
+            if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+                _td1InnerHtml += '<label for="image_url" id="label_image"></label><input type="hidden" id="drop_zone_uploadtype" name="drop_zone_uploadtype" value="doc_bg_image" /><input type="hidden" id="file_text" name="file_text" />';
+
+                _td2InnerHtml += '<input name="image_url_value" id="image_url_value" type="hidden" />';                
+                _td2InnerHtml += '<div class="DEXT_fiVe_ED_Popup_DropZone DEXT_fiVe_ED_Popup_DropZone_1" id="drop_zone" style="border:dashed 1px gray; width:255px; height:40px; line-height:40px; text-align:center; color:gray; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"></div>';
+                _td2InnerHtml += '<div style="position:absolute; left:0px; top:-40px;"><input class="noline" type="file" id="Filedata" name="Filedata" style="width:0px; height:0px" onchange="fileOnchange(this, \'doc_bg_image\');"/></div>';
+            }
+            else {
+                _td1InnerHtml += '<label for="image_url" id="label_image"></label>';
+
+                _td2InnerHtml += '<input name="image_url_value" id="image_url_value" type="hidden" />';
+                _td2InnerHtml += '<input name="image_url" id="image_url" type="text" class="con_input" style="width:180px; float:left;background:#fff" disabled="disabled" />';
+                _td2InnerHtml += '<span id="find_file_nm" style="width:67px; height:20px; *margin-left:-3px;_margin-left:-3px; background-position: 0px 0px; display:block; float:left; cursor:pointer; background-repeat:no-repeat;">';
+                _td2InnerHtml += '<span id="file_input_search" class="file_input_button2">찾아보기</span>';
+                _td2InnerHtml += '<input class="noline" type="file" id="Filedata" name="Filedata" style="margin-top:-35px;*margin-top: -28px; margin-left:-185px;width:260px;height:25px; opacity:0; filter:alpha(opacity=0); -moz-opacity:0; cursor:pointer;" onchange="fileOnchange(this, \'doc_bg_image\');" />';
+                _td2InnerHtml += '<a href="javascript:void(0);" id="a_file"></a></span>';
+            }
+
+            var _td1 = document.createElement('td');
+            _td1.width = '20%';
+            _td1.innerHTML = _td1InnerHtml;
+
+            var _td2 = document.createElement('td');
+            _td2.width = '78%';
+            _td2.innerHTML = _td2InnerHtml;
+
+            document.getElementById('file_tag_or_drop_zone').appendChild(_td1);
+            document.getElementById('file_tag_or_drop_zone').appendChild(_td2);
+
+            if (Dext5LayerWin._dext_editor._config.disableInsertImage.indexOf(',doc_bg_image,') > -1) {
+                document.getElementById('file_tag_or_drop_zone').style.display = 'none';
+                document.getElementById('add').parentNode.parentNode.style.display = 'none';
+                document.getElementById('repeat').parentNode.parentNode.style.display = 'none';
+
+                document.getElementById('span_background_color').parentNode.style.width = '20%';
+                document.getElementById('background_color').parentNode.parentNode.parentNode.style.width = '78%';
+                document.getElementById('background_color').parentNode.parentNode.onclick = function () {
+                    LayerWin.showColorPopup(document, document.getElementById('background_color'), 'background', undefined, -3, -27);
+                };
+            }
+
+            if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+
+                setDragAndDropEvent('drop_zone');
+            }
+            
+            if (LayerWin._dext_editor._config.uploadUseHTML5 != "1") {
+                var _upload_frame = document.getElementById("upload_frame");
+
+                var eventHandler = function () {
+                    var _body;
+
+                    try {
+                        _body = (_upload_frame.contentDocument) ? _upload_frame.contentDocument.body : _upload_frame.contentWindow.document.body;
+                    }
+                    catch (e) {
+                        _body = _upload_frame.document.body;
+                    }
+
+                    if ('textContent' in _body) { _web_url = _body.textContent; } else { _web_url = _body.innerText; }
+                    event_dext_dog_bg_img_completed(_web_url);
+                }
+                DEXTTOP.DEXT5.util.addEvent(_upload_frame, "load", eventHandler, true);
+            }
+
+            set_page();
+
+            if (LayerDoc.compatMode == "BackCompat") {
+                var inputs = document.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type == 'text') {
+                        inputs[i].style.height = '20px';
+                    }
+                }
+            }
+
+            var a_file = document.getElementById('a_file');
+            if (LayerWin.G_dext5plugIn && LayerWin.DEXTTOP.G_CURREDITOR._config.plugin_version >= "3,3,0,26") {
+                document.getElementById(file_field_id).parentNode.removeChild(document.getElementById(file_field_id));
+                var find_file_nm = document.getElementById("find_file_nm");
+                DEXTTOP.DEXT5.util.addEvent(find_file_nm, "click", function () {
+                    pluginOpenDialogImage();
+                });
+            } else {
+
+                if (LayerWin._dext_editor._config.uploadUseHTML5 != "1") {
+                    a_file.href = 'javascript:document.getElementById(file_field_id).click();';
+                }
+            }
+
+            if (LayerWin._dext_editor._config.uploadUseHTML5 != "1") {
+                DEXTTOP.DEXT5.util.addEvent(a_file, "focus", function () {
+                    document.getElementById('find_file_nm').style.border = '0';
+                    document.getElementById('find_file_nm').style.backgroundImage = 'none';
+                });
+
+                DEXTTOP.DEXT5.util.addEvent(a_file, "blur", function () {
+                    document.getElementById('find_file_nm').style.border = '0';
+                    document.getElementById('find_file_nm').style.backgroundImage = 'none';
+                });
+
+                //var file_field_id_obj = document.getElementById(file_field_id);
+                //setCursorPos(file_field_id_obj, true, false);
+                //LayerWin.setFocusFirstAndLast(document, file_field_id_obj);
+            }
+            var file_field_id_obj = document.getElementById(file_field_id);
+            setCursorPos(file_field_id_obj, true, false);
+            LayerWin.setFocusFirstAndLast(document, file_field_id_obj);
+        }
+
+        function set_page() {
+            var _proxy_url = LayerWin._dext_editor._config.proxy_url;
+            var enforceDocumentDomain = false;
+            try {
+                enforceDocumentDomain = dext5EnforceDocumentDomain;
+            } catch (e) { }
+            var currentDocDomain = document.domain;
+            if (enforceDocumentDomain) {
+                currentDocDomain += '|';
+            }
+
+            // 신규 암호화 로직 추가로 인하여 수정 - by jeongmin 18.08.06
+            if (LayerWin._dext_editor._config.security.encryptParam != "0") {
+                document.getElementById("document_domain").value = DEXTTOP.DEXT5.util.makeEncryptParamFinal(currentDocDomain);
+                document.getElementById("uploadtype").value = DEXTTOP.DEXT5.util.makeEncryptParamFinal("image");
+                document.getElementById("proxy_url").value = DEXTTOP.DEXT5.util.makeEncryptParamFinal(_proxy_url);
+                document.getElementById("pe").value = LayerWin._dext_editor._config.security.encryptParam;
+            } else {
+                document.getElementById("document_domain").value = currentDocDomain;
+                document.getElementById("uploadtype").value = "image";
+                document.getElementById("proxy_url").value = _proxy_url;
+                document.getElementById("pe").parentNode.removeChild(document.getElementById("pe"));
+            }
+
+            var _upload_url = LayerWin._dext_editor._config.post_url;
+            document.getElementById("upload_url").value = _upload_url;
+
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+
+            document.getElementById("editor_popup_doc_bg_img").className = 'DEXT_fiVe_ED_Popup_Type01 DEXT_fiVe_PUi_' + _skin_name;
+
+            document.getElementById("span_title").innerHTML = LayerWin.dext5_lang.doc_bg_img.title;
+
+            document.getElementById("label_image").innerHTML = LayerWin.dext5_lang.doc_bg_img.image;
+            document.getElementById("label_add").innerHTML = LayerWin.dext5_lang.doc_bg_img.add;
+            document.getElementById("label_repeat").innerHTML = LayerWin.dext5_lang.doc_bg_img.repeat;
+            document.getElementById("span_background_color").innerHTML = LayerWin.dext5_lang.doc_bg_img.background_color;
+            document.getElementById("span_prev_background_remove").innerHTML = LayerWin.dext5_lang.doc_bg_img.prev_background_remove;
+            document.getElementById("span_prev_background_remove_regend").innerHTML = LayerWin.dext5_lang.doc_bg_img.prev_background_remove;
+
+            document.getElementById("btn_ok").innerHTML = LayerWin.dext5_lang.doc_bg_img.btn_ok;
+            document.getElementById("btn_cancel").innerHTML = LayerWin.dext5_lang.doc_bg_img.btn_cancel;
+
+            if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+                if (DEXTTOP.DEXT5.browser.mobile == true || DEXTTOP.DEXT5.UserAgent.device.type == 'mobile') {
+                    document.getElementById("drop_zone").innerHTML = LayerWin.dext5_lang.upload.drop_zone_content2; // 모바일 드랍존 문구
+                }
+                else {
+                    document.getElementById("drop_zone").innerHTML = LayerWin.dext5_lang.upload.drop_zone_content; // 드랍존 문구
+                }
+            }
+            else {
+                document.getElementById("file_input_search").innerHTML = LayerWin.dext5_lang.doc_bg_img.file_search; // 찾아보기
+            }
+
+            document.title = LayerWin.dext5_lang.doc_bg_img.frame_title;
+
+            var fileDataObj = document.getElementById("Filedata");
+            fileDataObj.id = file_field_id;
+            fileDataObj.name = file_field_id;
+
+            var userDataObj = document.getElementById("userField");
+            userDataObj.id = user_field_id;
+            userDataObj.name = user_field_id;
+            userDataObj.value = user_field_value;
+
+            var header = LayerWin.getElementsByClass('EdiTor_Popup_header', document);
+            header[0].onselectstart = function () { return false; };
+            document.getElementById("btn_cancel").focus();
+
+            var currImage = LayerWin._dext_editor._PageProp['bodyimage'] == undefined ? "" : LayerWin._dext_editor._PageProp['bodyimage'];
+            var curradd = LayerWin._dext_editor._PageProp['bodyattachment'] == undefined ? "" : LayerWin._dext_editor._PageProp['bodyattachment'];
+            var currepeat = LayerWin._dext_editor._PageProp['bodyrepeat'] == undefined ? "" : LayerWin._dext_editor._PageProp['bodyrepeat'];
+            var currcolor = LayerWin._dext_editor._PageProp['bodycolor'] == undefined ? "" : LayerWin._dext_editor._PageProp['bodycolor'];
+            //var _image_url = LayerWin.DEXT5.utils.getRealBackgoundImagePath(currImage);
+            var _image_url = DEXTTOP.DEXT5.util.getRealBackgoundImagePath(currImage);
+
+            _init_image_url = _image_url;
+
+            var _add = curradd;
+            var _repeat = currepeat;
+            var _background_color = "";
+
+
+            if (currcolor != "" && currcolor != "transparent") {
+                if (currcolor.substring(0, 1) == "#") {
+                    _background_color = currcolor;
+                } else {
+                    _background_color = DEXTTOP.DEXT5.util.rgb2hex(currcolor);
+                }
+            }
+
+            if ((_image_url != "" && _image_url != "none") || _background_color != "#ffffff") {
+                //document.getElementById("a_prev_background_remove").style.display = "";
+            }
+
+            if (_image_url != "" && _image_url != "none") {
+                document.getElementById("image_url_value").value = _image_url;
+                var _split_image_url = _image_url.split("/");
+
+                if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+                    document.getElementById("drop_zone").innerHTML = _split_image_url[_split_image_url.length - 1];
+                    document.getElementById('drop_zone').className = 'DEXT_fiVe_ED_Popup_DropZoneNoneBackground';
+                }
+                else {
+                    document.getElementById("image_url").value = _split_image_url[_split_image_url.length - 1];
+                }
+            }
+
+            var _add_value = LayerWin.dext5_lang.arr_add_value.value;
+            _cnt = _add_value.length;
+            for (var i = 0; i < _cnt; i++) {
+                //var _add_list = parent.DEXT5.util.xml.getNodeIdx(_add_value, "add_list", i);
+                _value = LayerWin.dext5_lang.arr_add_value.value[i];
+                _text = LayerWin.dext5_lang.arr_add_value.text[i];
+                var option = document.createElement("OPTION");
+                option.value = _value;
+                option.text = _text;
+                if (_value == _add) {
+                    option.selected = true;
+                }
+                document.getElementById("add").options.add(option);
+            }
+            var _repeat_value = LayerWin.dext5_lang.arr_repeat_value.value;
+            _cnt = _repeat_value.length;
+            for (var i = 0; i < _cnt; i++) {
+                _value = LayerWin.dext5_lang.arr_repeat_value.value[i];
+                _text = LayerWin.dext5_lang.arr_repeat_value.text[i];
+                var option = document.createElement("OPTION");
+                option.value = _value;
+                option.text = _text;
+                if (_value == _repeat) {
+                    option.selected = true;
+                }
+                document.getElementById("repeat").options.add(option);
+            }
+            if (_background_color != "") {
+                document.getElementById('background_color').style.backgroundColor = _background_color;
+            }
+        }
+
+        function pluginOpenDialogImage() {
+            var imgPath = document.getElementById("image_url").value = LayerWin.G_dext5plugIn.Dext5OpenDialogImage(0);
+
+            fileOnchange(document.getElementById("image_url"), 'doc_bg_image');
+            imgPath = "file:///" + imgPath.replace(/\\/gi, "/");
+            document.getElementById("image_url_value").value = imgPath;
+        }
+
+        function backgroundImageDeleteCheck(chk) {
+
+            if (chk.checked) {
+                document.getElementById("prev_background_remove").value = "Y";
+            }
+            else {
+                document.getElementById("prev_background_remove").value = "N";
+            }
+        }
+    </script>
+</head>
+<body style="margin:0px; padding:0px;" onload="page_loaded_event()">
+    <div id="editor_popup_doc_bg_img" class="DEXT_fiVe_ED_Popup_Type01">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title"></span><span class="text">Dext5 Editor</span>
+            <div class="close">
+                <a href="javascript:event_dext_table_cancel();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / general -->
+        <div class="EdiTor_Popup_contents view">
+            <input type="hidden" id="upload_url" name="upload_url" value="" />
+            <form name="dext_upload_form" method="post" target="upload_frame" enctype="multipart/form-data" action="">
+                <input type="hidden" id="pe" name="pe" value="1" />
+                <input type="hidden" id="document_domain" name="document_domain" value="" />
+                <input type="hidden" id="proxy_url" name="proxy_url" value="" />
+                <input type="hidden" id="uploadtype" name="uploadtype" value="image" />
+                <input type="hidden" id="savefilename" name="savefilename" value="" />
+                <input type="hidden" id="savefileext" name="savefileext" value="" />
+                <input type="hidden" id="serverdomain" name="serverdomain" value="" />
+                <input type="hidden" id="tosavepathurl" name="tosavepathurl" value="" />
+                <input type="hidden" id="savafoldernamerule" name="savafoldernamerule" value="" />
+                <input type="hidden" id="savafilenamerule" name="savafilenamerule" value="" />
+                <input type="hidden" id="image_convert_format" name="image_convert_format" value="" />
+                <input type="hidden" id="image_convert_width" name="image_convert_width" value="" />
+                <input type="hidden" id="image_convert_height" name="image_convert_height" value="" />
+                <input type="hidden" id="userField" value="" />
+                <div class="contents" style="height:250px;">
+                    <div class="con">
+                        <table cellpadding="0" cellspacing="0">
+                            <tr id="file_tag_or_drop_zone"></tr>
+
+                            <tr>
+                                <td>
+                                    <label for="add" id="label_add"></label>
+                                </td>
+                                <td>
+                                    <select name="add" id="add" style="width:258px;"></select>
+                                </td>
+                                <!--<td width="20%" rowspan="2" class="re_img">
+                                    <table cellpadding="0" cellspacing="0" id="prev_background_image">
+                                        <tr>
+                                            <td class="left">
+                                                <img src="" id="background_image" alt=""/>
+                                            </td>
+                                            <td class="right">
+                                                <a href=""><img src="../images/editor/dialog/editor_img_delete_img.gif" style="cursor:pointer;" width="5" height="6" alt=""/></a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>-->
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="repeat" id="label_repeat"></label>
+                                </td>
+                                <td>
+                                    <select name="repeat" id="repeat" style="width:258px"></select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span id="span_background_color"></span>
+                                </td>
+                                <td>
+                                    <!-- 컬러피커 수정으로 인한 위치 변경 by jh 2017.03.28 -->
+                                    <!--<div class="tsc" style="cursor:pointer;" onclick="javascript:LayerWin.showColorPopup(document,document.getElementById('background_color'),'background',undefined,17,-110);">-->
+                                    <div class="tsc" style="cursor:pointer;" onclick="javascript:LayerWin.showColorPopup(document,document.getElementById('background_color'),'background',undefined,17,-116);">
+                                        <a href="javascript:void(0);"><span id="background_color"></span></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr><td colspan="2" style="height:30px;"></td></tr>
+                            <tr>
+                                <td colspan="2" style="text-align:center;">
+                                    <fieldset class="ulc">
+                                        <legend><span id="span_prev_background_remove_regend"></span></legend>
+                                        <input type="hidden" id="prev_background_remove" name="prev_background_remove" value="N" />
+                                        <input type="checkbox" style="vertical-align:middle;" id="chk_background_remove" name="chk_background_remove" onclick="backgroundImageDeleteCheck(this)" />
+                                        <label style="vertical-align:middle;" for="chk_background_remove"><span id="span_prev_background_remove"></span></label>
+                                    </fieldset>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <iframe id="upload_frame" name="upload_frame" frameborder="0" style="width:0px; height:0px; display:none;" title="DEXT5Editor Upload"></iframe>
+            </form>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <span id="dext_loading" style="display:none;"><img src="../images/editor/dialog/loading.gif" alt="working" style="vertical-align:middle; " /> Uploading... </span>
+            <a href="javascript:dext_dog_bg_img_upload_image();" class="confirm" id="ok_btn"><span id="btn_ok"></span></a>
+            <a href="javascript:event_dext_doc_cancel();" class="cancel"><span id="btn_cancel"></span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

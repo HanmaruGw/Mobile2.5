@@ -1,0 +1,1 @@
+var xhrworkerspoolsize=5,XHRFactory=function(){for(var a=[],c=function(){},b=0;b<xhrworkerspoolsize;b++)a.push(new XMLHttpRequest);return{release:function(b){b.onreadystatechange=c;a.push(b)},getInstance:function(){return 1>a.length?new XMLHttpRequest:a.pop()},toString:function(){return"stack size = "+a.length},size:function(){return a.length}}}();

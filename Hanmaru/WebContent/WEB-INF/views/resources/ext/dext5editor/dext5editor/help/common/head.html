@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../css/help.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript">
+    function fn_onload() {
+        var newURL = window.parent.location;
+        var helpRoot = window.location.protocol + "//" + window.location.host + "/";
+
+        var mainPage = helpRoot + 'help/index.html'
+        var mainPageDev = helpRoot + 'help/index_dev.html'
+        var mainPageKo = helpRoot + 'help/index_ko.html'
+        var mainPageEn = helpRoot + 'help/index_en.html'
+
+        var indexlogo = document.getElementById('indexLogo');
+        var devlogo = document.getElementById('devLogo');
+        var userlogo = document.getElementById('userLogo');
+        var userlogoen = document.getElementById('userLogoEn');
+
+        if (newURL == mainPage) {
+            indexlogo.style.display = "block";
+            devlogo.style.display = "none";
+            userlogo.style.display = "none";
+            userlogoen.style.display = "none";
+        }
+        if (newURL == mainPageDev) {
+            indexlogo.style.display = "none";
+            devlogo.style.display = "block";
+            userlogo.style.display = "none";
+            userlogoen.style.display = "none";
+        }
+        if (newURL == mainPageKo) {
+            indexlogo.style.display = "none";
+            devlogo.style.display = "none";
+            userlogo.style.display = "block";
+            userlogoen.style.display = "none";
+        }
+        if (newURL == mainPageEn) {
+            indexlogo.style.display = "none";
+            devlogo.style.display = "none";
+            userlogo.style.display = "none";
+            userlogoen.style.display = "block";
+        }
+    }
+</script>
+</head>
+<body onload="javascript:fn_onload();">
+<!-- header -->
+<div id="dext5help_header" class="dext5help_header_box">
+	<div class="dext5help_header">
+        <h1 id="indexLogo" class="dext5_logo dext5_logo_main" style="display:none">DEXT5 Manual</h1>
+        <h1 id="devLogo" class="dext5_logo dext5_logo_dev"style="display:none">DEXT5 개발자 매뉴얼</h1>
+        <h1 id="userLogo" class="dext5_logo dext5_logo_ko" style="display:none">DEXT5 사용자 매뉴얼</h1>
+        <h1 id="userLogoEn" class="dext5_logo" style="display:none">DEXT5 User Manual</h1>
+	</div>
+</div>
+<!-- //header -->
+</body>
+</html>
+

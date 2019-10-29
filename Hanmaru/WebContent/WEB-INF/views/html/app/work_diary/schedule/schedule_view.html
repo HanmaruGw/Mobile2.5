@@ -1,0 +1,64 @@
+<div class="workDiaryContainer" ng-controller="scheduleViewController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarMenu" ng-click="BtnBack()">
+			<img src="/resources/image/ic-arrow-left.png">
+		</div>
+		<div class="headerBarTitle diaryDrop">
+			<span>일정보기</span>
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	
+	<div class="scheduleViewDiv">
+		<div class="scheduleViewTitle">
+			<!-- <div class="scheduleViewTitleLabel">현대 BS&C 어울림 현대페이 인사발령...</div>  -->
+			<div class="scheduleViewTitleLabel">{{ScheduleViewData.Title}}</div>
+		</div>
+		<div class="scheduleViewInfo">
+			<div class="scheduleInfoContentsManager">
+				<span class="scheduleInfoManagerLabel">캘린더</span>
+				<!-- <span class="scheduleInfoManagerName">IT Planning팀</span> -->
+				<span class="scheduleInfoManagerName">{{ScheduleViewData.Calencars[ 0 ].DisplayName || '내일정'}}</span>
+			</div>
+			<div class="scheduleInfoContentsManager">
+				<span class="scheduleInfoManagerLabel">일정</span>
+				<span class="scheduleInfoManagerName">{{ScheduleStartDate}} ~ {{ScheduleEndDate}}</span>
+			</div>
+			<div class="scheduleInfoContentsAttend">
+				<span class="scheduleInfoSharerLabel">참석자</span>
+				<div class="scheduleInfoSharerWrap">
+					<span class="scheduleInfoSharerName" ng-repeat="data in ScheduleViewData.AttendanceUser">{{data.DisplayName}}</span>
+				</div>
+				
+				<!-- <ul ng-repeat="color in arr_Color_List"> -->
+			</div>
+			<div class="scheduleInfoContentsSharer">
+				<span class="scheduleInfoSharerLabel">공유자</span>
+				<div class="scheduleInfoSharerWrap">
+					<span class="scheduleInfoSharerName" ng-repeat="data in ScheduleViewData.ShareUser">{{data.DisplayName}}</span>
+					<!--
+					<span class="scheduleInfoSharerName">이주형(IT Planning팀/한라홀딩스)</span>
+					 -->
+				</div>
+			</div>
+		</div>
+		<div class="scheduleViewContentsDiv">
+			<!-- <div class="scheduleViewContents"> -->
+				<!-- <p class="scheduleContentsContext"><span>1. 한마루클라우드플랫폼 구축(11/1오픈예정)</span><br>1)포탈: 공통게시판,자원예약,헬프데스크개발진행<br>2)결재:프레임워크및 양식관리 화면 설계, 관리자모드 개발 진행<br>3)메일:디자인적용및 사서함 리스트 UI개발진행<br>4) 중간보고일정 :8월17~18(포탈80%, 결재50%,메일90%)<br><br><span>2. 한마루모바일앱2차고도화 프로젝트 (10/1오픈예정)</span><br>1) 팀내 Pilot진행(~14일),7월17일(월)1차개발본적용<br>2)한마루WorkTogether 화면구성 및 개발 진행<br><br><span>3. 한마루AI기반챗봇프로젝트(~10/E)</span><br>1)Bluemix Watson 전문강사 사내 초빙 집체교육(6/26~7/E)<br>2)만도 기업문화팀, 총무팀 교육참석(7/6)<br>3) 만도BPR 프로세스서비스 대상으로 가능 여부 검토<br><br><span>4. 한마루Hybrid클라우드PoC(~7/E)</span><br>1)유럽데이터센터,사이트개설 및 네트워크 구성구성완료(6/30)<br>2) 유럽데이터센터,TEST 사서함이관 및 Pilot대상자선정 후 실사용자 이관 진행 (~14일)<br>3) 미국데이터센터,사이트 개설 및 구성 진행 (~14일)</p> -->
+				<!-- <p class="scheduleContentsContext"><span>{{approvalBody}}</p> -->
+					<!-- <div id="mailDetailHTMLContents" ng-bind-html="mailData.HTMLBody" data-elem="pinchzoomer"> </div> -->
+				<iframe class="scheduleViewContents"width="100%" height="100%" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0
+				 ng-src="{{bodyUrl}}"></iframe>
+			<!-- </div> -->
+		</div>
+	</div>
+	<div class="scheduleViewFooterDiv">
+		<div class="scheduleViewModify" ng-click="ScheduleSetting()">
+			<span>수정</span>
+		</div>
+		<div class="scheduleViewDelete" ng-click="ScheduleDelete()">
+			<span>삭제</span>
+		</div>
+	</div>
+</div>

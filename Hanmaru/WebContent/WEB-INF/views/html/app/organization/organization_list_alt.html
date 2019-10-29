@@ -1,0 +1,298 @@
+<div class="organizationContainer" ng-controller="organAltController">
+	<!--조직도에서 사용자 클릭하면 나오는 어두운 투명배경-->
+	<div class="organizationBack"></div>
+	
+	<!-- 헤더바 -->
+	<div class="headerBar orgUnderHeight">
+		<div class="headerBarMenu" ng-click="popPage()">
+			<img src="/resources/image/back_arrow.png">
+		</div>
+		<!-- 이 버튼은 다이어리/예약 등에서 조직도 아이콘 눌를시 나오는 
+		레이아웃이 등장할때 떠야합니다. -->
+		<!-- <div class="headerBarBack">
+			<img src="/resources/image/back_arrow.png">
+		</div> -->
+		<div class="headerBarTitle org_keywordBar">
+			<input type="search" ng-model="orgSearchKeyword" ng-trim="true" placeholder="검색어를 입력하세요." ng-keyup="btnDetectSearch($event)">
+		</div>
+		<div class="headerBarMove org_select" ng-click="btnApplySelectedUser($event)">
+			<p>완료<p>
+			<!-- <img src="/resources/image/organization/ic_menu_choice.png"> -->
+		</div>
+		<div class="headerBarSearch org_search" ng-click="btnSearchOrgUserList($event)">
+			<img src="/resources/image/organization/ic_menu_search_normal.png">
+		</div>
+	</div>
+
+	<div class="orgListTab">
+		<ul class="orgList">
+			<li><a ng-class="{'selected' : tab_index == 0}" ng-click="selectOrgTab(0)">주소록 검색결과({{addrCnt}})</a></li>
+			<li><a ng-class="{'selected' : tab_index == 1}" ng-click="selectOrgTab(1)">임직원 검색결과({{organCnt}})</a></li>
+			<li><a ng-class="{'selected' : tab_index == 2}" ng-click="selectOrgTab(2)">조직도</a></li>
+		</ul>
+		
+		<div class="headerUnderBar organizationList"></div>
+	</div>
+
+	<div class="orgDataVoid alt" ng-show="tab_index == 0">
+		<div class="searchResultBlank" ng-if="tab_index == 0 && (orgSearchKeyword == '' || orgSearchKeyword == undefined)">
+			<span class="orgSearchResult">검색어를 입력해 주세요.</span>
+		</div>
+		
+		<div class="searchResultBlank" ng-if="tab_index == 0 && (orgSearchKeyword != '' || orgSearchKeyword != undefined) && search_org_addr_list.length == 0">
+			<span class="orgSearchResult">검색 결과가 없습니다.</span>
+		</div>
+		
+ 		<div ng-if="tab_index == 0 && search_org_addr_list.length > 0">
+ 		
+			<div class="orgMemberList" ng-repeat="user in search_org_addr_list">
+			
+				<label>
+					<img class="flag_choose_user" src="/resources/image/icon/ic_circle_check_selected.png" ng-show="userDeptChecked(user) == true" ng-click="toggleUserDeptChecked('user', user)">
+					<img class="flag_choose_user" src="/resources/image/icon/ic_circle_check_normal.png" ng-show="userDeptChecked(user) == false" ng-click="toggleUserDeptChecked('user', user)">
+					<img src="/resources/image/organization/org_user.png" ng-if="user.MyPhotoUrl == null" ng-click="selectOrganUser(user)">
+					<img src="/resources/image/organization/org_user.png" ng-init="determineProfileImg(user)" ng-src="{{user.MyPhotoUrl}}" ng-if="user.MyPhotoUrl != null" ng-click="selectOrganUser(user)">
+					<span ng-click="selectOrganUser(user)">{{user.UserName}} {{user.LevelName}}</span><span class="org_user_dept">({{user.CompName}}/{{user.DeptName}})</span>
+				</label>
+			
+				<!-- <img src="/resources/image/organization/org_user.png" ng-if="user.MyPhotoUrl == null">
+				<img src="/resources/image/organization/org_user.png" ng-src="determineProfileImg(user)" ng-if="user.MyPhotoUrl != null">
+				<span>{{user.UserName}} {{user.LevelName}}({{user.CompName}}/{{user.DeptName}})</span> -->
+			</div>
+		</div>
+	</div>
+	
+	<div class="orgDataVoid alt" ng-show="tab_index == 1">
+		<div class="searchResultBlank" ng-if="tab_index == 1 && (orgSearchKeyword == '' || orgSearchKeyword == undefined)">
+			<span class="orgSearchResult">검색어를 입력해 주세요.</span>
+		</div>
+		
+		<div class="searchResultBlank" ng-if="tab_index == 1 && (orgSearchKeyword != '' || orgSearchKeyword != undefined) && search_org_user_list.length == 0">
+			<span class="orgSearchResult">검색 결과가 없습니다.</span>
+		</div>
+		
+		<div ng-if="tab_index == 1 && search_org_user_list.length > 0">
+		<!-- <div ng-if="(orgSearchKeyword != '' && orgSearchKeyword != undefined) || (orgSearchKeyword != '' && orgSearchKeyword != undefined)"> -->
+			<div class="orgMemberList" ng-repeat="user in search_org_user_list">
+				<label>
+					<img class="flag_choose_user" src="/resources/image/icon/ic_circle_check_selected.png" ng-show="userDeptChecked(user) == true" ng-click="toggleUserDeptChecked('user', user)">
+					<img class="flag_choose_user" src="/resources/image/icon/ic_circle_check_normal.png" ng-show="userDeptChecked(user) == false" ng-click="toggleUserDeptChecked('user', user)">
+					<img src="/resources/image/organization/org_user.png" ng-if="user.MyPhotoUrl == null" ng-click="selectOrganUser(user)">
+					<img src="/resources/image/organization/org_user.png" ng-init="determineProfileImg(user)" ng-src="{{user.MyPhotoUrl}}" ng-if="user.MyPhotoUrl != null" ng-click="selectOrganUser(user)">
+					<span ng-click="selectOrganUser(user)">{{user.UserName}} {{user.LevelName}}({{user.CompName}}/{{user.DeptName}})</span>
+				</label>
+			</div>
+		</div>
+	</div>
+	
+	<div class="orgMemberWrap alt" ng-show="tab_index == 2">
+		<div class="orgSideNavi">
+			<div>
+				<ul class="sideNaviWrapper">
+					<li class="deptCodeTop">
+						<a id="{{topDeptCode.DeptCode}}" class="orgGroupTitle" ng-click="findChildDept(topDeptCode, 0)">
+							<!-- <img ng-src="/resources/image/icon/ic_organ_{{topDeptCode.DeptCode}}.png"> -->
+							{{topDeptCode.DeptName}}
+							<img src="/resources/image/icon/ic-organ_menu_plus.png">
+						</a>
+							
+						<ul>
+							<li class="orgGroupSub" ng-repeat="first_depth in first_depth_list" ng-if="first_depth.Count != '0'">
+								<a id="{{first_depth.DeptCode}}" ng-click="findChildDept(first_depth, 1)">
+									<!-- <img ng-src="/resources/image/organization/ic_organ_dept_group.png"> -->
+									{{first_depth.DeptName}}
+									<img src="/resources/image/icon/ic-organ_menu_minus.png" ng-if="first_depth.DeptCode == 1">
+									<img src="/resources/image/icon/ic-organ_menu_plus.png" ng-if="first_depth.DeptCode != 1">
+								</a>
+								<ul class="groupSubHoldings" ng-if="selected_firstDepth_code == first_depth.DeptCode">
+									<li ng-repeat="second_depth in second_depth_list" ng-if="second_depth.DeptName.indexOf('(구)') == -1">
+										<a id="{{second_depth.DeptCode}}" ng-click="findChildDept(second_depth, 2)">
+											<!-- <img src="/resources/image/organization/ic_organ_dept_group.png"> -->
+											{{second_depth.DeptName}}
+										</a>
+										
+										<ul class="groupSubHoldings third" ng-if="selected_secondDepth_code == second_depth.DeptCode">
+											<li ng-repeat="third_depth in third_depth_list">
+												<label class="dept">
+													<img class="flag_choose_user" src="/resources/image/icon/ic_circle_check_selected.png" ng-show="userDeptChecked(third_depth) == true" ng-click="toggleUserDeptChecked('dept', third_depth)">
+													<img class="flag_choose_user" src="/resources/image/icon/ic_circle_check_normal.png" ng-show="userDeptChecked(third_depth) == false" ng-click="toggleUserDeptChecked('dept', third_depth)">
+													<a id="{{third_depth.DeptCode}}" ng-click="findChildDept(third_depth, 3)">{{third_depth.DeptName}}</a>
+												</label>
+												
+												<ul class="groupSubHoldings" ng-if="selected_thirdDepth_code == third_depth.DeptCode">
+													<li ng-repeat="fourth_depth in fourth_depth_list">
+														<label class="dept">
+															<img class="flag_choose_user" src="/resources/image/icon/ic_circle_check_selected.png" ng-show="userDeptChecked(fourth_depth) == true" ng-click="toggleUserDeptChecked('dept', fourth_depth)">
+															<img class="flag_choose_user" src="/resources/image/icon/ic_circle_check_normal.png" ng-show="userDeptChecked(fourth_depth) == false" ng-click="toggleUserDeptChecked('dept', fourth_depth)">
+															<a id="{{fourth_depth.DeptCode}}" ng-click="findChildDept(fourth_depth, 4)">{{fourth_depth.DeptName}}</a>
+														</label>
+														
+														<ul class="groupSubHoldings" ng-if="fourth_depth.DeptCode == selected_deptCode && org_alt_user_list.length > 0">
+															<li ng-repeat="user in org_alt_user_list">
+																<label>
+																	<img class="flag_choose_user" src="/resources/image/icon/ic_circle_check_selected.png" ng-show="userDeptChecked(user) == true" ng-click="toggleUserDeptChecked('user', user)">
+																	<img class="flag_choose_user" src="/resources/image/icon/ic_circle_check_normal.png" ng-show="userDeptChecked(user) == false" ng-click="toggleUserDeptChecked('user', user)">
+																	<img class="user_photo" src="/resources/image/organization/org_user.png" ng-if="user.MyPhotoUrl == null" ng-click="selectOrganUser(user)">
+																	<img class="user_photo" ng-click="selectOrganUser(user)"  ng-src="{{user.MyPhotoUrl}}" onerror="this.src='/resources/image/organization/org_user.png'" ng-init="determineProfileImg(user)" ng-if="user.MyPhotoUrl != null">
+																	<span class="user_desc" ng-click="selectOrganUser(user)">{{user.UserName}} {{user.LevelName}}({{user.CompName}}/{{user.DeptName}})</span>
+																</label>
+															</li>
+														</ul>
+													</li>
+												</ul>
+												
+												<ul class="groupSubHoldings" ng-if="third_depth.DeptCode == selected_deptCode && org_alt_user_list.length > 0">
+													<li ng-repeat="user in org_alt_user_list">
+														<label>
+															<img class="flag_choose_user" src="/resources/image/icon/ic_circle_check_selected.png" ng-show="userDeptChecked(user) == true" ng-click="toggleUserDeptChecked('user', user)">
+															<img class="flag_choose_user" src="/resources/image/icon/ic_circle_check_normal.png" ng-show="userDeptChecked(user) == false" ng-click="toggleUserDeptChecked('user', user)">
+															<img class="user_photo" src="/resources/image/organization/org_user.png" ng-if="user.MyPhotoUrl == null" ng-click="selectOrganUser(user)">
+															<img class="user_photo" ng-click="selectOrganUser(user)" ng-src="{{user.MyPhotoUrl}}" onerror="this.src='/resources/image/organization/org_user.png'" ng-init="determineProfileImg(user)" ng-if="user.MyPhotoUrl != null">
+															<span class="user_desc" ng-click="selectOrganUser(user)">{{user.UserName}} {{user.LevelName}}({{user.CompName}}/{{user.DeptName}})</span>
+														</label>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="orgMemberSelect alt">
+		<ul>
+			<li>
+				<img src="/resources/image/ic-circle-add.png">
+				<a ng-click="btnAddRcvUserList($event)">받는 사람({{rcv_count}})<!-- ({{rcv_count}}) --></a>
+			</li>
+			<li>
+				<img src="/resources/image/ic-circle-add.png">
+				<a ng-click="btnAddCCUserList($event)">참조({{cc_count}})<!-- ({{cc_count}}) --></a>
+			</li>
+			<li>
+				<img src="/resources/image/ic-circle-add.png">
+				<a ng-click="btnAddBCCUserList($event)">숨은 참조({{bcc_count}})<!-- ({{bcc_count}}) --></a>
+			</li>
+		
+			<!-- <li><span><img src="/resources/image/mail/ic_plus_white.png"><a ng-click="btnAddRcvUserList($event)">받는 사람({{rcv_count}})</a></span></li>
+			<li><span><img src="/resources/image/mail/ic_plus_white.png"><a ng-click="btnAddCCUserList($event)">참조({{cc_count}})</a></span></li>
+			<li><span><img src="/resources/image/mail/ic_plus_white.png"><a ng-click="btnAddBCCUserList($event)">숨은 참조({{bcc_count}})</a></span></li> -->
+		</ul>
+	</div>
+	<!-- 
+	<div class="orgSelectBtn">
+		<span>예약</span>
+	</div> -->
+	
+ 	<div class="orgSelectedDialog" ng-show="isUserDeptSelected == true">
+ 		
+		<div class="wrap_orgSelectedContents">
+			<div class="orgSelectedHeader">
+				{{selectedDialogName}}
+			</div>
+			
+			<div class="orgSelectedContents" ng-if="userDeptSelectType == 'rcv'">
+				<ul>
+					<li ng-repeat="userDept in arr_selected_rcv">
+						{{userDept.UserName != undefined ? userDept.UserName : userDept.DeptName}}
+						<a class="btnRemoveUserDept" ng-click="btnRemoveRCV($index)"><img src="/resources/image/icon/ic_x_normal.png"></a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="orgSelectedContents" ng-if="userDeptSelectType == 'cc'">
+				<ul>
+					<li ng-repeat="userDept in arr_selected_cc">
+						{{userDept.UserName != undefined ? userDept.UserName : userDept.DeptName}}
+						<a class="btnRemoveUserDept" ng-click="btnRemoveCC($index)"><img src="/resources/image/icon/ic_x_normal.png"></a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="orgSelectedContents" ng-if="userDeptSelectType == 'bcc'">
+				<ul>
+					<li ng-repeat="userDept in arr_selected_bcc">
+						{{userDept.UserName != undefined ? userDept.UserName : userDept.DeptName}}
+						<a class="btnRemoveUserDept" ng-click="btnRemoveBCC($index)"><img src="/resources/image/icon/ic_x_normal.png"></a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="orgSelectedFooter" ng-click="btnCloseSelectedDialog($event)">
+				확인
+			</div>
+		</div>
+		
+	</div>
+	
+	<div class="orgMemberDetail" ng-class="{'show':selectedOrganUser != undefined}">
+		<div class="memberProfile">
+			<span class="titleProfile">Profile</span>
+			<div class="memberProfilePhoto">
+				<img src="/resources/image/organization/bg_user_info_no_photo.png" ng-class="{'enlarge' : isProfileImgEnlarge}" ng-src="{{selectedOrganUser.MyPhotoUrl}}" class="profilePicture">
+				<img src="/resources/image/organization/ic_zoom_in_normal.png" class="profileZoom" ng-show="!isProfileImgEnlarge" ng-click="toggleProfileEnlarge()">
+				<img src="/resources/image/organization/ic_zoom_out_normal.png" class="profileZoomOut" ng-show="isProfileImgEnlarge" ng-click="toggleProfileEnlarge()">
+			</div>
+			
+			<div class="wrap_memberInfo">
+				<div class="memberInfo_name">
+					<span>이름 : {{selectedOrganUser.UserName}}</span>
+				</div>
+				<div class="memberInfo_company">
+					<span>회사/부서 : {{selectedOrganUser.CompName}} / {{selectedOrganUser.DeptName}}</span>
+				</div>
+				<div class="memberInfo_office">
+					<span>직위/직책 : {{selectedOrganUser.LevelName}} / {{selectedOrganUser.PositionName}}</span>
+				</div>
+				<div class="memberInfo_phone memberInfo_img">
+					<span>유선전화 : </span>
+					<a ng-if="selectedOrganUser.LocationPhone == ''">내용없음</a>
+					<!-- <a ng-if="selectedOrganUser.LocationPhone != ''" ng-click="doExecCallPhone(selectedOrganUser.LocationPhone)">{{selectedOrganUser.LocationPhone}}</a> -->
+					<a href="tel:{{selectedOrganUser.LocationPhone}}" ng-if="selectedOrganUser.LocationPhone != ''">{{selectedOrganUser.LocationPhone}}</a>
+					
+					<a href="tel:{{selectedOrganUser.LocationPhone}}" class="btn_img" ng-if="selectedOrganUser.LocationPhone != ''">
+						<img src="/resources/image/organization/ic_location_phone_normal.png">
+					</a>
+				</div>
+				<div class="memberInfo_mobile memberInfo_img">
+					<span>휴대전화 : </span>
+					<a ng-if="selectedOrganUser.MobilePhone == ''">내용없음</a>
+					<!-- <a ng-if="selectedOrganUser.MobilePhone != ''" ng-click="doExecCallPhone(selectedOrganUser.MobilePhone)">{{selectedOrganUser.MobilePhone}}</a> -->
+					<a href="tel:{{selectedOrganUser.MobilePhone}}" ng-if="selectedOrganUser.MobilePhone != ''">
+						{{selectedOrganUser.MobilePhone}}
+					</a>
+					<a href="tel:{{selectedOrganUser.MobilePhone}}" class="btn_img" ng-if="selectedOrganUser.MobilePhone != ''">
+						<img src="/resources/image/organization/ic_mobile_phone_normal.png">
+					</a>
+				</div>
+				<div class="memberInfo_sms memberInfo_img">
+					<span>SMS : </span>
+					<a ng-if="selectedOrganUser.MobilePhone == ''">내용없음</a>
+					<!-- <a ng-if="selectedOrganUser.MobilePhone != ''" ng-click="doExecSMSPhone(selectedOrganUser.MobilePhone)">{{selectedOrganUser.MobilePhone}}</a> -->
+					<a href="sms:{{selectedOrganUser.MobilePhone}}" ng-if="selectedOrganUser.MobilePhone != ''">{{selectedOrganUser.MobilePhone}}</a>
+					<a href="sms:{{selectedOrganUser.MobilePhone}}" class="btn_img" ng-if="selectedOrganUser.MobilePhone != ''">
+						<img src="/resources/image/organization/ic_mobile_sms_normal.png" ng-click="doExecSMSPhone(selectedOrganUser.MobilePhone)">
+					</a>
+				</div>
+				<div class="memberInfo_email memberInfo_img">
+					<span>eMail : </span>
+					<a ng-if="selectedOrganUser.EmailAddress == ''">내용없음</a>
+					<a ng-if="selectedOrganUser.EmailAddress != ''" ng-click="doExecEmail(selectedOrganUser)">{{selectedOrganUser.EmailAddress}}</a>
+					<a class="btn_img" ng-click="doExecEmail(selectedOrganUser)">
+						<img src="/resources/image/organization/ic_email_address_normal.png">
+					</a>
+				</div>
+				<div class="memberInfo_place">
+					<span>근무지 : </span>
+					{{selectedOrganUser.CompName}}
+				</div>
+			</div>
+			
+			<div class="profileDetailCheck" ng-click="closeOrganUserDialog()">확인</div>
+		</div>
+	</div>
+</div>

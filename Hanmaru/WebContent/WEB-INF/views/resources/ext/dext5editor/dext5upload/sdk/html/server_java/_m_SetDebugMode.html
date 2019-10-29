@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con ">
+            <h3 class="title">DEXT5 Upload :: SetDebugMode</h3>
+            <p class="ttl">void SetDebugMode(boolean isDebugMode)</p>
+            <p class="txt">
+                업로드,다운로드 등등의 모든 서버 동작 중 발생되는 로그를 콘솔 또는 서버로그에 출력하기 위하여 설정합니다.
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">isDebugMode</span>&nbsp;&nbsp;로그 출력 여부를 의미합니다. true: 로그 출력, false: 로그 출력 안합
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                기본값 : false
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+Raonwiz.Dext5.UploadHandler upload = new Raonwiz.Dext5.UploadHandler();
+
+<b>upload.SetDebugMode(true);</b>
+
+String result = upload.Process(request, response, event);
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

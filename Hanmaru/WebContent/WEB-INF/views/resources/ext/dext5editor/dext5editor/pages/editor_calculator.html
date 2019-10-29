@@ -1,0 +1,370 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Conversion</title>
+    <link href="../css_dev/editor_popup.css" rel="stylesheet" type="text/css">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script>
+        var flagTot = false;    // 입력한 값이 = 이라면 true
+        var flagTot_code = false;    // 입력한 값이 = 이라면 true
+        var flagTab = false;
+        var isCtrl = false;     // ctrl 키를 누르고있는 경우 true
+        var isShifh = false;    // shift 키를 누르고있는 경우 true
+        var str = "";
+
+        document.onkeydown = function fnKeyDown(event) {
+            event = event ? event : window.event;
+            var value = document.getElementById("valueText");
+            var keyCode = event.which ? event.which : event.keyCode;
+
+            value.value = value.value.replace(/[^0-9\%\*\(\)\-\+\.\/\/n]/gi, "");
+
+            // 웹접근성으로 인해 flagTab이 false이면서 enter인 경우에만 계산됨.
+            if (keyCode == 9) { flagTab = true; }
+            if (flagTab == true) {
+                if (keyCode == 13) { flagTab = false; return; } // tab 누른 후에 엔터를 눌렀다면
+                if ((keyCode > 47 && keyCode < 58) || (keyCode > 95 && keyCode < 106)) {  // tab 누른 후에 숫자키를 눌렀다면
+                    fnFocus();
+                    flagTab = false;
+                }
+            }
+            else if (flagTab == false) {
+                if (keyCode == 13) { fnCalc("="); return false; }
+            }
+
+            // ctrl + c ,v, a 인 경우
+            if (keyCode == 17) { isCtrl = true; }
+            if ((keyCode == 67 || keyCode == 65) && isCtrl == true) { return; }
+
+            // 특수문자(shift + 숫자)인 경우
+            if (keyCode == 16) { isShifh = true; }
+            if (((keyCode > 48 && keyCode < 53) || (keyCode > 53 && keyCode < 56)) && isShifh == true) { return false; }
+
+            if ((keyCode == 48 && isShifh == false) || keyCode == 96) { fnCalc("0"); return false; }
+            else if ((keyCode == 53 && isShifh == true)) { fnCalc("%"); return false; }
+            else if (keyCode == 106 || keyCode == 186) { fnCalc("*"); }
+            else if (keyCode == 107 || keyCode == 187) { fnCalc("+"); }
+            else if (keyCode == 109 || keyCode == 189) { fnCalc("-"); }
+            else if (keyCode == 110 || keyCode == 190) { fnCalc("."); }
+            else if (keyCode == 111 || keyCode == 191) { fnCalc("/"); }
+
+            if ((keyCode > 47 && keyCode < 58) || (keyCode > 95 && keyCode < 106)) {    // 숫자일 때
+                if (value.value == "0") { value.value = ""; }
+                if (value.value.charAt(value.value.length - 1) == "%") { return false; }
+                flagTot = false;
+            }
+
+            // 문자 입력 방지
+            if (!((keyCode > 34 && keyCode < 37) || (keyCode > 47 && keyCode < 58) || (keyCode > 95 && keyCode < 106) || keyCode == 8 || keyCode == 9 || keyCode == 13 || keyCode == 46)) {
+                DEXTTOP.DEXT5.util.cancelEvent(event);
+            } else if (keyCode != 9) {
+                setCaretPosition(value);
+            }
+
+            if (keyCode != 13) { // = 을 누른 후 다시 숫자를 입력하면 value 지우고 새로운 값 입력
+                if (flagTot_code == true) {
+                    if ((keyCode > 47 && keyCode < 58) || (keyCode > 95 && keyCode < 106)) { // 숫자라면
+                        var value = document.getElementById("valueText");
+                        value.value = "";
+                    }
+                }
+                flagTot_code = false;
+            }
+        }
+
+        document.onkeyup = function fnKeyUp(event) {
+            event = event ? event : window.event;
+            var keyCode = event.which ? event.which : event.keyCode;
+
+            if (keyCode == 17) { isCtrl = false; }
+            if (keyCode == 16) { isShifh = false; }
+        }
+
+        function fnCalc(num) {
+            var value = document.getElementById("valueText");
+            var formula = document.getElementById("formula");
+            var history = document.getElementById("history");
+
+            if (flagTot == true) {
+                if (!isNaN(num)) {
+                    value.value = "";
+                    str = "";
+                }
+                formula.innerHTML = "";
+                flagTot = false;
+            }
+            if (value.value.charAt(value.value.length - 1) == "%" && !isNaN(num)) { return; }
+
+            if (value.value == "" && num == "00") { value.value = "0"; }
+
+            if (value.value == "0") {
+                if (num == "0" || num == "00") {
+                    return;
+                }
+                if (!isNaN(num)) {
+                    value.value = "";
+                }
+            }
+
+            if (num != "=") {
+                flagTot_code = false;
+
+                if (value.value == "" && num != "(" && num != ")" && isNaN(num)) {   // num이 문자일때 value에 값이 없다면
+                    value.value = "0";
+                    if (num != "." && num != "√" && num != "%") {
+                        value.value += num;
+                    }
+                }
+
+                if (num == "√") {    // 루트라면
+                    value.value = "√(" + value.value + ")";
+                    return;
+                }
+
+                if (num == "%") {    // 퍼센트라면
+                    value.value = "(" + value.value + ")%";
+                    return;
+                }
+
+                if (num != "(" && num != ")" && isNaN(num) && value.value.charAt(value.value.length - 1) != ")" && value.value.charAt(value.value.length - 1) != "(" && isNaN(value.value.charAt(value.value.length - 1))) { // num이 문자일때 마지막에 입력된 값이 문자라면 (연산기호 중복 방지)
+                    return;
+                } else {
+                    value.value = value.value + num;
+                }
+            } else {
+                if (value.value == "") { return; }  // 수식이 없는 경우
+                formula.style.color = "#828282";
+                formula.innerHTML = value.value;
+                str = value.value;
+
+                if (str.indexOf("√") >= 0) {    // 루트
+                    var reg = /√/g;
+                    str = str.replace(reg, "Math.sqrt");
+                }
+
+                if (str.indexOf("%") >= 0) {    // 퍼센트
+                    var reg = /%/g;
+                    str = str.replace(reg, "*0.01");
+                }
+
+                var tot = 0;
+                try {
+                    var tot = eval(str);
+
+                    if (isNaN(tot)) {
+                        formula.style.color = "red";
+                        formula.innerHTML = LayerWin.dext5_lang.calculator.msg_formula;
+                        return;
+                    }
+
+                    if (tot == Infinity) {  // 0으로 나누려고 하는 경우
+                        formula.style.color = "red";
+                        formula.innerHTML = LayerWin.dext5_lang.calculator.msg_division;
+                        return;
+                    }
+
+                    tot = Math.round((tot) * 10000000000) / 10000000000;
+                } catch (e) {  // 수식이 올바르지 않아 계산할 수 없는 경우
+                    formula.style.color = "red";
+                    formula.innerHTML = LayerWin.dext5_lang.calculator.msg_formula;
+                    return;
+                }
+
+                // \B : 공백이 없는위치(비경계)까지 찾음
+                // ?= : 전방탐색 ex) 123.4 에서 .을 기준으로 전방탐색 하는경우 123을 찾음
+                // \d{3} : (숫자3개) / + : 한번이상 반복
+                if (tot.toString().indexOf(".")>=0){
+                    var commaStr = "";
+                    var comma = tot.toString().split(".");
+                    commaStr = comma[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    tot = commaStr + "." + comma[1];
+                } else {
+                    tot = tot.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                }
+
+                value.value = tot;
+                history.innerHTML += formula.innerHTML + num + tot + "</br>";
+                flagTot = true;
+                flagTot_code = flagTot;
+                history.scrollTop = history.scrollHeight;   // history 의 스크롤 아래쪽에 위치
+            }
+            formula.scrollLeft = formula.scrollWidth;
+            fnFocus();
+        }
+
+        function changeSign() { // 부호 변경
+            var value = document.getElementById("valueText");
+            if (value.value == "") { value.value = "0"; }
+            if (value.value.substring(0, 1) == "-")
+                value.value = "(" + value.value.substring(1, value.value.length) + ")";
+            else
+                value.value = "-(" + value.value + ")";
+
+            fnFocus();
+        }
+
+        function fnDel(delValue) {  // 지우기 (<-, ce, c)
+            var value = document.getElementById("valueText");
+            var formula = document.getElementById("formula");
+
+            if (delValue == "back") {
+                value.value = value.value.substring(0, value.value.length - 1);
+            } else if (delValue == "ce") {
+                value.value = "";
+            } else if (delValue == "c") {
+                value.value = "";
+                formula.innerHTML = "";
+                forStr = "";
+            }
+            fnFocus();
+        }
+
+        function fnFocus() {    // 포커스 맨 뒤쪽으로 주기
+            var value = document.getElementById("valueText");
+            value.focus();
+            setCaretPosition(value, value.value.length, value.value.length);
+            value.scrollLeft = value.scrollWidth;
+        }
+
+        function setCaretPosition(value) {  // 맨 뒤쪽에 입력
+            var start = value.value.length;
+            var end = value.value.length;
+            // IE >= 9 and other browsers
+            if (value.setSelectionRange) {
+                value.focus();
+                value.setSelectionRange(start, end);
+            }
+                // IE < 9
+            else if (value.createTextRange) {
+                var range = value.createTextRange();
+                range.collapse(true);
+                range.moveEnd('character', end);
+                range.moveStart('character', start);
+                range.select();
+            }
+        }
+
+        function page_loaded_event() {
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+            document.getElementById("dext_dialog_box").className = 'DEXT_fiVe_ED_Popup_Type03 DEXT_fiVe_PUi_' + _skin_name;
+
+            var value = document.getElementById("valueText");
+            value.value = "";
+
+            span_title.innerHTML = LayerWin.dext5_lang.calculator.title;
+            span_btn_ok.innerHTML = LayerWin.dext5_lang.calculator.btn_ok;
+            span_btn_cancel.innerHTML = LayerWin.dext5_lang.calculator.btn_cancel;
+
+            var btn_ok = document.getElementById("btn_ok");
+            DEXTTOP.DEXT5.util.addEvent(btn_ok, 'click', function () {
+                var inputValue = value.value;
+                if (inputValue == "" || inputValue == null || inputValue == undefined) {
+                    alert(LayerWin.dext5_lang.calculator.msg_empty);
+                    fnFocus();
+                    return;
+                }
+                else { dext_calculator(); }
+            });
+
+            var firstFocus = document.getElementById('valueText');
+            setCursorPos(firstFocus, true, false);
+            LayerWin.setFocusFirstAndLast(document, firstFocus);
+        }
+    </script>
+
+</head>
+<body style="margin:0px; padding:0px;" onload="page_loaded_event()">
+    <div class="DEXT_fiVe_ED_Popup_Type03 DEXT_fiVe_PUi_blue" id="dext_dialog_box">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title"></span><span class="text">DEXT5</span>
+            <div class="close"><a href="javascript:event_dext_close();" title="close"></a></div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / 서식 -->
+        <div class="Editor_calculator EdiTor_Popup_contents view">
+            <div class="contents" style="height:303px">
+                <div class="con select">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <!-- 서식 설정 시작  -->
+                                <div class="select_menu">
+                                    <!-- 서식 사용 -->
+                                    <div class="left smw">
+                                        <ul class="s_menu" style="width:300px; overflow:hidden;">
+                                            <li class="disableModify">
+                                                <div id="history" style="word-break: break-all; word-wrap: break-word;"></div>
+                                            </li>
+                                            <li class="result">
+                                                <div id="formula" style="word-break: break-all; word-wrap: break-word; overflow-y: auto;" onfocus="fnFocus();"></div>
+                                                <div class="big_font"><textarea rows="1" wrap="soft" id="valueText" onfocus="fnFocus();" style="resize: none; outline: none;"></textarea></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="calculator">
+                            <td>
+                                <ul>
+                                    <li><button type="button" class="btn_calculate border0" title="정정" onclick="fnDel('back');">&larr;</button></li>
+                                    <li><button type="button" class="btn_calculate" title="캔슬" onclick="fnDel('ce');">CE</button></li>
+                                    <li><button type="button" class="btn_calculate" title="리셋" onclick="fnDel('c');">C</button></li>
+                                    <li><button type="button" class="btn_calculate" title="괄호 열기" onclick="fnCalc('(');">&#40;</button></li>
+                                    <li><button type="button" class="btn_calculate" title="괄호 닫기" onclick="fnCalc(')');">&#41;</button></li>
+                                    <li><button type="button" class="btn_no border0" title="7" onclick="fnCalc('7');">7</button></li>
+                                    <li><button type="button" class="btn_no" title="8" onclick="fnCalc('8');">8</button></li>
+                                    <li><button type="button" class="btn_no" title="9" onclick="fnCalc('9');">9</button></li>
+                                    <li><button type="button" class="btn_calculate" title="더하기" onclick="fnCalc('+')">&#43;</button></li>
+                                    <li><button type="button" class="btn_calculate" title="플러스마이너스" onclick="changeSign();">&plusmn;</button></li>
+                                    <li><button type="button" class="btn_no border0" title="4" onclick="fnCalc('4');">4</button></li>
+                                    <li><button type="button" class="btn_no" title="5" onclick="fnCalc('5');">5</button></li>
+                                    <li><button type="button" class="btn_no" title="6" onclick="fnCalc('6');">6</button></li>
+                                    <li><button type="button" class="btn_calculate" title="빼기" onclick="fnCalc('-');">&minus;</button></li>
+                                    <li><button type="button" class="btn_calculate" title="백분률" onclick="fnCalc('%');">&#37;</button></li>
+                                    <li><button type="button" class="btn_no border0" title="1" onclick="fnCalc('1');">1</button></li>
+                                    <li><button type="button" class="btn_no" title="2" onclick="fnCalc('2');">2</button></li>
+                                    <li><button type="button" class="btn_no" title="3" onclick="fnCalc('3');">3</button></li>
+                                    <li><button type="button" class="btn_calculate" title="곱하기" onclick="fnCalc('*');">&times;</button></li>
+                                    <li><button type="button" class="btn_calculate" title="루트" onclick="fnCalc('√');">&#8730;</button></li>
+                                    <li><button type="button" class="btn_no border0" title="0" onclick="fnCalc('0');">0</button></li>
+                                    <li><button type="button" class="btn_no" title="0" onclick="fnCalc('00');">00</button></li>
+                                    <li><button type="button" class="btn_no" title="점" onclick="fnCalc('.');">.</button></li>
+                                    <li><button type="button" class="btn_calculate" title="나누기" onclick="fnCalc('/');">÷</button></li>
+                                    <li><button type="button" class="btn_calculate" title="계산하기" onclick="fnCalc('=')">&#61;</button></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a href="javascript:void(0);" class="confirm" id="btn_ok"><span id="span_btn_ok"></span></a>
+            <a href="javascript:event_dext_close();" class="cancel" id="btn_cancel"><span id="span_btn_cancel"></span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title nline">DEXT5 Editor :: dext_paste_image_event</h3>
+    <p class="ttl">void dext_paste_image_event(imgArr)</p>
+    <p class="txt">
+        에디터에 이미지 붙여넣기 시 발생합니다.
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        없음.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">imgArr</span>&nbsp;&nbsp;붙여넣기 한 이미지객체 배열입니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        에디터의 설정파일(dext5editor/config/dext_editor.xml)의 event_for_paste_image 설정값이 1인 경우에 이벤트가 발생합니다.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;
+&#60;script type="text/javascript"&#62;
+
+    function dext_paste_image_event(imgArr) {
+        // imgArr[0] // 붙여넣기 한 이미지 객체
+    }
+
+&#60;/script&#62; 	
+&#60;/head&#62;
+&#60;body&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:900px;height:550px"&#62;  
+
+    &#60;script type="text/javascript"&#62;
+        new Dext5editor("editor1");
+    &#60;/script&#62;        
+
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

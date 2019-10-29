@@ -1,0 +1,127 @@
+<div class="login_renewal_wrapper" ng-controller="loginController">
+	<div class="login_renewal_back" ng-show="isShowLoginPopup == true || isShowPinInputPopup == true"></div>
+	
+	<div class="login_renewal_top_bg_wrapper" ng-style="loginImageUrl != '' && {'background-image':'url('+loginImageUrl+')'}">
+		
+	</div>
+	<div class="wrap_login_renewal_area">
+		<div class="subwrap_login_renewal_area">
+			<div class="subwrap_login_renewal_btn">
+				<a class="subwrap_login_renewal_btn_simple " ng-class="{'check_btn' : isPinLogin == true}" ng-click="selectPinLoginBtn(true)">간편 로그인</a>
+				<a class="subwrap_login_renewal_btn_basic " ng-class="{'check_btn' : isPinLogin == false}" ng-click="selectPinLoginBtn(false);autoLoginCheck=false;AutoLoginCheckChange(false)">일반 로그인</a>
+			</div>
+			
+			<div class="wrap_simple_login_renewal_elem" ng-show="isPinLogin == true">
+				<div class="simple_login_contents_elem">
+					<p class="simple_passwd_write_label">간편 비밀번호 6자리를 입력해주세요.</p>
+					<div class="simple_passwd_write_box" ng-click="performClickPinLogin($event)">
+						<input type="number" class="passwd_input_box_write" id="login_pin_number" maxlength="6" 
+							ng-focus="doFocusLayout()" ng-blur="doBlurLayout()" 
+							pattern="[0-9]*" inputmode="numeric" min="0"
+							>
+						<span class="simple_passwd_write_circle"></span> <!-- check_write_circle -->
+						<span class="simple_passwd_write_circle"></span>
+						<span class="simple_passwd_write_circle"></span>
+						<span class="simple_passwd_write_circle"></span>
+						<span class="simple_passwd_write_circle"></span>
+						<span class="simple_passwd_write_circle"></span>
+					</div>
+				</div>
+			</div>
+			
+			<div class="wrap_login_renewal_elem" ng-show="isPinLogin == false">
+				<div class="wrap_login_renewal_elem_box">
+					<p class="login_renewal_elem_box_loginlabel">Login ID</p>
+ 					<div class="login_renewal_elem_box_write">
+	 					<input type="text" ng-model="general_id" placeholder="아이디를 입력하세요." class="login_renewal_box_write"
+	 						ng-focus="doFocusLayout()" ng-blur="doBlurLayout()">
+	 					<span class="login_renewal_elem_email" ng-click="toggleDomainPopup()">@{{generalLogin_domain}}</span>
+	 					
+	 					<ul class="selectDomain" ng-show="isOpenDomainPopup == true">
+							<li class="selectDomainList" ng-repeat="domain in domainList" ng-click="applyDomain($index)">
+								<span class="selectDomainListTxt" ng-class="{'selected' : curDomainIdx == $index}">{{domain}}</span>
+								<img src="/resources/image/ic_check_select.png" ng-show="curDomainIdx == $index">
+							</li>
+						</ul>
+	 					
+ 					</div>
+				</div>
+				<div class="wrap_login_renewal_elem_box pw_box">
+					<p class="login_renewal_elem_box_pwlabel">Password</p>
+ 					<div class="login_renewal_elem_box_pw_write">
+	 					<input type="password" ng-model="general_pw" placeholder="비밀번호를 입력하세요." class="login_renewal_box_pw_write">
+ 					</div>
+				</div>
+			</div>
+		</div>
+		<div class="btn_generaLogin_wrapper">
+			<button type="button" class="btn_generalLogin" ng-click="performGeneralLogin()">Login</button>
+		</div>
+		<div class="wrap_simple_login_btn" ng-show="isPinLogin==true">
+			<div class="AutoLoginDiv" ng-click="autoLoginCheck=!autoLoginCheck;LoginCheckChange()">
+				<div class="AutologinCheck">
+					<img src="/resources/image/mail/selectbox-square-off.png" ng-show="autoLoginCheck != true" class=""> 
+					<img src="/resources/image/mail/selectbox-square-on.png" ng-show="autoLoginCheck == true" class="ng-hide">
+				</div>
+				<span>자동로그인</span>
+			</div>
+			
+			<a class="wrap_simple_login" ng-click="togglePinLoginPopup()">간편 비밀번호 설정</a>
+		</div>
+		<div class="wrap_simple_login_btn" ng-show="isPinLogin!=true">
+			<span>&nbsp</span>
+		</div>
+		
+	</div>
+	
+	<div class="simple_login_settings_popup_div" ng-show="isShowLoginPopup == true"><!--  -->
+		<div class="simple_login_settings_popup">
+			<div class="simple_login_settings_popup_top">
+				<span class="simple_login_settings_top_label">간편 비밀번호 설정</span>
+				<p class="simple_login_settings_top_notice">간편 비밀번호 설정을 위해 <br/>한마루 ID와 Password를 입력해주세요.</p>
+			</div>
+			<div class="simple_login_settings_contents_wrapper">
+				<div class="settings_contents_identify_box">
+					<input type="text" ng-model="pin_input_id" placeholder="Login ID" class="settings_contents_identify_write"
+						ng-focus="doFocusLayout()" ng-blur="doBlurLayout()">
+					<span class="settings_contents_email">@Halla.com</span>
+				</div>
+				<div class="settings_contents_pw_box">
+					<input type="password" ng-model="pin_input_pwd" placeholder="Password" class="settings_contents_pw_write">
+				</div>
+			</div>
+			<div class="simple_login_settings_behavior_btn">
+				<a class="settings_behavior_btn_cancel" ng-click="togglePinLoginPopup()">취소</a>
+				<a class="settings_behavior_btn_check" ng-click="checkPinLoginValidate()">확인</a>
+			</div>
+		</div>
+	</div>
+	<div class="simple_passwd_settings_popup_div" ng-show="isShowPinInputPopup == true"><!--  -->
+		<div class="simple_passwd_settings_popup">
+			<div class="simple_passwd_settings_popup_top">
+				<span class="simple_passwd_settings_top_label">간편 비밀번호 설정</span>
+				<p class="simple_passwd_settings_top_notice">사용할 숫자 6자리 비밀번호를 입력해주세요.</p>
+			</div>
+			<div class="simple_passwd_settings_contents_wrapper">
+				<div class="passwd_settings_box" ng-click="performClickPinInput()">
+					<input type="number" class="passwd_settings_box_write" id="input_pin_number" maxlength="6" 
+						ng-focus="doFocusLayout()" ng-blur="doBlurLayout()"
+						pattern="[0-9]*" inputmode="numeric" min="0">
+					<div class="passwd_settings_six_box">
+						<span class="passwd_settings_six_write"></span>
+						<span class="passwd_settings_six_write"></span><!-- <span class="passwd_write_circle"> -->
+						<span class="passwd_settings_six_write"></span>
+						<span class="passwd_settings_six_write"></span>
+						<span class="passwd_settings_six_write"></span>
+						<span class="passwd_settings_six_write"></span>
+					</div>
+				</div>
+			</div>
+			<div class="simple_passwd_settings_behavior_btn">
+				<a class="passwd_settings_behavior_btn_cancel" ng-click="togglePinInputPopup()">취소</a>
+				<a class="passwd_settings_behavior_btn_check" ng-click="setPinNumber()">확인</a>
+			</div>
+		</div>
+	</div>
+	
+</div>

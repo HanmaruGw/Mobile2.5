@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: setDirty</h3>
+    <p class="ttl">void setDirty(editor_id)</p>
+    <p class="txt">
+        에디터를 로드 후 현재 에디터에 작성중인 문서를 변경 되지 않은 초기 문서로 설정할 때 사용 합니다.<br />
+        기본 값은 false 입니다. 
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        없음.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">editor_id</span>&nbsp;&nbsp;적용할 에디터의 id를 의미합니다.<br />
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        setDirty를 적용 하면 현재 작성 중인 문서가 초기 문서로 설정 되어 이후 문서의 변경 유무를<br />
+        isDirty 함수를 통해 확인 할 수 있습니다. 
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+
+    function dext_editor_loaded_event() {
+        // id가 editor1인 에디터 디자인 영역의 내용을 초기 문서로 설정합니다.
+        DEXT5.setDirty('editor1'); 
+    }
+
+&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;  
+
+    &lt;!-- 에디터 생성 --&gt;
+    &#60;script type="text/javascript"&#62;
+        new Dext5editor('editor1');
+    &#60;/script&#62;      
+ 
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,43 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Upload Large File Sample</title>
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+    <link href="../css/sample.common.css" rel="stylesheet" />
+    <script src="../vender/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../js/sample.common.js" type="text/javascript"></script>
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+
+    <script type="text/javascript">
+    
+        function AjaxPageLoad(pageUrl) {
+
+            $.ajax({
+                url: pageUrl,
+                dataType: "html",
+                contentType: "application/x-www-form-urlencoded",
+                success: function (data) {
+                    $("#maincontent").html(data);
+                }
+            });
+
+        }
+
+    </script>
+</head>
+<body style="text-align:center;">
+    <ul class="info_lst_box">
+        <li>• 업로드/다운로드 시 파라미터 추가에 대한 샘플입니다.</li>
+    </ul>
+
+    <div class="btn_lst_box" style="width:820px">
+        <button type="button" value="예제1" style="width:130px;" class="input_image" onclick="AjaxPageLoad('sample_add_formdata_upload.html')">업로드 샘플</button>
+        <button type="button" value="예제2" style="width:130px;" class="input_image" onclick="AjaxPageLoad('sample_add_formdata_download.html')">다운로드 샘플</button>
+    </div>
+    <div style="border: solid 1px; padding: 10px 10px 20px 10px;width:800px;margin:0 auto" id="maincontent">DEXT5 Upload Holder</div>
+</body>
+</html>

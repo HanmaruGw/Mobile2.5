@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">               
+    <h3 class="title">DEXT5 Upload :: HandlerUrl</h3>
+    <p class="ttl">XML : &#60;handler_url&#62;.....&#60;/handler_url&#62;, Config : config.HandlerUrl</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        웹에서 RFC 1867 표준에 따르는 POST 방식의 파일 전송을 받아주는 페이지 URL입니다.<br/>
+        이미지 파일 또는 Flash, media 파일 등 서버에 파일이 업로드 되지 않을 경우 이 값의 설정을 확인하세요. 
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        기본값은 "" 입니다.<br />
+        dext5Upload/handler/ 아래의 각 언어에 맞는 페이지를 호출합니다.<br />
+        상대 및 절대 경로 모두를 지원합니다.<br/>
+        각 개발 언어에 맞는 값으로 설정하세요. 
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>업로드 handler url을 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;uploader_setting&#62;
+    .....
+    &#60;handler_url&#62;http://www.dext5.com/handler/dext5handler.jsp&#60;/handler_url&#62;
+    .....
+&#60;/uploader_setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        DEXT5UPLOAD.config.HandlerUrl = 'http://www.dext5.com/handler/dext5handler.jsp';
+
+        new Dext5Upload("upload1");
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

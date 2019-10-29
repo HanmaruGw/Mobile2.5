@@ -1,0 +1,253 @@
+<div class="mailContainer" ng-controller="hallaMailDetailCtrl" ng-click="detectReplyForward($event)">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarMenu" ng-click="popPage('pg_mail_view')">
+			<img src="/resources/image/back_arrow.png">
+		</div>
+		<div class="headerBarTitle">
+			<span>메일 보기</span>
+		</div>
+		<div class="headerBarMove" ng-click="btnMailNavigation('next')">
+			<img src="/resources/image/move_down_arrow.png">
+		</div>
+		<div class="headerBarMove" ng-click="btnMailNavigation('prev')" ng-show="mailData.PrevOffSet != -1">
+			<img src="/resources/image/move_up_arrow.png">
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	<div class="mailDetailDiv" ng-if="mailData != undefined">
+		<div class="mailDetailTitle">
+			<div>{{mailData.Subject}}</div>
+			<div>
+				<img src="/resources/image/mail_flag_icon.png" class="mailDetailFlagIcon" ng-show="mailData.FlagStatus == true">
+				<img src="/resources/image/mail_important_icon.png" class="mailDetailImportantIcon" ng-show="mailData.Importance === 'High'">
+			</div>
+		</div>
+		<div class="mailDetailSenderDiv">
+			<div class="mailDetailProfileImg">
+				<img src="/resources/image/user/bg_user_info_no_photo.png" class="mail_profile_img" ng-show="userDetailData == undefined || userDetailData.MyPhotoUrl.length == 0 || userDetailData.MyPhotoUrl.indexOf('//https://') != -1">
+				<img src="/resources/image/user/bg_user_info_no_photo.png" ng-src="{{userDetailData.MyPhotoUrl}}" class="mail_profile_img" ng-show="userDetailData.MyPhotoUrl.length > 0 && userDetailData.MyPhotoUrl.indexOf('//https://') == -1" ng-hide="userDetailData == undefined || userDetailData.MyPhotoUrl.length == 0 || userDetailData.MyPhotoUrl.indexOf('//https://') != -1">
+				<!-- <img src="/resources/image/user_profile_circle.png"> -->
+			</div>
+			
+			<div class="wrapMailUserInfo">
+				<div class="mailDetailSenderName">
+					<span>보낸 사람 : </span>
+					<span class="senderName" ng-click="selectOrganUser(mailData.FromEmailAddress)">{{mailData.FromName}}</span>
+				</div>
+				<div class="mailDetailReceiveName" ng-show="isRecipientShow">
+					<span>받는 사람 : </span>
+					<div class="receiveNameList">
+						<span class="receiveName" ng-repeat="recipient in mailData.ToRecipients" ng-click="selectOrganUser(recipient.EMailAddress)">
+							{{recipient.DisplayName}}
+						</span>
+					</div>
+				</div>
+				
+				<div class="mailDetailCCName" ng-show="isRecipientShow" ng-if="mailData.CcRecipients.length > 0">
+					<span>참조 : </span>
+					<div class="ccNameList">
+						<span class="ccName" ng-repeat="cc in mailData.CcRecipients" ng-click="selectOrganUser(cc.EMailAddress)">
+							{{cc.DisplayName}}
+						</span>
+					</div>
+				</div>
+				
+				<div class="mailDetailShare">
+					<img src="/resources/image/mail/ic_reply_mini.png">
+				</div>
+				<div class="mailDetailSenderDate">
+					<!-- LANG : {{userInfo.Lang}} / --> 
+					<span ng-if="userInfo.Lang == 'KOR'">{{mailData.ReceivedDateTime | date:'yyyy년 MM월 dd일 EEEE a h:mm'}}</span>
+					<span ng-if="userInfo.Lang == 'ENG'">{{mailData.ReceivedDateTime | date:'EEEE, MMMM dd, yyyy a h:mm'}}</span>
+					<span ng-if="userInfo.Lang == 'JPN'">{{mailData.ReceivedDateTime | date:'EEEE, MMMM dd, yyyy a h:mm'}}</span>
+					<span ng-if="userInfo.Lang == 'CHN'">{{mailData.ReceivedDateTime | date:'yyyy年M月dd日EEEE a h:mm'}}</span>
+					<span ng-if="userInfo.Lang == 'ETC'">{{mailData.ReceivedDateTime | date:'EEEE, MMMM dd, yyyy a h:mm'}}</span>
+				</div>
+				<div class="mailDetailSenderDetail" ng-click="btnToggleRecipientShow($event)">
+					<span ng-if="!isRecipientShow">자세히 보기</span>
+					<span ng-if="isRecipientShow">간단히 보기</span>
+				</div>
+			</div>
+		</div>
+		
+		<ul class="mailDetail_attachment" ng-if="mailData.Attachments.length > 0">
+			<li ng-repeat="file in mailData.Attachments">
+				<div class="file_ext">
+					<img ng-src="{{determineExtension(file)}}">
+				</div>
+				
+				<div class="file_info">
+					<a class="attach_file" ng-click="btnDownloadAttachFile($index, file.FileURL, file.FileName)" >{{file.FileName}}</a>
+					<!-- <a href="{{file.FileURL}}" ng-click="btnDownloadAttachFile('file.FileName', 'file.FileURL')">{{file.FileName}}</a><br> -->
+					<span class="txt_fileSize">{{getFileSizeUnit(file.FileSize)}}</span>
+				</div>
+			</li>
+		</ul>
+		
+		<div id="mailDetailContents" class="mailDetailContents">
+			<div id="mailDetailHTMLContents" ng-bind-html="mailData.HTMLBody" data-elem="pinchzoomer"> </div>
+		</div>
+		
+		<div class="wrap_magnify">
+			<a class="plus" ng-click="btnMailContentsZoomPlus()">
+				<img src="/resources/image/icon/ic_zoom_plus.png">
+			</a>
+			<a class="minus" ng-click="btnMailContentsZoomMinus()">
+				<img src="/resources/image/icon/ic_zoom_minus.png">
+			</a>
+		</div>
+		<!-- <div id="mailDetailContents" class="mailDetailContents">{{mailData.HTMLBody}}</div> -->
+	</div>
+	<div class="footerBar">
+		<a class="btnFooterMenu" ng-click="btnToggleFlag($event)">
+			<img src="/resources/image/mail/ic_flag_normal.png">
+			<span class="btnFooterText">플래그</span>
+		</a>
+ 		<a class="btnFooterMenu" ng-click="btnDlgMailMove($event)">
+			<img src="/resources/image/mail/ic_move_normal.png">
+			<span class="btnFooterText">이동</span>
+		</a>
+		<a class="btnFooterMenu" ng-click="btnDlgMailDelete($event)">
+			<img src="/resources/image/mail/ic_trash_normal.png">
+			<span class="btnFooterText">삭제</span>
+		</a>
+		<a class="btnFooterMenu reply" ng-click="btnShowReplyForwardMenu($event)">
+			<img src="/resources/image/mail/ic_reply_normal.png">
+			<span class="btnFooterText">회신</span>
+			<span class="wrapReplyMenu" ng-show="isShowReplyForward == true">
+				<span class="replyForward" ng-click="btnReply($event)">
+					회신
+				</span>
+				<span class="replyForward" ng-click="btnReplyAll($event)">
+					전체회신
+				</span>
+				<span class="replyForward" ng-click="btnForward($event)">
+					전달
+				</span>
+			</span>
+			
+		</a>
+		<a class="btnFooterMenu" ng-click="btnShowMailWrite($event)">
+			<img src="/resources/image/mail/ic_write_normal.png">
+			<span class="btnFooterText">메일작성</span>
+		</a>
+	</div>
+	
+	<div class="dlgMailMove" ng-show="isDlgMailMove == true" ng-click="dismissDlgMailMove($event)">
+		<div class="wrapDlgMailMove">
+			<div class="dlgMailMoveHeader">이동할 메일함 선택</div>
+			<div class="dlgMailMoveBody">
+				<ul>
+					<li ng-repeat="mailBox in moveMailBoxList"
+					   ng-class="{'child' : mailBox.Depth == 1 && mailBox.hasParent == true}">
+						<a ng-class="{'disabled' : currSubMenu == mailBox.FolderId, 'selected' : mailBox.FolderId == targetFolderId}" ng-click="btnSelectMoveMailFolder($event, mailBox.FolderId)">
+							<span ng-if="mailBox.FolderId != currSubMenu">
+								<!-- <img class="ic_mail" ng-src="/resources/image/icon/ic_mail_box_{{mailBox.FolderType | lowercase}}_normal.png" ng-if="mailBox.FolderType == 'INBOX'">
+								<img class="ic_mail" ng-src="/resources/image/icon/ic_mail_box_{{mailBox.FolderType | lowercase}}_normal.png" ng-if="mailBox.FolderType == 'SENTITEMS'">
+								<img class="ic_mail" ng-src="/resources/image/icon/ic_mail_box_{{mailBox.FolderType | lowercase}}_normal.png" ng-if="mailBox.FolderType == 'DELETEDITEMS'">
+								<img class="ic_mail" ng-src="/resources/image/icon/ic_mail_box_etc_normal.png"
+									 ng-if="mailBox.FolderType != 'INBOX' && mailBox.FolderType != 'SENTITEMS' && mailBox.FolderType != 'DELETEDITEMS'"> -->
+							</span>
+							
+							<span ng-if="mailBox.FolderId == currSubMenu">
+								<!-- <img class="ic_mail" ng-src="/resources/image/icon/ic_mail_box_{{mailBox.FolderType | lowercase}}_selected.png" ng-if="mailBox.FolderType == 'INBOX'">
+								<img class="ic_mail" ng-src="/resources/image/icon/ic_mail_box_{{mailBox.FolderType | lowercase}}_selected.png" ng-if="mailBox.FolderType == 'SENTITEMS'">
+								<img class="ic_mail" ng-src="/resources/image/icon/ic_mail_box_{{mailBox.FolderType | lowercase}}_selected.png" ng-if="mailBox.FolderType == 'DELETEDITEMS'">
+								<img class="ic_mail" ng-src="/resources/image/icon/ic_mail_box_etc_selected.png"
+									 ng-if="mailBox.FolderType != 'INBOX' && mailBox.FolderType != 'SENTITEMS' && mailBox.FolderType != 'DELETEDITEMS'"> -->
+							</span>
+							
+							{{mailBox.DisplayName}}
+							<!-- <span class="unreadCount" ng-show="mailBox.UnreadCount > 0">{{mailBox.UnreadCount | number}}</span> -->
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="dlgMailMoveFooter">
+				<a ng-click="btnConfirmMoveMail()">확인</a>
+			</div>
+		</div>
+	</div>
+	
+	<div class="dlgMailDelete" ng-show="isDlgMailDelete == true" ng-click="dismissDlgMailDelete($event)">
+		<div class="wrapDlgMailDelete">
+			<div class="dlgMailDeleteHeader">메일 삭제</div>
+			<div class="dlgMailDeleteBody">
+				삭제하시겠습니까?
+			</div>
+			<div class="dlgMailDeleteFooter">
+				<a ng-click="btnCancelDeleteMail()">취소</a>
+				<a ng-click="btnConfirmDeleteMail()">확인</a>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- 사용자 상세정보 -->
+	<div class="orgMemberDetail" ng-class="{'show':selectedOrganUser != undefined}">
+		<div class="memberProfile">
+			<span class="titleProfile">Profile</span>
+			<div class="memberProfilePhoto">
+				<img src="/resources/image/user/bg_user_info_no_photo.png" ng-class="{'enlarge' : isProfileImgEnlarge}"  class="profilePicture" ng-show="selectedOrganUser == undefined || selectedOrganUser.MyPhotoUrl.length == 0">
+				<img ng-src="{{selectedOrganUser.MyPhotoUrl}}" ng-class="{'enlarge' : isProfileImgEnlarge}"  class="profilePicture" ng-show="selectedOrganUser.MyPhotoUrl.length > 0" ng-hide="selectedOrganUser == undefined || selectedOrganUser.MyPhotoUrl.length == 0">
+				<img src="/resources/image/organization/ic_zoom_in_normal.png" class="profileZoom" ng-show="!isProfileImgEnlarge" ng-click="toggleProfileEnlarge()">
+				<img src="/resources/image/organization/ic_zoom_out_normal.png" class="profileZoomOut" ng-show="isProfileImgEnlarge" ng-click="toggleProfileEnlarge()">
+			</div>
+			<div class="wrap_memberInfo">
+				<div class="memberInfo_name">
+					<span>이름 : {{selectedOrganUser.UserName}}</span>
+				</div>
+				<div class="memberInfo_company">
+					<span>회사/부서 : {{selectedOrganUser.CompName}} / {{selectedOrganUser.DeptName}}</span>
+				</div>
+				<div class="memberInfo_office">
+					<span>직위/직책 : {{selectedOrganUser.LevelName}} / {{selectedOrganUser.PositionName}}</span>
+				</div>
+				<div class="memberInfo_phone memberInfo_img">
+					<span>유선전화 : </span>
+					<a ng-if="selectedOrganUser.LocationPhone == ''">내용없음</a>
+					<!-- <a ng-if="selectedOrganUser.LocationPhone != ''" ng-click="doExecCallPhone(selectedOrganUser.LocationPhone)">{{selectedOrganUser.LocationPhone}}</a> -->
+					<a href="tel:{{selectedOrganUser.LocationPhone}}" ng-if="selectedOrganUser.LocationPhone != ''">{{selectedOrganUser.LocationPhone}}</a>
+					
+					<a href="tel:{{selectedOrganUser.LocationPhone}}" class="btn_img" ng-if="selectedOrganUser.LocationPhone != ''">
+						<img src="/resources/image/organization/ic_location_phone_normal.png">
+					</a>
+				</div>
+				<div class="memberInfo_mobile memberInfo_img">
+					<span>휴대전화 : </span>
+					<a ng-if="selectedOrganUser.MobilePhone == ''">내용없음</a>
+					<!-- <a ng-if="selectedOrganUser.MobilePhone != ''" ng-click="doExecCallPhone(selectedOrganUser.MobilePhone)">{{selectedOrganUser.MobilePhone}}</a> -->
+					<a href="tel:{{selectedOrganUser.MobilePhone}}" ng-if="selectedOrganUser.MobilePhone != ''">
+						{{selectedOrganUser.MobilePhone}}
+					</a>
+					<a href="tel:{{selectedOrganUser.MobilePhone}}" class="btn_img" ng-if="selectedOrganUser.MobilePhone != ''">
+						<img src="/resources/image/organization/ic_mobile_phone_normal.png">
+					</a>
+				</div>
+				<div class="memberInfo_sms memberInfo_img">
+					<span>SMS : </span>
+					<a ng-if="selectedOrganUser.MobilePhone == ''">내용없음</a>
+					<!-- <a ng-if="selectedOrganUser.MobilePhone != ''" ng-click="doExecSMSPhone(selectedOrganUser.MobilePhone)">{{selectedOrganUser.MobilePhone}}</a> -->
+					<a href="sms:{{selectedOrganUser.MobilePhone}}" ng-if="selectedOrganUser.MobilePhone != ''">{{selectedOrganUser.MobilePhone}}</a>
+					<a href="sms:{{selectedOrganUser.MobilePhone}}" class="btn_img" ng-if="selectedOrganUser.MobilePhone != ''">
+						<img src="/resources/image/organization/ic_mobile_sms_normal.png" ng-click="doExecSMSPhone(selectedOrganUser.MobilePhone)">
+					</a>
+				</div>
+				<div class="memberInfo_email memberInfo_img">
+					<span>eMail : </span>
+					<a ng-if="selectedOrganUser.EmailAddress == ''">내용없음</a>
+					<a ng-if="selectedOrganUser.EmailAddress != ''" ng-click="doExecEmail(selectedOrganUser)">{{selectedOrganUser.EmailAddress}}</a>
+					<a class="btn_img" ng-click="doExecEmail(selectedOrganUser)">
+						<img src="/resources/image/organization/ic_email_address_normal.png">
+					</a>
+				</div>
+				<div class="memberInfo_place">
+					<span>근무지 : </span>
+					{{selectedOrganUser.CompName}}
+				</div>
+			</div>
+			<div class="profileDetailCheck" ng-click="closeOrganUserDialog()">확인</div>
+		</div>
+	</div>
+</div>

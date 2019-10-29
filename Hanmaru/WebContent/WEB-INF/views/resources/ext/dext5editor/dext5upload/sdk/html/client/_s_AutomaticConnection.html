@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">              
+    <span class="pl_type">[플러그인 전용]</span>   
+    <h3 class="title">DEXT5 Upload :: AutomaticConnection</h3>
+    <p class="ttl">XML : &#60;automatic_connection&#62;.....&#60;/automatic_connection&#62;, Config : config.AutomaticConnection</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        업로드/다운로드 시 묻지 않고 계속 업로드/다운로드 시도 사용을 설정합니다.<br />(불안정한 네트워크 환경 발생 시)
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        기본값은 "0"이고, "1"로 설정시 묻지 않고 계속 업로드/다운로드를 시도합니다.<br/>
+        config.ResumeUpload / config.ResumeDownload 설정값이 모두 "1" 일 경우 적용됩니다.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>업로드/다운로드 시 묻지 않고 계속 시도 사용을 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;automatic_connection&#62;1&#60;/automatic_connection&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        DEXT5UPLOAD.config.AutomaticConnection  = '1';
+
+        new Dext5Upload("upload1");
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

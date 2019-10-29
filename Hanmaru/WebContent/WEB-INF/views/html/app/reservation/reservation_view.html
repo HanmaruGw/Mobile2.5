@@ -1,0 +1,53 @@
+<div class="reservationContainer" ng-controller="ReservViewController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarBack" ng-click="popPage('pg_reserv_view')">
+			<img src="/resources/image/back_arrow.png">
+		</div>
+		<div class="headerBarTitle">
+			<span>{{translateLanguage('resource_view')}}</span>
+		</div>
+		<!-- <div class="headerBarMove approval_attach">
+			<img src="/resources/image/ic_menu_attach_pressed.png">
+		</div> -->
+		<div class="headerBarSearch approval_search">
+			
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	
+	<!--리스트-->
+	<div class="reservContentsDetail">
+		<div class="contentsDetailReserv">
+			<div class="reservContentsTop"><p>{{reservDetailData.Title}}</p></div>
+			<div class="reservContentsSubs"><p>{{translateLanguage('resource_owner_')}}</p><span class="reservSubsName">{{reservDetailData.OwnerDisplayName}}</span></div>
+			<div class="reservContentsResource"><p>{{translateLanguage('resource_resource_name')}}</p><span class="reservResourceName" ng-click="btnResourceInfo(reservDetailData.RESOURCE_NAME)">{{reservDetailData.RESOURCE_NAME}}</span></div>
+			<div class="reservContentsAttendee">
+				<p>{{translateLanguage('resource_user')}}</p>
+				<div class="reservAttendeeGroup">
+					<span class="reservAttendeeName" ng-repeat="reservOrgan in reservOrganList">{{reservOrgan.DisplayName}}</span>
+				</div>
+			</div>
+			<div class="reservContentsMeet"><p>{{translateLanguage('resource_reservation_type')}}</p><span class="reservMeetName">{{reservDetailData.ReservationType}}</span></div>
+			<div class="reservContentsTime"><p>{{translateLanguage('resource_reservation_time')}}</p><span class="reservTimeName">{{reservDetailData.ReservationTime}}</span></div>
+			<div class="reservContentsAttendNum"><p>{{translateLanguage('resource_user_count')}}</p><span class="reservTimeName">{{reservDetailData.UserCount}}명</span></div>
+			<div class="reservContentsContact"><p>{{translateLanguage('resource_phone')}}</p><span class="reservContactName">{{reservDetailData.Phone}}</span></div>
+			<div class="reservContentsEmergency"><p>{{translateLanguage('resource_mobile_phone')}}</p><span class="reservEmergencyName">{{reservDetailData.MobilePhone}}</span></div>
+			<div class="reservContentsCompany"><p>{{translateLanguage('resource_comp')}}</p><span class="reservCompanyName">{{reservDetailData.Comp}}</span></div>
+			<div class="reservContentsExplain"><p>{{translateLanguage('resource_contents')}}</p><span class="reservExplainName">{{reservDetailData.CONTENTS}}</span></div>
+		</div>
+		<!-- <div class="viewContentsDetail">
+			이 영역에 html 문서를 불러온다
+		</div> -->
+	</div>
+	<div class="reservStartBtn" ng-show="reservDetailData.ViewStartBt == '1'">
+		<span>{{translateLanguage('resource_meeting_start')}}</span>
+	</div>
+	<div class="reservFinishBtn" ng-show="reservDetailData.ViewEndBt == '1'">
+		<span>{{translateLanguage('resource_meeting_end')}}</span>
+	</div>
+	<div class="reservCancelBtn" ng-show="reservDetailData.ViewCancelBt == '1'" ng-click="reservCancel(reservDetailData.SEQ)">
+		<span>{{translateLanguage('resource_cancel')}}</span>
+	</div>
+	
+</div>

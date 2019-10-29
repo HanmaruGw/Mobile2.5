@@ -1,0 +1,52 @@
+<div class="workDiaryContainer" ng-controller="reportViewController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarMenu" ng-click="popPage('pg_report_view')">
+			<img src="/resources/image/ic-arrow-left.png">
+		</div>
+		<div class="headerBarTitle diaryDrop">
+			<span>{{translateLanguage('work_my_report')}}</span>
+		</div>
+		<!-- <div class="headerBarMove">
+			<img src="/resources/image/ic-arrow-bottom.png">
+		</div>
+		<div class="headerBarMove">
+			<img src="/resources/image/ic-arrow-top.png">
+		</div> -->
+		<div class="headerUnderBar"></div>
+	</div>
+	
+	<div class="reportViewDiv">
+		<div class="reportViewTitle">
+			<div class="reportViewTitleLabel">{{resReportDetail.Title}}</div>
+			<!-- <div class="icReportViewContents">
+				<span class="ic_report_has_unread"></span>
+			</div> -->
+		</div>
+		<div class="reportViewInfo">
+			<div class="reportInfoContentsManager">
+				<span class="reportInfoManagerLabel">{{translateLanguage('reg_user_name')}}</span>
+				<span class="reportInfoManagerName">{{resReportDetail.CreateUser.DisplayName}}</span>
+			</div>
+			<div class="reportInfoContentsSharer">
+				<span class="reportInfoSharerLabel">{{translateLanguage('work_share_users')}}</span>
+				<div class="reportInfoSharerWrap">
+					<span class="reportInfoSharerName" ng-repeat="shareUser in resReportDetail.ShareUser">{{shareUser.DisplayName}}</span>
+				</div>
+			</div>
+		</div>
+		<div class="reportViewContentsWrap">
+			<div class="reportViewContentsDiv">
+				<iframe class="reportViewContents" ng-src="{{bodyUrl}}" width="100%" height="100%" framespacing=0 frameborder=0  marginheight=0 marginwidth=0 vspace=0 ></iframe>
+			</div>
+		</div>
+	</div>
+	<div class="reportViewFooterDiv">
+		<div class="reportViewModify" ng-click="reportModify()">
+			<span>{{translateLanguage('modify')}}</span>
+		</div>
+		<div class="reportViewDelete" ng-click="reportDelete()">
+			<span>{{translateLanguage('remove')}}</span>
+		</div>
+	</div>
+</div>

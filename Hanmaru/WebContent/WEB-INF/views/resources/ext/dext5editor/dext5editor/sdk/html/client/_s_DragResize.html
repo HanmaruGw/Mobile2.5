@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: DragResize</h3>
+    <p class="ttl">
+        XML : &#60;drag_resize&#62;.....&#60;/drag_resize&#62;, Config : config.DragResize<br />
+        XML : &#60;drag_resize apply_browser="....."&#62;&#60;/drag_resize&#62;, Config : config.DragResizeApplyBrowser<br />
+        XML : &#60;drag_resize apply_div_class="....."&#62;&#60;/drag_resize&#62;, Config : config.DragResizeApplyDivClass
+    </p>
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">XML:drag_resize,Config:DragResize</span>&nbsp;&nbsp;에디터 또는 브라우저의 기본 리사이즈 사용여부를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:apply_browser,Config:DragResizeApplyBrowser</span>&nbsp;&nbsp;리사이즈 기능을 사용할 브라우저를 설정합니다. 
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:apply_div_class,Config:DragResizeApplyDivClass</span>&nbsp;&nbsp;사용자가 지정한 class명의 div태그를 에디터에서 제공하는 리사이즈기능으로 컨트롤할 수 있습니다. 
+        </span>
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">XML:drag_resize,Config:DragResize</span>&nbsp;&nbsp;기본값은 "0" 이고 브라우저 기본 리사이즈를 사용, "1"로 설정 시 에디터에서 제공하는 리사이즈를 사용합니다.<br />
+            <span style="padding-left:197px">"1" 일 경우 XML:apply_browser,Config:DragResizeApplyBrowser,</span><br />
+            <span style="padding-left:197px">XML:apply_div_class,Config:DragResizeApplyDivClass 설정이 가능합니다.</span>
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:apply_browser,Config:DragResizeApplyBrowser</span>&nbsp;&nbsp;ie,edge,firefox,opera,chrome,safari 설정값 중 설정된 브라우저만 리사이즈를 사용합니다.<br />
+            <span style="padding-left:283px"> 빈값일 경우 모든 브라우저가 설정됩니다.</span>
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:apply_div_class,Config:DragResizeApplyDivClass</span>&nbsp;&nbsp;기본값은 모든 div 리사이즈기능을 사용합니다.
+        </span>
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+<b>에디터에서 제공하는 리사이즈를 사용 설정합니다.</b>
+<b>에디터에서 제공하는 리사이즈를 ie,firefox,opera 브라우저만 사용합니다.</b>
+<b>"resizeClass" class명의 div태그를 에디터에서 제공하는 리사이즈기능으로 컨트롤 가능하도록 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;drag_resize apply_browser="ie,firefox,opera" apply_div_class="resizeClass"&#62;1&#60;/enter_tag&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+ 
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;    
+    &#60;script type="text/javascript"&#62;
+
+        DEXT5.config.DragResize = "1";
+        DEXT5.config.DragResizeApplyBrowser = "ie,firefox,opera";
+        DEXT5.config.DragResizeApplyDivClass = "resizeClass";
+
+        new Dext5editor("editor1");
+
+    &#60;/script&#62;       
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

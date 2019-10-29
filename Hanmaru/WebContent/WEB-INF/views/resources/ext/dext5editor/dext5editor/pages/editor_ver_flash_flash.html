@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Image</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+</head>
+<body style="margin:0px; padding:0px; " onload="page_loaded_event();">
+    <div id="dext_dialog_box" class="editor_s01_popup ed_green">
+	    <!-- Header -->
+	    <div class="EdiTor_Popup_header">
+		    <span id="span_title" class="subject">Windows Media Player</span><span class="text">DEXT5 Editor</span>
+		    <div class="close">
+			    <a href="javascript:event_dext_image_upload_cancel();" title="close"></a>
+		    </div>
+	    </div>
+	    <!-- // Header -->
+        <!-- Contents -->
+        <div id="dext_flash_box" style="width:480px; height:350px;"></div>
+        <div id="div_config" style="display:none;">
+            <input type="hidden" id="document_domain" name="document_domain" value="" />
+			<input type="hidden" id="upload_url" name="upload_url" value="" />
+            <input type="hidden" id="proxy_url" name="proxy_url" value="" />
+			<input type="hidden" id="uploadtype" name="uploadtype" value="image" />
+			<input type="hidden" id="savefilename" name="savefilename" value="" />
+			<input type="hidden" id="savefileext" name="savefileext" value="" />
+			<input type="hidden" id="serverdomain" name="serverdomain" value="" />
+			<input type="hidden" id="tosavepathurl" name="tosavepathurl" value="" />
+            <input type="hidden" id="savafoldernamerule" name="savafoldernamerule" value="" />
+            <input type="hidden" id="savafilenamerule" name="savafilenamerule" value="" />
+			<input type="hidden" id="image_convert_format" name="image_convert_format" value="" />
+			<input type="hidden" id="image_convert_width" name="image_convert_width" value="" />
+			<input type="hidden" id="image_convert_height" name="image_convert_height" value="" /> 
+            <input type="hidden" id="userField" value="" />
+            <input type="hidden" id="upload_client_type" value="flash" />
+		</div>
+        <!-- // Contents -->
+        <!-- Footer -->
+		<!-- div class="EdiTor_Popup_footer">
+			<span id="dext_loading" style="display:none;"><img src="../images/editor/dialog/loading.gif" alt="working" style="vertical-align:middle; " /> Uploading... </span>
+			<a href="javascript:void(0);" class="confirm" id="btn_ok_a"><span id="btn_ok">확인</span></a>
+			<a href="javascript:event_dext_image_upload_cancel();" class="cancel" id="abtn_cancel"><span id="btn_cancel">취소</span></a>
+		</div -->
+		<!-- // Footer -->
+    </div>
+	<script type="text/javascript">
+	    function event_uria_flash_upload(_save_guid, _org_file_ext, _org_file_name, _org_file_size, flash_web_url, flash_html) {
+	        if (flash_web_url != "") {
+	            var flashInfo = flash_web_url.split('?');
+	            flash_web_url = flashInfo[0];
+	        }
+
+	        if (flash_html.indexOf("?0^0") > -1) {
+	            flash_html = flash_html.replace("?0^0", "");
+	        }
+
+	        event_dext_flash_flash_upload_completed(_org_file_name, flash_web_url, flash_html);
+	    }	    
+	    function event_uria_flash_upload_cancel() {
+	        event_dext_image_upload_cancel();
+	    }
+	    function page_loaded_event() {
+	        set_page_lang();
+	    }
+	    function set_page_lang() {
+	        var _skin_name = LayerWin._dext_editor._config.style.skinName;
+
+	        document.getElementById("dext_dialog_box").className = 'DEXT_fiVe_ED_Popup_Type02 DEXT_fiVe_PUi_' + _skin_name;
+
+	        document.title = LayerWin.dext5_lang.flash.title;
+	        document.getElementById("span_title").innerHTML = LayerWin.dext5_lang.flash.title;	        
+
+	        var header = LayerWin.getElementsByClass('EdiTor_Popup_header', document);
+	        header[0].onselectstart = function () { return false; };
+
+	        var EdiTor_Popup_header = DEXTTOP.document.getElementById('EdiTor_Popup_header');
+	        //EdiTor_Popup_header.style.display = "none";
+	        //EdiTor_Popup_header.style.position = "absolute";
+	        //EdiTor_Popup_header.style.top = "0px";
+	        //EdiTor_Popup_header.style.left = "0px";
+	    }
+
+	    var _URIA_LANG = "ko"; // parent.document.getElementById("ht_uria_lang").value;
+	    var _UPLOAD_SWF = '../include/editor_flash_uploader.swf';
+	    var _CONFIG_URL = "../config/flash/flash_uploader_config.xml";
+	    var _LANG_URL = "../config/flash/flash_editor_" + _URIA_LANG + ".xml";
+		
+		var _UPLOADER = _UPLOAD_SWF + "?config_url=" + _CONFIG_URL + "&lang_url=" + _LANG_URL;
+
+		dext_swf("dext_flash_box", "editor_ver_flash_flash", _UPLOADER);
+	</script>
+</body>
+</html>

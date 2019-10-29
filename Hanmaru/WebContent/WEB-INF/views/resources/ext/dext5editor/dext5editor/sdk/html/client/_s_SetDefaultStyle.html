@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: ContextMenuDisable</h3>
+    <p class="ttl">
+        XML : &#60;set_default_style&#62;.....&#60;/set_default_style&#62;<br />
+        XML : &#60;set_default_style dext_set_style="....."&#62;&#60;/set_default_style&#62;<br />
+        XML : &#60;set_default_style body_id=".....""&#62;&#60;/set_default_style&#62;
+    </p>
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">XML:set_default_style</span>&nbsp;&nbsp;에디터 로드 시 기본 스타일이 없을 경우 body 영역에 에디터 스타일을 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:dext_set_style</span>&nbsp;&nbsp;기본 스타일 사용으로 설정 시 DEXT5Editor 기본 CSS 로드 사용 여부를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:body_id</span>&nbsp;&nbsp;에디터 body 영역에 id 값을 설정합니다.
+        </span> 
+    </p> 
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">XML:set_default_style</span>&nbsp;&nbsp;기본값은 "0" 이고 에디터 기본 스타일 사용,<br />
+            <span style="padding-left:127px">"1"로 설정 시 에디터 body영역만 스타일 설정,</span><br />
+            <span style="padding-left:127px">"2"로 설정 시 getAPI 사용으로 태그에 inline 스타일 설정됩니다. </span>
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:dext_set_style</span>&nbsp;&nbsp;기본값은 "1" 이며 스타일 적용, "0" 이면 스타일을 미적용 합니다.<br />
+            <span style="padding-left:112px">set_default_style 설정값이 "0" 이고,</span><br />
+            <span style="padding-left:112px">dext_set_style 설정값을 "0" 으로 설정하면 외부 URL 로드 시 DEXT5Editor 기본 CSS를 로드하지 않습니다.</span>
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:body_id</span>&nbsp;&nbsp;기본값은 "dext_body"이고, "사용자 설정값"으로 설정합니다. 
+        </span> 
+    </p>   
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>에디터 로드 시 기본 스타일이 없을 경우 body 영역에 에디터 스타일을 getAPI 사용으로 태그에 inline 스타일 설정합니다.</b>
+<b>기본 스타일 사용으로 설정 시 DEXT5Editor 기본 CSS 로드 사용 여부를 사용 안함으로 설정합니다.</b>
+<b>에디터 body 영역에 id 값을 "custom_body_id"로 설정합니다.</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;set_default_style dext_set_style="0" body_id="custom_body_id"&#62;2&#60;/set_default_style&#62;
+    .....
+&#60;/setting&#62;
+.....
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

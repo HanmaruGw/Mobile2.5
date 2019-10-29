@@ -1,0 +1,25 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Editor Sample</title>
+	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link href="../css/sample.common.css" rel="stylesheet" />
+    <script>
+        function fn_load() {
+            var _html = opener.document.getElementById('getValueArea').value;
+
+            document.getElementById('contents').innerHTML = _html;
+        }
+    </script>
+</head>	
+<body onload="fn_load();">
+    <ul class="info_lst_box">
+        <li>
+            • 보기페이지 예시
+        </li>
+    </ul>
+    <div id="contents" class="btn_lst_box" style="border:1px solid #000000; padding:10px; width:800px;"></div>
+</body>
+</html>

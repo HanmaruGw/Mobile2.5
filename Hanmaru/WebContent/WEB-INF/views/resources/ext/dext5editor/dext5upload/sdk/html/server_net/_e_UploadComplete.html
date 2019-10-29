@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con">
+            <h3 class="title">DEXT5 Upload :: UploadCompleteEvent</h3>
+            <p class="ttl">void Dext5_UploadCompleteEventEx<br />(Raonwiz.Dext5.Process.Entity.UploadEventEntity parameterEntity)</p>
+            <p class="txt">
+                파일 업로드시 서버에 저장한 후 Response하기 바로 전에 발생합니다.
+                <br />업로드하려는 파일에 대한 정보를 얻은 후 해당 정보에 대하여 로그출력을 하려는 경우 사용합니다.
+                <br />이미지 핸들링 api를 사용할 경우에도 사용합니다. (해당 이미지 경로변경이 없을 경우)
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">parameterEntity</span>&nbsp;&nbsp;다운로드 요청시 정보를 추출할 수 있고 정보를 변경할 수 있는 Object를 의미합니다.<br />
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                dext5handler.ashx에서 "upload.Process(context);" 전에<br />아래와 같이 이벤트 처리기가 등록되면 이벤트가 발생됩니다.<br /><br />upload.UploadCompleteEventEx +=<br />new Raonwiz.Dext5.UploadHandlerDelegateEx(Dext5_UploadCompleteEventEx);
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+upload.UploadCompleteEventEx +=
+        new Raonwiz.Dext5.UploadHandlerDelegateEx(Dext5_UploadCompleteEventEx);
+upload.Process(context);
+        
+private void Dext5_UploadCompleteEventEx(Raonwiz.Dext5.Process.Entity.UploadEventEntity parameterEntity)
+{
+    //업로드 요청 Context 정보를 추출합니다.
+    HttpContext context = parameterEntity.Context;
+    //업로드하려는 파일의 물리적 경로(파일명 포함)를 추출합니다.
+    string newFileLocation = parameterEntity.NewFileLocation;
+    //업로드하려는 파일의 Response 경로(파일명 포함)를 추출합니다.
+    string responseFileServerPath = parameterEntity.ResponseFileServerPath;
+    //업로드하려는 파일의 Response 파일명을 추출합니다.
+    string responseFileName = parameterEntity.ResponseFileName;
+}
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

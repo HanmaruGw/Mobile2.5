@@ -1,0 +1,120 @@
+<div class="reservationContainer" ng-controller="ReservBookingListController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarMenu" ng-click="slideMenuClick()">
+			<img src="/resources/image/menu_img.png">
+		</div>
+		<div class="headerBarTitle">
+			<span>간편예약</span>
+		</div>
+		<div class="headerBarMove approval_attach">
+			
+		</div>
+		<div class="headerBarSearch approval_search">
+			
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	<div class="reservHaveWrap" >
+		<div class="reservHaveContents">
+			<div class="reservHaveSubs">
+				<p>지역선택</p>
+				<div class="reservSelectPlace" ng-click="selectAreaCode()">
+					<select name="reservSelectName" class="reservOptionPlace" ng-model="areaCode" >
+						<option ng-repeat="area in areaList" value="{{area.Value}}" >{{area.DisplayName}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="reservHaveTime">
+				<p>예약시간</p>
+				<div class="reservHaveFirst" ng-click="chooseSearchDate('start')">
+					<input type="text" class="txtDateSearch" ng-model="txtSearchDate" readonly="readonly" ng-trim="true">
+					<img src="/resources/image/mail/ic-calendar.png">
+				</div>
+			</div>
+			</div>
+			<div class="reservSelectTime">
+				<p></p>
+				<div class="reservSelectFirst">
+					<select name="reservSelectName" class="selectFirstOption" ng-model="txtStartTime" ng-init="txtStartTime = txtStartTime || options[0].value" 
+						ng-change="selectStartTime(txtStartTime)">
+						<option value='6:00'>6:00</option>
+						<option value='6:30'>6:30</option>
+						<option value='7:00'>7:00</option>
+						<option value='7:30'>7:30</option>
+						<option value='8:00'>8:00</option>
+						<option value='8:30'>8:30</option>
+						<option value='9:00'>9:00</option>
+						<option value='9:30'>9:30</option>
+						<option value='10:00'>10:00</option>
+						<option value='10:30'>10:30</option>
+						<option value='11:00'>11:00</option>
+						<option value='11:30'>11:30</option>
+						<option value='12:00'>12:00</option>
+						<option value='12:30'>12:30</option>
+						<option value='13:00'>13:00</option>
+						<option value='13:30'>13:30</option>
+						<option value='14:00'>14:00</option>
+						<option value='14:30'>14:30</option>
+						<option value='15:00'>15:00</option>
+						<option value='15:30'>15:30</option>
+						<option value='16:00'>16:00</option>
+						<option value='16:30'>16:30</option>
+						<option value='17:00'>17:00</option>
+						<option value='17:30'>17:30</option>
+						<option value='18:00'>18:00</option>
+						<option value='18:30'>18:30</option>
+						<option value='19:00'>19:00</option>
+						<option value='19:30'>19:30</option>
+						<option value='20:00'>20:00</option>
+						<option value='20:30'>20:30</option>
+						<option value='21:00'>21:00</option>
+						<option value='21:30'>21:30</option>
+						<option value='22:00'>22:00</option>
+						<option value='22:30'>22:30</option>
+						<option value='23:00'>23:00</option>
+						<option value='23:30'>23:30</option>
+					</select>
+				</div>
+				<div class="reservFromTxt">부터</div>
+				<div class="reservSelectSecond">
+					<select name="reservSelectName" class="selectSecondOption" ng-model="txtPeriod" ng-init="txtPeriod = txtPeriod || options[0].value" 
+						ng-change="selectPeriod(txtPeriod)">
+						<option value='30'>30분</option>
+						<option value='60'>1시간</option>
+						<option value='90'>1시간 30분</option>
+						<option value='120'>2시간</option>
+						<option value='150'>2시간 30분</option>
+						<option value='180'>3시간</option>
+						<option value='210'>3시간 30분</option>
+						<option value='240'>4시간</option>
+						<option value='270'>4시간 30분</option>
+						<option value='300'>5시간</option>
+						<option value='330'>5시간 30분</option>
+						<option value='360'>6시간</option>
+						<option value='390'>6시간 30분</option>
+						<option value='420'>7시간</option>
+						<option value='450'>7시간 30분</option>
+						<option value='480'>8시간</option>
+					</select>
+				</div>
+				<div class="reservToTxt">동안</div>
+			</div>
+			<div class="reservCheckBtn"><span ng-click="reservFindPossible()">조회</span></div>
+		</div>
+		<!--리스트-->
+		<div class="reservCheckDiv">
+			<div class="reservCheckList"  >
+				<div class="reservCheckContents" ng-repeat="reservPossibleItem in reservPossibleList">
+					<span>{{reservPossibleItem.Resource_name}}</span>
+					<p>{{reservPossibleItem.Attender_limit}}명 / {{reservPossibleItem.resource_kind_name}}</p>
+				</div>
+				<div class="reservSelectBtn" ng-click="reservChoiceBtn(reservPossibleItem)">선택</div>
+			</div>
+		</div>
+		<div class="reservNoResult">검색된 데이터가 없습니다</div>
+	</div>
+	
+	
+	
+</div>

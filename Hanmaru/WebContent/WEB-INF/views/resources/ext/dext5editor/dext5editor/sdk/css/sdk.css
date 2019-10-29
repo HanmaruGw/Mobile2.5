@@ -1,0 +1,71 @@
+﻿@charset "utf-8";
+
+body, html, div, p, span, ul, ol, li, h1, h2, h3, h4, h5, h6, a, img, dl, dt, dd, form, pre, code, fieldset, legend, textarea, blockquot, button, th, td, input, select, strong { margin:0; padding:0}
+fieldset,i, img {border:0 none}
+img {width:inherit; max-width:100%; height:auto;}
+dl, ul, ol, menu, li {list-style:none}
+blockquote, p {quotes:none}
+blockquote:before, blockquote:after, q:before, q:after {content:""; content:none}
+input, select, textarea, button {vertical-align:middle}
+button, a {border:0 none; background-color: transparent; cursor:pointer; text-decoration:none;}
+body, th, td, input, select, textarea, button { font-size:100%;/*** Font Size 수정금지 ***/ line-height:1.5; letter-spacing:0; word-spacing:1}
+/*body, html {width:100%; height:100%}*/
+address, caption, cite, code, dfn, em, var {font-style:normal; font-weight:normal}
+table {padding:0; border-spacing:0px; border:0; border-collapse:collapse;}
+th, td {padding:0px;}
+.text_l {text-align:left;}
+
+/* Index */
+.sdk {font-family: 'Malgun Gothic',"돋움",Dotum,Helvetica,'Apple SD Gothic Neo',Sans-serif; color:#444; position:relative; padding:0; margin:0; width:100%; min-width:1100px; height:100%;}
+.sdk a {color:#333; text-decoration:none}
+.sdk a:active, .sdk a:hover {text-decoration:underline}
+.txt_hidden, #skipNav { position:-625.000em -625.000em; height:0; line-height:0; font-size:0; visibility:hidden}
+.sdk {width: 1220px; height:835px; border:1px solid #54a8e2;/*Main blue*/background-color:#ffffff; position:relative; display:block;}
+
+/*header*/
+.sdk .header {width:100%; height:50px; background-color:#007ace; position:absolute; overflow:visible; z-index:9999; *top:0px; *left:1px; *width:1200px !important; }
+.sdk .header h1 {display:inline-block; color:#ffffff; line-height:47px; margin-left:10px; *float:left;}
+.sdk .header h1 img {vertical-align:middle;}
+.sdk .header h1 span {margin-left:8px; font-size:22px; font-weight:600;}
+.sdk .header .searchArea {float:right; line-height:47px; margin-right:10px; width:350px; text-align:right; position:relative;}
+.sdk .header .searchArea .search_btm input {background-color:transparent; border:0; width:200px; color:#ffffff; position:relative; border-bottom:1px solid #54a8e2; height:27px; padding:3px; *padding:0;}
+.sdk .header .searchArea .sch_smit .icon_search {background:url(../images/icon_search.png) no-repeat 0 9px; width:25px; height:30px; display:inline-block;}
+.sdk .header .searchArea .btn_index { width:77px; height:29px; background-color:#2f98e0; border-radius:15px; display:inline-block; vertical-align: middle; text-align:center; line-height:29px; color:#ffffff; font-size:12px;}
+.sdk .header .searchArea .btn_index:hover {text-decoration:none; background-color:#239aec;}
+.sdk .header .searchArea .search_h {position:absolute; overflow-y:auto; width: 300px; height: 150px; font-size: 12px; line-height: 20px; background-color:#ffffff; text-align:left; box-shadow:0 0 1px 1px rgba(0,0,0,0.3); border:1px solid #54a8e2; left:29px; top:46px; padding:10px 0;}
+.sdk .header .searchArea .search_h ul li {white-space:nowrap; text-overflow:ellipsis; overflow:hidden; width: 91%;padding:0 10px; }
+.sdk .header .searchArea .search_h ul li:hover {background-color:#f5f5f5; padding:0 10px;}
+.sdk .header .searchArea .search_h ul li a:hover {text-decoration: none}
+
+/*side menu*/
+.sdk .sideMenu {width:278px; height:750px; overflow-y:auto; padding:10px; position:relative; float:left; box-sizing: border-box; margin-top:50px; *width:258px; *height:730px;}
+.sdk .resizeBar {position:absolute; width:5px; height:800px; cursor:col-resize; background:url(../images/resizeBar.png) repeat-y; left: 270px; margin: 0 5px; z-index: 999}
+.sdk .sideMenu ul li {white-space:nowrap;}
+.sdk .sideMenu ul li span {white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:60%}
+.sdk .sideMenu a {font-size:12px; color: #000000; line-height:23px;}
+.sdk .sideMenu .on span,
+.sdk .sideMenu a:active {text-decoration:underline;}
+.sdk .sideMenu span {margin-left: 3px; display:inline-block; vertical-align:middle;}
+.sdk .sideMenu .icon {background:url(../images/icon.png) no-repeat; display:inline-block; width: 20px; height: 20px; vertical-align:middle; margin-right:3px}
+.sdk .sideMenu .open {background-position:-180px 0 }
+.sdk .sideMenu .close {background-position:-200px 0}
+.sdk .sideMenu .icon_intro {background-position:0px 0 }
+.sdk .sideMenu .icon_guide {background-position:-20px 0 }
+.sdk .sideMenu .icon_sample {background-position:-40px 0}
+.sdk .sideMenu .icon_setting {background-position: -60px 0}
+.sdk .sideMenu .icon_brace {background-position: -100px 0;}
+.sdk .sideMenu .icon_js {background-position: -120px 0}
+.sdk .sideMenu .icon_net {background-position: -140px 0}
+.sdk .sideMenu .icon_ja {background-position: -160px 0}
+.sdk .sideMenu .icon_serverinfo {background-position:-80px 0;}
+.sdk .sideMenu .depth2 {padding-left:23px; color:#1b3380;}
+.sdk .sideMenu .depth3 {padding-left:70px}
+.sdk .sideMenu .none {visibility:hidden;}
+
+/*contents Area*/
+.sdk .contents {width:942px; height:750px; position:relative; float:left; padding:15px; box-sizing: border-box; overflow-y:auto; margin-top:50px; *width:892px; *height:720px}
+
+/*footer*/
+.sdk .footer {width:100%; height:35px; background-color:#007ace; position:absolute; bottom:0; z-index:9999; text-align:center; *left:0; *width:1200px !important; }
+.sdk .footer address {font-size:12px; color:#ffffff; line-height: 35px}
+

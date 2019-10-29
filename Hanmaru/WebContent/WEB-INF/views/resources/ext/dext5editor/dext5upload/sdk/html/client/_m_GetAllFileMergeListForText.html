@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Upload :: GetAllFileMergeListForText</h3>
+    <p class="ttl">string GetAllFileMergeListForText(uploadID)</p>
+    <p class="txt">
+        전송완료 후 새롭게 업로드 된 파일과 이미 업로드된 파일 리스트 모두를 순서대로 text 형태로 리턴합니다.
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+       <span class="firebrick">string</span>&nbsp;&nbsp;전송완료 후 업로드된 모든 파일이 합쳐진 리스트를 의미합니다.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">uploadID</span>&nbsp;&nbsp;파일 리스트를 가져올 업로드의 id를 의미합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        없음.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+        function DEXT5UPLOAD_OnTransfer_Complete(uploadID) {
+            var file_list = DEXT5UPLOAD.GetAllFileMergeListForText("upload1");
+
+            //var unitDelimiter = "\u000B"; // 파일 구분자
+            //var unitAttributeDelimiter = "\u000C"; // 파일정보 구분자
+            //var files;
+            //var file_info;
+            //if (file_list) {
+            //    files = file_list.split(unitDelimiter);
+            //    for (var i = 0; i < files.length; i++) {
+            //        file_info = files[i].split(unitAttributeDelimiter);
+            //    }
+            //}
+
+            // var type = file_info[0] // 파일유형( 1 - 웹파일, 0 - 업로드 파일)
+            // var uniqKey = file_info[1] // 웹파일 추가 시 설정한 유니크키
+            // var originalName = file_info[2] // 원본파일명
+            // var uploadName = file_info[3] // 업로드 된 파일명
+            // var size = file_info[4] // 파일크기
+            // var guid = file_info[5] // 업로드 파일명(guid)
+            // var uploadPath = file_info[6] // 업로드경로
+            // var status = file_info[7] // 업로드상태
+            // var logicalPath = file_info[8] // 폴더구조로 업로드 또는 웹파일 추가 시 파일의 폴더경로
+            // var extension = file_info[9] // 확장자
+            // var localPath = file_info[10] // 로컬경로
+            // var mark = file_info[11] // markValue
+            // var reponseCustomValue = file_info[12] // 서버로부터 받은 customValue
+            // var order = file_info[13] // 업로드리스트에서의 순서
+            // var customValue = file_info[14] // 웹파일 추가 시 설정한 customValue
+        }
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+        &#60;script type="text/javascript"&#62;
+            new Dext5Upload("upload1");
+        &#60;/script&#62;
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

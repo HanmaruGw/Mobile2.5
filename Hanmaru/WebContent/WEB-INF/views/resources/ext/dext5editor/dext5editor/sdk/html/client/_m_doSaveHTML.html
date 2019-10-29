@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con"> 
+    <span class="pl_type">[플러그인 전용]</span>          
+    <h3 class="title">DEXT5 Editor :: doSaveHTML </h3>
+    <p class="ttl">void doSaveHTML(strContent, strDefaultFileName, strCharSet, editor_id)</p>
+    <p class="txt">
+        에디터에 작성한 소스를 html파일로 저장합니다.
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        없음.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">strContent</span>&nbsp;&nbsp;저장할 html 소스입니다.<br />
+        <span class="firebrick">strDefaultFileName</span>&nbsp;&nbsp;저장할 기본 html 파일명입니다.<br />
+        <span class="firebrick">strCharSet</span>&nbsp;&nbsp;저장할 문자 형태입니다.<br />
+        <span class="firebrick">editor_id</span>&nbsp;&nbsp;접근할 에디터의 id 입니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        strCharSet에 'utf-8'을 입력하면 UTF-8 형태로, 빈 값('')이면 ANSI 형태로 저장합니다.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+
+    function saveHTML(){
+        var strContent = DEXT5.getBodyValue('editor1');
+        var strDefaultFileName = 'dext5';
+        var strCharSet = 'utf-8';
+
+        DEXT5.doSaveHTML(strContent, strDefaultFileName, strCharSet, 'editor1');
+    }
+
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;  
+
+    &#60;!-- 에디터 생성 --&#62;  
+    &#60;script type="text/javascript"&#62;
+        new Dext5editor('editor1');
+    &#60;/script&#62;
+
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>                         
+</div>
+</body>
+</html>
+

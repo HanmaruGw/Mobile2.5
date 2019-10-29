@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Upload :: AddLocalFileObject</h3>
+    <p class="ttl">void AddLocalFileObject(fileObject, fileMarkValue, uploadId)</p>
+    <p class="txt">
+        File 태그와 업로드 연동이 필요한 경우 파일을 추가 하고 전송할 수 있습니다. 
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        없음.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">fileObject</span>&nbsp;&nbsp;첨부할 파일태그를 의미합니다.<br/>
+        <span class="firebrick">fileMarkValue</span>&nbsp;&nbsp;첨부하는 파일의 mark 값이 필요한 경우 값을 의미합니다.<br />
+        <span style="padding-left:80px">전송 완료 후 각 파일의 입력하신 mark 값이 리턴 됩니다.</span><br />       
+        <span class="firebrick">uploadID</span>&nbsp;&nbsp;첨부하려는 업로드의 id값을 의미합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        없음.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+        function addLocalFileObject() {
+            DEXT5UPLOAD.AddLocalFileObject('test', '1', 'upload1');
+        }
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+        &#60;script type="text/javascript"&#62;
+            new Dext5Upload("upload1");
+        &#60;/script&#62;
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

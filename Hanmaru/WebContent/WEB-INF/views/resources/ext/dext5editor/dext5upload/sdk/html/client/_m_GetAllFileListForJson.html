@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Upload :: GetAllFileListForJson</h3>
+    <p class="ttl">object GetAllFileListForJson(uploadID)</p>
+    <p class="txt">
+        전송완료 후 새롭게 업로드 된 파일과 이미 업로드된 파일 리스트 모두를 json 형태로 리턴합니다.
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+       <span class="firebrick">object</span>&nbsp;&nbsp;전송완료 후 새롭게 업로드 된 파일과 이미 업로드된 파일 리스트 모두를 의미합니다.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">uploadID</span>&nbsp;&nbsp;파일 리스트를 가져올 업로드의 id를 의미합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        없음.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+        function DEXT5UPLOAD_OnTransfer_Complete(uploadID) {
+            var file_list = DEXT5UPLOAD.GetAllFileListForJson("upload1");
+
+            //var newFile = file_list.newFile; // 새로 업로드한 파일
+            //var newFileExtension = newFile.extension; // 확장자
+            //var newFileGuid = newFile.guid; // 업로드 파일명(guid)
+            //var newFileLocalPath = newFile.localPath; // 로컬경로
+            //var newFileLogicalPath = newFile.logicalPath; // 폴더구조 업로드 시 업로드된 파일의 폴더경로
+            //var newFileMark = newFile.mark; // markValue
+            //var newFileOrder = newFile.order; // 업로드리스트에서의 순서
+            //var newFileOriginalName = newFile.originalName; // 원본파일명
+            //var newFileResponseCustomValue = newFile.responseCustomValue; // 서버로부터 받은 customValue
+            //var newFileSize = newFile.size; // 파일크기
+            //var newFileStatus = newFile.status; // 업로드상태
+            //var newFileUploadName = newFile.uploadName; // 업로드 된 파일명
+            //var newFileUploadPath = newFile.uploadPath; // 업로드경로
+
+            //var webFile = file_list.webFile; // 이미 업로드 된 웹파일
+            //var webFileCustomValue = webFile.extension; // 웹파일 추가 시 설정한 customValue
+            //var webFileLogicalPath = webFile.logicalPath; // 폴더구조로 웹파일 추가 시 파일의 폴더경로
+            //var webFileOrder = webFile.order; // 업로드리스트에서의 순서
+            //var webFileOriginalName = webFile.originalName; // 웹파일 추가 시 설정한 파일명
+            //var webFileSize = webFile.size; // 웹파일 추가 시 설정한 파일크기
+            //var webFileUniqKey = webFile.uploadName; // 웹파일 추가 시 설정한 유니크키
+            //var webFileUploadPath = webFile.uploadPath; // 웹파일 추가 시 설정한 업로드경로
+
+        }
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+        &#60;script type="text/javascript"&#62;
+            new Dext5Upload("upload1");
+        &#60;/script&#62;
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

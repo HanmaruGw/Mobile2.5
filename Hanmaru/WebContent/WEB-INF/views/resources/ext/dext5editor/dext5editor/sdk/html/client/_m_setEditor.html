@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+    <div class="right_con">           
+        <h3 class="title">DEXT5 Editor :: setEditor</h3>
+        <p class="ttl">void setEditor(editor_id)</p>
+        <p class="txt">
+            다중 에디터 사용 시 접근할 에디터를 설정합니다.<br />
+            다중 에디터를 생성하여 작업할 경우 유용하게 쓰일 수 있습니다.
+        </p>
+        <p class="mttl01">return value</p>
+        <p class="txt">
+            없음.
+        </p>            
+        <p class="mttl01">parameters</p>     
+        <p class="txt">
+            <span class="firebrick">editor_id</span>&nbsp;&nbsp;접근할 에디터의 id를 의미합니다.
+        </p>
+        <p class="mttl01">remarks</p>               
+        <p class="txt">
+           없음.
+        </p>    
+        <p class="mttl01">sample code</p>             
+        <div class="cord">
+        <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+
+    function dext_editor_loaded_event() {            
+        // 접근하려는 에디터를 editor2로 설정합니다.
+        DEXT5.setEditor('editor2');
+        // parameter를 넣지 않아도 editor2의 body 소스를 가져올 수 있습니다.
+        DEXT5.getBodyValue();
+
+        // 접근하려는 에디터를 editor1로 설정합니다. --&#62;
+        DEXT5.setEditor('editor1');
+        // parameter를 넣지 않아도 editor1의 웹 접근성 단계를 2단계로 설정할 수 있습니다.
+        DEXT5.setAccessibility('2');
+    }
+
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62; 
+ 
+    &#60;!-- 2개의 에디터 생성 --&#62;  
+    &#60;script type="text/javascript"&#62;
+        new Dext5editor('editor1');
+    &#60;/script&#62;<br />
+    &#60;script type="text/javascript"&#62;
+        new Dext5editor('editor2');
+    &#60;/script&#62;
+
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+    </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

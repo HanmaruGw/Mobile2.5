@@ -1,0 +1,181 @@
+<div class="approvalContainer" ng-controller="approvalController" ng-click="chkSortVisible($event)"> 
+	<!-- 헤더바 --> 
+	<div class="headerBar">
+		<div class="headerBarMenu" ng-hide="mailEditHide" ng-click="slideMenuClick()">
+			<img src="/resources/image/menu_img.png">
+		</div>
+		<div class="headerBarTitle" ng-click="mailOption()" ng-hide="mailEditHide">
+			<span>{{displayName}}</span>
+		</div>
+		<div class="headerBarMove approval_sort">
+			<img class="ic_sort" src="/resources/image/approval/ic_sort_normal.png">
+		</div>
+		<div class="headerBarSearch approval_search" ng-click="toggleApprovalSearchDD()">
+			<img src="/resources/image/approval/ic_menu_search_normal.png">
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	<div class="approvalSortMenu" ng-show="isApprovalSortDDShow == true" >
+		<span class="approvalSortDraft" ng-click="btnSortApproval($event, 'R')" ng-class="{'selected' : chkSortOrder == 'R', 'not_selected' : chkSortOrder == 'C'}">
+			<img src="/resources/image/approval/ic_item_selected.png" ng-show="chkSortOrder == 'R'">기안일
+		</span>
+		
+		<span class="approvalSortComplete" ng-click="btnSortApproval($event, 'C')" ng-class="{'selected' : chkSortOrder == 'C', 'not_selected' : chkSortOrder == 'R'}">
+			<img src="/resources/image/approval/ic_item_selected.png" ng-show="chkSortOrder == 'C'">전결일 
+		</span>
+	</div>
+	<div class="approvalSearchBack" ng-show="isApprovalSearchDDShow == true" ng-click="toggleApprovalSearchDD()"></div>
+	<div class="approvalDataVoid" ng-show="approvalList.length == 0">
+		<span class="approvalSearchResult">검색된 데이터가 없습니다.</span>
+		<span class="searchResultBlank"></span>
+	</div>
+	
+	<div class="approvalSearchDiv"  ng-show="isApprovalSearchDDShow == true">
+		<div class="approvalSearchDate">
+			<div class="approvalSearchStart" ng-click="chooseSearchDate('start')">
+				<img src="/resources/image/ic-calendar.png">
+				<input type="text" class="txtDateSearch" ng-model="txtSearchStart" ng-trim="true" readonly>
+			</div>
+			<div class="approvalSwungDash">~</div>
+			<div class="approvalSearchEnd" ng-click="chooseSearchDate('end')">
+				<img src="/resources/image/ic-calendar.png">
+				<input type="text" class="txtDateSearch" ng-model="txtSearchEnd" ng-trim="true" readonly>
+			</div>
+		</div>
+		
+		<div class="wrapApprovalSearchOption">
+			<div class="approvalSearchOption" ng-click="searchType1Option()">
+				<ul class="approvalSearchSelect">
+					<li class="approvalSelectFirst">
+						<span class="selectFirstName">{{SearchType1Name}}</span>
+						<img src="/resources/image/mail/ic-select-arrow-bottom.png">
+						<ul class="selectSearch" ng-show="searchOption1Show == true">
+							<li class="selectSearchList" ng-repeat="SearchType1Option in SearchType1Options" ng-click="applySearchType1($index)">
+								<span class="selectListTxt" ng-class="{'selected' : curSearchType1 == $index}">{{SearchType1Option.name}}</span>
+								<img src="/resources/image/ic_check_select.png" ng-show="curSearchType1 == $index">
+							</li>
+						</ul>	
+					</li>
+				</ul>
+			</div>
+			<div class="approvalSearchKeyword">
+				<input type="text" placeholder="검색어 입력"  ng-model="SearchValue1">
+				<!-- <button ng-click="btnSearchApproval('type')">검색</button> -->
+				<!-- ng-model="SearchValue" ng-trim="true"
+				ng-click="btnSearchMail()" -->
+			</div>		
+		</div>
+		
+		<div class="wrapApprovalSearchOption">
+			<div class="approvalSearchOption" ng-click="searchType2Option()">
+				<ul class="approvalSearchSelect">
+					<li class="approvalSelectFirst">
+						<span class="selectFirstName">{{SearchType2Name}}</span>
+						<img src="/resources/image/mail/ic-select-arrow-bottom.png">
+						<ul class="selectSearch" ng-show="searchOption2Show == true">
+							<li class="selectSearchList" ng-repeat="SearchType2Option in SearchType2Options" ng-click="applySearchType2($index)">
+								<span class="selectListTxt" ng-class="{'selected' : curSearchType2 == $index}">{{SearchType2Option.name}}</span>
+								<img src="/resources/image/ic_check_select.png" ng-show="curSearchType2 == $index">
+							</li>
+						</ul>	
+					</li>
+				</ul>
+			</div>
+			<div class="approvalSearchKeyword">
+				<input type="text" placeholder="검색어 입력" ng-model="SearchValue2">
+				<!-- <button ng-click="btnSearchApproval('type')">검색</button> -->
+				<!-- ng-model="SearchValue" ng-trim="true"
+				ng-click="btnSearchMail()" -->
+			</div>		
+		</div>
+		<div class="wrapApprovalSearchOptionBtn">
+				<button ng-click="btnSearchApproval('type')">검색</button>
+		</div>
+		
+	</div>
+	<!-- 2019-09-11 김현석 자원예약 리스트 스타일로 변경 -->
+		<div class="reservContentsList" style="height:93%" exec-on-scroll-to-bottom="readApprovalNextPage" approval-xpull="">
+				<!-- Markup for xpull plugin -->
+		        <div class="xpull">
+		            <div class="xpull__start-msg">
+		                <div class="xpull__start-msg-text">당겨서 놓으면 새로고침됩니다.</div>
+		                <div class="xpull__arrow"></div>
+		            </div>
+		            <div class="xpull__spinner">
+		                <div class="xpull__spinner-circle"></div>
+		            </div>
+		        </div>
+		        <!-- End Markup for xpull plugin -->
+			<div class="reservListWrap">
+				<div class="reservList" ng-repeat="approval in approvalList" ng-click="approvalDetail($event, approval, displayName)">
+					<div class="reservListDetailWrap" ng-style="{'border-left': getApprovalReadState(approval.ReadDate)}">
+						<div class="reservListTop">
+							<p class="reservListTitle approvalListTitle">{{approval.Title}}</p>
+							<div class="viewContentsRight">
+								<div class="approvalImgWrap">
+									<img src="/resources/image/approval/ic_attach_pressed.png" ng-show="approval.IsFiles == '1'">
+									<span ng-show="approval.IsFiles != '1'">&nbsp;</span>
+								</div>
+							</div>
+						</div>
+							
+							<div class="approvalStateWrapper">
+								<div class="viewContentsRight">
+									<div class="approvalContentMidLeft">
+										<span style="float:none" class="approvalName">{{approval.DisplayName}}</span>
+									</div>
+									<div class="approvalContentMidRight">
+										<span style="float:none" class="approvaldfWork">[{{approval.FormName}}]</span>
+									</div>
+								</div>
+							</div>
+	
+						<p class="approvalListState">
+							<span class="viewContents">
+								<span class="dataDecision">전결 : {{approval.CreateDate | date:'yyyy.MM.dd HH:mm:ss'}}</span>
+								<span class="dataApproval">결재 : {{approval.CompleteDate | date:'yyyy.MM.dd HH:mm:ss'}}</span>
+							</span>
+						</p>
+					</div>
+					<div class="reservCancel" ng-show="reservItem.State == 1" ng-click="reservCancel(reservItem.SEQ)"><span>예약 취소</span></div>
+				</div>
+			</div>
+		    <!-- <div class="xpull__spinner-circle-bottom"></div> -->
+		</div>
+		
+		
+		<!-- 2019.10.23 추가 -->
+		<!-- 하단 로딩바 -->
+		<div class="xpull_bottom" ng-show="isApprovalBottomLoading == true">
+	       <div class="xpull__spinner_bottom">
+	            <div class="xpull__spinner-circle"></div>
+	        </div>
+	    </div>
+	    <!-- 2019.10.23 추가끝 -->
+    
+	<!--  <div class="viewContents" exec-on-scroll-to-bottom="readApprovalNextPage" approval-xpull="">
+		<div class="pull-indicator approval">
+			<div class="pull-spinner"></div>
+		</div>
+		
+		<div>
+			<div class="viewContentsList" ng-repeat="approval in approvalList" ng-click="approvalDetail($event, approval, displayName)">
+				<div class="viewContentsData">
+					<span class="dataTitle">{{approval.Title}}</span>
+					<p class="dataUser">{{approval.DisplayName}}</p>
+					<div class="dataWrapper">
+						<span class="dataDecision">전결 : {{approval.CreateDate | date:'yyyy.MM.dd HH:mm:ss'}}</span>
+						<span class="dataApproval">결재 : {{approval.CompleteDate | date:'yyyy.MM.dd HH:mm:ss'}}</span>
+					</div>
+				</div>
+				<div class="viewContentsRight">
+					<div class="imgWrap">
+						<img src="/resources/image/approval/ic_attach_pressed.png" ng-show="approval.IsFiles == '1'">
+						<span ng-show="approval.IsFiles != '1'">&nbsp;</span>
+					</div>
+					<p class="dfWork">[{{approval.FormName}}]</p>
+				</div>
+			</div>
+		</div>
+	</div> -->
+</div>

@@ -1,0 +1,277 @@
+<div class="mailContainer" ng-controller="hallaMailWriteCtrl" ng-click="detectAutoComplete($event)">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarMenu" ng-click="popPage('pg_mail_write')">
+			<img src="/resources/image/back_arrow.png">
+		</div>
+		<div class="headerBarTitle">
+			<span>메일 작성</span>
+		</div>
+		<div class="headerBarMove write" ng-click="btnSendEmail()">
+			<img src="/resources/image/mail/ic_menu_send_normal.png">
+		</div>
+		
+		<label class="flag_write_mail_me" ng-click="btnToggleMailMe($event)">
+			<!-- <img class="flag_write_mail_me" src="/resources/image/icon/ic_circle_check_selected.png" ng-show="isFlagMailMe == true">
+			<img class="flag_write_mail_me" src="/resources/image/icon/ic_circle_check_normal.png" ng-show="isFlagMailMe == false"> -->
+			내게 쓰기
+		</label>
+		
+		<!-- <label class="headerBarMove write" ng-click="initAttachFile()">
+			<img src="/resources/image/mail/ic_attach_pressed.png">
+			<input type="file" ng-model="chooser_attach_file" class="mail_attach_file" mail-attach-file-change="changeAttachFile">
+		</label> -->
+		<div class="headerUnderBar"></div>
+	</div>
+	
+	<div class="wrapMailWrite">
+		<div>
+			<table id="tblMailWrite">
+				<tr class="line">
+					<th>받는 사람 
+							<a ng-click="showHide=!showHide">
+						        <img src="/resources/image/icon/mail_hide_icon_down.png" ng-show="showHide" class="id_hide_ref">
+						        <img src="/resources/image/icon/mail_show_icon_up.png" ng-hide="showHide" class="id_hide_ref">
+							</a>
+					</th>
+					<td class="wrap_input">
+						<div>
+							<div class="wrap_selected_user" ng-if="mailType == 1" ng-repeat="user in recipient_user_list">
+								<span ng-if="user.UserName != undefined && user.Type == undefined"> 
+									{{user.UserName}}/{{user.PositionName}}/{{user.DeptName}}/{{user.CompName}}
+								</span>
+								<span ng-if="user.UserName == undefined && user.Type == undefined">
+									{{user.DeptName}}
+								</span>
+								<span ng-if="user.Type != undefined">
+									{{user.Name}}
+								</span>
+								
+								<a ng-click="btnRemoveRecipient($index)">
+									<img src="/resources/image/icon/ic_x_normal.png">
+								</a>
+							</div>
+							<div class="wrap_selected_user" ng-if="mailType == 2 || mailType == 3 || mailType == 4" ng-repeat="user in recipient_user_list">
+								<span ng-if="user.UserName != undefined && user.Type == undefined"> 
+									{{user.UserName}}/{{user.PositionName}}/{{user.DeptName}}/{{user.CompName}}
+								</span>
+								<span ng-if="user.UserName == undefined && user.Type == undefined">
+									{{user.DeptName}}
+								</span>
+								<span ng-if="(user.DisplayName != undefined || user.DisplayName != null) && user.Type == undefined"> 
+									{{user.DisplayName}}
+								</span>
+								<span ng-if="user.DisplayName == undefined && user.Type == undefined">
+									{{user.DeptName}}
+								</span>
+								<span ng-if="user.Type != undefined">
+									{{user.Name}}
+								</span>
+								
+								<a ng-click="btnRemoveRecipient($index)">
+									<img src="/resources/image/icon/ic_x_normal.png">
+								</a>
+							</div>
+							<input type="search" class="txt_rcv_name" ng-model="txt_rcv_name" ng-trim="true" ng-keyup="btnDetectSearch('rcv', $event)">
+						</div>
+						
+						<div class="search_user_list" ng-if="txt_rcv_name.length > 1 && search_rcv_result.length >=1">
+							<ul>
+								<li ng-repeat="user in search_rcv_result" ng-if="user.DisplayName != undefined" ng-click="addRcvSelectedUser(user)">{{user.DisplayName}}</li>
+								<li ng-repeat="user in search_rcv_result" ng-if="user.DisplayName == undefined" ng-click="addRcvSelectedUser(user)">{{user.Name}}</li>
+								<!-- <li ng-repeat="user in search_rcv_result" ng-if="user.DisplayName == null" ng-click="addRcvSelectedUser(user)">{{user.Name}}</li> -->
+							</ul>
+						</div>
+					</td>
+					<td class="wrap_address">
+						<a ng-click="btnCallOrganSelect($event)">
+							<img src="/resources/image/organization/ic_address_normal.png">
+						</a>
+					</td>
+				</tr>
+				<!-- <tr>
+					<th>&nbsp;</th>
+					<td class="wrap_input no_padd_top">
+						<label ng-click="btnToggleMailMe($event)">
+							<img class="flag_write_mail_me" src="/resources/image/icon/ic_circle_check_selected.png" ng-show="isFlagMailMe == true">
+							<img class="flag_write_mail_me" src="/resources/image/icon/ic_circle_check_normal.png" ng-show="isFlagMailMe == false">
+							내게 쓰기
+						</label>
+					</td>
+					<td>&nbsp;</td>
+				</tr> -->
+				<tr class="line" ng-show="showHide">
+					<th>참조</th>
+					<td class="wrap_input">
+						<div>
+							<div class="wrap_selected_user" ng-if="mailType == 1" ng-repeat="user in cc_user_list">
+								<span ng-if="user.UserName != undefined && user.Type == undefined"> 
+									{{user.UserName}}/{{user.PositionName}}/{{user.DeptName}}/{{user.CompName}}
+								</span>
+								<span ng-if="user.UserName == undefined && user.Type == undefined">
+									{{user.DeptName}}
+								</span>
+								<span ng-if="user.Type != undefined">
+									{{user.Name}}
+								</span>
+								
+								<a ng-click="btnRemoveCC($index)">
+									<img src="/resources/image/icon/ic_x_normal.png">
+								</a>
+							</div>
+							<div class="wrap_selected_user" ng-if="mailType == 2 || mailType == 3 || mailType == 4" ng-repeat="user in cc_user_list">
+								<span ng-if="user.UserName != undefined && user.Type == undefined"> 
+									{{user.UserName}}/{{user.PositionName}}/{{user.DeptName}}/{{user.CompName}}
+								</span>
+								<span ng-if="user.UserName == undefined && user.Type == undefined">
+									{{user.DeptName}}
+								</span>
+								<span ng-if="(user.DisplayName != undefined || user.DisplayName != null) && user.Type == undefined""> 
+									{{user.DisplayName}}
+								</span>
+								<span ng-if="user.DisplayName == undefined && user.Type == undefined">
+									{{user.DeptName}}
+								</span>
+								<span ng-if="user.Type != undefined">
+									{{user.Name}}
+								</span>
+								<a ng-click="btnRemoveCC($index)">
+									<img src="/resources/image/icon/ic_x_normal.png">
+								</a>
+							</div>
+							<input type="search" class="txt_cc_name" ng-model="txt_cc_name" ng-trim="true" ng-keyup="btnDetectSearch('cc', $event)">
+						</div>
+						
+						<div class="search_user_list" ng-if="search_cc_result.length > 0">
+							<ul>
+								<li ng-repeat="user in search_cc_result" ng-if="user.DisplayName != undefined" ng-click="addCCSelectedUser(user)">{{user.DisplayName}}</li>
+								<li ng-repeat="user in search_cc_result" ng-if="user.DisplayName == undefined" ng-click="addCCSelectedUser(user)">{{user.Name}}</li>
+							</ul>
+						</div>
+					</td>
+					<td class="wrap_address">
+						<a ng-click="btnCallOrganSelect($event)">
+							<img src="/resources/image/organization/ic_address_normal.png">
+						</a>
+					</td>
+				</tr>
+				<tr class="line" ng-show="showHide">
+					<th>숨은 참조</th>
+					<td class="wrap_input">
+						<div>
+							<div class="wrap_selected_user" ng-if="mailType == 1" ng-repeat="user in hcc_user_list">
+								<span ng-if="user.UserName != undefined && user.Type == undefined"> 
+									{{user.UserName}}/{{user.PositionName}}/{{user.DeptName}}/{{user.CompName}}
+								</span>
+								<span ng-if="user.UserName == undefined && user.Type == undefined">
+									{{user.DeptName}}
+								</span>
+								<span ng-if="user.Type != undefined">
+									{{user.Name}}
+								</span>
+								<a ng-click="btnRemoveHCC($index)">
+									<img src="/resources/image/icon/ic_x_normal.png">
+								</a>
+							</div>
+							<div class="wrap_selected_user" ng-if="mailType == 2 || mailType == 3 || mailType == 4" ng-repeat="user in hcc_user_list">
+								<span ng-if="user.UserName != undefined && user.Type == undefined"> 
+									{{user.UserName}}/{{user.PositionName}}/{{user.DeptName}}/{{user.CompName}}
+								</span>
+								<span ng-if="user.UserName == undefined && user.Type == undefined">
+									{{user.DeptName}}
+								</span>
+								<span ng-if="(user.DisplayName != undefined || user.DisplayName != null) && user.Type == undefined"> 
+									{{user.DisplayName}}
+								</span>
+								<span ng-if="user.DisplayName == undefined && user.Type == undefined">
+									{{user.DeptName}}
+								</span>
+								<span ng-if="user.Type != undefined">
+									{{user.Name}}
+								</span>
+								<a ng-click="btnRemoveHCC($index)">
+									<img src="/resources/image/icon/ic_x_normal.png">
+								</a>
+							</div>
+							<input type="search" class="txt_hcc_name" ng-model="txt_hcc_name" ng-trim="true" ng-keyup="btnDetectSearch('hcc', $event)">
+						</div>
+						
+						<div class="search_user_list" ng-if="search_hcc_result.length > 0">
+							<ul>
+								<li ng-repeat="user in search_hcc_result" ng-if="user.DisplayName != undefined" ng-click="addHCCSelectedUser(user)">{{user.DisplayName}}</li>
+								<li ng-repeat="user in search_hcc_result" ng-if="user.DisplayName == undefined" ng-click="addHCCSelectedUser(user)">{{user.Name}}</li>
+							</ul>
+						</div>
+					</td>
+					<td class="wrap_address">
+						<a ng-click="btnCallOrganSelect($event)">
+							<img src="/resources/image/organization/ic_address_normal.png">
+						</a>
+					</td>
+				</tr>
+				
+				<tr class="line">
+					<td class="wrap_input" colspan="2">
+						<textarea class="subject" ng-model="mailSubject" ng-trim="true" placeholder="제목을 입력해주세요"></textarea>
+					</td>
+					<td class="wrap_address">
+						<label ng-click="initAttachFile()">
+							<img class="btn_attach_file" src="/resources/image/mail/ic_attach_pressed.png">
+							<input id="attachFile" type="file" ng-model="chooser_attach_file" class="mail_attach_file" mail-attach-file-change="changeAttachFile">
+						</label>
+					</td>
+				</tr>
+				<tr class="line" ng-if="attach_list.length>0"><!-- ng-show="attach_list.length > 0" -->
+					<th class="va_top">첨부파일</th>
+					<td class="wrap_attach_list" colspan="2">
+						<div class="wrap_attach_file_list" ng-repeat="attach in attach_list"  ng-if="mailType == 1">
+							<div class="file_ext">
+								<img ng-src="{{determineExtension(attach)}}">
+							</div>
+							
+							<div class="file_info">
+								<span>{{attach.name}}</span>
+								<span class="txt_fileSize">{{getFileSizeUnit(attach.size)}}</span>
+							</div>
+							
+							<a class="btn_remove_mail_attach" ng-click="btnRemoveAttach($index)">
+								<img src="/resources/image/icon/ic_x_normal.png">
+							</a>
+						</div>
+						
+						<div class="wrap_attach_file_list" ng-repeat="attach in attach_list"  ng-if="mailType == 2 || mailType == 3 || mailType == 4">
+							<div class="file_ext">
+								<img ng-src="{{determineExtension(attach)}}">
+							</div>
+							
+							<div class="file_info">
+								<span>{{attach.FileName}}</span>
+								<span class="txt_fileSize">{{getFileSizeUnit(attach.FileSize)}}</span>
+							</div>
+							
+							<a class="btn_remove_mail_attach" ng-click="btnRemoveAttach($index)">
+								<img src="/resources/image/icon/ic_x_normal.png">
+							</a>
+						</div>
+					</td>
+					<!-- <td class="wrap_address">
+						<label ng-click="initAttachFile()">
+							<img class="btn_attach_file" src="/resources/image/mail/ic_attach_pressed.png">
+							<input type="file" ng-model="chooser_attach_file" class="mail_attach_file" mail-attach-file-change="changeAttachFile">
+						</label>
+					</td> -->
+				</tr>
+				<tr class="hidden">
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan="3" class="wrap_contents">
+						<iframe id="mailContents" class="contents" src="/html/app/_include/ext/dext5editor.html" frameborder="0"></iframe>					
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Input hidden</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <style type="text/css">
+        .color li { width:14px; height:14px; float:left; padding:0px; margin:1px; border:0px none; list-style-type:none; cursor:pointer; }
+    </style>
+	
+    <script type="text/javascript">
+        var elemModify = null;
+        try {
+            elemModify = DEXTTOP.G_SELECTED_ELEMENT;
+            if (elemModify && elemModify.tagName.toLowerCase() != "img") DEXTTOP.G_SELECTED_ELEMENT = elemModify = null;
+        } catch (e) {
+            elemModify = null;
+        }
+
+        function page_loaded_event() {
+
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+
+            document.getElementById("editor_popup_input").className = 'DEXT_fiVe_ED_Popup_Type01 DEXT_fiVe_PUi_' + _skin_name;
+
+            document.getElementById("editor_popup_input").className = 'DEXT_fiVe_ED_Popup_Type01 DEXT_fiVe_PUi_' + _skin_name;
+
+            document.getElementById("span_title").innerHTML = LayerWin.dext5_lang.input_hidden.title;
+
+            document.getElementById("label_id").innerHTML = LayerWin.dext5_lang.input_common.id;
+            document.getElementById("label_name").innerHTML = LayerWin.dext5_lang.input_common.name;
+            document.getElementById("label_value").innerHTML = LayerWin.dext5_lang.input_common.value;
+            document.getElementById("label_class").innerHTML = LayerWin.dext5_lang.input_common.insertClass;
+            document.getElementById("label_title").innerHTML = LayerWin.dext5_lang.input_common.title;
+            document.getElementById("btn_ok").innerHTML = LayerWin.dext5_lang.input_common.btn_ok;
+            document.getElementById("btn_cancel").innerHTML = LayerWin.dext5_lang.input_common.btn_cancel;
+
+            document.title = LayerWin.dext5_lang.input_hidden.title;
+
+            var header = LayerWin.getElementsByClass("EdiTor_Popup_header", document);
+            header[0].onselectstart = function () { return false; };
+            document.getElementById("btn_cancel").focus();
+
+            var btn_ok_a = document.getElementById('ok_btn');
+            if (elemModify != null) {
+                DEXTTOP.DEXT5.util.addEvent(btn_ok_a, 'click', function () { dext_modify_input_hidden(); });
+                set_modify_field_input_hidden();
+            } else {
+                DEXTTOP.DEXT5.util.addEvent(btn_ok_a, 'click', function () { dext_insert_input_hidden(); });
+            }
+
+            if (LayerDoc.compatMode == "BackCompat") {
+                var inputs = document.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type == 'text') {
+                        inputs[i].style.height = '20px';
+                    }
+                }
+            }
+
+            setCursorPos(document.getElementById('input_name'), true, false);
+            LayerWin.setFocusFirstAndLast(document, document.getElementById('input_name'));
+        }
+
+	</script>
+</head>
+<body style="margin:0px; padding:0px;" onload="page_loaded_event()" >
+    <div id="editor_popup_input" class="editor_popup">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title"></span><span class="text"></span>
+            <div class="close">
+                <a href="javascript:event_dext_close();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / general -->
+        <div class="EdiTor_Popup_contents">
+            <div class="contents">
+                <input type="hidden" id="tosavepathurl" name="tosavepathurl" value="" />
+                <div class="con">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="25%">
+                                <label id="label_name" for="input_name"></label>
+                            </td>
+                            <td width="25%">
+                                <input id="input_name" type="text" class="con_input" style="width:76px;"/> 
+                            </td>
+                            <td width="25%">
+                                <label id="label_value" for="input_value"></label>
+                            </td>
+                            <td width="25%">
+                                <input id="input_value" type="text" class="con_input" style="width:76px;"/> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label id="label_id" for="input_id"></label>
+                            </td>
+                            <td>
+                                <input id="input_id" type="text" class="con_input" style="width:76px;"/> 
+                            </td>
+                            <td>
+                                <label id="label_class" for="input_class"></label>
+                            </td>
+                            <td>
+                                <input id="input_class" type="text" class="con_input" style="width:76px;"/> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label id="label_title" for="input_title"></label>
+                            </td>
+                            <td>
+                                <input id="input_title" type="text" class="con_input" style="width:76px;"/> 
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a href="javascript:;" class="confirm" id="ok_btn"><span id="btn_ok"></span></a>
+            <a href="javascript:event_dext_close();" class="cancel"><span id="btn_cancel"></span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

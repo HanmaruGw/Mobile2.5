@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Table Lock Property</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        function page_loaded_event() {
+
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+
+            document.getElementById("editor_popup_table_lock_property").className = 'DEXT_fiVe_ED_Popup_Type01 DEXT_fiVe_PUi_' + _skin_name;
+
+            document.getElementById("span_title").innerHTML = LayerWin.dext5_lang.table_lock.name;
+
+            document.getElementById("span_table_lock").innerHTML = LayerWin.dext5_lang.table_lock.table_lock;
+            document.getElementById("label_table_lock").innerHTML = LayerWin.dext5_lang.table_lock.table_lock;
+            document.getElementById("label_table_unlock").innerHTML = LayerWin.dext5_lang.table_lock.table_unlock;
+
+            document.getElementById("span_lock_icon_option").innerHTML = LayerWin.dext5_lang.table_lock.lock_icon;
+            document.getElementById("label_icon_show").innerHTML = LayerWin.dext5_lang.table_lock.show_lock_icon;
+            document.getElementById("label_icon_hidden").innerHTML = LayerWin.dext5_lang.table_lock.hiden_lock_icon;
+
+            document.getElementById("span_lock_mode").innerHTML = LayerWin.dext5_lang.table_lock.lock_option;
+            document.getElementById("label_resize_lock").innerHTML = LayerWin.dext5_lang.table_lock.lock_option_1;
+            document.getElementById("label_edit_lock").innerHTML = LayerWin.dext5_lang.table_lock.lock_option_2;
+
+
+            document.getElementById("span_ok_btn").innerHTML = LayerWin.dext5_lang.ok_cancel.ok;
+            document.getElementById("span_cancel_btn").innerHTML = LayerWin.dext5_lang.ok_cancel.cancel;
+
+            document.title = LayerWin.dext5_lang.table_lock.frame_title;
+
+
+            set_page_table_lock_property();
+
+
+            var header = LayerWin.getElementsByClass("EdiTor_Popup_header", document);
+            header[0].onselectstart = function () { return false; };
+            
+            ////////////////////
+            if (LayerDoc.compatMode == "BackCompat") {
+                var inputs = document.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type == 'text') {
+                        inputs[i].style.height = '20px';
+                    }
+                }
+            }
+            ///////////////////
+            setCursorPos(document.getElementById('table_lock'), false, false);
+            LayerWin.setFocusFirstAndLast(document, document.getElementById('table_lock'));
+        }
+
+	</script>
+</head>
+<body style="margin:0px; padding:0px;" onload="page_loaded_event()" >
+    <div id="editor_popup_table_lock_property" class="editor_popup">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title"></span><span class="text"></span>
+            <div class="close">
+                <a href="javascript:event_dext_table_cancel();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / general -->
+        <div class="EdiTor_Popup_contents">
+            <div class="contents">
+                <div class="con">
+                    <fieldset class="ulc">  
+                        <legend id="span_table_lock"></legend>
+                        <input name="table_lock" id="table_lock" type="radio"/>
+                        <label for="table_lock" id="label_table_lock" style="vertical-align:middle;"></label><br />
+                        <input name="table_lock" id="table_unlock" type="radio" checked/>
+                        <label for="table_unlock" id="label_table_unlock" style="vertical-align:middle;"></label><br />
+                    </fieldset>      
+                </div>
+                <div class="con">
+                    <fieldset class="ulc">  
+                        <legend id="span_lock_icon_option"></legend>
+                        <input name="lock_icon_option" id="icon_show" type="radio"/>
+                        <label for="icon_show" id="label_icon_show" style="vertical-align:middle;"></label><br />
+                        <input name="lock_icon_option" id="icon_hidden" type="radio" checked/>
+                        <label for="icon_hidden" id="label_icon_hidden" style="vertical-align:middle;"></label><br />
+                    </fieldset>      
+                </div>
+                <div class="con">
+                    <fieldset class="ulc">  
+                        <legend id="span_lock_mode"></legend>
+                        <input name="lock_mode" id="resize_lock" type="radio"/>
+                        <label for="resize_lock" id="label_resize_lock" style="vertical-align:middle;"></label>
+                        <input name="lock_mode" id="edit_lock" type="radio" checked/>
+                        <label for="edit_lock" id="label_edit_lock" style="vertical-align:middle;"></label>             
+                    </fieldset>      
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a href="javascript:void(0);" class="confirm" id="ok_btn" style="cursor:pointer;"><span id="span_ok_btn"></span></a> <a href="javascript:event_dext_close();" class="cancel"><span id="span_cancel_btn"></span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

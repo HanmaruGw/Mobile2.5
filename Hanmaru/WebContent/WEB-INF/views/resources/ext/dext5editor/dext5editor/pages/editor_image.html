@@ -1,0 +1,1462 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Image</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var G_UploadCompleteCallBackFn;
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+
+        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+            document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.ajaxUploadJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+        }
+    </script>
+
+    <style type="text/css">
+        #img_dlg_back {
+            z-index: 20; background-color: white; left: 0px; top: 40px; width: 100%; height: 60px; position: absolute; filter: alpha(opacity=40); opacity: 0.4; -moz-opacity: 0.4; -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40); -khtml-opacity: 0.4;
+        }
+    </style>
+
+	<script type="text/javascript">
+	    var file_field_id = LayerWin._dext_editor._config.fileFieldID;
+	    var user_field_id = LayerWin._dext_editor._config.userFieldID;
+	    var user_field_value = LayerWin._dext_editor._config.userFieldValue;
+
+	    var elemModify = null;
+	    try {
+	        elemModify = DEXTTOP.G_SELECTED_ELEMENT;
+	        if (elemModify && elemModify.tagName.toLowerCase() != "img") DEXTTOP.G_SELECTED_ELEMENT = elemModify = null;
+	        if (elemModify && elemModify != null) {
+	            elemModifyParent = LayerWin.GetParentbyTagName(elemModify, "figure");
+
+	            //elemModifyParent = elemModify.parentNode;
+	            if (elemModifyParent) {
+	                if (elemModifyParent.tagName.toLowerCase() != "figure")
+	                    elemModifyParent = null;
+	            }
+	        }
+	    } catch (e) {
+	        elemModify = null;
+	    }
+//	    var elemModify = parent.DEXTTOP.G_SELECTED_ELEMENT;
+//	    if (elemModify && elemModify.tagName.toLowerCase() != "img") parent.DEXTTOP.G_SELECTED_ELEMENT = elemModify = null;
+
+	    function page_loaded_event() {
+
+	        var _td1InnerHtml = '', _td2InnerHtml = '', _td3InnerHtml = '';
+	        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+	            _td1InnerHtml += '<input id="radio_image" name="InputFlag" onclick="InputFlag_change(this);" type="radio" value="1" checked="checked" />';
+
+	            _td2InnerHtml += '<label for="radio_image" id="label_image_info">이미지 경로</label>';
+
+	            _td3InnerHtml += '<input type="hidden" id="drop_zone_uploadtype" name="drop_zone_uploadtype" value="image" /><input type="hidden" id="file_text" name="file_text" />';	            
+	            _td3InnerHtml += '<div class="DEXT_fiVe_ED_Popup_DropZone DEXT_fiVe_ED_Popup_DropZone_2" id="drop_zone" style="border:dashed 1px gray; width:323px; height:40px; line-height:40px; text-align:center; color:gray; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"></div>';
+	            _td3InnerHtml += '<div style="position:absolute; left:0px; top:-40px;"><input class="noline" type="file" id="Filedata" name="Filedata" style="width:0px; height:0px" onchange="fileOnchange(this, \'image\');" /></div>';
+	        }
+	        else {
+	            _td1InnerHtml += '<input id="radio_image" name="InputFlag" onclick="InputFlag_change(this);" type="radio" value="1" checked="checked" />';
+
+	            _td2InnerHtml += '<label for="radio_image" id="label_image_info">이미지 경로</label>';
+
+	            _td3InnerHtml += '<input name="image_url" id="image_url" type="text" class="con_input" style="width:245px; float:left;background:#fff" disabled="disabled" />';
+	            _td3InnerHtml += '<span id="find_file_nm" style="width:67px; height:20px; *margin-left:-3px;_margin-left:-3px; background-position: 0px 0px; display:block; float:left; cursor:pointer; background-repeat:no-repeat;">';
+	            _td3InnerHtml += '<span id="file_input_search" class="file_input_button2">찾아보기</span>';
+	            _td3InnerHtml += '<input class="noline" type="file" id="Filedata" name="Filedata" style="margin-top:-35px;*margin-top: -28px; margin-left:-250px;width:325px;height:25px; opacity:0; filter:alpha(opacity=0); -moz-opacity:0; cursor:pointer;" onchange="fileOnchange(this, \'image\');" />';
+	            _td3InnerHtml += '<a href="javascript:void(0);" id="a_file"></a></span>';
+	        }
+
+	        var _td1 = document.createElement('td');
+	        _td1.width = '5%';
+	        _td1.innerHTML = _td1InnerHtml;
+
+	        var _td2 = document.createElement('td');
+	        _td2.width = '22%';
+	        _td2.innerHTML = _td2InnerHtml;
+
+	        var _td3 = document.createElement('td');
+
+	        _td3.width = '73%';
+	        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+	            _td3.rowSpan = '2';
+	            _td3.id = '_td_drop_zone';
+	        }
+
+	        _td3.innerHTML = _td3InnerHtml;
+
+	        document.getElementById('file_tag_or_drop_zone').appendChild(_td1);
+	        document.getElementById('file_tag_or_drop_zone').appendChild(_td2);
+	        document.getElementById('file_tag_or_drop_zone').appendChild(_td3);
+
+	        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+	            setDragAndDropEvent('drop_zone');
+
+                // url입력 input태그 hidden
+	            document.getElementById('drop_zone').removeAttribute('hidden')
+	            document.getElementById('img_web_url').setAttribute('hidden', 'hidden');
+	        }
+
+	        var html_figure1 = '', html_figure2 = '';
+	        if (!(DEXTTOP.DEXT5.browser.ie && DEXTTOP.DEXT5.browser.ieVersion <= 8) && Dext5LayerWin._dext_editor._config.figure.use == "1") {
+	            var tr_figure = document.getElementById("figure");
+                
+	            var html_figure = '<input id="img_figure" name="img_figure" type="checkbox" /><label for="img_figure" id="label_img_figure">' + LayerWin.dext5_lang.image.image_figcaption; +'</label>';
+	            //html_figure2 += '';
+
+	            var td_figure1 = document.createElement('td');
+	            td_figure1.setAttribute("colspan", '2');
+	            td_figure1.innerHTML = html_figure;
+
+	            var td_figure2 = document.createElement('td');
+	            tr_figure.appendChild(td_figure1);
+	            tr_figure.appendChild(td_figure2);
+
+                // figure 사용일경우 hyperlink 미사용 처리함.
+	            var figureChk = td_figure1.firstChild;
+	            var figureOnchange = function () {
+	                var tab1 = document.getElementById('a_secon_tab_1');
+	                var tab2 = document.getElementById('a_secon_tab_2');
+	                var tab3 = document.getElementById('a_secon_tab_3');
+	                if(figureChk.checked){
+	                    tab1.style.display = 'none';
+	                    tab2.style.display = 'none';
+	                    tab3.style.display = 'none';
+	                }else {
+	                    tab1.style.display = 'block';
+	                    tab2.style.display = 'block';
+	                    tab3.style.display = 'block';
+	                }
+	            };
+	            DEXTTOP.DEXT5.util.addEvent(figureChk, 'change', figureOnchange);
+	        }
+
+	        //window.frameElement.title = LayerWin.dext5_lang.iframe_title.image;
+	        set_page_lang();
+
+	        var accessibility = LayerWin._dext_editor._config.accessibility;
+	        if (accessibility == "-1") {
+	            if (document.getElementById("access_img")) document.getElementById("access_img").style.display = "none";
+	        }
+
+	        var img_ratio = document.getElementById("img_ratio");
+	        var img_ratio_toggle = (function () {
+	            if (img_ratio.getAttribute("ratio-checked") == "true") {
+	                img_ratio.className = "img_link_btn";
+	                img_ratio.setAttribute("ratio-checked", false);
+	            } else {
+	                img_ratio.className = "img_link_active_btn";
+	                img_ratio.setAttribute("ratio-checked", true);
+	            }
+	        });
+	        DEXTTOP.DEXT5.util.addEvent(img_ratio, "click", img_ratio_toggle);
+
+	        if (LayerWin._dext_editor._config.uploadUseHTML5 != "1") {
+	            var _upload_frame = document.getElementById("upload_frame");
+
+	            var eventHandler = function () {
+	                var _body;
+	                try {
+	                    _body = (_upload_frame.contentDocument) ? _upload_frame.contentDocument.body : _upload_frame.contentWindow.document.body;
+	                }
+	                catch (e) {
+	                    _body = _upload_frame.document.body;
+	                }
+
+	                if ('textContent' in _body) { _web_url = _body.textContent; } else { _web_url = _body.innerText; }
+	                _web_url = DEXTTOP.DEXT5.util.trim(_web_url);
+	                event_dext_image_upload_completed(_web_url);
+	            }
+
+	            DEXTTOP.DEXT5.util.addEvent(_upload_frame, "load", eventHandler, true);
+	        }
+
+	        set_page();
+
+	        var _link_target = document.getElementById('link_target');
+	        var cnt = LayerWin.dext5_lang.hyperlink.arr_target.value.length;
+	        for (var i = 0; i < cnt; i++) {
+	            var opt = document.createElement('option');
+	            opt.value = LayerWin.dext5_lang.hyperlink.arr_target.value[i];
+	            opt.innerHTML = LayerWin.dext5_lang.hyperlink.arr_target.text[i];
+	            _link_target.appendChild(opt);
+	        }
+
+	        var hyperlinkTargetList = LayerWin._dext_editor._config.hyperlinkTargetList;
+	        cnt = hyperlinkTargetList.length;
+	        if (cnt > 0) {
+	            for (var i = 0; i < cnt; i++) {
+	                var opt = document.createElement('option');
+	                opt.value = hyperlinkTargetList[i];
+	                opt.innerHTML = hyperlinkTargetList[i];
+	                _link_target.appendChild(opt);
+	            }
+	        }
+
+	        var margin_left_spinUp = document.getElementById("margin_left_spinUp");
+	        var margin_right_spinUp = document.getElementById("margin_right_spinUp");
+	        var margin_top_spinUp = document.getElementById("margin_top_spinUp");
+	        var margin_bottom_spinUp = document.getElementById("margin_bottom_spinUp");
+
+	        var margin_left_spinDown = document.getElementById("margin_left_spinDown");
+	        var margin_right_spinDown = document.getElementById("margin_right_spinDown");
+	        var margin_top_spinDown = document.getElementById("margin_top_spinDown");
+	        var margin_bottom_spinDown = document.getElementById("margin_bottom_spinDown");
+	        //var border_spinUp = document.getElementById("border_spinUp");
+	        //var border_spinDown = document.getElementById("border_spinDown");
+
+	        var img_margin_left = document.getElementById('img_margin_left');
+	        var img_margin_right = document.getElementById('img_margin_right');
+	        var img_margin_top = document.getElementById('img_margin_top');
+	        var img_margin_bottom = document.getElementById('img_margin_bottom');
+	        //var border = document.getElementById('img_border');
+	        
+            var img_width = document.getElementById('img_width');
+            var img_height = document.getElementById('img_height');
+
+            var original_size = document.getElementById('original_size');
+
+            var imgDefaultWidth = LayerWin.DEXTTOP.G_CURREDITOR._config.imgDefaultWidth;
+            var imgDefaultHeight = LayerWin.DEXTTOP.G_CURREDITOR._config.imgDefaultHeight;
+            img_width.value = imgDefaultWidth;
+            img_height.value = imgDefaultHeight;
+
+            if (LayerWin._dext_editor._config.allowImgSize == "0") {
+                document.getElementById('img_width_div').style.display = 'none';
+                document.getElementById('img_height_div').style.display = 'none';
+            }
+
+            var lineStyle = LayerWin._dext_editor._config.imageLineStyleValue;
+            var ulLineStyle = document.getElementById("ul_line_style");
+            var imageLineStyleList = LayerWin._dext_editor._config.imageLineStyleList;
+            _cnt = imageLineStyleList.length;
+            if (_cnt > 0) {
+                for (var i = 0; i < _cnt; i++) {
+                    if (lineStyle["_" + tableLineStyleList[i]]) {
+                        var option = document.createElement("LI");
+                        var optVal = '<a href="javascript:void(0);" class="sebt"><span class="line" style="' + lineStyle["_" + imageLineStyleList[i]] + '">';
+                        if (imageLineStyleList[i] == 'hidden' || imageLineStyleList[i] == 'none') { optVal += LayerWin.dext5_lang.image.line_style_hidden; }
+                        optVal += '</span></a>';
+                        option.innerHTML = optVal;
+                        ulLineStyle.appendChild(option);
+                    }
+                }
+            } else {
+                var _line_style_value = LayerWin.dext5_lang.arr_line_style_value.value;
+                _cnt = _line_style_value.length;
+                for (var i = 0; i < _cnt; i++) {
+                    var option = document.createElement("LI");
+                    var optVal = '<a href="javascript:void(0);" class="sebt"><span class="line" style="' + lineStyle["_" + _line_style_value[i]] + '">';
+                    if (_line_style_value[i] == 'hidden' || _line_style_value[i] == 'none') { optVal += LayerWin.dext5_lang.image.line_style_hidden; }
+                    optVal += '</span></a>';
+                    option.innerHTML = optVal;
+                    ulLineStyle.appendChild(option);
+                }
+            }
+            setLineStyleEvt();
+
+            var _line_kind_value = LayerWin.dext5_lang.arr_line_kind_value.value;
+            _cnt = _line_kind_value.length;
+            var _value = "";
+            var _text = "";
+            for (var i = 0; i < _cnt; i++) {
+                //var _line_kind_list = parent.DEXT5.util.xml.getNodeIdx(_line_kind_value, "line_kind_list", i);
+                _value = LayerWin.dext5_lang.arr_line_kind_value.value[i];
+                _text = LayerWin.dext5_lang.arr_line_kind_value.text[i];
+                var option = document.createElement("OPTION");
+                option.value = _value;
+                option.text = _text;
+                document.getElementById("line_kind").options.add(option);
+            }
+            document.getElementById("line_kind").options[0].selected = "selected";
+
+            document.getElementById("line_thickness").value = '0';
+
+            img_margin_left.value = LayerWin.DEXTTOP.G_CURREDITOR._config.imgDefaultMarginLeft;
+            img_margin_right.value = LayerWin.DEXTTOP.G_CURREDITOR._config.imgDefaultMarginRight;
+            img_margin_top.value = LayerWin.DEXTTOP.G_CURREDITOR._config.imgDefaultMarginTop;
+            img_margin_bottom.value = LayerWin.DEXTTOP.G_CURREDITOR._config.imgDefaultMarginBottom;
+
+            DEXTTOP.DEXT5.util.addEvent(margin_left_spinUp, 'click', function () { LayerWin.click_plus_func(img_margin_left, 9999, 1); });
+            DEXTTOP.DEXT5.util.addEvent(margin_right_spinUp, 'click', function () { LayerWin.click_plus_func(img_margin_right, 9999, 1); });
+            DEXTTOP.DEXT5.util.addEvent(margin_top_spinUp, 'click', function () { LayerWin.click_plus_func(img_margin_top, 9999, 1); });
+            DEXTTOP.DEXT5.util.addEvent(margin_bottom_spinUp, 'click', function () { LayerWin.click_plus_func(img_margin_bottom, 9999, 1); });
+
+	        // 이미지 여백 음수값 입력 가능하도록 수정(0 -> -9999로 변경) by jh 2018.04.09
+            DEXTTOP.DEXT5.util.addEvent(margin_left_spinDown, 'click', function () { LayerWin.click_minus_func(img_margin_left, -9999, 1); });
+            DEXTTOP.DEXT5.util.addEvent(margin_right_spinDown, 'click', function () { LayerWin.click_minus_func(img_margin_right, -9999, 1); });
+            DEXTTOP.DEXT5.util.addEvent(margin_top_spinDown, 'click', function () { LayerWin.click_minus_func(img_margin_top, -9999, 1); });
+            DEXTTOP.DEXT5.util.addEvent(margin_bottom_spinDown, 'click', function () { LayerWin.click_minus_func(img_margin_bottom, -9999, 1); });
+	        
+            //DEXTTOP.DEXT5.util.addEvent(border_spinUp, 'click', function () { LayerWin.click_plus_func(border, 10, 1); });
+	        //DEXTTOP.DEXT5.util.addEvent(border_spinDown, 'click', function () { LayerWin.click_minus_func(border, 0, 1); });
+
+            // 이미지 여백 음수값 입력 가능하도록 수정 by jh 2018.04.09
+	        //DEXTTOP.DEXT5.util.addEvent(img_margin_left, 'keydown', LayerWin.onlyNumber);
+	        //DEXTTOP.DEXT5.util.addEvent(img_margin_right, 'keydown', LayerWin.onlyNumber);
+	        //DEXTTOP.DEXT5.util.addEvent(img_margin_top, 'keydown', LayerWin.onlyNumber);
+	        //DEXTTOP.DEXT5.util.addEvent(img_margin_bottom, 'keydown', LayerWin.onlyNumber);
+            var keydownInputText = function (obj) {
+                if (!isNaN(new Number(obj.value)))
+                    DEXTTOP.G_CURREDITOR.keydownInputText = obj.value;
+            }
+            DEXTTOP.DEXT5.util.addEvent(img_margin_left, 'keydown', function () { keydownInputText(img_margin_left) });
+            DEXTTOP.DEXT5.util.addEvent(img_margin_right, 'keydown', function () { keydownInputText(img_margin_right) });
+            DEXTTOP.DEXT5.util.addEvent(img_margin_top, 'keydown', function () { keydownInputText(img_margin_top) });
+            DEXTTOP.DEXT5.util.addEvent(img_margin_bottom, 'keydown', function () { keydownInputText(img_margin_bottom) });
+
+	        DEXTTOP.DEXT5.util.addEvent(img_margin_left, 'keyup', function () { LayerWin.onlyNumberAndNegative(img_margin_left) });
+	        DEXTTOP.DEXT5.util.addEvent(img_margin_right, 'keyup', function () { LayerWin.onlyNumberAndNegative(img_margin_right) });
+	        DEXTTOP.DEXT5.util.addEvent(img_margin_top, 'keyup', function () { LayerWin.onlyNumberAndNegative(img_margin_top) });
+	        DEXTTOP.DEXT5.util.addEvent(img_margin_bottom, 'keyup', function () { LayerWin.onlyNumberAndNegative(img_margin_bottom) });
+
+	        //DEXTTOP.DEXT5.util.addEvent(border, 'keydown', LayerWin.onlyNumber);
+	        DEXTTOP.DEXT5.util.addEvent(img_width, 'keydown', LayerWin.onlyNumber);
+	        DEXTTOP.DEXT5.util.addEvent(img_height, 'keydown', LayerWin.onlyNumber);
+
+	        DEXTTOP.DEXT5.util.addEvent(original_size, 'click', function () {
+	            var img_width = document.getElementById('img_width');
+	            var img_height = document.getElementById('img_height');
+	            var original_size = document.getElementById('original_size');
+	            if (original_size.checked) {
+	                img_width.value = "";
+	                img_width.disabled = "true";
+	                img_height.value = "";
+	                img_height.disabled = "true";
+	            } else {
+	                img_width.removeAttribute("disabled");
+	                img_height.removeAttribute("disabled");
+	            }
+	        });
+
+	        /*
+	        var select_img_protocol = document.getElementById('select_img_protocol');
+	        var img_web_url = document.getElementById('img_web_url');
+	        var select_link_protocol = document.getElementById('select_link_protocol');
+	        var link_url = document.getElementById('link_url');
+	        LayerWin.createSelectProtocols(select_img_protocol, img_web_url);
+	        LayerWin.createSelectProtocols(select_link_protocol, link_url);
+	        */
+
+	        if (Dext5LayerWin._dext_editor._config.disableInsertImage.indexOf(',image,') > -1) {
+	            document.getElementById('file_tag_or_drop_zone').style.display = 'none';
+	            
+	            document.getElementById('radio_image_url').checked = true;
+	            InputFlag_change(document.getElementById('radio_image_url'));
+
+	            var nextTr = document.getElementById('file_tag_or_drop_zone').nextSibling;
+	            if (nextTr.tagName != 'TR') {
+	                nextTr = nextTr.nextSibling;
+	            }
+	            var tdArr = nextTr.getElementsByTagName('td');
+	            tdArr[0].width = '5%';
+	            tdArr[1].width = '22%';
+	            tdArr[2].width = '73%';
+	        }
+
+	        var btn_ok_a = document.getElementById('btn_ok_a');
+	        if (elemModify != null) {
+	            DEXTTOP.DEXT5.util.addEvent(btn_ok_a, 'click', function () { set_modify_ok(); });
+	            set_modify_field();
+	        } else {
+	            DEXTTOP.DEXT5.util.addEvent(btn_ok_a, 'click', function () { dext_upload_image(); });
+	        }
+
+	        if (LayerDoc.compatMode == "BackCompat") {
+	            var inputs = document.getElementsByTagName('input');
+	            for (var i = 0; i < inputs.length; i++) {
+	                if (inputs[i].type == 'text') {
+	                    inputs[i].style.height = '20px';
+	                }
+	            }
+	        }
+	        var first_tab_1 = document.getElementById("first_tab_1");
+	        setCursorPos(first_tab_1, false, false);
+	        LayerWin.setFocusFirstAndLast(document, first_tab_1);
+	    }
+
+	    function set_page() {
+	        var _upload_url = LayerWin._dext_editor._config.post_url;
+	        document.getElementById("upload_url").value = _upload_url;
+
+	        var _proxy_url = LayerWin._dext_editor._config.proxy_url;
+
+	        var enforceDocumentDomain = false;
+            try {
+                enforceDocumentDomain = dext5EnforceDocumentDomain;
+            } catch (e) { }
+            var currentDocDomain = document.domain;
+            if (enforceDocumentDomain) {
+                currentDocDomain += '|';
+            }
+
+	        // 신규 암호화 로직 추가로 인하여 수정 - by jeongmin 18.08.06
+            if (LayerWin._dext_editor._config.security.encryptParam != "0") {
+                document.getElementById("document_domain").value = DEXTTOP.DEXT5.util.makeEncryptParamFinal(currentDocDomain);
+                document.getElementById("uploadtype").value = DEXTTOP.DEXT5.util.makeEncryptParamFinal("image");
+                document.getElementById("proxy_url").value = DEXTTOP.DEXT5.util.makeEncryptParamFinal(_proxy_url);
+                document.getElementById("pe").value = LayerWin._dext_editor._config.security.encryptParam;
+            } else {
+	            document.getElementById("document_domain").value = currentDocDomain;
+	            document.getElementById("uploadtype").value = "image";
+	            document.getElementById("proxy_url").value = _proxy_url;
+	            document.getElementById("pe").parentNode.removeChild(document.getElementById("pe"));
+	        }
+	    }
+
+	    function set_page_lang() {
+	        var _skin_name = LayerWin._dext_editor._config.style.skinName;
+
+	        document.getElementById("dext_dialog_box").className = 'DEXT_fiVe_ED_Popup_Type02 DEXT_fiVe_PUi_' + _skin_name;
+
+	        document.getElementById("span_first_tab_1").innerHTML = LayerWin.dext5_lang.image.first_tab;
+	        document.getElementById("span_first_tab_2").innerHTML = LayerWin.dext5_lang.image.first_tab;
+	        document.getElementById("span_first_tab_3").innerHTML = LayerWin.dext5_lang.image.first_tab;
+	        document.getElementById("span_secon_tab_1").innerHTML = LayerWin.dext5_lang.image.secon_tab;
+	        document.getElementById("span_secon_tab_2").innerHTML = LayerWin.dext5_lang.image.secon_tab;
+	        document.getElementById("span_secon_tab_3").innerHTML = LayerWin.dext5_lang.image.secon_tab;
+	        document.getElementById("span_third_tab_1").innerHTML = LayerWin.dext5_lang.image.third_tab;
+	        document.getElementById("span_third_tab_2").innerHTML = LayerWin.dext5_lang.image.third_tab;
+	        document.getElementById("span_third_tab_3").innerHTML = LayerWin.dext5_lang.image.third_tab;
+	        document.getElementById("span_title").innerHTML = LayerWin.dext5_lang.image.title;
+	        document.getElementById("label_image_title").innerHTML = LayerWin.dext5_lang.image.image_title;
+	        document.getElementById("label_image_info").innerHTML = LayerWin.dext5_lang.image.image_info;
+	        document.getElementById("label_image_url_info").innerHTML = LayerWin.dext5_lang.image.image_url_info;
+	        document.getElementById("label_image_description").innerHTML = LayerWin.dext5_lang.image.image_description;
+
+	        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+	            if (DEXTTOP.DEXT5.browser.mobile == true || DEXTTOP.DEXT5.UserAgent.device.type == 'mobile') {
+	                document.getElementById("drop_zone").innerHTML = LayerWin.dext5_lang.upload.drop_zone_content2; // 모바일 드랍존 문구
+	            }
+	            else {
+	                document.getElementById("drop_zone").innerHTML = LayerWin.dext5_lang.upload.drop_zone_content; // 드랍존 문구
+	            }
+	        }
+	        else {
+	            document.getElementById("file_input_search").innerHTML = LayerWin.dext5_lang.image.file_search; // 찾아보기
+	        }	        
+
+	        if (LayerWin._dext_editor._config.allowImgSize == "0") {
+	            document.getElementById("label_width").innerHTML = "";
+	            document.getElementById("label_height").innerHTML = "";
+	        } else {
+	            document.getElementById("label_width").innerHTML = LayerWin.dext5_lang.image.width;
+	            document.getElementById("label_height").innerHTML = LayerWin.dext5_lang.image.height;
+	        }
+
+	        document.getElementById("label_original_size").innerHTML = LayerWin.dext5_lang.image.original_size;
+     
+	        document.getElementById("label_margin_left").innerHTML = LayerWin.dext5_lang.image.margin_left;
+	        document.getElementById("label_margin_right").innerHTML = LayerWin.dext5_lang.image.margin_right;
+	        document.getElementById("label_margin_top").innerHTML = LayerWin.dext5_lang.image.margin_top;
+	        document.getElementById("label_margin_bottom").innerHTML = LayerWin.dext5_lang.image.margin_bottom;
+
+	        document.getElementById("label_img_align").innerHTML = LayerWin.dext5_lang.image.align;
+	        //document.getElementById("label_img_border").innerHTML = LayerWin.dext5_lang.image.border;
+	        document.getElementById("label_hplink_url_info").innerHTML = LayerWin.dext5_lang.image.image_url_info;
+	        document.getElementById("label_hplink_title").innerHTML = LayerWin.dext5_lang.image.hyperlink_title;
+	        document.getElementById("label_hplink_target").innerHTML = LayerWin.dext5_lang.image.hyperlink_target;
+	        document.getElementById("btn_ok").innerHTML = LayerWin.dext5_lang.image.btn_ok;
+	        document.getElementById("btn_cancel").innerHTML = LayerWin.dext5_lang.image.btn_cancel;
+	        document.getElementById("label_continue_insert").innerHTML = LayerWin.dext5_lang.image.continue_insert;
+
+	        document.getElementById("label_line_style").innerHTML = LayerWin.dext5_lang.image.line_style;
+	        document.getElementById("label_line_kind").innerHTML = LayerWin.dext5_lang.image.line_kind;
+	        document.getElementById("label_line_thickness").innerHTML = LayerWin.dext5_lang.image.line_thickness;
+	        document.getElementById("span_line_color").innerHTML = LayerWin.dext5_lang.image.line_color;
+	        document.getElementById("label_not_apply_border").innerHTML = LayerWin.dext5_lang.image.not_apply_border;
+	        
+	        document.title = LayerWin.dext5_lang.image.frame_title;
+
+	        var fileDataObj = document.getElementById("Filedata");
+	        fileDataObj.id = file_field_id;
+	        fileDataObj.name = file_field_id;
+
+	        var userDataObj = document.getElementById("userField");
+	        userDataObj.id = user_field_id;
+	        userDataObj.name = user_field_id;
+	        userDataObj.value = user_field_value;
+
+	        var header = LayerWin.getElementsByClass('EdiTor_Popup_header', document);
+	        header[0].onselectstart = function () { return false; };
+	    }
+
+	    function set_modify_field() {
+
+	        var title = document.getElementById('img_title'); 
+	        var alt = document.getElementById('img_alt');
+            var img_id = document.getElementById('img_id');
+            var img_class = document.getElementById('img_class');
+            var img_figure = document.getElementById('img_figure');
+	        var img_width = document.getElementById('img_width');
+	        var img_height = document.getElementById('img_height');
+	        var img_margin_left = document.getElementById('img_margin_left');
+	        var img_margin_right = document.getElementById('img_margin_right');
+	        var img_margin_top = document.getElementById('img_margin_top');
+	        var img_margin_bottom = document.getElementById('img_margin_bottom');
+	        var align = document.getElementById('img_align');
+	        //var img_border = document.getElementById('img_border');
+	        var ratio = document.getElementById("img_ratio");
+	        var img_web_url = document.getElementById('img_web_url');
+	        var InputFlag = document.getElementsByName('InputFlag');
+	        var filedata = document.getElementById(file_field_id);
+	        var tr_create_only_item = document.getElementById('create_only_item');
+
+	        tr_create_only_item.style.display = 'none';
+
+	        //var arr_src = elemModify.src.split('/');
+	        //img_web_url.value = elemModify.getAttribute('src'); //arr_src[arr_src.length - 1];
+            // src에 도메인 정보가 없을경우 ie7이하에서는 현재 도메인을 붙여서 src를 반환하기때문에 아래와같이 처리함.
+	        var srcReg = new RegExp('src\s*=\s*(\"|\')(([^\"\']*))(\"|\')', 'gi');
+	        var matArr = elemModify.outerHTML.match(srcReg);
+	        var imgSrc = '';
+	        if (matArr && matArr.length > 0) {
+	            imgSrc = matArr[0].replace('src=', '');
+	            imgSrc = imgSrc.replace(/\'/g, '');
+	            imgSrc = imgSrc.replace(/\"/g, '');
+	            imgSrc = imgSrc.replace(/\&amp;/g, '&');
+	        }
+	        img_web_url.value = imgSrc;
+
+	        //InputFlag[0].disabled = 'disabled';
+	        //InputFlag[1].disabled = 'disabled';
+
+	        //if (elemModify.src.indexOf('dext_form_image') < 0) {
+	        //filedata.disabled = 'disabled';    
+            //}
+
+	        title.value = elemModify.title;
+	        alt.value = elemModify.alt;
+	        img_id.value = elemModify.id;
+	        img_class.value = elemModify.className;
+
+	        if (elemModifyParent) {
+	            if (img_figure) {
+	                img_figure.checked = true;
+	                document.getElementById('a_secon_tab_1').style.display = 'none';
+	                document.getElementById('a_secon_tab_2').style.display = 'none';
+	                document.getElementById('a_secon_tab_3').style.display = 'none';
+	            }
+	        }
+
+	        var width, height;
+	        elemModify.style.width.replace('px', '') == "" ? width = elemModify.width : width = elemModify.style.width.replace('px', '');
+	        elemModify.style.height.replace('px', '') == "" ? height = elemModify.height : height = elemModify.style.height.replace('px', '');
+	        img_width.value = width.toString().indexOf('%') < 0 ? Math.round(width) : '';
+	        img_height.value = height.toString().indexOf('%') < 0 ? Math.round(height) : '';
+
+	        img_margin_left.value = elemModify.style.marginLeft.toString() == '' ? '' : elemModify.style.marginLeft.toString().indexOf('%') < 0 ? Math.round(elemModify.style.marginLeft.replace('px', '')) : '';
+	        img_margin_right.value = elemModify.style.marginRight.toString() == '' ? '' : elemModify.style.marginRight.toString().indexOf('%') < 0 ? Math.round(elemModify.style.marginRight.replace('px', '')) : '';
+	        img_margin_top.value = elemModify.style.marginTop.toString() == '' ? '' : elemModify.style.marginTop.toString().indexOf('%') < 0 ? Math.round(elemModify.style.marginTop.replace('px', '')) : '';
+	        img_margin_bottom.value = elemModify.style.marginBottom.toString() == '' ? '' : elemModify.style.marginBottom.toString().indexOf('%') < 0 ? Math.round(elemModify.style.marginBottom.replace('px', '')) : '';
+
+	        img_margin_top.value.toString() == "" ? elemModify.vspace.toString() == "" ? img_margin_top.value = "" : img_margin_top.value = elemModify.vspace : img_margin_top.value = img_margin_top.value;
+	        img_margin_bottom.value.toString() == "" ? elemModify.vspace.toString() == "" ? img_margin_bottom.value = "" : img_margin_bottom.value = elemModify.vspace : img_margin_bottom.value = img_margin_bottom.value;
+	        img_margin_right.value.toString() == "" ? elemModify.hspace.toString() == "" ? img_margin_right.value = "" : img_margin_right.value = elemModify.hspace : img_margin_right.value = img_margin_right.value;
+	        img_margin_left.value.toString() == "" ? elemModify.hspace.toString() == "" ? img_margin_left.value = "" : img_margin_left.value = elemModify.hspace : img_margin_left.value = img_margin_left.value;
+
+            
+	        elemModify.align == "" ? align.value = "" : align.value = elemModify.align;
+	        //elemModify.style.border == "" ? img_border.value = elemModify.border : img_border.value = LayerWin.DEXTTOP.DEXT5.util.parseIntOr0(parseInt(elemModify.style.border, 10));
+
+	        var prtNode = LayerWin.GetParentbyTagName(elemModify, "a");
+	        if (prtNode && prtNode.tagName.toLowerCase() == 'a') {
+	            var _link_url = document.getElementById('link_url');
+	            var _link_title = document.getElementById('link_title');
+	            var _link_target = document.getElementById('link_target');
+
+	            var prtHtml = prtNode.outerHTML.replace(/"/g, '\'');
+	            var reg_exp = new RegExp('href\s*=\s*(\"|\')(([^\"\';]*))(\"|\')', 'gi');
+	            var match_array = prtHtml.match(reg_exp);
+	            var prtHref = prtNode.getAttribute('href');
+	            if (match_array && match_array.length > 0) {
+	                prtHref = match_array[0].replace('href=', '');
+	                prtHref = prtHref.replace(/\'/g, '');
+	            }
+
+	            _link_url.value = prtHref;
+	            _link_title.value = prtNode.title;
+	            if (prtNode.target == '') {
+	                _link_target.value = _link_target[0].value;
+	            } else {
+	                _link_target.value = prtNode.target;
+	            }
+	        }
+	        if (LayerWin._dext_editor._config.allowImgSize == "1") {
+	            ratio.style.display = 'block';
+	            ratio.className = 'img_link_active_btn';
+	            ratio.setAttribute('ratio-checked', 'true');
+	        }
+
+	        //ratio checked field keyup Event
+	        var ratio_width_keyup = (function () {
+	            if (ratio.getAttribute("ratio-checked") == "true") {
+	                var y = ((parseInt(height, 10) * parseInt(img_width.value, 10)) / parseInt(width, 10));
+	                img_height.value = isNaN(y) ? img_height.value : Math.round(y);
+	            }
+	        });
+	        var ratio_height_keyup = (function () {
+	            if (ratio.getAttribute("ratio-checked") == "true") {
+	                var x = ((parseInt(width, 10) * parseInt(img_height.value, 10)) / parseInt(height, 10));
+	                img_width.value = isNaN(x) ? img_width.value : Math.round(x);
+	            }
+	        });
+	        DEXTTOP.DEXT5.util.addEvent(img_width, "keyup", ratio_width_keyup);
+	        DEXTTOP.DEXT5.util.addEvent(img_height, "keyup", ratio_height_keyup);
+
+	        var notApplyBorder = document.getElementById('not_apply_border');
+	        var lineStyle = document.getElementById('line_style');
+	        var lineKind = document.getElementById('line_kind');
+	        var lineColor = document.getElementById('line_color');
+	        var lineThickness = document.getElementById('line_thickness');
+
+	        document.getElementById('tr_not_apply_border').style.display = '';
+	        notApplyBorder.checked = true;
+	        
+	        var borderStyle = '', borderKind = '', borderColor = '', borderThickness = '';
+	        
+	        borderStyle = elemModify.style.borderStyle;
+	        if (borderStyle == '') {
+	            if (elemModify.getAttribute('border') && elemModify.getAttribute('border') != '') {
+	                borderStyle = 'solid';
+	                borderKind = '';
+	                borderColor = '#000000';
+	                borderThickness = elemModify.getAttribute('border');
+	            }
+	        } else {
+	            if (elemModify.style.borderColor.indexOf('rgb') < 0 && elemModify.style.borderColor.indexOf('#') < 0) borderColor = '';
+	            else borderColor = elemModify.style.borderColor;
+
+	            if (elemModify.style.borderWidth != '') {
+	                if (elemModify.style.borderWidth.indexOf('px') > -1) {
+	                    borderThickness = elemModify.style.borderWidth;
+	                } else {
+	                    borderKind = elemModify.style.borderWidth;
+	                }
+	            }
+	        }
+
+	        try {
+	            setBorderListValue(borderStyle, lineStyle);
+	        } catch (e) {
+	            setBorderListValue(borderStyle, 'solid');
+	        }
+	        
+	        try {
+	            lineColor.style.borderTopColor = borderColor;
+	        } catch (e) {
+	            lineColor.style.borderTopColor = '#000000';
+	        }
+	        
+	        
+	        if (borderThickness != '') {
+	            try {
+	                lineThickness.value = parseInt(borderThickness, 10);
+	            } catch (e) {
+	                lineThickness.value = 0;
+	            }
+	        }
+
+	        if (borderKind != '') {
+	            try {
+	                lineKind.value = borderKind;
+	            } catch (e) {
+	                lineKind.value = '';
+	            }
+	            imgLineKindChange();
+	        }
+
+	        var changeNotApplyBorder = function () {
+	            if (notApplyBorder.checked) {
+	                document.getElementById('img_dlg_back').style.display = '';
+	            } else {
+	                document.getElementById('img_dlg_back').style.display = 'none';
+	            }
+	        };
+	        DEXTTOP.DEXT5.util.addEvent(notApplyBorder, "click", changeNotApplyBorder);
+
+	        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+	            var modify_default_radio = document.getElementById('radio_image_url');
+	            var modify_radio = document.getElementById('radio_image');
+
+	            modify_radio.removeAttribute('checked');
+	            modify_default_radio.setAttribute('checked', 'checked');
+
+	            InputFlag_change(modify_default_radio);
+	        }
+	    }
+
+	    function set_modify_ok() {
+	        var filedata = document.getElementById(file_field_id);
+	        if ((filedata.value && filedata.value != '') || (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1" && G_dragDropFileObj)) {
+	            G_UploadCompleteCallBackFn = processEnd;
+	            dext_upload_image();
+	        } else {
+	            var img_web_url = document.getElementById('img_web_url');
+	            elemModify.src = img_web_url.value;
+	            processEnd();
+	        }
+	    }
+
+	    function processEnd() {
+	        var title = document.getElementById('img_title');
+	        var alt = document.getElementById('img_alt');
+	        var img_id = document.getElementById('img_id');
+	        var img_class = document.getElementById('img_class');
+	        var img_figure = document.getElementById('img_figure');
+	        var img_width = document.getElementById('img_width');
+	        var img_height = document.getElementById('img_height');
+	        var img_margin_left = document.getElementById('img_margin_left');
+	        var img_margin_right = document.getElementById('img_margin_right');
+	        var img_margin_top = document.getElementById('img_margin_top');
+	        var img_margin_bottom = document.getElementById('img_margin_bottom');
+	        var align = document.getElementById('img_align');
+	        //var border = document.getElementById('img_border');
+
+	        img_id.value == '' ? elemModify.removeAttribute('id') : elemModify.setAttribute('id', img_id.value);
+	        img_class.value == '' ? elemModify.removeAttribute('class') : elemModify.setAttribute('class', img_class.value);
+	        title.value == '' ? elemModify.removeAttribute('title') : elemModify.setAttribute('title', title.value);
+	        alt.value == '' ? elemModify.removeAttribute('alt') : elemModify.setAttribute('alt', alt.value);
+
+	        if (LayerWin._dext_editor._config.allowImgSize == "1") {
+	            if (img_width.value != '') elemModify.style.width = img_width.value + 'px';
+	            if (img_height.value != '') elemModify.style.height = img_height.value + 'px';
+	            elemModify.removeAttribute('width');
+	            elemModify.removeAttribute('height');
+	        }
+
+            // 이미지 여백값을 -로 입력 시 빈값으로 변경 by jh 2018.04.09
+	        //elemModify.style.marginLeft = img_margin_left.value == '' ? '' : img_margin_left.value + 'px';
+	        //elemModify.style.marginRight = img_margin_right.value == '' ? '' : img_margin_right.value + 'px';
+	        //elemModify.style.marginTop = img_margin_top.value == '' ? '' : img_margin_top.value + 'px';
+	        //elemModify.style.marginBottom = img_margin_bottom.value == '' ? '' : img_margin_bottom.value + 'px';
+	        elemModify.style.marginLeft = (img_margin_left.value == '' || img_margin_left.value == '-') ? '' : img_margin_left.value + 'px';
+	        elemModify.style.marginRight = (img_margin_right.value == '' || img_margin_right.value == '-') ? '' : img_margin_right.value + 'px';
+	        elemModify.style.marginTop = (img_margin_top.value == '' || img_margin_top.value == '-') ? '' : img_margin_top.value + 'px';
+	        elemModify.style.marginBottom = (img_margin_bottom.value == '' || img_margin_bottom.value == '-') ? '' : img_margin_bottom.value + 'px';
+
+	        align.value == '' ? elemModify.removeAttribute('align') : elemModify.setAttribute('align', align.value);
+	        //if (border.value == '') { elemModify.setAttribute('border', '0'); elemModify.border = '0'; elemModify.style.border = '0px solid'; } else { elemModify.setAttribute('border', border.value); elemModify.border = border.value; elemModify.style.border = border.value + 'px solid'; }
+
+	        if (document.getElementById('not_apply_border').checked == false) {
+	            if (document.getElementById('line_style').style.borderTopStyle != '') {
+	                var tempBorderStyle = '';
+	                if (document.getElementById('line_style').style.borderTopStyle == 'none') {
+	                    tempBorderStyle = '0px solid rgb(0,0,0)';
+	                } else {
+	                    var tempThickness = '';
+	                    if (document.getElementById('line_kind').value != '') {
+	                        tempThickness = document.getElementById('line_kind').value + ' ';
+	                    } else {
+	                        if (document.getElementById('line_thickness').value == '') {
+	                            document.getElementById('line_thickness').value = '0';
+	                        }
+	                        tempThickness = document.getElementById('line_thickness').value + 'px ';
+	                    }
+	                    tempBorderStyle = tempThickness + document.getElementById('line_style').style.borderTopStyle + ' ' + document.getElementById('line_color').style.borderTopColor;
+	                }
+
+	                if (tempBorderStyle != '') {
+	                    try {
+	                        elemModify.style.border = tempBorderStyle;
+	                    } catch (e) { }
+	                }
+	            }
+	        }
+
+	        var prtNode = elemModify.parentNode;
+
+	        var _link_url = document.getElementById('link_url');
+	        var _link_title = document.getElementById('link_title');
+	        var _link_target = document.getElementById('link_target');
+
+	        _link_url.value = LayerWin.ReplaceAll(_link_url.value, ' ', '');
+	        var fmt2 = /^\s\s*$/;
+	        if (!fmt2.exec(_link_url.value) && _link_url.value != "") {
+
+	            var chkReg = new RegExp(/^(http|ftp|https|news)/);
+	            var chkVal = chkReg.test(_link_url.value);
+
+	            if (_link_url.value == 'http://' || _link_url.value == '') {
+	                _link_url.value = '';
+	            } else if (chkVal && !DEXTTOP.DEXT5.util.checkUrl(_link_url.value)) {
+	                alert(LayerWin.dext5_lang.msg.alert_url);
+	                var popTap = LayerWin.getElementsByClass("EdiTor_Popup_contents", document);
+	                popTap[0].className = "EdiTor_Popup_contents none";
+	                popTap[1].className = "EdiTor_Popup_contents view";
+	                _link_url.focus();
+	                return;
+	            }
+	            /*
+	            if (!DEXTTOP.DEXT5.util.checkUrl(_link_url.value)) {
+	                if (_link_url.value == 'http://' || _link_url.value == '') {
+	                    _link_url.value = '';
+	                } else {
+	                    alert(LayerWin.dext5_lang.msg.alert_url);
+                        var popTap = LayerWin.getElementsByClass("EdiTor_Popup_contents", document);
+	                    popTap[0].className = "EdiTor_Popup_contents none";
+	                    popTap[1].className = "EdiTor_Popup_contents view";
+	                    _link_url.focus();
+	                    return;
+	                }
+	            }
+                */
+	        }
+
+	        var _elemModifyTmp = elemModify;
+	        if (prtNode.tagName.toLowerCase() == 'a' && !fmt2.exec(link_url.value) && link_url.value != "") {
+	            prtNode.href = _link_url.value;
+	            _link_title.value == '' ? '' : prtNode.title = _link_title.value;
+	            prtNode.target = _link_target.value;
+
+	        } else if (prtNode.tagName.toLowerCase() == 'a' && (!!fmt2.exec(link_url.value) || link_url.value == "")) {
+	            prtNode.outerHTML = elemModify.outerHTML;
+
+	        } else if (prtNode.tagName.toLowerCase() != 'a' && !fmt2.exec(link_url.value) && link_url.value != "") {
+	            var anchor = DEXTTOP.G_CURREDITOR._DOC.createElement('a');
+	            //anchor.setAttribute('href', _link_url.value);
+	            anchor.href = _link_url.value;
+	            _link_title.value == '' ? '' : anchor.setAttribute('title', _link_title.value);
+	            anchor.setAttribute('target', _link_target.value);
+
+	            anchor.appendChild(elemModify.cloneNode());
+	            _elemModifyTmp = anchor;
+	            elemModify.parentNode.replaceChild(anchor, elemModify);
+	            //elemModify.outerHTML = anchor.outerHTML;
+	        }
+
+	        G_UploadCompleteCallBackFn = undefined;
+
+	        if (img_figure) {
+	            if (img_figure.checked == false) {
+	                if (elemModifyParent) {
+	                    if (Dext5LayerWin.getApplyDragResize(DEXTTOP.G_CURREDITOR) && DEXTTOP.G_CURREDITOR.dext_dragresize.G_dextResizeDiv)
+	                        DEXTTOP.G_CURREDITOR.dext_dragresize.resizeHandleClear();
+
+	                    var pTag = document.createElement("p");
+	                    elemModifyParent.parentNode.insertBefore(pTag, elemModifyParent);
+	                    elemModifyParent.parentNode.replaceChild(_elemModifyTmp, elemModifyParent);
+	                    pTag.appendChild(_elemModifyTmp);
+	                }
+	            } else {
+	                if (!elemModifyParent) {
+	                    var figure = document.createElement('figure');  // figure 태그 생성
+	                    var figcaptionNode = document.createElement('figcaption');  // figcaption 태그 생성
+
+	                    figure.setAttribute("contenteditable", "false");
+	                    figure.setAttribute("style", Dext5LayerWin._dext_editor._config.figure.figurestyle);
+	                    figcaptionNode.innerHTML = "<p>" + Dext5LayerWin._dext_editor._config.figure.defaultcaption + "</p>";
+	                    figcaptionNode.setAttribute("style", Dext5LayerWin._dext_editor._config.figure.figcaptionstyle);
+	                    figcaptionNode.setAttribute("contenteditable", "true");
+	                    figure.innerHTML = elemModify.outerHTML + figcaptionNode.outerHTML;
+
+	                    var replaceElem = elemModify;
+	                    var aTag = LayerWin.GetParentbyTagName(elemModify, "a");
+	                    if (aTag) {
+	                        replaceElem = aTag;
+	                    }
+	                    if (Dext5LayerWin.getApplyDragResize(DEXTTOP.G_CURREDITOR)) {
+	                        DEXTTOP.G_CURREDITOR.dext_dragresize.resizeHandleClear();
+	                        DEXTTOP.G_CURREDITOR.dext_dragresize.selection(replaceElem);
+	                    }
+	                    
+	                    var figureHtml = figure.outerHTML;
+
+	                    Dext5LayerWin.pasteHtmlAtCaretHuge(figureHtml);
+	                }
+	            }
+	        }
+
+	        LayerWin._dext_editor.UndoManager.putUndo();
+	        event_dext_image_upload_cancel();
+	    }
+
+	    function InputFlag_change(obj) {
+
+	        
+	        var img_web_url = document.getElementById("img_web_url");
+
+	        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+	            var drop_zone = document.getElementById("drop_zone");
+	            var td_drop_zone = document.getElementById("_td_drop_zone");
+
+	            if (!elemModify) {
+	                img_web_url.value = "";
+	            }
+
+	            if (obj.value == "1") {
+	                drop_zone.removeAttribute('hidden')
+	                drop_zone.setAttribute('style', 'border:dashed 1px gray; width:323px; height:40px; text-align:center; display:table-cell; vertical-align:middle; color:gray;');
+
+	                td_drop_zone.setAttribute('rowspan', '2');
+
+	                img_web_url.setAttribute('hidden', 'hidden');
+	            }
+	            else if (obj.value == "2") {
+	                drop_zone.setAttribute('hidden', 'hidden');
+	                drop_zone.removeAttribute('style');
+
+	                td_drop_zone.removeAttribute('rowspan')
+
+	                img_web_url.removeAttribute('hidden');	                
+
+	                if (!elemModify) {
+	                    img_web_url.value = "http://";
+	                }
+	                img_web_url.removeAttribute("disabled");
+	                setCursorPos(img_web_url, true, false);
+	            }
+	        }
+	        else {
+	            var file_data = document.getElementById(file_field_id);
+
+	            file_data.setAttribute("disabled", "disabled");
+	            img_web_url.setAttribute("disabled", "disabled");
+
+	            if (!elemModify) {
+	                img_web_url.value = "";
+	            }
+
+	            if (obj.value == "1") {
+	                file_data.removeAttribute("disabled");
+	            } else if (obj.value == "2") {
+	                if (!elemModify) {
+	                    img_web_url.value = "http://";
+	                }
+	                img_web_url.removeAttribute("disabled");
+	                setCursorPos(img_web_url, true, false);
+	            }
+	        }
+
+	        
+	    }
+
+	    function popup_toggle(tapNum) {
+	        var popTap = LayerWin.getElementsByClass("EdiTor_Popup_contents", document);
+	        var div_tab_arr = LayerWin.getElementsByClass("con_btn", document);
+            var input_link_url = document.getElementById('link_url');
+
+            switch (tapNum) {
+                case 0:
+                    setCursorPos(document.getElementById('radio_image'), false, false);
+                    input_link_url.value = LayerWin.ReplaceAll(input_link_url.value, ' ', '');
+                    if (input_link_url.value != '') {
+                        var chkReg = new RegExp(/^(http|ftp|https|news)/);
+                        var chkVal = chkReg.test(input_link_url.value);
+                        if (input_link_url.value == 'http://' || input_link_url.value == '') {
+                            input_link_url.value = '';
+                        } else if (chkVal && !DEXTTOP.DEXT5.util.checkUrl(input_link_url.value)) {
+                            alert(LayerWin.dext5_lang.msg.alert_url);
+                            input_link_url.focus();
+                            return;
+                        }
+                    }
+                    popTap[0].className = "EdiTor_Popup_contents view";
+                    popTap[1].className = "EdiTor_Popup_contents none";
+                    popTap[2].className = "EdiTor_Popup_contents none";
+
+                    document.getElementById('img_dlg_back').style.display = 'none';
+
+                    LayerWin.setFocusFirstAndLast(document, div_tab_arr[0].getElementsByTagName('a')[0]);
+                    break;
+                case 1:
+                    popTap[0].className = "EdiTor_Popup_contents none";
+                    popTap[1].className = "EdiTor_Popup_contents view";
+                    popTap[2].className = "EdiTor_Popup_contents none";
+
+                    document.getElementById('img_dlg_back').style.display = 'none';
+
+                    if (input_link_url.value == '') {
+                        input_link_url.value = 'http://';
+                    }
+                    setCursorPos(input_link_url, true, false);
+                    LayerWin.setFocusFirstAndLast(document, div_tab_arr[1].getElementsByTagName('a')[0]);
+                    break;
+                case 2:
+                    popTap[0].className = "EdiTor_Popup_contents none";
+                    popTap[1].className = "EdiTor_Popup_contents none";
+                    popTap[2].className = "EdiTor_Popup_contents view";
+                    //setCursorPos(input_link_url, true, false);
+
+                    if (document.getElementById('not_apply_border').checked) {
+                        document.getElementById('img_dlg_back').style.display = '';
+                    }
+
+                    LayerWin.setFocusFirstAndLast(document, div_tab_arr[2].getElementsByTagName('a')[0]);
+                    break;
+                default: return;
+            }
+
+
+            /*
+	        for (var i = 0; popTap.length > i; i++) {
+	            if (popTap[i].className == "EdiTor_Popup_contents view") {
+	                popTap[i].className = "EdiTor_Popup_contents none";
+	            } else {
+	                if (i == 0) {
+	                    setCursorPos(document.getElementById('radio_image'), false, false);
+	                    input_link_url.value = LayerWin.ReplaceAll(input_link_url.value, ' ', '');
+	                    if (input_link_url.value != '') {
+	                        var chkReg = new RegExp(/^(http|ftp|https|news)/);
+	                        var chkVal = chkReg.test(input_link_url.value);
+	                        if (input_link_url.value == 'http://' || input_link_url.value == '') {
+	                            input_link_url.value = '';
+	                        } else if (chkVal && !DEXTTOP.DEXT5.util.checkUrl(input_link_url.value)) {
+	                            alert(LayerWin.dext5_lang.msg.alert_url);
+	                            input_link_url.focus();
+	                            return;
+	                        }
+	                    }
+	                    popTap[i].className = "EdiTor_Popup_contents view";
+	                } else if (i == 1) {
+	                    popTap[i].className = "EdiTor_Popup_contents view";
+	                    if (input_link_url.value == '') {
+	                        input_link_url.value = 'http://';
+	                    }
+	                    setCursorPos(input_link_url, true, false);
+	                }
+	                LayerWin.setFocusFirstAndLast(document, div_tab_arr[i].getElementsByTagName('a')[0]);
+	            }
+	        }
+            */
+	    }
+
+	    function lineCountCheck(object, mode, max, min) {
+
+	        if (parseInt(object.value, 10) < parseInt(min, 10)) {
+	            if (mode == "L") {
+	                alert(LayerWin.dext5_lang.msg.detailTableInsertLineThicknessMinAlert);
+	                object.focus();
+	            }
+	            object.value = min;
+	        } else if (parseInt(object.value, 10) > parseInt(max, 10)) {
+	            if (mode == "L") {
+	                alert(LayerWin.dext5_lang.msg.detailTableInsertLineThicknessMaxAlert);
+	                object.focus();
+	            }
+	            object.value = max;
+	        }
+	    }
+	</script>
+</head>
+<body style="margin:0px; padding:0px; " onload="page_loaded_event(); page_Custom_Control();">
+    <script type="text/javascript">
+        var custom_code = LayerWin._dext_editor._config.custom_code;
+        var custom_height = "";
+
+        if (custom_code == 'CCODE_001') {
+            custom_height = "230px";
+
+            document.write("<style type='text/css'>");
+            document.write(" .DEXT_fiVe_ED_Popup_Type01 .EdiTor_Popup_contents .contents, .DEXT_fiVe_ED_Popup_Type02 .EdiTor_Popup_contents .contents, .DEXT_fiVe_ED_Popup_Type03 .EdiTor_Popup_contents .contents {  background:#FFFFFF; padding-bottom:0px; padding-top:0px; display:block; } ");
+            document.write(" .DEXT_fiVe_ED_Popup_Type01 .EdiTor_Popup_contents .contents .con, .DEXT_fiVe_ED_Popup_Type02 .EdiTor_Popup_contents .contents .con, .DEXT_fiVe_ED_Popup_Type03 .EdiTor_Popup_contents .contents .con { padding:1px 2px; margin:0px 7px; display:block; } ");
+            document.write("</style>");
+        } else {
+            custom_height = "320px";
+        }
+
+        function page_Custom_Control() {
+            if (custom_code == 'CCODE_001') {
+                document.getElementById('tr_continue_insert').style.display = "none";
+            }
+        }
+    </script>
+		<div id="dext_dialog_box" class="">
+            <div id="img_dlg_back" style="display:none;"></div>
+			<!-- Header -->
+			<div class="EdiTor_Popup_header">
+				<span id="span_title" class="subject">이미지</span><span class="text"></span>
+				<div class="close">
+					<a href="javascript:event_dext_image_upload_cancel();" title="close"></a>
+				</div>
+			</div>
+			<!-- // Header -->
+			<!-- Contents / general -->
+            <div class="EdiTor_Popup_contents view" id="tab_1">
+                <div class="con_btn">
+                    <a href="javascript:void(0);" id="first_tab_1" class="on"><span id="span_first_tab_1"></span></a>
+                    <a href="javascript:popup_toggle(1);" class="off" id="a_secon_tab_1"><span id="span_secon_tab_1"></span></a>
+                    <a href="javascript:popup_toggle(2);" class="off"><span id="span_third_tab_1"></span></a>
+                </div>
+                <input type="hidden" id="upload_url" name="upload_url" value="" />
+                <form name="dext_upload_form" id="dext_upload_form" method="post" target="upload_frame" enctype="multipart/form-data" action="">
+                    <div id="div_config">
+                        <input type="hidden" id="pe" name="pe" value="1" />
+                        <input type="hidden" id="document_domain" name="document_domain" value="" />
+                        <input type="hidden" id="proxy_url" name="proxy_url" value="" />
+                        <input type="hidden" id="uploadtype" name="uploadtype" value="image" />
+                        <input type="hidden" id="savefilename" name="savefilename" value="" />
+                        <input type="hidden" id="savefileext" name="savefileext" value="" />
+                        <input type="hidden" id="serverdomain" name="serverdomain" value="" />
+                        <input type="hidden" id="tosavepathurl" name="tosavepathurl" value="" />
+                        <input type="hidden" id="savafoldernamerule" name="savafoldernamerule" value="" />
+                        <input type="hidden" id="savafilenamerule" name="savafilenamerule" value="" />
+                        <input type="hidden" id="image_convert_format" name="image_convert_format" value="" />
+                        <input type="hidden" id="image_convert_width" name="image_convert_width" value="" />
+                        <input type="hidden" id="image_convert_height" name="image_convert_height" value="" />
+                        <input type="hidden" id="userField" value="" />
+                        <input type="hidden" id="originalfilename" name="originalfilename" value="" />
+                    </div>
+                    <script type="text/javascript">
+                        document.write('<div id="contents_tab_1" class="contents" style="height: ' + custom_height + '; overflow: hidden;">');
+                    </script>
+                    <div class="speech_balloons" id="access_div" style="position:absolute; display:none; width:317px;">
+                        <span class="sp_t" style="width:300px;"><p></p></span>
+                        <span class="sp_arrow">
+                            <script type="text/javascript">
+                                if (custom_code != 'CCODE_001') {
+                                    document.write('<img src="../images/editor/dialog/speech_arrow.gif" width="15" height="16" alt="web accessibility"/>');
+                                }
+                            </script>
+                        </span>
+                    </div>
+                    <div class="con border">
+                        <table cellpadding="0" cellspacing="0">
+                            <tr id="file_tag_or_drop_zone"></tr>
+                            <tr>
+                                <td><input id="radio_image_url" name="InputFlag" onclick="InputFlag_change(this);" type="radio" value="2" /></td>
+                                <td><label for="radio_image_url" id="label_image_url_info">이미지 경로</label></td>
+                                <td>
+                                    <input type="text" id="img_web_url" name="img_web_url" style="width:320px;" class="con_input" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><label for="img_title" id="label_image_title">이미지 제목</label></td>
+                                <td>
+                                    <input id="img_title" name="img_title" type="text" style="width:320px;" class="con_input" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <label for="img_alt" id="label_image_description">이미지 설명</label>
+                                    <a href="javascript:LayerWin.showAccessPopup(document, document.getElementById('access_img'), document.getElementById('access_div'), LayerWin.dext5_lang.access_explain.image, 15, 0);">
+                                        <script type="text/javascript">
+                                            if (custom_code != 'CCODE_001') {
+                                                document.write('<img id="access_img" src="../images/editor/dialog/editor_a.gif" alt="web_accessibility" style="border:0;" />');
+                                            }
+                                        </script>
+                                    </a>
+                                </td>
+                                <td><input id="img_alt" name="img_alt" type="text" style="width:320px;" class="con_input" /></td>
+                            </tr>
+                            <tr id="figure">
+                            </tr>
+                        </table>
+                    </div>
+                    <iframe id="upload_frame" name="upload_frame" frameborder="0" style="width:0px; height:0px; display:none;" title="DEXT5Editor Upload"></iframe>
+                    <div class="con">
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td width="20%"><label for="img_width" id="label_width">너비</label></td>
+                                <td width="25%">
+                                    <div id="img_width_div"><input id="img_width" name="img_width" type="text" style="width:55px;" class="con_input" />px</div>
+                                </td>
+                                <td rowspan="2" align="left" width="10%">
+                                    <a id="img_ratio" style="display:none;" ratio-checked="false" class="img_link_btn" title="비율 유지"></a>
+                                </td>
+                                <td width="20%">
+                                    <label for="img_id" id="label_id">ID : </label>
+                                </td>
+                                <td>
+                                    <input id="img_id" name="img_id" type="text" style="width:98px;" class="con_input" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="20%"><label for="img_height" id="label_height">높이</label></td>
+                                <td width="25%">
+                                    <div id="img_height_div"><input id="img_height" name="img_height" type="text" style="width:55px;" class="con_input" />px</div>
+                                </td>
+                                <td>
+                                    <label for="img_class" id="label_class">Class : </label>
+                                </td>
+                                <td>
+                                    <input id="img_class" name="img_class" type="text" style="width:98px;" class="con_input" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="20%"><label for="img_align" id="label_img_align">정렬</label></td>
+                                <td width="25%">
+                                    <select id="img_align" name="img_align" style="width:90px;">
+                                        <option value="">default</option>
+                                        <option value="left">Left</option>
+                                        <option value="right">Right</option>
+                                        <option value="top">Top</option>
+                                        <option value="middle">Middle</option>
+                                        <option value="baseline">Baseline</option>
+                                        <option value="bottom">Bottom</option>
+                                        <option value="texttop">Text Top</option>
+                                        <option value="absmiddle">absMiddle</option>
+                                        <option value="absbottom">absBottom</option>
+                                    </select>
+                                </td>
+                                <td rowspan="4" align="left" width="10%"></td>
+                                <td width="20%">
+                                    <!--<label for="img_border" id="label_img_border">테두리</label>-->
+                                </td>
+                                <td width="25%">
+                                    <!--<table style="line-height: normal; table-layout: auto; width:100% !important;" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                            <tr>
+                                                <td width="50px">
+                                                    <div class="no_a">
+                                                        <input id="img_border" name="img_border" type="text" style="height:20; width:30px;" class="con_input" value="0" />
+                                                        <ul>
+                                                            <li id="border_spinUp"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ta_btn.gif" /></a></li>
+                                                            <li id="border_spinDown"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ba_btn.gif" /></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>px</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="20%"><label for="img_margin_left" id="label_margin_left">좌여백</label></td>
+                                <td width="25%">
+                                    <table style="line-height: normal; table-layout: auto; width:100% !important;" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                            <tr>
+                                                <td width="50px">
+                                                    <div class="no_a">
+                                                        <input id="img_margin_left" name="img_margin_left" type="text" style="height:20; width:30px;" class="con_input" value="0" />
+                                                        <ul>
+                                                            <li id="margin_left_spinUp"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ta_btn.gif" /></a></li>
+                                                            <li id="margin_left_spinDown"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ba_btn.gif" /></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>px</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td><label for="img_margin_right" id="label_margin_right">우여백</label></td>
+                                <td>
+                                    <table style="line-height: normal; table-layout: auto; width:100% !important;" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                            <tr>
+                                                <td width="50px">
+                                                    <div class="no_a">
+                                                        <input id="img_margin_right" name="img_margin_right" type="text" style="height:20; width:30px;" class="con_input" value="0" />
+                                                        <ul>
+                                                            <li id="margin_right_spinUp"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ta_btn.gif" /></a></li>
+                                                            <li id="margin_right_spinDown"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ba_btn.gif" /></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>px</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="20%"><label for="img_margin_top" id="label_margin_top">상여백</label></td>
+                                <td width="25%">
+                                    <table style="line-height: normal; table-layout: auto; width:100% !important;" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                            <tr>
+                                                <td width="50px">
+                                                    <div class="no_a">
+                                                        <input id="img_margin_top" name="img_margin_top" type="text" style="height:20; width:30px;" class="con_input" value="0" />
+                                                        <ul>
+                                                            <li id="margin_top_spinUp"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ta_btn.gif" /></a></li>
+                                                            <li id="margin_top_spinDown"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ba_btn.gif" /></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>px</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td><label for="img_margin_bottom" id="label_margin_bottom">하여백</label></td>
+                                <td>
+                                    <table style="line-height: normal; table-layout: auto; width:100% !important;" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                            <tr>
+                                                <td width="50px">
+                                                    <div class="no_a">
+                                                        <input id="img_margin_bottom" name="img_margin_bottom" type="text" style="height:20; width:30px;" class="con_input" value="0" />
+                                                        <ul>
+                                                            <li id="margin_bottom_spinUp"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ta_btn.gif" /></a></li>
+                                                            <li id="margin_bottom_spinDown"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ba_btn.gif" /></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>px</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr id="create_only_item">
+                                <td width="45%" colspan="2"><input type="checkbox" id="original_size" /><label for="original_size" id="label_original_size">원본크기 유지</label></td>
+                                <td colspan="2">
+                                    <input type="checkbox" id="continue_insert" /><label for="continue_insert" id="label_continue_insert">이미지 계속 삽입</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+            </div>
+
+				</form>
+			</div>
+			<!-- // Contents -->
+
+            <!-- hyperlink tap  -->
+			<div class="EdiTor_Popup_contents none" id="tab_2">
+				<div class="con_btn">
+					<a href="javascript:popup_toggle(0);" class="off"><span id="span_first_tab_2"></span></a>
+                    <a href="javascript:void(0);" class="on" id="a_secon_tab_2"><span id="span_secon_tab_2"></span></a>
+                    <a href="javascript:popup_toggle(2);" class="off"><span id="span_third_tab_2"></span></a>
+				</div>
+                <script type="text/javascript">
+                document.write('<div id="contents_tab_2" class="contents" style="height: ' + custom_height + '; overflow: view;">');
+                </script>
+                    <div class="con border">
+	                    <table cellpadding="0" cellspacing="0">
+		                    <tr>
+                                <td width="5%"></td>
+			                    <td width="22%"><label for="link_url" id="label_hplink_url_info"></label></td>
+			                    <td width="73%">
+                                    <input id="link_url" name="link_url" type="text" style="width:320px;" class="con_input" />
+			                    </td>
+		                    </tr>
+		                    <tr>
+                                <td></td>
+			                    <td ><label for="link_title" id="label_hplink_title"></label></td>
+			                    <td>
+			                    <input id="link_title" name="link_title" type="text" style="width:320px;" class="con_input"/>
+			                    </td>
+		                    </tr>
+		                    <tr>
+                                <td></td>
+			                    <td><label for="link_target" id="label_hplink_target"></label></td>
+			                    <td>
+				                    <select id="link_target" name="link_target" style="width:320px;"></select>
+                                </td>
+		                    </tr>
+	                    </table>
+                    </div>
+				</div>
+            </div>
+            <!-- hyperlink tap -->
+
+            <!-- edge tap -->
+            <div class="EdiTor_Popup_contents none" id="tap_3">
+                <div class="con_btn">
+                    <a href="javascript:popup_toggle(0);" class="off"><span id="span_first_tab_3"></span></a>
+                    <a href="javascript:popup_toggle(1);" class="off" id="a_secon_tab_3"><span id="span_secon_tab_3"></span></a>
+                    <a href="javascript:void(0);" class="on"><span id="span_third_tab_3"></span></a>
+                </div>
+                <script type="text/javascript">
+                    document.write('<div id="contents_tab_3" class="contents" style="height: ' + custom_height + '; overflow: view;">');
+                </script>
+                    
+                <div class="con border">
+                    <table cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td width="25%">
+                                    <label id="label_line_style" for="line_style_btn">선 모양</label>
+                                </td>
+                                <td width="25%">
+                                    <div style="z-index: 10; position: relative;">
+                                        <button class="line_btn" type="button" name="line_style_btn" id="line_style_btn" onclick="fnLineStyleToggle();">
+                                            <span id="line_style" class="cr" style="border-top: 1px solid #5d5d5d;"></span>
+                                        </button>
+                                        <script type="text/javascript">
+                                            if (custom_code == 'CCODE_001') {
+                                                document.write('<div id="line_style_list" class="line_style" style="z-index: 1; position: absolute; left: 0px; top: 0px; _left: 2px; display: none;">');
+                                            } else {
+                                                document.write('<div id="line_style_list" class="line_style" style="z-index: 1; position: absolute; left: 0px; top: 19px; _left: 2px; display: none;">');
+                                            }
+                                        </script>
+                                        <ul id="ul_line_style"></ul>
+                                        <script type="text/javascript">
+                                            document.write('</div>');
+                                        </script>
+                                    </div>
+                                </td>
+                                <td width="25%">
+                                    <label id="label_line_kind" for="line_kind">선 종류</label>
+                                </td>
+                                <td width="25%">
+                                    <select name="line_kind" id="line_kind" style="width: 80px;" onchange="imgLineKindChange(true);"></select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span id="span_line_color">선 색상</span>
+                                </td>
+                                <td>
+                                    <!-- 컬러피커 수정으로 인한 위치 변경 by jh 2017.03.28 -->
+                                    <!--<div class="tbd" style="cursor: pointer;" onclick="javascript:LayerWin.showColorPopup(document,document.getElementById('line_color'),'borderTopColor','line_color',-5,6,null);">-->
+                                    <div class="tbd" style="cursor: pointer;" onclick="javascript:LayerWin.showColorPopup(document,document.getElementById('line_color'),'borderTopColor','line_color',-5,-36,null);">
+                                        <a href="javascript:void(0);">
+                                            <span class="tbd_color" id="line_color" style="border-top-color: rgb(0, 0, 0);"></span>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <label id="label_line_thickness" for="line_thickness">선 두께</label>
+                                </td>
+                                <td>
+                                    <table style="line-height: normal; table-layout: auto;" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="no_ab">
+                                                        <input name="line_thickness" class="con_input" id="line_thickness" onkeydown="LayerWin.onlyNumber(event);" onkeyup="lineThicknessChange();" onblur="lineCountCheck(this,'L','10','0');" type="text" maxlength="4">
+                                                        <ul id="line_thickness_updn_btn">
+                                                            <li onclick="LayerWin.click_plus_func(document.getElementById('line_thickness'),10,1,lineThicknessChange)"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" alt="" src="../images/editor/dialog/btn/editor_ta_btn.gif"></a></li>
+                                                            <li onclick="LayerWin.click_minus_func(document.getElementById('line_thickness'),0,1,false,lineThicknessChange)"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" alt="" src="../images/editor/dialog/btn/editor_ba_btn.gif"></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td width="10">px</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr id="tr_not_apply_border" style="display:none;">
+                                <td colspan="3">
+                                    <input type="checkbox" id="not_apply_border" />
+                                    <label id="label_not_apply_border" for="not_apply_border">테두리 변경 안함</label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                </div>
+		    </div>
+            <!-- edge tap -->
+			
+			<!-- Footer -->
+			<div class="EdiTor_Popup_footer">
+				<span id="dext_loading" style="display:none;"><img src="../images/editor/dialog/loading.gif" alt="working" style="vertical-align:middle; " /> Uploading... </span>
+				<a href="javascript:void(0);" class="confirm" id="btn_ok_a"><span id="btn_ok">확인</span></a>
+				<a href="javascript:event_dext_image_upload_cancel();" class="cancel" id="abtn_cancel"><span id="btn_cancel">취소</span></a>
+			</div>
+			<!-- // Footer -->
+		</div>
+</body>
+</html>

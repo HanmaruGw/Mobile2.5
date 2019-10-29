@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: InitServerXml</h3>
+    <p class="ttl">config.InitServerXml</p>
+    <p class="txt">
+        만일 에디터 생성시 로드할 XML에 파일 저장 경로등과 같은 값의 노출이 문제가 되는 경우<br />
+        XML파일을 암호화 하여 처리 하는 방식을 의미합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        기본값은 빈값으로 기본 XML을 읽는 것 입니다. ("dext5editor/config/dext_editor.xml")
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<span class="firebrick">Client</span>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        // Full URL(http 포함)로 다음과 같이 설정합니다.
+        // Full URL은 DEXT5 Editor Handler경로로 지정하며, f 파라미터의 값은 서버에서 처리할 XML 파일명을 지정합니다.
+        DEXT5.config.InitServerXml = 'http://localhost/dext5editor/handler/upload_handler.jsp?f=dext_editor.xml';
+
+        new Dext5editor("editor1");
+    &#60;/script&#62;
+&#60;/div&#62;
+
+<span class="firebrick">Server</span>
+
+<b>.NET</b>
+
+DEXT5.SetConfigPhysicalPath = "D:\\config"; // 환경설정파일(xml)이 존재하는 서버의 폴더 경로
+
+<b>JAVA</b>
+
+DEXT5.SetConfigPhysicalPath("D:/config"); // 환경설정파일(xml)이 존재하는 서버의 폴더 경로
+
+<b>PHP</b>
+
+$configPhysicalPath = "D:/config"; // 환경설정파일(xml)이 존재하는 서버의 폴더 경로
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

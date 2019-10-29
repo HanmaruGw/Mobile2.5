@@ -1,0 +1,173 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Editor Sample</title>
+	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+	
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+    <link href="../css/sample.common.css" rel="stylesheet" />   
+    <script src="../vender/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../js/sample.common.js" type="text/javascript"></script>
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+
+    <script src="../../../js/dext5editor.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+        var tempPath = location.href;
+        tempPath = tempPath.substring(0, tempPath.lastIndexOf('/'));
+        tempPath = tempPath.substring(0, tempPath.lastIndexOf('/'));
+
+        // DEXT5 Editor 생성완료 이벤트
+        function dext_editor_loaded_event(DEXT5Editor) {
+            var logBox = document.getElementById("logBox");
+
+            logBox.innerHTML = 'DEXT5 Editor 로드 완료 : ' + DEXT5Editor.editor.ID + '\n';
+
+            var sampleHtml = '<p style="line-height: 1.2; font-family: 굴림; font-size: 9pt; margin-top: 0px; margin-bottom: 0px;">&nbsp;</p><p style="line-height: 1.2; font-family: 굴림; font-size: 9pt; margin-top: 0px; margin-bottom: 0px;">이미지</p><p style="line-height: 1.2; font-family: 굴림; font-size: 9pt; margin-top: 0px; margin-bottom: 0px;"><img title="" style="border: 0px solid rgb(0, 0, 0); border-image: none; width: 300px;" alt="" src="' + tempPath + '/images/ViewPhotos.jpg" border="0"></p><p style="line-height: 1.2; font-family: 굴림; font-size: 9pt; margin-top: 0px; margin-bottom: 0px;">&nbsp;</p><p style="line-height: 1.2; font-family: 굴림; font-size: 9pt; margin-top: 0px; margin-bottom: 0px;">테이블</p><table style="border: 1px rgb(0, 0, 0); border-image: none; width: 768px; height: 40px; font-size: 9pt; border-collapse: collapse;" border="1" cellspacing="0" cellpadding="1"><tbody><tr><td style="border: 1px solid rgb(0, 0, 0); border-image: none; width: 256px; height: 20px;"><p style="line-height: 1.2; font-family: 굴림; font-size: 9pt; margin-top: 0px; margin-bottom: 0px;">&nbsp;</p></td><td style="border: 1px solid rgb(0, 0, 0); border-image: none; width: 256px; height: 20px;"><p style="line-height: 1.2; font-family: 굴림; font-size: 9pt; margin-top: 0px; margin-bottom: 0px;">&nbsp;</p></td><td style="border: 1px solid rgb(0, 0, 0); border-image: none; width: 256px; height: 20px;"><p style="line-height: 1.2; font-family: 굴림; font-size: 9pt; margin-top: 0px; margin-bottom: 0px;">&nbsp;</p></td></tr><tr><td style="border: 1px solid rgb(0, 0, 0); border-image: none; width: 256px; height: 20px;"><p style="line-height: 1.2; font-family: 굴림; font-size: 9pt; margin-top: 0px; margin-bottom: 0px;">&nbsp;</p></td><td style="border: 1px solid rgb(0, 0, 0); border-image: none; width: 256px; height: 20px;"><p style="line-height: 1.2; font-family: 굴림; font-size: 9pt; margin-top: 0px; margin-bottom: 0px;">&nbsp;</p></td><td style="border: 1px solid rgb(0, 0, 0); border-image: none; width: 256px; height: 20px;"><p style="line-height: 1.2; font-family: 굴림; font-size: 9pt; margin-top: 0px; margin-bottom: 0px;">&nbsp;</p></td></tr></tbody></table><p style="line-height: 1.2; font-family: 굴림; font-size: 9pt; margin-top: 0px; margin-bottom: 0px;">&nbsp;</p>';
+
+            DEXT5.setBodyValue(sampleHtml);
+
+        }
+
+        function fn_getBodyValue_2(editorID) {
+            ////////////////// 이미지와 테이블의 width 값을 %로 바꿔주는 작업 시작 //////////////////
+
+            // 대체 이미지를 실제 객체(iframe, embed)로 변경해줍니다.
+            DEXT5.setDext5DomMode(true);
+
+            // 에디터 작성영역의 document를 가져오는 API
+            var editorDoc = DEXT5.getDext5DocumentDom();
+
+            // 기준이 될 editor의 가로값. 이 예제에선 가로를 800px로 설정했다고 가정합니다.
+            var editorWidth = 800;
+
+            // 에디터의 좌,우 margin 값을 빼줍니다.
+            var bodyMarginLeft = parseInt(DEXT5.getEditorStyle(editorDoc.body, 'marginLeft', editorID), 10);
+            var bodyMarginRight = parseInt(DEXT5.getEditorStyle(editorDoc.body, 'marginRight', editorID), 10);
+
+            editorWidth = editorWidth - bodyMarginLeft - bodyMarginRight;
+
+            // 작성 영역에서 이미지 태그를 가져옵니다.
+            var images = editorDoc.getElementsByTagName('img');
+            var imagesLength = images.length;
+            for (var i = 0; i < imagesLength; i++) {
+                if (images[i].style.width.indexOf('px') > -1) {
+                    // 이미지 태그의 가로 값을 에디터의 가로값 기준으로 %값을 구하여 설정해줍니다.
+                    var imgWidth = parseInt(images[i].style.width, 10);
+                    var tempWidth = (imgWidth / editorWidth) * 100;
+                    images[i].style.width = tempWidth + '%';
+                    images[i].style.height = '';
+                }
+            }
+
+            // 작성 영역에서 테이블 태그를 가져옵니다.
+            var tables = editorDoc.getElementsByTagName('table');
+            var tablesLength = tables.length;
+            for (var i = 0; i < tablesLength; i++) {
+
+                // 테이블 태그의 가로 값을 에디터의 가로값 기준으로 %값을 구하여 설정해줍니다.
+                if (tables[i].style.width.indexOf('px') > -1) {
+                    var tableWidth = parseInt(tables[i].style.width, 10);
+                    tables[i].style.width = tableWidth / editorWidth * 100 + '%';
+                }
+            }
+
+            // 작업 완료 후 실제 객체(iframe, embed)를 대체이미지로 변경해줍니다.
+            DEXT5.setDext5DomMode(false);
+
+            // 위와 같이 에디터 객체에 접근하여 width, height 뿐만 아니라 환경에 맞게 다양하게 컨트롤 할 수 있습니다.
+
+            ////////////////// 작업 완료 //////////////////
+        }
+
+        function fn_popup_pc() {
+            document.getElementById('getValueArea').value = DEXT5.getBodyValue();
+
+            var newWindow = open_popup(tempPath + '/html/sample_view_pc.html', 'sample view pc', 'resizable=yes, scrollbars=yes', 850, 600);
+        }
+
+        function fn_popup_mobile() {
+
+            document.getElementById('getValueArea').value = DEXT5.getBodyValue();
+
+            var newWindow = open_popup(tempPath + '/html/sample_view_mobile.html', 'sample view mobile', 'resizable=yes, scrollbars=yes', 320, 500);
+        }
+
+        function fn_popup_tablet() {
+
+            document.getElementById('getValueArea').value = DEXT5.getBodyValue();
+
+            var newWindow = open_popup(tempPath + '/html/sample_view_mobile.html', 'sample view tablet', 'resizable=yes, scrollbars=yes', 500, 600);
+        }
+
+        function open_popup(url, title, o, w, h, t, l) {
+            var top, left;
+
+            if (t != undefined) {
+                top = t;
+            } else {
+                top = (screen.height / 2) - (h / 2) - 40;
+            }
+            if (l != undefined) {
+                left = l;
+            } else {
+                left = (screen.width / 2) - (w / 2);
+            }
+
+            var newWindow = window.open(url, title, o + ', width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+            // Puts focus on the newWindow
+            if (window.focus) {
+                if (newWindow) newWindow.focus();
+            }
+
+            return newWindow;
+        }
+    </script>
+</head>
+<body>
+    <ul class="info_lst_box">
+        <li>• 작성 내용을 보기 페이지 종류에 따라 이미지 및 테이블의 크기를 조정하는 샘플 입니다. <br />
+        <span style="margin-left:20px;">아래 버튼을 클릭하면 팝업창으로 보기화면이 나타납니다.</span>
+        </li>
+    </ul>
+    <div class="btn_lst_box" style="overflow:hidden">      
+        <div style="float:left;display:inline-block">
+            <button type="button" value="pc" class="input_image" style="width: 120px;" onclick="fn_popup_pc()">PC</button>&nbsp;
+            <button type="button" value="mobile" class="input_image" style="width: 120px;" onclick="fn_popup_mobile()">모바일</button>&nbsp;
+            <button type="button" value="tablet" class="input_image" style="width: 120px;" onclick="fn_popup_tablet()">태블릿</button>&nbsp;
+        </div>
+    </div>
+    <div style="width: 800px; margin: 0 auto;clear:both">
+        <script type="text/javascript">
+
+            //DEXT5.config.InitXml = "dext_editor.xml";
+            //DEXT5.config.HandlerUrl = "http://www.dext5.com/handler/upload_handler.ashx";
+            //DEXT5.config.SkinName = "blue";
+            //DEXT5.config.ToSavePathURL = "dext5data";
+            //DEXT5.config.Lang = "ko-kr"; // ko-kr, en-us, ja-jp, zh-cn, zh-tw
+            //DEXT5.config.Mode = "view";
+            //DEXT5.config.focusInitObjId = "title"; // 에디터가 로드된 후 설정한 아이디를 가진 객체에 포커스를 줌.
+            //DEXT5.config.NextTabElementId = "nextInput";
+            //DEXT5.config.IgnoreSameEditorName = "1";
+
+            DEXT5.config.Width = "800px";
+            DEXT5.config.Height = "300px";
+            //DEXT5.config.RunTimes = '';   // 웹표준모드 : html5, 플러그인모드(IE전용) : ieplugin, version이하 플러그인(IE전용) : versionieplugin
+
+            // 에디터의 팝업창과 우클릭 메뉴를 부모창에 띄우기 위한 설정.
+            // 에디터를 iframe 형태로 띄우는 경우 사이즈가 작아서 팝업창이나 우클릭 메뉴가 가려질 때 설정하면 유용합니다.
+            //DEXT5.config.DialogWindow = parent.window;
+
+            var editor1 = new Dext5editor("dext5editor");
+        </script>
+    </div>
+    <br />
+    <textarea id="getValueArea" style="display:none;"></textarea>
+    <!-- 로그영역 -->
+    <textarea id="logBox" class="logBox" style="overflow: auto;height:210px" readonly="true"></textarea>
+    <!-- //로그영역 -->
+</body>
+</html>

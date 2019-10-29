@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con">
+            <h3 class="title">DEXT5 Upload :: SetPhysicalPath</h3>
+            <p class="ttl">upload.SetPhysicalPath</p>
+            <p class="txt">
+                실제 업로드 할 기본경로를 물리적 경로로 설정합니다.<br />
+                폴더명 제일 뒤에 .과 공백이 있다면 제거하시고 설정해 주세요.(운영체제에서 지원되지 않는 문자열입니다.)
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                기본값은 ""이고, SetPhysicalPath 또는 SetVirtualPath 중에 반드시 하나는 설정해야 업로드가 가능합니다.
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+Raonwiz.Dext5.UploadHandler upload = new Raonwiz.Dext5.UploadHandler();
+
+<b>upload.SetPhysicalPath = @"D:\dext5upload\dext5uploaddata";</b>
+
+upload.Process(context);
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

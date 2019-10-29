@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: XhtmlValue</h3>
+    <p class="ttl">XML : &#60;xhtml_value&#62;.....&#60;/xhtml_value&#62;, Config : config.XhtmlValue</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        소스보기나 에디터 영역의 html 소스를 가져올 때 xhtml 형식으로 가져옵니다.
+    </p>
+    <p class="mttl01">remarks</p>    
+    <p class="txt">
+        "0" 으로 설정 시 사용 안함, "1" 로 설정 시 사용으로 설정합니다.<br />
+        기본값은 "0" 입니다.
+    </p>
+    <p class="mttl01">sample code</p>                      
+    <div class="cord">
+    <pre class="pre">
+<b>소스보기나 에디터 영역의 html 소스를 가져올 때 xhtml 형식으로 가져오도록 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;xhtml_value&#62;1&#60;/xhtml_value&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+     
+&#60;!-- ..... 생략 ..... --&#62;
+     
+&#60;div style="width:900px;height:550px"&#62;  
+    &#60;script type="text/javascript"&#62;
+
+        DEXT5.config.XhtmlValue = "1";
+    
+        new Dext5editor("editor1");
+
+    &#60;/script&#62;       
+&#60;/div&#62;
+    </pre>
+    </div>            
+</div>
+</div>
+</body>
+</html>
+

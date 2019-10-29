@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Upload :: ShowButtonBarView</h3>
+    <p class="ttl">XML : &#60;show_button_bar_view&#62;.....&#60;/show_button_bar_view&#62;, Config : config.ButtonBarView</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        업로드가 보기모드일 때 버튼바 영역에 노출 할 버튼을 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        "0"으로 설정시 버튼 영역을 표시하지 않습니다.<br/><br />
+        버튼 종류는<br />
+        open : 열기<br /> download : 다운로드<br /> download_all : 전체 다운로드<br />saveandopen : 저장후 열기(플러그인 전용)<br /> print : 인쇄(플러그인 전용)<br/>
+        <br />버튼 종류는 ",(콤마)"로 구분하여 설정합니다.      
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>업로드가 보기모드 일 때 버튼 바 영역에 파일열기,다운로드 버튼을 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;show_button_bar_view&#62;open,download&#60;/show_button_bar_view&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        DEXT5UPLOAD.config.ButtonBarView = 'open,download';
+
+        new Dext5Upload("upload1");
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

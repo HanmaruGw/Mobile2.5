@@ -1,0 +1,156 @@
+<div class="workDiaryContainer" ng-controller="diaryScheduelController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarMenu"  ng-click="slideMenuClick()">
+			<img src="/resources/image/menu_img.png">
+		</div>
+		<div class="headerBarTitle diaryDrop" ng-click="scheduleDateSelectBtn($event)">
+			<span>2018. 10</span>
+			<img src="/resources/image/work_diary/drop_option.png">
+		</div>
+		<div class="headerBarSearch workDiarySearch" ng-click="scheduleSearchBtn($event)">
+			<img src="/resources/image/work_diary/ic_menu_search_normal.png">
+		</div>
+		<div class="headerBarSend workDiaryWrite" ng-click="btnShowScheduleWrite()">
+			<img src="/resources/image/work_diary/ic_menu_send_normal.png">
+		</div>
+		<!-- <div class="headerUnderBar diaryUnderHeight diaryDropBar"></div> -->
+	</div>
+	
+	<!-- Search -->
+	<div class="diarySearchDiv" ng-show="isShowScheduleSearch">
+		<div class="diaryRecentTime">
+			<div class="diaryFirstTime">
+				<input type="text" placeholder="2018. 10. 1." readonly="readonly">
+				<img src="/resources/image/calendar.png">
+			</div>
+			<div class="diarySecondTime">
+				<input type="text" placeholder="2018. 10. 31." readonly="readonly">
+				<img src="/resources/image/calendar.png">
+			</div>
+		</div>
+		<div class="diarySelectOption">
+			<div class="diarySelectWrap">
+				<select name="diarySelectName" class="diarySelectMenu">
+				<option value=''>전체</option>
+				<option value=''>제목</option>
+				<option value=''>본문</option>
+				<option value=''>제목+본문</option>
+				<option value=''>발신자</option>
+			</select>
+			</div>
+			<div class="diarySearchKeyword">
+				<input type="text" placeholder="검색어를 입력하세요">
+				<img src="/resources/image/board/ic_search_normal.png" >
+			</div>
+		</div>
+	</div>
+	<div class="workDiarySearchBack" ng-show="isShowScheduleSearch" ng-click="toggleScheduleSearch()"></div>
+	<div class="workDiaryDataVoid">
+		<span class="workDiarySearchResult">검색된 데이터가 없습니다.</span>
+		<span class="searchResultBlank"></span>
+	</div>
+	<!-- <div class="planListDiv" ng-show="isShowScheduleSearch">
+		<div class="planListContents">
+			<span>테스트2(테스트유저5)</span>
+			<p>2018-10-24 ~ 2018-10-24</p>
+		</div>
+	</div> -->
+	<!-- Search End-->
+	
+	<!-- Select Date -->
+	<div class="diaryDateDrop" ng-show="isShowSelectDate">
+		<div class="diaryDateDiv">
+			<div class="dateYearDiv">
+				<span>2017</span>
+				<span>9</span>
+			</div>
+			<div class="dateYearDiv">
+				<span>2018</span>
+				<span>10</span>
+			</div>
+			<div class="dateYearDiv">
+				<span>2019</span>
+				<span>11</span>
+			</div>
+		</div>
+		<div class="diaryBtnDiv">
+			<div class="diaryCancelBtn" ng-click="scheduleDateSelectBtn($event)">취소</div>
+			<div class="diarySearchBtn">검색</div>
+		</div>
+	</div>
+	<!-- Select Date End -->
+	
+	<div class="workDiaryDataVoid">
+		<span class="workDiarySearchResult">검색된 데이터가 없습니다.</span>
+		<span class="searchResultBlank"></span>
+	</div>	
+	<div class="workDiaryContents">
+		<div class="diaryCalenderTab">
+			<ul class="diaryCalendarList">
+				<li><a class="sunTextColor">일</a></li>
+				<li><a>월</a></li>
+				<li><a>화</a></li>
+				<li><a>수</a></li>
+				<li><a>목</a></li>
+				<li><a>금</a></li>
+				<li><a class="satTextColor">토</a></li>
+			</ul>
+		</div>
+		<div class="diaryContentsWrap">
+			<ul>
+				<li><a class="lastMonthColor">30</a></li>
+				<li><a>1</a></li>
+				<li><a>2</a></li>
+				<li><a>3</a></li>
+				<li><a>4</a></li>
+				<li><a>5</a></li>
+				<li><a class="satTextColor">6</a></li>
+			</ul>
+			<ul>
+				<li><a class="sunTextColor">7</a></li>
+				<li><a>8</a></li>
+				<li><a>9</a></li>
+				<li><a>10</a></li>
+				<li><a>11</a></li>
+				<li><a>12</a></li>
+				<li><a class="satTextColor">13</a></li>
+			</ul>
+			<ul>
+				<li><a class="sunTextColor">14</a></li>
+				<li><a>15</a></li>
+				<li><a>16</a></li>
+				<li><a>17</a></li>
+				<li><a>18</a></li>
+				<li><a>19</a></li>
+				<li><a class="satTextColor">20</a></li>
+			</ul>
+			<ul>
+				<li><a class="sunTextColor">21</a></li>
+				<li><a>22</a></li>
+				<li><a>23</a></li>
+				<li><a>24</a></li>
+				<li><a>25</a></li>
+				<li><a>26</a></li>
+				<li><a class="satTextColor">27</a></li>
+			</ul>
+			<ul>
+				<li><a class="sunTextColor">28</a></li>
+				<li><a>29</a></li>
+				<li><a>30</a></li>
+				<li><a>31</a></li>
+				<li><a class="nextMonthColor">1</a></li>
+				<li><a class="nextMonthColor">2</a></li>
+				<li><a class="nextSatColor">3</a></li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="workDiaryBottomWrap">
+		<span class="diaryTodayBtn">오늘</span>
+		<div class="diaryRightBtn">
+			<span>공유칼렌더</span>
+			<span>일정참고자</span>
+		</div>
+	</div>
+</div>

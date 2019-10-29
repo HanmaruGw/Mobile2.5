@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con ">           
+    <h3 class="title">DEXT5 Editor :: addUserCssUrl</h3>
+    <p class="ttl">void addUserCssUrl(url, editor_id)</p>
+    <p class="txt">
+        에디터에 사용자의 css를 적용합니다.
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        없음.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">url</span>&nbsp;&nbsp;사용자의 css url 주소입니다.<br />
+        <span class="firebrick">editor_id</span>&nbsp;&nbsp;접근할 에디터의 id 입니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        url은 http://를 포함한 전체 경로를 입력해야 합니다.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+
+    function dext_editor_loaded_event(){
+        // 에디터가 로드된 후 사용자의 css를 에디터에 적용시킵니다.
+        var url = 'http://www.dext5.com/css/user.css';
+        DEXT5.addUserCssUrl(url, 'editor1');
+    }
+
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;  
+   
+    &#60;!-- 에디터 생성 --&#62;
+    &#60;script type="text/javascript"&#62;
+        new Dext5editor('editor1');
+    &#60;/script&#62;
+
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

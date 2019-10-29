@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>DEXT5 Editor</title>
+
+<script type="text/javascript">
+    document.write('<scr' + 'ipt src="../js/dext5editor.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+</script>
+
+<script type="text/javascript">
+	var bEditorLoaded = false;
+	function getDEXT5Method(strFunctionName, strP1) {
+	    var evalFunction = "";
+	    if (typeof strP1 == "undefined") {
+	        evalFunction = "DEXT5." + strFunctionName + "();";
+	    }
+	    else {
+
+	        if (strFunctionName == 'dext5DecodeMime') {
+	            return DEXT5.dext5DecodeMime(strP1);
+	        }
+	        else {
+	            evalFunction = "DEXT5." + strFunctionName + "('" + strP1 + "');";
+	        }
+	    }
+
+	    var ret = eval(evalFunction);
+	    if (strFunctionName == 'getElementById') {
+	        if (ret)
+	            ret = 'TRUE';
+	        else
+	            ret = 'FALSE';
+	    }
+
+		return ret;
+    }
+
+    function ReplaceEscapeCharacters(str) {
+
+        if (typeof str == "undefined") {
+            return "";
+        } else {
+            var ret = str;
+            // set하려는 data에 \r이 있을경우 eval시 script error발생하여 삭제함.
+            ret = ret.replace(/\r/g, "");
+
+            ret = ret.replace(/\\/g, "\\\\");
+            ret = ret.replace(/'/g, "\\'");
+            ret = ret.replace(/,/g, "\\,");
+            return ret;
+        }
+    }
+
+    function setDEXT5Method(strFunctionName, strP1, strP2, strP3) {
+        try{
+            var evalFunction = "";
+            if (typeof strP2 == "undefined") {
+                strP1 = ReplaceEscapeCharacters(strP1);
+                evalFunction = "DEXT5." + strFunctionName + "('" + strP1 + "');";
+            }
+            else if (typeof strP3 == "undefined") {
+                strP1 = ReplaceEscapeCharacters(strP1);
+                strP2 = ReplaceEscapeCharacters(strP2);
+                evalFunction = "DEXT5." + strFunctionName + "('" + strP1 + "','" + strP2 + "');";
+            }
+            else {
+                strP1 = ReplaceEscapeCharacters(strP1);
+                strP2 = ReplaceEscapeCharacters(strP2);
+                strP3 = ReplaceEscapeCharacters(strP3);
+                evalFunction = "DEXT5." + strFunctionName + "('" + strP1 + "','" + strP2 + "','" + strP3 + "');";
+            }
+
+            return eval(evalFunction);
+        }catch(e){
+            alert("Error [setDEXT5Method] : " + e.message);
+        }
+	}
+	
+	function dext_editor_loaded_event(editor) { bEditorLoaded  = true; }
+	
+	function get_editor_status() {
+	    try {
+	        var editor = DEXT5.getEditor();
+	        if (editor) {
+	            return "TRUE";
+	        } else {
+	            return "FALSE";
+	        }
+	    } catch (e) {
+	        // 
+	    }
+	}
+</script>
+</head>
+<body style="margin:0px; padding:0px;overflow:hidden">
+<script type="text/javascript">
+    DEXT5.config.RunTimes = "ieplugin";
+    DEXT5.config.Width = '100%';
+    DEXT5.config.InitFocus = "0";
+	new Dext5editor("editor1");
+</script>
+</body>
+</html>

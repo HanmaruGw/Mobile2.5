@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Editor Sample</title>
+	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+	
+	<!-- 샘플 페이지 동작을 위한 파일입니다. -->
+    <link href="../css/sample.common.css" rel="stylesheet" />   
+    <script src="../vender/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../js/sample.common.js" type="text/javascript"></script>
+	<!-- 샘플 페이지 동작을 위한 파일입니다. -->
+	
+    <script src="../../../js/dext5editor.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+        
+        var _PluginUse = "1";
+        var _LimitCountUse = "1";
+        var _MaxCharCount = "10";
+        var _MaxLineCount = "5";
+        var _CountWhiteSpace = "1";
+        var _MsgBoxUse = "1";
+
+        // DEXT5 Editor 생성완료 이벤트
+        function dext_editor_loaded_event(DEXT5Editor) {
+            var logBox = document.getElementById("logBox");
+
+            $("#logBox").val('DEXT5 Editor 로드 완료 : ' + DEXT5Editor.editor.ID + '\n');
+        }
+        function fn_getBodyTextLength(editorID) {
+            var countCharacter = DEXT5.getBodyTextLength(editorID);
+            var bodyHtml = DEXT5.getBodyValue(editorID);
+            var _html = '작성 글자 수 : ' + countCharacter + '자, ';
+            _html += '작성 내용 Bytes : ' + DEXT5.getByteLength(bodyHtml) + " Bytes\n";
+            _html += "작성내용 : " + bodyHtml;
+            $("#logBox").val(_html);
+        }
+
+        function fn_change_SelectBox(obj) {
+            _PluginUse = $("#ed_select_PluginUse").val();
+            _LimitCountUse = $("#ed_select_LimitCountUse").val();
+            _MaxCharCount = $("#ed_select_MaxCharCount").val();
+            _MaxLineCount = $("#ed_select_MaxLineCount").val();            
+            _CountWhiteSpace = $("#ed_select_CountWhiteSpace").val();
+            _MsgBoxUse = $("#ed_select_MsgBoxUse").val();
+
+            location.href = "sample_word_count.html?_PluginUse=" + _PluginUse + "&_LimitCountUse=" + _LimitCountUse + "&_MaxCharCount=" + _MaxCharCount + "&_MaxLineCount=" + _MaxLineCount + "&_CountWhiteSpace=" + _CountWhiteSpace + "&_MsgBoxUse=" + _MsgBoxUse;
+        }
+
+        $(document).ready(function () {            
+            if (typeof (qs["_PluginUse"]) != 'undefined') {
+                _PluginUse = qs["_PluginUse"];
+            }
+            if (typeof (qs["_LimitCountUse"]) != 'undefined') {
+                _LimitCountUse = qs["_LimitCountUse"];
+            }
+            if (typeof (qs["_MaxCharCount"]) != 'undefined') {
+                _MaxCharCount = qs["_MaxCharCount"];
+            }
+            if (typeof (qs["_MaxLineCount"]) != 'undefined') {
+                _MaxLineCount = qs["_MaxLineCount"];
+            } 
+            if (typeof (qs["_CountWhiteSpace"]) != 'undefined') {
+                _CountWhiteSpace = qs["_CountWhiteSpace"];
+            }
+            if (typeof (qs["_MsgBoxUse"]) != 'undefined') {
+                _MsgBoxUse = qs["_MsgBoxUse"];
+            }
+
+            $("#ed_select_PluginUse").val(_PluginUse);
+            $("#ed_select_LimitCountUse").val(_LimitCountUse);
+            $("#ed_select_MaxCharCount").val(_MaxCharCount);
+            $("#ed_select_MaxLineCount").val(_MaxLineCount);
+            $("#ed_select_CountWhiteSpace").val(_CountWhiteSpace);
+            $("#ed_select_MsgBoxUse").val(_MsgBoxUse);
+            
+            DEXT5.config.Width = "800px";
+            DEXT5.config.Height = "400px";
+            //DEXT5.config.RunTimes = ''; // 웹표준모드 : html5, 플러그인모드(IE전용) : ieplugin, version이하 플러그인(IE전용) : versionieplugin
+            DEXT5.config.EditorHolder = "editorHolderDiv";
+
+            // 에디터의 팝업창과 우클릭 메뉴를 부모창에 띄우기 위한 설정.
+            // 에디터를 iframe 형태로 띄우는 경우 사이즈가 작아서 팝업창이나 우클릭 메뉴가 가려질 때 설정하면 유용합니다.
+            //DEXT5.config.DialogWindow = parent.window;
+
+            DEXT5.config.StatusBarItem = "design,preview";
+
+            // 글자수 제한 플로그인 설정
+            DEXT5.config.WordCount = {
+                Use: _PluginUse,
+                Limit: _LimitCountUse,
+                LimitChar: _MaxCharCount,
+                LimitLine: _MaxLineCount,
+                CountWhiteSpace: _CountWhiteSpace,
+                LimitMessage: _MsgBoxUse
+            };
+
+            var editor1 = new Dext5editor("dext5editor");
+        });
+    </script>
+</head>
+<body>
+    <ul class="info_lst_box">
+        <li>• 에디터에서 작성한 내용의 컨텐츠의 내용을 제한 할 수 있습니다.</li>        
+        <li>• 해당 기능의 제공 옵션은 아래와 같습니다. <br />
+            <span style="margin-left:20px;">- 글자/라인 수 제한</span><br />
+            <span style="margin-left:20px;">- 공백을 글자 수에 포함할지 여부</span><br />
+            <span style="margin-left:20px;">- 제한된 글자/라인 수를 넘긴 경우, 메시지 출력 여부</span>
+        </li>        
+    </ul>   
+    
+    <div class="btn_lst_box" style="overflow:hidden">
+        <div style="float:left;display:inline-block">
+            글자/라인수 제한 플러그인
+            <select name="ed_select_PluginUse" id="ed_select_PluginUse" style="width: 70px;" onchange="fn_change_SelectBox(this);">
+                <option selected="selected" value="1">사용</option>
+                <option value="0">미사용</option>
+            </select>&nbsp;
+            경고창
+            <select name="ed_select_MsgBoxUse" id="ed_select_MsgBoxUse" style="width: 70px;" onchange="fn_change_SelectBox(this);">
+                <option selected="selected" value="1">사용</option>
+                <option value="0">미사용</option>
+            </select>&nbsp;            
+            글자수 API
+            <button type="button" value="getBodyTextLength" class="input_image" style="width: 80px;" onclick="fn_getBodyTextLength('dext5editor')">API 호출</button>
+            <br><br>
+            글자수 제한
+            <select name="ed_select_LimitCountUse" id="ed_select_LimitCountUse" style="width: 80px;" onchange="fn_change_SelectBox(this);">
+                <option selected="selected" value="1">제한</option>
+                <option value="0">제한안함</option>
+            </select>&nbsp;
+            최대 글자수
+            <select name="ed_select_MaxCharCount" id="ed_select_MaxCharCount" style="width: 80px;" onchange="fn_change_SelectBox(this);">
+                <option selected="selected" value="10">10글자</option>
+                <option value="20">20글자</option>
+                <option value="30">30글자</option>
+                <option value="40">40글자</option>
+                <option value="50">50글자</option>
+            </select>&nbsp;
+            공백
+            <select name="ed_select_CountWhiteSpace" id="ed_select_CountWhiteSpace" style="width: 70px;" onchange="fn_change_SelectBox(this);">
+                <option selected="selected" value="1">포함</option>
+                <option value="0">미포함</option>
+            </select>&nbsp;     
+            최대 라인수
+            <select name="ed_select_MaxLineCount" id="ed_select_MaxLineCount" style="width: 80px;" onchange="fn_change_SelectBox(this);">
+                <option selected="selected" value="5">5행</option>
+                <option value="10">10행</option>
+                <option value="20">20행</option>
+                <option value="30">30행</option>
+                <option value="50">50행</option>
+            </select>&nbsp;              
+        </div>
+    </div>     
+    
+    <div style="width: 800px; margin: 0 auto;clear:both" id="editorHolderDiv"></div>
+    <br />
+    <!-- 로그영역 -->
+    <textarea id="logBox" class="logBox" style="overflow: auto;height:210px" readonly="true"></textarea>
+    <!-- //로그영역 -->
+</body>
+</html>

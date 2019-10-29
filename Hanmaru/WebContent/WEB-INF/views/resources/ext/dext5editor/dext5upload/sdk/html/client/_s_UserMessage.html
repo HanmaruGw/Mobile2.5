@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Upload :: UserMessage</h3>
+    <p class="ttl">XML : &#60;user_message edit="....."&#62;&#60;/user_message&#62;, Config : config.UserMessage.Edit<br />XML : &#60;user_message view="....."&#62;&#60;/user_message&#62;, Config : config.UserMessage.View</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        업로드 편집 / 보기 모드의 버튼 영역 왼쪽 또는 오른쪽에 문구 입력을 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        기본값은 "0" 사용안함이고, "1"로 설정시 사용입니다.<br/><br />
+        <span class="txt"><span class="firebrick">Edit</span>&nbsp;&nbsp;업로드 편집 모드 버튼 영역에 문구를 설정합니다.</span><br />
+        <span class="txt"><span class="firebrick">View</span>&nbsp;업로드 보기 모드 버튼 영역에 문구를 설정합니다.</span><br /><br />
+        버튼 위치가 왼쪽이면 문구 삽입은 오른쪽이 되며, 버튼 위치가 오른쪽이면 문구 삽입은 왼쪽에 위치합니다.<br />
+        "사용자 설정값"으로 문구를 입력합니다.        
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>편집/보기 모드의 텍스트 문구를 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;user_message edit="편집 모드 노출 문구" view="보기 모드 노출 문구"&#62;&#60;/user_message&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        DEXT5UPLOAD.config.UserMessage = {
+            Edit: '편집 모드 노출 문구',
+            View: '보기 모드 노출 문구'
+        }
+
+        new Dext5Upload("upload1");
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

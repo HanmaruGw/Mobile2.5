@@ -1,0 +1,78 @@
+<div class="workDiaryContainer" ng-controller="reportWriteController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarMenu" ng-click="popPage('pg_report_write')">
+			<img src="/resources/image/ic-arrow-left.png">
+		</div>
+		<div class="headerBarTitle reportWriteBarTitle">
+			<span>{{translateLanguage('work_report_write')}}</span>
+		</div>
+		<div class="headerBarSend workDiaryWrite" ng-click="btnWriteReport()">
+			<img src="/resources/image/mail/ic_menu_send_normal.png">
+		</div>
+		<div class="headerBarAttach workDiaryAttach">
+			
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	<div class="workWriteBack"></div>
+	<div class="workReportWriteDiv">
+		<div class="workReportWriteContents">
+			<div class="workReportWriteTitle">
+				<p>{{translateLanguage('subject')}}</p>
+				<div class="workReportWriteTitleEdit">
+					<input type="text" ng-model="reportTitle" placeholder="제목을 입력해 주세요.">
+				</div>
+			</div>
+			
+			<div class="workReportOptionContents">
+				<div class="workReportManagerDiv">
+					<p>{{translateLanguage('work_share_users')}}</p>
+					<div class="workReportManagerContents">
+						<div class="wrap_selected_user" ng-repeat="user in shareUserList">
+							<span ng-if="user.UserName != undefined && user.Type == undefined"> 
+								{{user.UserName}}/{{user.PositionName}}/{{user.DeptName}}/{{user.CompName}}
+							</span>
+							<span ng-if="user.UserName == undefined && user.Type == undefined">
+								{{user.DeptName}}
+							</span>
+							<span ng-if="user.Type != undefined">
+								{{user.Name}}
+							</span>
+							<span ng-if="user.DisplayName != undefined && user.DisplayName != ''">
+								{{user.DisplayName}}
+							</span>
+							<a ng-click="btnRemoveMandatoryUser($index)"><img class="img_rcv_remove" src="/resources/image/icon/ic_x_normal.png"></a>
+						</div>
+					
+						<input type="search" class="txt_rcv_name" ng-model="txt_rcv_name" ng-trim="true" ng-keyup="btnDetectSearch($event)" >
+						
+						<a ng-click="btnCallOrganSelect($event,'workReport')"><img src="/resources/image/ic-add-people.png"></a>
+					</div>
+					<!-- <div class="search_user_list" ng-if="search_rcv_result.length > 0">
+						<ul>
+							<li ng-repeat="user in search_rcv_result" ng-click="addRcvSelectedUser(user)">{{user.DisplayName}}</li>
+							<li ng-repeat="user in search_rcv_result" ng-click="addRcvSelectedUser(user)">{{user.DisplayName}}</li>
+						</ul>
+					</div>	자동완성 기능 있다면, 넣어주시면 될거 같습니다. -->				
+				</div>
+				<!-- <div class="schedulelAttachDiv">
+					<p class="scheduleAttachTitle">첨부파일</p>
+					<div class="scheduleFileAttach">
+						<p class="scheduleFileInfo">참고하세요.txt<span>17.0bytes</span></p>
+						<img src="/resources/image/ic_remove_normal.png">
+					</div>
+				</div> -->
+			</div>
+			<div class="workReportEditorWrap">
+				<!-- <iframe id="mailContents" class="contents" src="/html/app/_include/ext/dext5editor.html" frameborder="0"></iframe> -->
+				<iframe class="workReportEditor" ng-src="{{reportContents}}" width="100%" height="100%"></iframe>
+				<!-- width="100%" height="80%" framespacing=0 frameborder=0  marginheight=0 marginwidth=0 scrolling=no vspace=0 -->
+			</div><!-- 해당 영역에 에디터 툴 들어옵니다 -->
+		</div>
+	</div>
+	
+	
+</div>
+	
+	

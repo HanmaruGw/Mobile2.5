@@ -1,0 +1,241 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: ToolBar2</h3>
+    <p class="ttl">XML : &#60;tool_bar_2&#62;.....&#60;/tool_bar_2&#62;</p>
+    <p class="txt">
+        에디터의 하단(서식) 툴바의 메뉴를 표시하거나 숨기는 기능을 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        <table style="width: 500px;" class="h1_table">
+            <caption>하단(서식) 퉆바의 메뉴</caption>
+            <colgroup>
+                <col style="width: 50%; text-align: left;">
+                <col style="width: 50%; text-align: left;">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>
+                        메뉴명
+                    </th>
+                    <th>
+                        command 명
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        서식 콤보
+                    </td>
+                    <td>
+                        formatting
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        폰트 콤보
+                    </td>
+                    <td>
+                        font_family
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        폰트 크기 콤보
+                    </td>
+                    <td>
+                        font_size
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        줄간격
+                    </td>
+                    <td>
+                        line_height
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        진하게
+                    </td>
+                    <td>
+                        bold
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        이탤릭
+                    </td>
+                    <td>
+                        italic
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        밑줄
+                    </td>
+                    <td>
+                        underline
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        취소선
+                    </td>
+                    <td>
+                        strike_through
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        위 첨자
+                    </td>
+                    <td>
+                        superscript
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        아래 첨자
+                    </td>
+                    <td>
+                        subscript
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        서식 지우기
+                    </td>
+                    <td>
+                        remove_format
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        css 지우기
+                    </td>
+                    <td>
+                        remove_css
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        글자색
+                    </td>
+                    <td>
+                        font_color
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        글자 배경색
+                    </td>
+                    <td>
+                        font_bg_color
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        번호 매기기
+                    </td>
+                    <td>
+                        list_number
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        글머리 기호
+                    </td>
+                    <td>
+                        list_bullets
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        왼쪽 정렬
+                    </td>
+                    <td>
+                        align_left
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        가운데 정렬
+                    </td>
+                    <td>
+                        align_center
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        오늘쪽 정렬
+                    </td>
+                    <td>
+                        align_right
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        양쪽 정렬
+                    </td>
+                    <td>
+                        align_full
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        들여 쓰기
+                    </td>
+                    <td>
+                        indent
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        내어 쓰기
+                    </td>
+                    <td>
+                        outdent
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        &#60;remove_item /&#62;에 하위 앨리먼트로 메뉴 command 명을 지정해 주면 해당 메뉴를 표시하지 않습니다.<br />
+        예)&#60;remove_item&#62;&#60;item&#62;indent&#60;/item&#62;&#60;item&#62;outdent&#60;/item&#62;&#60;/remove_item&#62;<br />
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+<b>하단(서식) 툴바의 메뉴에 서식 콤보,폰트 콤보,폰트 크기 콤보,줄간격,구분선,진하게,이탤릭,밑줄..... 메뉴를 표시 설정 합니다.</b>
+
+.....
+&#60;tool_bar_2&#62;
+    &#60;tool&#62;formatting&#60;/tool&#62;
+    &#60;tool&#62;font_family&#60;/tool&#62;
+    &#60;tool&#62;font_size&#60;/tool&#62;
+    &#60;tool&#62;line_height&#60;/tool&#62;
+    &#60;tool&#62;separator&#60;/tool&#62;
+    &#60;tool&#62;bold&#60;/tool&#62;
+    &#60;tool&#62;italic&#60;/tool&#62;
+    &#60;tool&#62;underline&#60;/tool&#62;
+    .....
+&#60;/tool_bar_2&#62;
+.....
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

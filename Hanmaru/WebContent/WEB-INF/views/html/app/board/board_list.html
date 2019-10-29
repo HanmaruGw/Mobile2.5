@@ -1,0 +1,80 @@
+<div class="boardContainer" ng-controller="boardListController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarMenu" ng-click="slideMenuClick()">
+			<img src="/resources/image/menu_img.png">
+		</div>
+		<div class="headerBarTitle">
+			<span>{{displayName}}</span>
+		</div>
+		<div class="headerBarMove approval_attach" ng-click="toggleBoardSearch($event)">
+			<img src="/resources/image/reservation/ic_menu_search_normal.png">
+		</div>
+		<div class="headerBarSearch approval_search">
+			
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	
+	<!-- 게시판 서치 -->
+	<div class="boardSearchBack" ng-click="boardSearchToggle()" ng-show="boardSearchShow"></div>
+	<!-- <div class="boardDataVoid" ng-show="boardList.length == 0" >
+		<span class="boardSearchResult">{{translateLanguage('warn_empty_message')}}</span>
+		<span class="boardResultBlank"></span>
+	</div> -->
+	<div class="boardSearchDiv" ng-show="boardSearchShow">
+	
+		<div class="boardSearchOption" ng-click="searchOption()">
+			<ul class="boardSearchSelect">
+				<li class="boardSelectFirst">
+					<span class="selectFirstName" >{{SearchName}}</span>
+					<img src="/resources/image/mail/ic-select-arrow-bottom.png">
+					
+					<ul class="selectSearch" ng-show="searchOptionShow == true">
+						<li class="selectSearchList" ng-repeat="SearchTypeOption in SearchTypeOptions" ng-click="applySearchType($index)">
+							<span class="selectListTxt" ng-class="{'selected' : curSearchType == $index}">{{SearchTypeOption.name}}</span>
+							<img src="/resources/image/ic_check_select.png" ng-show="curSearchType == $index">
+						</li>
+					</ul>
+					
+				</li>
+			</ul>
+		</div>
+		<div class="boardSearchKeyword">
+			<input type="text" ng-model="searchKeyword" ng-trim="true" placeholder="검색어를 입력하세요.">
+			<button ng-click="btnSearchBoard($event)">검색</button>
+		</div>
+	</div>
+	
+	<!--리스트-->
+	<div class="boardContentsDiv" exec-on-scroll-to-bottom="readBoardNextPage"><!-- board-on-scroll-to-bottom -->
+		<div class="boardContentsList" ng-repeat="boardData in boardList" ng-click="boardDetail($event, boardData, '', displayName)">
+			<div class="boardContentsTitle" ><!-- , 'boardListMaxWidth' : boardData.ImageUrl == undefiend || boardData.ImageUrl == ''}" -->
+				<div class="boardListImg" ng-if="boardData.ImageUrl != ''">
+					<img ng-src="{{boardData.ImageUrl}}" >
+				</div>
+			
+				<div class="boardImageWrapper" ng-class="{'hasBoardImage' : boardData.ImageUrl != ''}">
+					<div class="boardTitleWrapper">
+						<p>{{boardData.Subject}}</p>
+						<img src="/resources/image/board/ic_attach_pressed.png" class="boardAttachState" ng-if="boardData.Files.length > 0">
+					</div>
+					<div class="boardListStatus">
+						<span class="boardListUserName">{{boardData.RegUserName}}</span>
+						<span class="boardListRegDate">{{boardData.RegDt | date:'yyyy.MM.dd'}}</span>
+						<span class="boardListHit">
+							<img src="/resources/image/board/ic_board_view.png">
+							<span>{{boardData.Hit}}</span>
+						</span>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		<!-- <div class="viewContentsDetail">
+			이 영역에 html 문서를 불러온다
+		</div> -->
+	</div>
+	
+</div>

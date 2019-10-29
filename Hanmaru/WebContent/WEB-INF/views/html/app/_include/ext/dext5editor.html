@@ -1,0 +1,24 @@
+<script type="text/javascript" src="/resources/script/lib/jq/jquery-2.1.3.min.js"></script> 
+<script type="text/javascript" src="/resources/ext/dext5editor/dext5editor/js/dext5editor.js"></script>
+<script type="text/javascript">
+	DEXT5.config.Runtimes = "html5";
+	var mailContentsEditor = new Dext5editor("mailContentsEditor");
+	
+	$(function(){
+		$('#btnSetBodyValue').click(function(){
+			DEXT5.setBodyValueEx($('#tmpMailContents').val(), "mailContentsEditor");
+		});
+		$('#btnGetBodyValue').click(function(){
+			$('#tmpMailContents').val(DEXT5.getBodyValueEx());
+		});
+		$('#btnResetBodyValue').click(function(){
+			DEXT5.setBodyValueEx('', "mailContentsEditor");
+			$('#tmpMailContents').val('');
+			$(this).blur();
+		});
+	});
+</script>
+<button id="btnSetBodyValue" style="display:none">값호출</button>
+<button id="btnGetBodyValue" style="display:none">값호출</button>
+<button id="btnResetBodyValue" style="display:none">값호출</button>
+<textarea id="tmpMailContents" style="display:none"></textarea>

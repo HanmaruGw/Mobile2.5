@@ -1,0 +1,46 @@
+﻿<html lang="ko">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>DEXT5 Editor SDK</title>
+    <link href="css/sdk.css" rel="stylesheet" type="text/css" />
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script src="js/menu_control.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            document.getElementById("search_word").value = "";
+            fnMenuSetting(true);
+
+        });
+    </script>
+</head>
+<body class="sdk">
+    <div class="header">
+        <h1><img src="images/logo_dext5_editor.png" alt="DEXT5 Editor"><span>SDK</span></h1>
+        <div class="searchArea">
+            <span class="search_btm">
+                <input type="text" title="검색어 입력" class="input_text" id="search_word" onkeypress="return fnKeyPressEvent(event)">
+            </span>
+            <div class="search_h" id="search_list" style="display:none"></div>
+            <button type="submit" class="sch_smit" onclick="javascript: fnSearch();">
+                <span class="txt_hidden">검색</span>
+                <span class="icon_search"></span>
+            </button>
+            <a class="btn_index" href="javascript:fnIndex();">색 인</a>
+        </div>
+    </div>
+    <a class="resizeBar"></a>
+    <div class="sideMenu" id="side_menu">
+        <ul id="side_menu"></ul>
+    </div>
+    <div class="contents">
+        <iframe frameborder="0" scrolling="yes" id="contentsFrame" name="contentsFrame" title="DEXT5 Editor" style="width:100%;height:100%;"></iframe>
+    </div>
+    <div class="footer">
+        <address>Copyrightⓒ RAONWIZ Inc.</address>
+    </div>
+</body>
+</html>

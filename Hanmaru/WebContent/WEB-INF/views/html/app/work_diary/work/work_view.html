@@ -1,0 +1,50 @@
+<div class="workDiaryContainer" ng-controller="taskViewController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarMenu" ng-click="popPage('pg_task_view')">
+			<img src="/resources/image/ic-arrow-left.png">
+		</div>
+		<div class="headerBarTitle diaryDrop">
+			<span>{{translateLanguage('work_task_view')}}</span>
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	
+	<div class="workViewDiv">
+		<div class="workViewTitle">
+			<div class="workViewTitleLabel">{{resTaskDetail.Title}}</div>
+			<!-- <div class="icWorkViewContents">
+				<span class="ic_work_has_unread"></span>
+			</div> -->
+		</div>
+		<div class="workViewInfo">
+			<div class="workViewInfoSchedule">
+				<span class="infoScheduleLabel">{{translateLanguage('work_period')}}</span>
+				<span class="infoScheduleDate">{{resTaskDetail.StartDate}} ~ {{resTaskDetail.EndDate}}</span>
+			</div>
+			<div class="workInfoContentsManager">
+				<span class="infoManagerLabel">{{translateLanguage('work_attendance_users_for_task')}}</span>
+				<span class="infoManagerName">{{resTaskDetail.CreateUser.DisplayName}}</span>
+			</div>
+			<div class="workInfoContentsSharer">
+				<span class="infoSharerLabel">{{translateLanguage('work_share_users')}}</span>
+				<div class="infoSharerWrap">
+					<span class="infoSharerName" ng-if="resTaskDetail.ShareUser.length > 0" ng-repeat="shareUser in resTaskDetail.ShareUser">{{shareUser.DisplayName}}</span>
+				</div>
+			</div>
+		</div>
+		<div class="workViewContentsWrap">
+			<div class="workViewContentsDiv">
+				<iframe class="workViewContents" ng-src="{{bodyUrl}}" width="100%" height="100%" framespacing=0 frameborder=0  marginheight=0 marginwidth=0 vspace=0></iframe>
+			</div>
+		</div>
+	</div>
+	<div class="workViewFooterDiv">
+		<div class="workViewModify" ng-click="taskModify()">
+			<span>{{translateLanguage('modify')}}</span>
+		</div>
+		<div class="workViewDelete" ng-click="taskDelete()">
+			<span>{{translateLanguage('remove')}}</span>
+		</div>
+	</div>
+</div>

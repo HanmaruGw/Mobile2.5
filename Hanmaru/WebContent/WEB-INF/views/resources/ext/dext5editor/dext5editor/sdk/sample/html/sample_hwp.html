@@ -1,0 +1,356 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Editor Hwp Sample</title>
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+	
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+    <link href="../css/sample.common.css" rel="stylesheet" />   
+    <script src="../vender/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../js/sample.common.js" type="text/javascript"></script>
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+
+    <script src="../../../js/dext5editor.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+        // DEXT5 Editor 생성완료 이벤트
+        function dext_editor_loaded_event(DEXT5Editor) {            
+            $("#logBox").val('DEXT5 Editor 로드 완료 : ' + DEXT5Editor.editor.ID + '\n');
+            var cont = document.getElementById('contentValue').value;
+            DEXT5.setHtmlContentsEw(cont);
+        }
+    </script>
+
+    <script type="text/javascript">
+
+        // 현재 편집중인 문서의 내용을 닫고 빈문서 편집 상태로 돌아감
+        function Clear() {
+            DEXT5.dextCommands("new", 'dext5editor');
+        }
+
+        // 문서에 지정된 데이터 필드가 존재하는지 검사
+        function FieldExist(fieldID) {
+            var getElem = DEXT5.$("#" + fieldID, 'dext5editor');
+            if (getElem)
+                return true;
+            else
+                return false;
+        }
+
+        // 포커스를 컨트롤로 이동
+        function Focus() {
+            DEXT5.setFocusToEditor('dext5editor');
+        }
+
+        // 현재 캐럿이 위치하는 곳의 필드이름을 구함
+        function GetCurFieldName() {
+            var retValue = '';
+            var node = DEXT5.getCaretElement('dext5editor');
+            if (node && node.getAttribute('id') && node.getAttribute('id') != '') {
+                retValue = node.getAttribute('id');
+            }
+            return retValue;
+        }
+         
+        // 문서에 존재하는 필드의 목록을 구함
+        function GetFieldList() {
+            var allNodes = DEXT5.getDext5DocumentDom().body.getElementsByTagName('*');
+            var allNodesLen = allNodes.length;
+            var retValue = [];
+
+            for (var i = 0; i < allNodesLen; i++) {
+                if (allNodes[i].getAttribute('id')) {
+                    retValue.push(allNodes[i]);
+                }
+            }
+            return retValue;
+        }
+
+        // 지정한 필드에서 문자열을 구함
+        function GetFieldText(fieldID) {
+            var retValue = "";
+            var getElem = DEXT5.$("#" + fieldID, 'dext5editor');
+            if (getElem) {
+                retValue = getElem.innerText;
+            }
+            return retValue;
+        }
+
+        // 마우스의 현재 위치를 반환
+        function GetMousePos() {
+            var mousePos = DEXT5.getEditor('dext5editor')._FRAMEWIN.mouseEndPos;
+            var x = mousePos.X; // mouse X
+            var y = mousePos.Y; // mouse Y
+            return mousePos;
+        }
+
+        // 문서 내에서 텍스트를 얻어온다
+        function GetTextBySet() {
+            
+        }
+
+        // 문서의 내용을 검색하기 위해 초기설정을 함. 해당 필드에 데이터가 있는지 여부
+        function InitScan() {
+
+        }
+
+        // 현재 캐럿의 위치에 그림을 삽입
+        function InsertPicture(imageUrl, width, height) {
+            DEXT5.setInsertHTML('<img src="' + imageUrl + '" style="width:' + width + '; height:' + height + ';">', 'dext5editor');
+        }
+
+        function InsertPictureToObject(imageUrl, width, height) {
+            // ID가 signObject 인 객체가 있어야 합니다.
+            DEXT5.setInsertHTMLToObject('<img src="' + imageUrl + '" style="width:' + width + '; height:' + height + ';">', 'signObject', 'dext5editor');
+        }
+
+        // 특정 액션이 실행되지 않도록 잠금
+        function LockCommand(command, lock) {
+            DEXT5.setLockCommand(command, lock, 'dext5editor');
+        }
+
+        // 커서를 특정위치로 이동
+        function MovePos(x, y) {
+            mousePos = {
+                X: x,
+                Y: y
+            };
+            DEXT5.setFocusToEditor('dext5editor');
+            setTimeout(function () {
+                DEXT5.SetCaretMousePosition(mousePos, 'dext5editor');
+            }, 100);
+        }
+
+        // 지정한 필드로 캐럿을 이동
+        function MoveToField(fieldID, position) {
+            /*
+             position
+             0 : 필드의 처음
+             1 : 필드의 끝
+            */
+            var field = DEXT5.$("#" + fieldID, 'dext5editor');
+            if (field) {
+                DEXT5.setFocusToEditor('dext5editor');
+                setTimeout(function () {
+                    DEXT5.getEditor('dext5editor')._FRAMEWIN.doSetCaretPosition(field, position);
+                }, 100);
+            }
+        }
+
+        // 지정된 필드로 캐럿을 이동한 후 캐럿 위치로 화면을 이동
+        function MoveToFieldEx(fieldID, position) {
+            /*
+             position
+             0 : 필드의 처음
+             1 : 필드의 끝
+            */
+            var field = DEXT5.$("#" + fieldID, 'dext5editor');
+            if (field) {
+                DEXT5.setFocusToEditor('dext5editor');
+                setTimeout(function () {
+                    DEXT5.getEditor('dext5editor')._FRAMEWIN.doSetCaretPosition(field, position);
+                    DEXT5.getEditor('dext5editor')._FRAMEWIN._iframeWin.scroll(0, 0);
+                    var objrect = DEXT5.getEditor('dext5editor')._FRAMEWIN.getClientRect(field);
+                    DEXT5.getEditor('dext5editor')._FRAMEWIN._iframeWin.scroll(objrect.left, objrect.top);
+
+                }, 100);
+            }
+        }
+
+        // 문서를 연다. 웹경로 또는 문자열삽입
+        function Open(url) {
+            DEXT5.loadHtmlValueExFromURL(url, 'dext5editor');
+        }
+
+        // 지정한 필드의 내용을 채움
+        function PutFieldText(fieldID, text) {
+            var field = DEXT5.$("#" + fieldID, 'dext5editor');
+            if (field)
+                field.innerHTML = text;
+        }
+
+        // 현재 편집중인 문서를 저장
+        function Save() {
+            DEXT5.dextCommands("save", 'dext5editor');
+        }
+
+        // 현재 편집중인 문서를 지정한 이름으로 저장
+        function SaveAs() {
+            DEXT5.dextCommands("save", 'dext5editor');
+        }
+
+        // 현재 캐럿이 위치하는 곳의 필드이름을 설정
+        function SetCurFieldName(fieldID) {
+            var node = DEXT5.getCaretElement('dext5editor');
+            if (node) {
+                node.setAttribute('id', fieldID);
+            }
+        }
+        
+        // 캐럿을 문서 내 특정 위치로 옮김
+        function SetPos() {
+
+        }
+
+        // 툴바를 등록/보임/숨김/삭제할 수 있음
+        function SetToolBar() {
+           
+        }
+
+        // 툴바를 화면에 보임/숨김
+        function ShowToolBar(param) {
+            /* 
+            param
+             0 : 툴바 모두 숨김 
+             1 : 상단 툴바만 표시
+             2 : 하단 툴바만 표시
+             3 : 툴바 모두 표시
+            */
+            DEXT5.showToolbar(param, 'dext5editor');
+        }
+
+        // 현재 edit 모드를 설정한다.
+        function EditMode(param) {
+            /* 
+            param
+             true :  write
+             false : readonly
+            */
+            DEXT5.setEditorBodyEditable(param, 'dext5editor');
+        }
+
+        // 현재 edit 모드를 return한다.
+        function getEditMode() {
+            var retVal = false;
+            if (DEXT5.getEditor('dext5editor')._BODY.getAttribute('contenteditable') == 'true') {
+                retVal = true;
+            }
+            return retVal;
+        }
+
+        // 에디터의 가로 사이즈 지정
+        function width(w) {
+            DEXT5.setSize(w, '', 'dext5editor');
+        }
+
+        // 에디터의 세로 사이즈 지정
+        function heigth(h) {
+            DEXT5.setSize('', h, 'dext5editor');
+        }
+
+        function tableHandle() {
+            // 특정 셀로 캐럿을 이동시킨 후 table관련 command 실행
+            // id가 table1인 테이블의 두번째 줄 두번째 셀로 커서를 이동
+            var field = DEXT5.$("#table1", 'dext5editor');
+            if (field) {
+                DEXT5.setFocusToEditor('dext5editor');
+                var rows = field.rows;
+                var cells = rows[1].cells;
+                setTimeout(function () {
+                    DEXT5.getEditor('dext5editor')._FRAMEWIN.doSetCaretPosition(cells[1], 0);
+
+                    // 이하 command는 캐럿이 위치한 셀을 기준으로 동작함.
+                    DEXT5.dextCommands("insert_row_up", 'dext5editor');         // 위에 가로줄 삽입
+                    //DEXT5.dextCommands("insert_row_down", 'dext5editor');       // 아래 가로줄 삽입
+                    //DEXT5.dextCommands("insert_column_left", 'dext5editor');    // 왼쪽에 세로줄 삽입
+                    //DEXT5.dextCommands("insert_column_right", 'dext5editor');   // 오른쪽에 세로줄 삽입
+                    //DEXT5.dextCommands("delete_row", 'dext5editor');            // 가로줄 삭제
+                    //DEXT5.dextCommands("delete_column", 'dext5editor');         // 세로줄 삭제
+                    //DEXT5.dextCommands("table_row_clone", 'dext5editor');       // 가로줄 복제(캐럿이 위치한row 아래 삽입)
+                }, 100);
+            }
+        }
+
+        function setMeta() {            
+            DEXT5.setMetaTag($("#metaName").val(), $("#metaContent").val());
+        }
+        function getMeta() {            
+            $("#logBox").val("Meta Name : " + $("#metaName").val() + ", Meta Content : " + DEXT5.getMetaTag($("#metaName").val()));
+        }
+        function getHtmlValueEx() {
+            var _html = DEXT5.getHtmlValueEx('dext5editor');
+            $("#logBox").val(_html);
+        }
+        // 한글 유통필터
+        function convertHWPFilter() {
+            var _html = DEXT5.getHtmlValueEx('dext5editor');
+
+            // DEXT5.convertHWPFilter(html, 추출할ID);
+            var conStr = DEXT5.convertHWPFilter(_html);
+            // 특정ID의 innerHTML 유통변환하여야 하는 경우는 아래와 같이 처리
+            //conStr = DEXT5.convertHWPFilter(_html, "contentID");
+            $("#logBox").val(conStr);
+            $("#setHtmlTextArea").val(conStr);
+        }
+        function convertMMToPX() {            
+            var html = $("#setHtmlTextArea").val();
+            html = DEXT5.ConvertMMToPxUnit(html);
+            $("#setHtmlTextArea").val(html);
+        }
+   </script>
+</head>
+<body>
+    <ul class="info_lst_box">
+        <li>• 한글API 예제입니다.</li>
+    </ul>
+    <textarea id="contentValue" style="display:none;"><table id="table1" style="border: 1px rgb(0, 0, 0); border-image: none; width: 768px; height: 60px; font-size: 10pt; border-collapse: collapse; -ms-word-break: break-all;" border="1" cellspacing="0" cellpadding="1"><tbody><tr><td style="border: 1px solid rgb(0, 0, 0); border-image: none; width: 256px; height: 20px;"><p>1<br></p></td><td style="border: 1px solid rgb(0, 0, 0); border-image: none; width: 256px; height: 20px;"><p>2<br></p></td><td style="border: 1px solid rgb(0, 0, 0); border-image: none; width: 256px; height: 20px;"><p>3<br></p></td></tr><tr><td style="border: 1px solid rgb(0, 0, 0); border-image: none; width: 256px; height: 20px;"><p>4<br></p></td><td style="border: 1px solid rgb(0, 0, 0); border-image: none; width: 256px; height: 20px;"><p>5<br></p></td><td style="border: 1px solid rgb(0, 0, 0); border-image: none; width: 256px; height: 20px;"><p>6<br></p></td></tr><tr><td style="border: 1px solid rgb(0, 0, 0); border-image: none; width: 256px; height: 20px;"><p>7<br></p></td><td style="border: 1px solid rgb(0, 0, 0); border-image: none; width: 256px; height: 20px;"><p>8<br></p></td><td style="border: 1px solid rgb(0, 0, 0); border-image: none; width: 256px; height: 20px;"><p>9<br></p></td></tr></tbody></table><p>&nbsp;</p></textarea>
+    <div class="btn_lst_box">
+        <button type="button" value="Clear" class="input_image" style="width: 130px;" onclick="Clear()">Clear</button>&nbsp;
+        <button type="button" value="FieldExist" class="input_image" style="width: 130px;" onclick="FieldExist('fieldID')">FieldExist</button>&nbsp;
+        <button type="button" value="Focus" class="input_image" style="width: 130px;" onclick="Focus()">Focus</button>&nbsp;
+        <button type="button" value="GetCurFieldName" class="input_image" style="width: 130px;" onclick="GetCurFieldName()">GetCurFieldName</button>&nbsp;
+        <button type="button" value="GetFieldList" class="input_image" style="width: 130px;" onclick="GetFieldList()">GetFieldList</button>&nbsp;<br /><br />
+        <button type="button" value="GetFieldText" class="input_image" style="width: 130px;" onclick="GetFieldText('fieldID')">GetFieldText</button>&nbsp;
+        <button type="button" value="GetTextBySet" class="input_image" style="width: 130px;" onclick="GetTextBySet()">GetTextBySet</button>&nbsp;
+        <button type="button" value="InitScan" class="input_image" style="width: 130px;" onclick="InitScan()">InitScan</button>&nbsp;
+        <button type="button" value="InsertPicture" class="input_image" style="width: 130px;" onclick="InsertPicture('https://www.google.co.kr/logos/doodles/2017/oskar-fischingers-117th-birthday-5635181101711360.2-s.png', '200px', '100px')">InsertPicture</button>&nbsp;
+        <button type="button" value="InsertPicture To Object" class="input_image" style="width: 130px;" onclick="InsertPictureToObject('https://www.google.co.kr/logos/doodles/2017/oskar-fischingers-117th-birthday-5635181101711360.2-s.png', '200px', '100px')">InsertPicture To Object</button>&nbsp;<br /><br />
+        <button type="button" value="LockCommand" class="input_image" style="width: 130px;" onclick="LockCommand('image_create', true)">LockCommand</button>&nbsp;
+        <button type="button" value="MovePos" class="input_image" style="width: 130px;" onclick="MovePos(30, 30)">MovePos</button>&nbsp;
+        <button type="button" value="MoveToField" class="input_image" style="width: 130px;" onclick="MoveToField('fieldID', 0)">MoveToField</button>&nbsp;
+        <button type="button" value="MoveToFieldEx" class="input_image" style="width: 130px;" onclick="MoveToFieldEx('fieldID', 0)">MoveToFieldEx</button>&nbsp;
+        <button type="button" value="Open" class="input_image" style="width: 130px;" onclick="Open('../../pages/forms/consultation.html')">Open</button>&nbsp;<br /><br />
+        <button type="button" value="PutFieldText" class="input_image" style="width: 130px;" onclick="PutFieldText('fieldID', 'text')">PutFieldText</button>&nbsp;
+        <button type="button" value="Save" class="input_image" style="width: 130px;" onclick="Save()">Save</button>&nbsp;
+        <button type="button" value="SaveAs" class="input_image" style="width: 130px;" onclick="SaveAs()">SaveAs</button>&nbsp;
+        <button type="button" value="SetCurFieldName" class="input_image" style="width: 130px;" onclick="SetCurFieldName('fieldID')">SetCurFieldName</button>&nbsp;
+        <button type="button" value="SetPos" class="input_image" style="width: 130px;" onclick="SetPos()">SetPos</button>&nbsp;<br /><br />
+        <button type="button" value="SetToolBar" class="input_image" style="width: 130px;" onclick="SetToolBar()">SetToolBar</button>&nbsp;
+        <button type="button" value="ShowToolBar" class="input_image" style="width: 130px;" onclick="ShowToolBar(2)">ShowToolBar</button>&nbsp;
+        <button type="button" value="EditMode" class="input_image" style="width: 130px;" onclick="EditMode(false)">EditMode</button>&nbsp;
+        <button type="button" value="width" class="input_image" style="width: 130px;" onclick="width('300px')">width</button>&nbsp;
+        <button type="button" value="heigth" class="input_image" style="width: 130px;" onclick="heigth('300px')">heigth</button>&nbsp;<br><br>
+        <button type="button" value="tableHandle" class="input_image" style="width: 130px;" onclick="tableHandle()">tableHandle</button>&nbsp;
+    </div>
+    <div class="btn_lst_box">
+        META Name : <input type="text" id="metaName" /> Meta Content : <input type="text" id="metaContent" /><br/><br />
+        <button type="button" value="Set Meta" class="input_image" style="width: 130px;" onclick="setMeta()">Set Meta</button>&nbsp;
+        <button type="button" value="Get Meta" class="input_image" style="width: 130px;" onclick="getMeta()">Get Meta</button>&nbsp;
+        <button type="button" value="MM to PX" class="input_image" style="width: 130px;" onclick="convertMMToPX()">MM to PX</button>&nbsp;
+        <button type="button" value="Get HtmlValue Ex" class="input_image" style="width: 130px;" onclick="getHtmlValueEx()">Get HtmlValue Ex</button><br><br>
+        <textarea id="setHtmlTextArea" cols="80" rows="3"></textarea>
+    </div>
+
+    <button type="button" value="convertHWPFilter" class="input_image" style="width: 130px;" onclick="convertHWPFilter()">convertHWPFilter</button><br /><br />
+
+    <div style="width: 800px; margin: 0 auto;clear:both">
+        <script type="text/javascript">
+            DEXT5.config.Width = "800px";
+            DEXT5.config.Height = "450px";
+            //DEXT5.config.RunTimes = '';   // 웹표준모드 : html5, 플러그인모드(IE전용) : ieplugin, version이하 플러그인(IE전용) : versionieplugin
+
+            // 에디터의 팝업창과 우클릭 메뉴를 부모창에 띄우기 위한 설정.
+            // 에디터를 iframe 형태로 띄우는 경우 사이즈가 작아서 팝업창이나 우클릭 메뉴가 가려질 때 설정하면 유용합니다.
+            //DEXT5.config.DialogWindow = parent.window;
+
+            new Dext5editor("dext5editor");
+        </script>
+    </div>
+    <br />
+    <!-- 로그영역 -->
+    <textarea id="logBox" class="logBox" style="overflow: auto;height:200px" readonly="true"></textarea>
+    <!-- //로그영역 -->
+</body>
+</html>

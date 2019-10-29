@@ -1,0 +1,14 @@
+﻿{
+	"name": "DEXT5Editor",
+	"version": "14.0.0.500",
+	"description": "DEXT5Editor Library",
+	"scripts": [
+		"dext5editor/js/dext5editor.js",
+		"dext5editor/plugin/nexacro/14/dext5editor.nexacro14.js"
+	],
+	"objInfo": [
+		"dext5editor/plugin/nexacro/14/DEXT5Editor.info",
+		"dext5editor/plugin/nexacro/14/DEXT5EditorEnum.info"
+	]
+}
+//@ sourceURL=DEXT5Editor.json

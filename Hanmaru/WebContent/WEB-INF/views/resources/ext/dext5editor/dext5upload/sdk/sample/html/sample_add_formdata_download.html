@@ -1,0 +1,132 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Upload Sample</title>
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+    <link href="../css/sample.common.css" rel="stylesheet" />    
+    <script src="../vender/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../js/sample.common.js" type="text/javascript"></script>
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+
+    <script src="../../../js/dext5upload.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+        var G_UploadID;
+
+        // 생성완료 이벤트
+        function DEXT5UPLOAD_OnCreationComplete(uploadID) {
+            G_UploadID = uploadID;
+
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML = '업로드 생성 완료 : ' + uploadID + '<br/>';
+
+            var tempPath = location.href;
+            tempPath = tempPath.substring(0, tempPath.lastIndexOf('/'));
+            tempPath = tempPath.substring(0, tempPath.lastIndexOf('/'));
+
+            // 실제 서버상의 파일을 추가 합니다.
+            // 서버의 파일 add 시 5번째 파라미터에 formdatavalue1, formdatavalue2를 구분자 '\u000B'를 사용하여 넣어줍니다.
+            var gubun = '\u000B';
+            DEXT5UPLOAD.AddUploadedFile('1', '전경사진.jpg', tempPath + '/images/Panorama/ViewPhotos.jpg', '87325', 'formdatavalue1' + gubun + 'formdatavalue2', uploadID);
+            DEXT5UPLOAD.AddUploadedFile('2', '풍경이미지.bmp', tempPath + '/images/Scenery/image/CreativeImages.bmp', '2359350', 'formdatavalue1' + gubun + 'formdatavalue2', uploadID);
+
+            logBox.innerHTML += '파일당 각각 formdatavalue1, formdatavalue2 추가됨<br/>';
+        }
+
+        // 오류 이벤트
+        function DEXT5UPLOAD_OnError(uploadID, code, message, uploadedFileListObj) {
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML += 'Error : ' + code + ', ' + message + '<br/>';
+
+            if (uploadedFileListObj != null && uploadedFileListObj != '') {
+                logBox.innerHTML += '업로드 된 파일 리스트 - <br/>';
+                var uploadedFileLen = uploadedFileListObj.length;
+                for (var i = 0; i < uploadedFileLen; i++) {
+                    logBox.innerHTML += uploadedFileListObj[i].uploadName + ', ' + uploadedFileListObj[i].uploadPath + '</br>';
+
+                    // guid: uploadedFileListObj[i].guid
+                    // originName: uploadedFileListObj[i].originName
+                    // fileSize: uploadedFileListObj[i].fileSize
+                    // uploadName: uploadedFileListObj[i].uploadName
+                    // uploadPath: uploadedFileListObj[i].uploadPath
+                    // logicalPath: uploadedFileListObj[i].logicalPath
+                    // order: uploadedFileListObj[i].order
+                    // status: uploadedFileListObj[i].status
+                    // mark: uploadedFileListObj[i].mark
+                    // responseCustomValue: uploadedFileListObj[i].responseCustomValue
+                }
+            }
+        }
+
+        function fn_download() {
+            DEXT5UPLOAD.DownloadFile(G_UploadID);
+        }
+    </script>
+</head>
+<body style="text-align:center;">
+    <ul class="info_lst_box">
+        <li>• 다운로드 시 원하는 value로 formdata를 추가 할 수 있습니다.</li>        
+        <li>• AddUploadedFile API 호출 시 5번째 파라미터에 넣어주시면 됩니다.</li>        
+        <li>• 이 페이지는 sample/handler/dext5handler_addformdata.jsp 로 업로드 시 호출하게 되어 있습니다.<br />
+        &nbsp;&nbsp;개발 언어가 .NET인 경우 113줄은 주석처리하시고 115줄의 주석을 푸시면 됩니다.<br />
+        &nbsp;&nbsp;각 핸들러 페이지 내용을 보면 추가한 formdata를 받는 방법에 대한 소스를 확인 할 수 있습니다.
+        </li>
+    </ul>
+    <div class="btn_lst_box">
+        <button type="button" value="전송하기" class="input_image" onclick="fn_download()">다운로드</button>&nbsp;
+    </div>
+    <div id="uploadHoder_PlaceHolder" style="width: 800px; margin: 0 auto;"></div>
+    <div style="width: 800px; margin: 0 auto;">
+        <script type="text/javascript">
+            // 해당 config 이외의 설정도 가능합니다. (www.dext5.com > 개발센터 참조)
+            //DEXT5UPLOAD.config.InitXml = 'dext5upload.config.xml';
+            //DEXT5UPLOAD.config.SkinName = 'pink';
+            //DEXT5UPLOAD.config.Width = '200px';
+            //DEXT5UPLOAD.config.Height = '500px';
+            //DEXT5UPLOAD.config.MaxTotalFileSize = '20GB';
+            //DEXT5UPLOAD.config.MaxOneFileSize = '20KB';
+            //DEXT5UPLOAD.config.MaxTotalFileCount = '9';
+            //DEXT5UPLOAD.config.MultiFileSelect = false;
+            //DEXT5UPLOAD.config.ExtensionAllowOrLimit = '0';
+            //DEXT5UPLOAD.config.ExtensionArr = 'png';            
+            //DEXT5UPLOAD.config.FolderNameRule = "/uploadfolder";
+            DEXT5UPLOAD.config.Mode = 'view'; // edit, view
+            //DEXT5UPLOAD.config.ButtonBarEdit = "add,send,remove,remove_all"; 
+            //DEXT5UPLOAD.config.ButtonBarView = "open,download,download_all"; // 0 일경우 버튼바 보이지 않음.
+            //DEXT5UPLOAD.config.Lang = "en-us"; // ko-kr, en-us, ja-jp, zh-cn, zh-tw
+            //DEXT5UPLOAD.config.UploadHolder = "uploadHoder_PlaceHolder";
+            //DEXT5UPLOAD.config.IgnoreSameUploadName = "1";
+            
+            DEXT5UPLOAD.config.UploadHolder = "uploadHoder_PlaceHolder";
+
+            //DEXT5UPLOAD.config.Runtimes = ''; // 웹표준모드 : html5, 플러그인모드(IE전용) : ieplugin, version이하 플러그인(IE전용) : versionieplugin
+
+            var tempPath = location.href;
+            tempPath = tempPath.substring(0, tempPath.lastIndexOf('/'));
+            tempPath = tempPath.substring(0, tempPath.lastIndexOf('/'));
+
+            // 개발 언어가 JAVA인 경우
+            DEXT5UPLOAD.config.HandlerUrl = tempPath + "/handler/dext5handler_addformdata.jsp";
+            // 개발 언어가 .NET인 경우
+            //DEXT5UPLOAD.config.HandlerUrl = tempPath + "/handler/dext5handler_addformdata.ashx";
+
+            // 업로드 전송창을 부모창에 띄우기 위한 설정.
+            // 업로드를 iframe 형태로 띄우는 경우 사이즈가 작아서 전송창이 가려질 때 설정하면 유용합니다.
+            //DEXT5UPLOAD.config.DialogWindow = parent.window;
+
+            var upload = new Dext5Upload("dext5upload");
+
+        </script>
+    </div>
+
+    <br /><br />
+
+    <!-- 로그영역 -->
+    <div id="logBox" class="logBox" style="overflow: auto;"></div>
+    <!-- //로그영역 -->
+</body>
+</html>

@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>LoadAutoSave</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var g_currHtml = "";
+
+        function page_loaded_event() {
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+
+            document.getElementById("dext_dialog_box").className = 'DEXT_fiVe_ED_Popup_Type02 DEXT_fiVe_PUi_' + _skin_name;
+
+            var span_subject = document.getElementById('span_subject');
+            var span_date = document.getElementById('span_date');
+            var span_content = document.getElementById('span_content');
+            var span_ok_btn = document.getElementById('span_ok_btn');
+            var cancel_btn = document.getElementById('cancel_btn');
+
+            span_subject.innerHTML = LayerWin.dext5_lang.loadAutoSave.title;
+            span_date.innerHTML = LayerWin.dext5_lang.loadAutoSave.span_date;
+            span_content.innerHTML = LayerWin.dext5_lang.loadAutoSave.span_content;
+            span_ok_btn.innerHTML = LayerWin.dext5_lang.ok_cancel.ok;
+            cancel_btn.innerHTML = LayerWin.dext5_lang.ok_cancel.cancel;
+
+            document.title = LayerWin.dext5_lang.loadAutoSave.title;
+
+            dext_load_auto_save_setDateList();
+
+            var ok_btn = document.getElementById("ok_btn");
+            DEXTTOP.DEXT5.util.addEvent(ok_btn, 'click', function () {
+                if (document.getElementById("content_frame").contentWindow.document.body.innerHTML != "") {
+                    dext_load_auto_save();
+                } else {
+                    alert(LayerWin.dext5_lang.loadAutoSave.cancelMsg);
+                    event_dext_emoticon_cancel();
+                }
+            });
+
+            var del_btn = document.getElementById("");
+
+            setCursorPos(document.getElementById('ul_date').getElementsByTagName('a')[0], false, false);
+            LayerWin.setFocusFirstAndLast(document, document.getElementById('ul_date').getElementsByTagName('a')[0]);
+        }
+
+    </script>
+</head>
+<body style="margin:0px; padding:0px;" onload="page_loaded_event()" class="DEXT_sEleCt_none" unselectable="on" onselectstart="return false;">
+    <div class="editor_popup" id="dext_dialog_box">
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_subject">자동저장내역 불러오기</span><span class="text">DEXT5 Editor</span>
+            <div class="close">
+                <a href="javascript:event_dext_emoticon_cancel();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / general -->
+        <div class="EdiTor_Popup_contents view">
+            <div class="contents">
+                <div class="con">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="37.5%">
+                                <span id="span_date">날짜</span>
+                            </td>
+                            <td width="62.5%">
+                                <span id="span_content">내용</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="load_auto_save_class">
+                                <div>
+                                    <ul class="class" id="ul_date"></ul>
+                                </div>
+                            </td>
+                            <td class="load_auto_save_select">
+                                <div id="frame_div">
+                                    <iframe id="content_frame" name="content_frame" frameborder="0" class="load_auto_save_frame" title="DEXT5Editor Content"></iframe>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a href="javascript:void(0);" class="confirm" id="ok_btn"><span id="span_ok_btn">확인</span></a> <a href="javascript:event_dext_emoticon_cancel();" class="cancel"><span id="cancel_btn">취소</span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

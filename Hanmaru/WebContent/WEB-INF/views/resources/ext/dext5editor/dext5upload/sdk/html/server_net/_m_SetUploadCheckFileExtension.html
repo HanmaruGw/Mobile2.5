@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con ">
+            <h3 class="title">DEXT5 Upload :: SetUploadCheckFileExtension</h3>
+            <p class="ttl">void SetUploadCheckFileExtension(int iAllowOrLimit, string sFileExtensionList)</p>
+            <p class="txt">
+                DEXT5 Upload는 업로드시 클라이언트와 서버에서 보안을 위하여 이중으로 확장자 체크를 합니다.
+                <br />서버 확장자 체크는 클라이언트에서 적용한 값으로 기본 설정되며,
+                <br />아래 부분을 적용하시면, 설정한 값으로 서버에서 확장자 체크가 이루어집니다.
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">iAllowOrLimit</span>&nbsp;&nbsp;0: 제한으로 설정, 1: 허용으로 설정<br />
+                <span class="firebrick">sFileExtensionList</span>&nbsp;&nbsp;확장자 목록 ex) jpg,exe (구분자,)
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                기본값 : 클라이언트에서 적용한 값.
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+Raonwiz.Dext5.UploadHandler upload = new Raonwiz.Dext5.UploadHandler();
+
+<b>upload.SetUploadCheckFileExtension(0, "exe,aspx,jsp");</b>
+
+upload.Process(context);
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

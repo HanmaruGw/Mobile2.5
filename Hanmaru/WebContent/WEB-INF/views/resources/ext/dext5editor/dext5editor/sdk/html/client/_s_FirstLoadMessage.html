@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: FirstLoadType,<br /> DEXT5 Editor :: FirstLoadMessage</h3>
+    <p class="ttl">config.FirstLoadType, config.FirstLoadMessage</p>
+    <p class="txt">
+        에디터 생성 후 디자인영역에 텍스트, html 등을 띄울 수 있습니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        FirstLoadMessage을 설정하기 위해서는 FirstLoadType을 설정해야 합니다.<br /><br />
+        FirstLoadType에는 <br />
+        &lt;body&gt;태그 내부 소스 "bodyvalue", &lt;body&gt;태그 포함 소스 "bodyvalueex",<br />
+        &lt;div&gt;태그 포함 소스(디자인 영역에 &lt;body&gt;태그로 입력) "bodyvalueexlikediv", <br />
+        &lt;html&gt;태그 내부 소스 "htmlvalue", &lt;html&gt;태그 포함 소스 "htmlvalueex",<br />
+        url "url", 비우기 "empty" 가 있으며 상황에 맞는 값을 설정하시면 됩니다.<br /><br />
+        FirstLoadType을 설정 하신 후 FirstLoadMessage에 html소스 또는 url을 입력하시면 됩니다.<br /><br />
+        DefaultMessage와 loadHtmlValueExFromURL메소드와 함께 유용하게 사용할 수 있습니다.
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+ 
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;    
+    &#60;script type="text/javascript"&#62;
+
+    // 에디터 생성 시 디자인 영역에 DefaultMessage가 나타나고,
+    // 디자인 영역을 클릭하거나 키보드를 누르면 FirstLoadMessage의 html페이지가 디자인영역에 나타납니다.
+
+    DEXT5.config.DefaultMessage = "&#60;span&#62;휴가 계획서를 작성해 주세요.&#60;/span&#62;;
+    DEXT5.config.FirstLoadType = "url";
+    DEXT5.config.FirstLoadMessage = "http://www.dext5.com/dext5editor/pages/forms/vacation.html";
+
+    new Dext5editor("editor1");
+            
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

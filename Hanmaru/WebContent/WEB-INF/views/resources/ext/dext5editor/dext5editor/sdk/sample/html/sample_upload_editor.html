@@ -1,0 +1,76 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Editor Upload Sample</title>
+	<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+	
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+    <link href="../css/sample.common.css" rel="stylesheet" />   
+    <script src="../vender/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../js/sample.common.js" type="text/javascript"></script>
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+
+    <script src="../../../js/dext5editor.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+    // DEXT5 Editor 생성완료 이벤트
+    function dext_editor_loaded_event(DEXT5Editor) {
+        var logBox = document.getElementById("logBox");
+
+        logBox.innerHTML = 'DEXT5 Editor 로드 완료 : ' + DEXT5Editor.editor.ID + '\n';
+    }
+    </script>
+</head>
+<body>
+    <ul class="info_lst_box">
+        <li>• 에디터에 이미지가 삽입되는 순간 서버측 처리를 하는 예제입니다.</li>
+        <li>• 이 페이지는 핸들러를 /handler/upload_custom_handler.jsp 로 호출하게 되어 있습니다.<br />
+            &nbsp;&nbsp;개발 언어가 .NET인 경우 58줄, 62줄은 주석처리하시고 60줄의 주석을 푸시면 됩니다.<br />
+            &nbsp;&nbsp;개발 언어가 PHP인 경우 58줄, 60줄은 주석처리하시고 62줄의 주석을 푸시면 됩니다.
+        </li>
+        <li>• sample\handler 폴더 하위에 upload_custom_handler.ashx(jsp,php) 의 내용을 보시면 제공되는 서버측 API를 확인하실 수 있습니다.</li>
+    </ul>
+    <div class="btn_lst_box">
+    </div>
+    <div style="width: 800px; margin: 50px auto;clear:both">
+        <script type="text/javascript">
+
+            //DEXT5.config.InitXml = "dext_editor.xml";
+            //DEXT5.config.SkinName = "blue";
+            //DEXT5.config.ToSavePathURL = "dext5data";
+            //DEXT5.config.Lang = "ko-kr"; // ko-kr, en-us, ja-jp, zh-cn, zh-tw
+            //DEXT5.config.Mode = "view";
+            //DEXT5.config.focusInitObjId = "title"; // 에디터가 로드된 후 설정한 아이디를 가진 객체에 포커스를 줌.
+            //DEXT5.config.NextTabElementId = "nextInput";
+            //DEXT5.config.IgnoreSameEditorName = "1";
+
+            DEXT5.config.Width = "800px";
+            DEXT5.config.Height = "330px";
+            //DEXT5.config.RunTimes = ''; // 웹표준모드 : html5, 플러그인모드(IE전용) : ieplugin, version이하 플러그인(IE전용) : versionieplugin
+        
+            var tempPath = location.href;
+            tempPath = tempPath.substring(0, tempPath.lastIndexOf('/'));
+            tempPath = tempPath.substring(0, tempPath.lastIndexOf('/'));
+
+            // 개발 언어가 JAVA인 경우
+            DEXT5.config.HandlerUrl = tempPath + "/handler/upload_custom_handler.jsp";
+            // 개발 언어가 .NET인 경우
+            //DEXT5.config.HandlerUrl = tempPath + "/handler/upload_custom_handler.ashx";
+            // 개발 언어가 PHP인 경우
+            //DEXT5.config.HandlerUrl = tempPath + "/handler/upload_custom_handler.php";
+
+            // 에디터의 팝업창과 우클릭 메뉴를 부모창에 띄우기 위한 설정.
+            // 에디터를 iframe 형태로 띄우는 경우 사이즈가 작아서 팝업창이나 우클릭 메뉴가 가려질 때 설정하면 유용합니다.
+            //DEXT5.config.DialogWindow = parent.window;
+
+            var editor1 = new Dext5editor("dext5editor");
+        </script>
+    </div>
+    <br />
+    <!-- 로그영역 -->
+    <textarea id="logBox" class="logBox" style="overflow: auto;height:250px" readonly="true"></textarea>
+    <!-- //로그영역 -->
+</body>
+</html>

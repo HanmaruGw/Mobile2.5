@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con">
+            <h3 class="title">DEXT5 Upload :: 서버 커스텀 다운로드 핸들러에서 커스텀 에러 처리 방법</h3>
+            <p class="ttl">서버 커스텀 다운로드 핸들러에서 커스텀 에러 처리 방법</p>
+            <p class="txt">
+                서버 커스텀 다운로드 핸들러에서 커스텀 에러 처리 방법을 의미합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">방법 설명</p>
+            <div class="cord">
+                <pre class="pre">
+<span class="firebrick">.NET</span>
+
+string[] customValueList = upload.GetRequestValue(context, "customValue");
+System.Collections.Generic.List&#60;string&#62; downloadList = new System.Collections.Generic.List&#60;string&#62;();
+string customError = "";
+if (customValueList != null)
+{
+    for (int i = 0; i < customValueList.Length; i++)
+    {
+        string downloadPath = customValueList[i]; // customValueList[i]를 이용하여 Path 설정
+        if(downloadPath == "")
+        {
+            customError = upload.GetCustomErrorMessage(context, "999", "Custom Value Error");
+            // 2번째 파라미터인 Error Code를 설정하실 때에는 900이상의 3자리로 설정
+            break;
+        }
+        else
+        {
+            downloadList.Add(downloadPath);
+        }
+    }
+}
+else
+{
+    customError = upload.GetCustomErrorMessage(context, "999", "Custom Value Error");
+    // 2번째 파라미터인 Error Code를 설정하실 때에는 900이상의 3자리로 설정
+}
+            
+if(customError == "") {
+    upload.ProcessCustomDownload(context, downloadList);
+} else {
+    context.Response.Clear();
+    context.Response.Write(customError);
+}
+
+<span class="firebrick">JAVA</span>
+
+upload.initParameter(request, response);
+String[] customValueList = upload.GetRequestValue("customValue");
+    
+java.util.List downloadList = new java.util.ArrayList();
+    
+String customError = "";
+if (customValueList != null) {
+    for (int i = 0; i < customValueList.length; i++) {
+        String downloadPath = customValueList[i]; // customValueList[i]를 이용하여 Path 설정
+        if(downloadPath.equals("")) {
+            customError = upload.GetCustomErrorMessage(request, "999", "Custom Value Error");
+            // 2번째 파라미터인 Error Code를 설정하실 때에는 900이상의 3자리로 설정
+            break;
+        } else {
+            downloadList.add(downloadPath);
+        }
+    }
+} else {
+    customError = upload.GetCustomErrorMessage(request, "999", "Custom Value Error");
+    // 2번째 파라미터인 Error Code를 설정하실 때에는 900이상의 3자리로 설정
+}
+    
+String result = "";
+if(customError.equals("")) {
+    result = upload.ProcessCustomDownload(request, response, event, downloadList);
+} else {
+    result = customError;
+}
+	
+out.clear();
+if(!result.equals("")) {
+    out.print(result);
+} else {
+    out.clear();
+}
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

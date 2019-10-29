@@ -1,0 +1,218 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Editor Load HTML Sample</title>
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+	
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+    <link href="../css/sample.common.css" rel="stylesheet" /> 
+    <script src="../vender/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../js/sample.common.js" type="text/javascript"></script>
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+
+    <script src="../../../js/dext5editor.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+         
+        // DEXT5 Editor 생성완료 이벤트
+        function dext_editor_loaded_event(DEXT5Editor) {
+
+        var tempPath = location.href;
+            tempPath = tempPath.substring(0, tempPath.lastIndexOf('/'));
+            tempPath = tempPath.substring(0, tempPath.lastIndexOf('/'));
+
+            // 외부 html 페이지 생성
+            DEXT5.loadHtmlValueExFromURL(tempPath + "/html/form1.html");
+
+            // 외부 도메인 html 페이지 생성
+            DEXT5.loadHtmlValueExFromServerURL(location.protocol + "//" + location.host + '/sample/html/form1.html', editorID);
+        }
+
+        // 입력
+        function sendDataTodext5form() {
+            var check1 = document.getElementById("Incheck1");
+            var check2 = document.getElementById("Incheck2");
+            var copamy = document.getElementById("InCompany");
+            var ownername = document.getElementById("InOwnerName");
+            var busincode = document.getElementById("InBusinessCode");
+            var address = document.getElementById("InAddress");
+
+            var d5Dom = DEXT5.getD5Dom();
+            d5Dom.all.txtCheck1.checked = check1.checked;
+            d5Dom.all.txtCheck2.checked = check2.checked;
+            d5Dom.txtComany.innerHTML = copamy.value;
+            d5Dom.document.getElementById("txtOwnerName").innerHTML = ownername.value;
+
+            DEXT5.$("#txtBusinessCode").innerHTML = busincode.value;
+            DEXT5.setElementInnerHTML("txtAddress", address.value);
+        }
+
+        // 추출
+        function getDataFromdext5form() {
+            var check1 = document.getElementById("Outcheck1");
+            var check2 = document.getElementById("Outcheck2");
+            var copamy = document.getElementById("OutCompany");
+            var ownername = document.getElementById("OutOwnerName");
+            var busincode = document.getElementById("OutBusinessCode");
+            var address = document.getElementById("OutAddress");
+
+            var d5Dom = DEXT5.getD5Dom();
+            check1.checked = d5Dom.all.txtCheck1.checked;
+            check2.checked = d5Dom.all.txtCheck2.checked;
+            copamy.value = d5Dom.txtComany.innerHTML;
+
+            ownername.value = d5Dom.document.getElementById("txtOwnerName").innerHTML;
+            busincode.value = DEXT5.$("#txtBusinessCode").innerHTML;
+
+            address.value = DEXT5.getElementById("txtAddress").innerHTML;
+        }
+    </script>
+</head>
+
+<body>
+    <ul class="info_lst_box">
+        <li>• 에디터의 document에 접근하여 DOM 관리를 할 수 있습니다.</li>
+    </ul>
+    <!-- 입력 -->  
+    <div class="input_sec">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+        <table  cellpadding="0" cellspacing="0" border="0" style="width:100%" summary="에디터 양식/데이터 관리 입력 테이블 입니다.">
+	    <tbody>
+		    <tr>
+			    <td class="basic" rowspan="5">
+				    <p><strong>설 정</strong></p>
+			    </td>
+			    <td class="type">
+				    <p>&nbsp;</p>
+			    </td>
+			    <td class="input_box">
+				    <p><input type="checkbox" value="" id="Incheck1" /> <label for="Incheck1">하 도 급</label>&nbsp;&nbsp;<input type="checkbox" value="" id="Incheck2" /> <label for="Incheck2">재 하 도 급</label></p>
+			    </td>
+			    <td class="input_send" rowspan="5">
+				    <p><button type="button" class="input_button" onclick="javascript:sendDataTodext5form();">입력</button></p>
+			    </td>
+		    </tr>
+		    <tr>
+			    <td class="type">
+				    <p>상 호</p>
+			    </td>
+			    <td class="none input_box">
+				    <p><input type="text" id="InCompany" value="대한민국 주식회사" style="width:375px;" /></p>
+			    </td>
+		    </tr>
+		    <tr>
+			    <td class="type">
+				    <p>대 표 자</p>
+			    </td>
+			    <td class="input_box">
+				    <p><input type="text" id="InOwnerName" size="20" value="대통령" style="width:375px;" /></p>
+			    </td>
+		    </tr>
+		    <tr>
+			    <td class="type">
+				    <p>사 업 자 번 호</p>
+			    </td>
+			    <td class="input_box">
+				    <p><input type="text" id="InBusinessCode" size="20" value="220-87-38436" style="width:375px;" /></p>
+			    </td>
+		    </tr>
+		    <tr>
+			    <td class="type">
+				    <p>소 재 지</p>
+			    </td>
+			    <td class="last_line input_box">
+				    <p><input type="text" id="InAddress" size="20" value="대한민국 서울특별시 1번지" style="width:375px" /></p>
+			    </td>
+		    </tr>
+	    </tbody>
+        </table>
+    </div>
+    <br/>
+    <!-- //입력 -->
+
+    <!--<div class="btn_lst_box">
+        <button type="button" value="loadHtmlValueExFromURL" class="input_image" style="width: 130px;" onclick="fn_LoadHTMLFromURL('dext5editor')">양식 가져오기1</button>&nbsp;
+    </div>-->
+
+    <div style="width: 800px; margin: 0 auto;clear:both">
+        <script type="text/javascript">
+            
+            //DEXT5.config.InitXml = "dext_editor.xml";
+            //DEXT5.config.HandlerUrl = "http://www.dext5.com/handler/upload_handler.ashx";
+            //DEXT5.config.SkinName = "blue";
+            //DEXT5.config.ToSavePathURL = "dext5data";
+            //DEXT5.config.Lang = "ko-kr"; // ko-kr, en-us, ja-jp, zh-cn, zh-tw
+            //DEXT5.config.Mode = "view";
+            //DEXT5.config.focusInitObjId = "title"; // 에디터가 로드된 후 설정한 아이디를 가진 객체에 포커스를 줌.
+            //DEXT5.config.NextTabElementId = "nextInput";
+            //DEXT5.config.IgnoreSameEditorName = "1";
+
+            DEXT5.config.Width = "800px";
+            DEXT5.config.Height = "400px";
+            //DEXT5.config.RunTimes = '';   // 웹표준모드 : html5, 플러그인모드(IE전용) : ieplugin, version이하 플러그인(IE전용) : versionieplugin
+
+            // 에디터의 팝업창과 우클릭 메뉴를 부모창에 띄우기 위한 설정.
+            // 에디터를 iframe 형태로 띄우는 경우 사이즈가 작아서 팝업창이나 우클릭 메뉴가 가려질 때 설정하면 유용합니다.
+            //DEXT5.config.DialogWindow = parent.window;
+
+            var editor1 = new Dext5editor("dext5editor");
+        </script>
+    </div>
+
+    <!-- 추출 -->
+    <div class="input_sec" style="margin-top:5px">
+        <table style="border-collapse: collapse;" border="0" cellspacing="0" cellpadding="0">
+	    <tbody>
+		    <tr>
+			    <td class="basic" rowspan="5">
+				    <p><strong>설 정</strong></p>
+			    </td>
+			    <td class="type">
+				    <p>&nbsp;</p>
+			    </td>
+			    <td class="input_box">
+				    <p><input type="checkbox" value="" id="Outcheck1" /> <label for="Outcheck1">하 도 급</label>&nbsp;&nbsp;<input type="checkbox" value="" id="Outcheck2" /> <label for="Outcheck2">재 하 도 급</label></p>
+			    </td>
+			    <td class="input_send" rowspan="5">
+				    <p><button type="button" class="input_button" onclick="javascript:getDataFromdext5form();">추출</button></p>
+			    </td>
+		    </tr>
+		    <tr>
+			    <td class="type">
+				    <p>상 호</p>
+			    </td>
+			    <td class="none input_box">
+				    <p><input type="text" id="OutCompany" value="" style="width:375px;" /></p>
+			    </td>
+		    </tr>
+		    <tr>
+			    <td class="type">
+				    <p>대 표 자</p>
+			    </td>
+			    <td class="input_box">
+				    <p><input type="text" id="OutOwnerName" size="20" value="" style="width:375px;" /></p>
+			    </td>
+		    </tr>
+		    <tr>
+			    <td class="type">
+				    <p>사 업 자 번 호</p>
+			    </td>
+			    <td class="input_box">
+				    <p><input type="text" id="OutBusinessCode" size="20" value="" style="width:375px;" /></p>
+			    </td>
+		    </tr>
+		    <tr>
+			    <td class="type">
+				    <p>소 재 지</p>
+			    </td>
+			    <td class="last_line input_box">
+				    <p><input type="text" id="OutAddress" size="20" value="" style="width:375px" /></p>
+			    </td>
+		    </tr>
+	    </tbody>
+        </table>
+    </div>
+    <!-- //추출 -->
+</body>
+</html>

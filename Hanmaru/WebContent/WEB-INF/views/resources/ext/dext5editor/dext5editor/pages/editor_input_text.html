@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Input Text</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <style type="text/css">
+        .color li { width:14px; height:14px; float:left; padding:0px; margin:1px; border:0px none; list-style-type:none; cursor:pointer; }
+    </style>
+	
+    <script type="text/javascript">
+        var elemModify = null;
+        try {
+            elemModify = DEXTTOP.G_SELECTED_ELEMENT;
+            if (elemModify && elemModify.tagName.toLowerCase() != "input") DEXTTOP.G_SELECTED_ELEMENT = elemModify = null;
+        } catch (e) {
+            elemModify = null;
+        }
+
+        function page_loaded_event() {
+
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+
+            document.getElementById("editor_popup_input").className = 'DEXT_fiVe_ED_Popup_Type01 DEXT_fiVe_PUi_' + _skin_name;
+
+            document.getElementById("span_title").innerHTML = LayerWin.dext5_lang.input_text.title;
+
+            document.getElementById("label_id").innerHTML = LayerWin.dext5_lang.input_common.id;
+            document.getElementById("label_name").innerHTML = LayerWin.dext5_lang.input_common.name;
+            document.getElementById("label_value").innerHTML = LayerWin.dext5_lang.input_common.value;
+            document.getElementById("label_class").innerHTML = LayerWin.dext5_lang.input_common.insertClass;
+            document.getElementById("label_title").innerHTML = LayerWin.dext5_lang.input_common.title;
+            document.getElementById("label_textalign").innerHTML = LayerWin.dext5_lang.input_common.align;
+            document.getElementById("label_width").innerHTML = LayerWin.dext5_lang.input_common.width;
+            document.getElementById("label_height").innerHTML = LayerWin.dext5_lang.input_common.height;
+            document.getElementById("label_disabled").innerHTML = LayerWin.dext5_lang.input_common.disabled;
+            document.getElementById("label_readonly").innerHTML = LayerWin.dext5_lang.input_common.readonly;
+            document.getElementById("legend_event").innerHTML = LayerWin.dext5_lang.input_common.event_name;
+            document.getElementById("label_event_name").innerHTML = LayerWin.dext5_lang.input_common.event_name;
+            document.getElementById("label_event_function").innerHTML = LayerWin.dext5_lang.input_common.event_function;
+            document.getElementById("span_list_event_name").innerHTML = LayerWin.dext5_lang.input_common.event_name;
+            document.getElementById("span_list_event_function").innerHTML = LayerWin.dext5_lang.input_common.event_function;
+            document.getElementById("btn_event_add").value = LayerWin.dext5_lang.input_common.btn_add;
+            document.getElementById("btn_event_modify").value = LayerWin.dext5_lang.input_common.btn_modify;
+            document.getElementById("btn_event_delete").value = LayerWin.dext5_lang.input_common.btn_delete;
+            document.getElementById("btn_ok").innerHTML = LayerWin.dext5_lang.input_common.btn_ok;
+            document.getElementById("btn_cancel").innerHTML = LayerWin.dext5_lang.input_common.btn_cancel;
+
+            document.getElementById("legend_input_type").innerHTML = LayerWin.dext5_lang.input_text.type_category;
+            document.getElementById("label_type_general").innerHTML = LayerWin.dext5_lang.input_text.type_text;
+            document.getElementById("label_type_password").innerHTML = LayerWin.dext5_lang.input_text.type_pwd;
+            document.getElementById("legend_input_attribute").innerHTML = LayerWin.dext5_lang.input_text.attribute_category;
+            document.getElementById("label_size").innerHTML = LayerWin.dext5_lang.input_text.attribute_size;
+            document.getElementById("label_maxtext").innerHTML = LayerWin.dext5_lang.input_text.attribute_maxtext;
+
+            document.title = LayerWin.dext5_lang.input_text.title;
+
+            setInputCommonEventPageEvent();
+
+            var input_textalign = document.getElementById('input_textalign');
+            var alginLen = LayerWin.dext5_lang.input_common.align_text_arr.length;
+            for (var i = 0; i < alginLen; i++) {
+                var oneOption = document.createElement('option');
+                oneOption.innerHTML = LayerWin.dext5_lang.input_common.align_text_arr[i];
+                oneOption.value = LayerWin.dext5_lang.input_common.align_value_arr[i];
+                input_textalign.appendChild(oneOption);
+            }
+
+            var input_event_name = document.getElementById('input_event_name');
+            var eventListLen = LayerWin._dext_editor._config.eventList.length;
+            for (var i = 0; i < eventListLen; i++) {
+                var oneOption = document.createElement('option');
+                oneOption.innerHTML = LayerWin._dext_editor._config.eventList[i];
+                oneOption.value = LayerWin._dext_editor._config.eventList[i];
+                input_event_name.appendChild(oneOption);
+            }
+
+            var header = LayerWin.getElementsByClass("EdiTor_Popup_header", document);
+            header[0].onselectstart = function () { return false; };
+            document.getElementById("btn_cancel").focus();
+
+            var btn_ok_a = document.getElementById('ok_btn');
+            if (elemModify != null) {
+                LayerWin.DEXTTOP.DEXT5.util.addEvent(btn_ok_a, 'click', function () { dext_modify_input_text(); });
+                set_modify_field_input_text();
+            } else {
+                LayerWin.DEXTTOP.DEXT5.util.addEvent(btn_ok_a, 'click', function () { dext_insert_input_text(); });
+            }
+
+            if (LayerDoc.compatMode == "BackCompat") {
+                var inputs = document.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type == 'text') {
+                        inputs[i].style.height = '20px';
+                    }
+                }
+            }
+
+            setCursorPos(document.getElementById('input_name'), true, false);
+            LayerWin.setFocusFirstAndLast(document, document.getElementById('input_name'));
+        }
+
+	</script>
+</head>
+<body style="margin:0px; padding:0px;" onload="page_loaded_event()" >
+    <div id="editor_popup_input" class="editor_popup">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title"></span><span class="text"></span>
+            <div class="close">
+                <a href="javascript:event_dext_close();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / general -->
+        <div class="EdiTor_Popup_contents">
+            <div class="contents">
+                <input type="hidden" id="tosavepathurl" name="tosavepathurl" value="" />
+                <div class="con border">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="25%">
+                                <label id="label_name" for="input_name"></label>
+                            </td>
+                            <td width="25%">
+                                <input id="input_name" type="text" class="con_input" style="width:76px;"/> 
+                            </td>
+                            <td width="25%">
+                                <label id="label_value" for="input_value"></label>
+                            </td>
+                            <td width="25%">
+                                <input id="input_value" type="text" class="con_input" style="width:76px;"/> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label id="label_id" for="input_id"></label>
+                            </td>
+                            <td>
+                                <input id="input_id" type="text" class="con_input" style="width:76px;"/> 
+                            </td>
+                            <td>
+                                <label id="label_class" for="input_class"></label>
+                            </td>
+                            <td>
+                                <input id="input_class" type="text" class="con_input" style="width:76px;"/> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label id="label_title" for="input_title"></label>
+                            </td>
+                            <td>
+                                <input id="input_title" type="text" class="con_input" style="width:76px;"/> 
+                            </td>
+                            <td>
+                                <label id="label_textalign" for="input_textalign"></label>
+                            </td>
+                            <td>
+                                <select name="input_textalign" id="input_textalign" style="width:80px;"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="25%">
+                                <label id="label_width" for="input_width"></label>
+                            </td>
+                            <td width="25%">
+                                <input name="input_width" id="input_width" type="text" class="con_input" style="width:58px;" onkeydown="LayerWin.onlyNumber(event);" maxlength="4"/>px
+                            </td>
+                            <td width="25%">
+                                <label id="label_height" for="input_height"></label>
+                            </td>
+                            <td width="25%">
+                                <input name="input_height" id="input_height" type="text" class="con_input" style="width:58px;" onkeydown="LayerWin.onlyNumber(event);" maxlength="4"/>px
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input id="input_disabled" type="checkbox"/>
+                                <label id="label_disabled" for="input_disabled"></label>
+                            </td>
+                            <td colspan="2">
+                                <input id="input_readonly" type="checkbox"/>
+                                <label id="label_readonly" for="input_readonly"></label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="con">
+                    <fieldset class="ulc">  
+                        <legend id="legend_input_type"></legend>
+                        <input name="input_type" id="input_type_general" type="radio" value="text" checked/>
+                        <label for="input_type_general" id="label_type_general" style="vertical-align:middle;"></label>
+                        <input name="input_type" id="input_type_password" value="password" type="radio"/>
+                        <label for="input_type_password" id="label_type_password" style="vertical-align:middle;"></label>             
+                    </fieldset>      
+                </div>
+                <div class="con">
+                    <fieldset class="ulc">  
+                        <legend id="legend_input_attribute"></legend>
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td width="25%">
+                                    <label id="label_size" for="input_size"></label>
+                                </td>
+                                <td width="25%">
+                                    <table cellpadding="0" cellspacing="0" style="line-height:normal; table-layout:auto; width:100% !important;"><tbody><tr><td>
+                                    <div class="no_ab">
+                                    <input name="input_size" id="input_size" type="text" class="con_input" onkeydown="LayerWin.onlyNumber(event);" maxlength="4" />
+                                    <ul>
+                                        <li id="size_plus_btn" onclick="LayerWin.click_plus_func(document.getElementById('input_size'),999,5)"><a href="javascript:void(0);" style="cursor:pointer"><img src="../images/editor/dialog/btn/editor_ta_btn.gif" width="15" height="10" alt=""/></a></li>
+                                        <li id="size_minus_btn" onclick="LayerWin.click_minus_func(document.getElementById('input_size'),0,5)"><a href="javascript:void(0);" style="cursor:pointer"><img src="../images/editor/dialog/btn/editor_ba_btn.gif" width="15" height="10" alt=""/></a></li>
+                                    </ul>
+                                    </div>
+                                    </td></tr></tbody></table>
+                                </td>
+                                <td width="25%">
+                                    <label id="label_maxtext" for="input_maxtext"></label>
+                                </td>
+                                <td width="25%">
+                                    <table cellpadding="0" cellspacing="0" style="line-height:normal; table-layout:auto; width:100% !important;"><tbody><tr><td>
+                                    <div class="no_ab">
+                                    <input name="input_maxtext" id="input_maxtext" type="text" class="con_input" onkeydown="LayerWin.onlyNumber(event);" />
+                                    <ul>
+                                        <li id="max_text_plus_btn" onclick="LayerWin.click_plus_func(document.getElementById('input_maxtext'),999,1)"><a href="javascript:void(0);" style="cursor:pointer"><img src="../images/editor/dialog/btn/editor_ta_btn.gif" width="15" height="10" alt=""/></a></li>
+                                        <li id="max_text_minus_btn" onclick="LayerWin.click_minus_func(document.getElementById('input_maxtext'),0,1)"><a href="javascript:void(0);" style="cursor:pointer"><img src="../images/editor/dialog/btn/editor_ba_btn.gif" width="15" height="10" alt=""/></a></li>
+                                    </ul>
+                                    </div>
+                                    </td></tr></tbody></table>
+                                </td>
+                            </tr>
+                        </table>           
+                    </fieldset>      
+                </div>
+                <div class="con">
+                    <fieldset class="ulc">  
+                        <legend id="legend_event"></legend>
+                        
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td width="24%">
+                                    <label for="input_event_name" id="label_event_name" style="margin-left:5px;"></label>
+                                </td>
+                                <td width="41%">
+                                    <select name="input_event_name" id="input_event_name" style="width:140px;"></select>
+                                </td>
+                                <td colspan="2" width="35%">
+                                    <p class="select_btn" style="text-align:left;">
+                                        <input type="button" id="btn_event_add" style="width: 50px;" class="in_btn" value=""/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="24%">
+                                    <label for="input_event_function" id="label_event_function" style="margin-left:5px;"></label>
+                                </td>
+                                <td width="41%">
+                                    <input id="input_event_function" type="text" style="width: 135px;" class="con_input" />
+                                </td>
+                                <td colspan="2" width="35%">
+                                    <p class="select_btn" style="text-align:left;">
+                                        <input type="button" id="btn_event_modify" style="width: 50px;" class="in_btn" value=""/><input type="button" id="btn_event_delete" style="width: 50px;" class="in_btn in_btn2" value=""/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="select_tb" style="margin:10px 0 0 0">
+                            <table cellpadding="0" cellspacing="0" style="width:356px;">
+                                <tr>
+                                    <td class="t_center" style="border-right-width:1px;">
+                                        <span id="span_list_event_name" style="text-align:center;"></span>
+                                    </td>
+                                    <td class="t_center" style="width:65%;">
+                                        <span id="span_list_event_function"></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="select_td" style="height:53px;">
+                            <table cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
+                                <tbody id="event_table"></tbody>
+                            </table>
+                        </div>
+                    </fieldset>      
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a href="javascript:;" class="confirm" id="ok_btn"><span id="btn_ok"></span></a>
+            <a href="javascript:event_dext_close();" class="cancel"><span id="btn_cancel"></span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

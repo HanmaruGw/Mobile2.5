@@ -1,0 +1,757 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: TopMenu</h3>
+    <p class="ttl">XML : &#60;top_menu&#62;.....&#60;/top_menu&#62;</p>
+    <p class="txt">
+        에디터의 메뉴바에서 메뉴를 표시하거나 숨기는 기능을 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">m_file</span>&nbsp;&nbsp;메뉴바에서 [파일] 메뉴를 표시하거나 숨기는 기능을 설정합니다. 하위메뉴는 다음과 같습니다.<br />
+        </span>
+        <table style="width: 500px;" class="h1_table">
+            <caption>메뉴바에서 [파일] 메뉴의 하위 메뉴</caption>
+            <colgroup>
+                <col style="width: 50%; text-align: left;">
+                <col style="width: 50%; text-align: left;">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>메뉴명</th>
+                    <th>command 명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>새 문서</td>
+                    <td>new</td>
+                </tr>
+                <tr>
+                    <td>파일열기</td>
+                    <td>file_open</td>
+                </tr>
+                <tr>
+                    <td>템플릿</td>
+                    <td>template</td>
+                </tr>
+                <tr>
+                    <td>레이아웃</td>
+                    <td>layout</td>
+                </tr>
+                <tr>
+                    <td>파일로 저장</td>
+                    <td>save</td>
+                </tr>
+                <tr>
+                    <td>자동저장내용 불러오기</td>
+                    <td>load_auto_save</td>
+                </tr>
+                <tr>
+                    <td>인쇄</td>
+                    <td>print</td>
+                </tr>
+                <tr>
+                    <td>페이지 분할</td>
+                    <td>pagebreak</td>
+                </tr>
+            </tbody>
+        </table>
+        &#60;remove_item /&#62;에 하위 앨리먼트로 하위 메뉴 command 명을 지정해 주면 해당 하위 메뉴를 표시하지 않습니다.<br />
+        예)&#60;remove_item&#62;&#60;item&#62;new&#60;/item&#62;&#60;item&#62;print&#60;/item&#62;&#60;/remove_item&#62;<br />
+        <br />
+        <span class="txt">
+            <span class="firebrick">m_edit</span>&nbsp;&nbsp;메뉴바에서 [편집] 메뉴를 표시하거나 숨기는 기능을 설정합니다. 하위메뉴는 다음과 같습니다.<br />
+        </span>
+        <table style="width: 500px;" class="h1_table">
+            <caption>메뉴바에서 [편집] 메뉴의 하위 메뉴</caption>
+            <colgroup>
+                <col style="width: 50%; text-align: left;">
+                <col style="width: 50%; text-align: left;">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>메뉴명</th>
+                    <th>command 명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>되돌리기</td>
+                    <td>undo</td>
+                </tr>
+                <tr>
+                    <td>다시 실행</td>
+                    <td>redo</td>
+                </tr>
+                <tr>
+                    <td>복사</td>
+                    <td>copy</td>
+                </tr>
+                <tr>
+                    <td>잘라내기</td>
+                    <td>cut</td>
+                </tr>
+                <tr>
+                    <td>붙여넣기</td>
+                    <td>paste</td>
+                </tr>
+                <tr>
+                    <td>전체선택</td>
+                    <td>select_all</td>
+                </tr>
+                <tr>
+                    <td>찾기</td>
+                    <td>find</td>
+                </tr>
+                <tr>
+                    <td>바꾸기</td>
+                    <td>replace</td>
+                </tr>
+            </tbody>
+        </table>
+        &#60;remove_item /&#62;에 하위 앨리먼트로 하위 메뉴 command 명을 지정해 주면 해당 하위 메뉴를 표시하지 않습니다.<br />
+        예)&#60;remove_item&#62;&#60;item&#62;copy&#60;/item&#62;&#60;item&#62;find&#60;/item&#62;&#60;/remove_item&#62;<br />
+        <br />
+        <span class="txt">
+            <span class="firebrick">m_view</span>&nbsp;&nbsp;메뉴바에서 [보기] 메뉴를 표시하거나 숨기는 기능을 설정합니다. 하위메뉴는 다음과 같습니다.<br />
+        </span>
+        <table style="width: 500px;" class="h1_table">
+            <caption>메뉴바에서 [보기] 메뉴의 하위 메뉴</caption>
+            <colgroup>
+                <col style="width: 50%; text-align: left;">
+                <col style="width: 50%; text-align: left;">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>메뉴명</th>
+                    <th>command 명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>전체화면</td>
+                    <td>full_screen</td>
+                </tr>
+                <tr>
+                    <td>디자인</td>
+                    <td>design</td>
+                </tr>
+                <tr>
+                    <td>HTML</td>
+                    <td>source</td>
+                </tr>
+                <tr>
+                    <td>미리보기</td>
+                    <td>preview</td>
+                </tr>
+                <tr>
+                    <td>TEXT</td>
+                    <td>text</td>
+                </tr>
+            </tbody>
+        </table>
+        &#60;remove_item /&#62;에 하위 앨리먼트로 하위 메뉴 command 명을 지정해 주면 해당 하위 메뉴를 표시하지 않습니다.<br />
+        예)&#60;remove_item&#62;&#60;item&#62;full_screen&#60;/item&#62;&#60;item&#62;preview&#60;/item&#62;&#60;/remove_item&#62;<br />
+        <br />
+        <span class="txt">
+            <span class="firebrick">m_insert</span>&nbsp;&nbsp;메뉴바에서 [삽입] 메뉴를 표시하거나 숨기는 기능을 설정합니다. 하위메뉴는 다음과 같습니다.<br />
+        </span>
+        <table style="width: 500px;" class="h1_table">
+            <caption>메뉴바에서 [삽입] 메뉴의 하위 메뉴</caption>
+            <colgroup>
+                <col style="width: 50%; text-align: left;">
+                <col style="width: 50%; text-align: left;">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>메뉴명</th>
+                    <th>command 명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>문서 배경 이미지</td>
+                    <td>doc_bg_image</td>
+                </tr>
+                <tr>
+                    <td>이미지</td>
+                    <td>image_create</td>
+                </tr>
+                <tr>
+                    <td>개체</td>
+                    <td>entity</td>
+                </tr>
+                <tr>
+                    <td>개체 &gt; 외부동영상공유 </td>
+                    <td>insert_link_media</td>
+                </tr>
+                <tr>
+                    <td>개체 &gt; Iframe </td>
+                    <td>iframe_create</td>
+                </tr>
+                <tr>
+                    <td>개체 &gt; Flash </td>
+                    <td>flash_create</td>
+                </tr>
+                <tr>
+                    <td>개체 &gt; 영상 </td>
+                    <td>media_create</td>
+                </tr>
+                <tr>
+                    <td>파일넣기</td>
+                    <td>insert_file</td>
+                </tr>
+                <tr>
+                    <td>하이퍼링크</td>
+                    <td>hyperlink_create</td>
+                </tr>
+                <tr>
+                    <td>책갈피</td>
+                    <td>bookmark</td>
+                </tr>
+                <tr>
+                    <td>수평선</td>
+                    <td>horizontal_line</td>
+                </tr>
+                <tr>
+                    <td>특수기호</td>
+                    <td>symbol</td>
+                </tr>
+                <tr>
+                    <td>이모티콘</td>
+                    <td>emoticon</td>
+                </tr>
+            </tbody>
+        </table>
+        &#60;remove_item /&#62;에 하위 앨리먼트로 하위 메뉴 command 명을 지정해 주면 해당 하위 메뉴를 표시하지 않습니다.<br />
+        예)&#60;remove_item&#62;&#60;item&#62;entity&#60;/item&#62;&#60;item&#62;bookmark&#60;/item&#62;&#60;/remove_item&#62;<br />
+        <br />
+        <span class="txt">
+            <span class="firebrick">m_form</span>&nbsp;&nbsp;메뉴바에서 [서식] 메뉴를 표시하거나 숨기는 기능을 설정합니다. 하위메뉴는 다음과 같습니다.<br />
+        </span>
+        <table style="width: 500px;" class="h1_table">
+            <caption>메뉴바에서 [서식] 메뉴의 하위 메뉴를 표시하거나 숨기는 기능을 설정하는 예</caption>
+            <colgroup>
+                <col style="width: 50%; text-align: left;">
+                <col style="width: 50%; text-align: left;">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>메뉴명</th>
+                    <th>command 명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        굵게
+                    </td>
+                    <td>
+                        bold
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        이탤릭
+                    </td>
+                    <td>
+                        italic
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        밑줄
+                    </td>
+                    <td>
+                        underline
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        취소선
+                    </td>
+                    <td>
+                        strike_through
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        위 첨자
+                    </td>
+                    <td>
+                        superscript
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        아래 첨자
+                    </td>
+                    <td>
+                        subscript
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        서식 지우기
+                    </td>
+                    <td>
+                        remove_format
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        CSS 지우기
+                    </td>
+                    <td>
+                        remove_css
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        글머리 번호
+                    </td>
+                    <td>
+                        list_number
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        글머리 기호
+                    </td>
+                    <td>
+                        list_bullets
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        들여 쓰기
+                    </td>
+                    <td>
+                        indent
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        내어 쓰기
+                    </td>
+                    <td>
+                        outdent
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        수평 정렬
+                    </td>
+                    <td>
+                        align_full
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        &#60;remove_item /&#62;에 하위 앨리먼트로 하위 메뉴 command 명을 지정해 주면 해당 하위 메뉴를 표시하지 않습니다.<br />
+        예)&#60;remove_item&#62;&#60;item&#62;bold&#60;/item&#62;&#60;item&#62;align_full&#60;/item&#62;&#60;/remove_item&#62;<br />
+        <br />
+        <span class="txt">
+            <span class="firebrick">m_table</span>&nbsp;&nbsp;메뉴바에서 [표] 메뉴를 표시하거나 숨기는 기능을 설정합니다. 하위메뉴는 다음과 같습니다.<br />
+        </span>
+        <table style="width: 500px;" class="h1_table">
+            <caption>메뉴바에서 [표] 메뉴의 하위 메뉴</caption>
+            <colgroup>
+                <col style="width: 50%; text-align: left;">
+                <col style="width: 50%; text-align: left;">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>메뉴명</th>
+                    <th>command 명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>표 선택</td>
+                    <td>table_selection</td>
+                </tr>
+                <tr>
+                    <td>
+                        표 삽입
+                    </td>
+                    <td>
+                        detail_table_insert
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        표 삭제
+                    </td>
+                    <td>
+                        table_delete
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        가로줄/세로줄 삽입
+                    </td>
+                    <td>
+                        insert_row_column
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        가로줄 삽입
+                    </td>
+                    <td>
+                        insert_row
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        가로줄 삽입 &gt; 위에 가로줄 삽입
+                    </td>
+                    <td>
+                        insert_row_up
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        가로줄 삽입 &gt; 아래에 가로줄 삽입
+                    </td>
+                    <td>
+                        insert_row_down
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        세로줄 삽입
+                    </td>
+                    <td>
+                        insert_column
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        세로줄 삽입 &gt; 왼쪽에 세로줄 삽입
+                    </td>
+                    <td>
+                        insert_column_left
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        세로줄 삽입 &gt; 오른쪽에 세로줄 삽입
+                    </td>
+                    <td>
+                        insert_column_right
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        가로줄 삭제
+                    </td>
+                    <td>
+                        delete_row
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        세로줄 삭제
+                    </td>
+                    <td>
+                        delete_column
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        셀 합치기
+                    </td>
+                    <td>
+                        merge_cell
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        셀 나누기
+                    </td>
+                    <td>
+                        split_cell
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        가로줄 복제
+                    </td>
+                    <td>
+                        table_row_clone
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        선택
+                    </td>
+                    <td>
+                        table_select
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        선택 &gt; 셀 선택
+                    </td>
+                    <td>
+                        table_select_cell
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        선택 &gt; 가로줄 선택
+                    </td>
+                    <td>
+                        table_select_row
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        선택 &gt; 세로줄 선택
+                    </td>
+                    <td>
+                        table_select_column
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        선택 &gt; 전체 셀 선택
+                    </td>
+                    <td>
+                        table_select_all
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        셀 크기 조정
+                    </td>
+                    <td>
+                        cell_size
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        셀 크기 조정 &gt; 너비를 같게
+                    </td>
+                    <td>
+                        table_same_width
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        셀 크기 조정 &gt; 높이를 같게
+                    </td>
+                    <td>
+                        table_same_height
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        셀 크기 조정 &gt; 너비/높이를 같게
+                    </td>
+                    <td>
+                        table_same_widthheight
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        수직 정렬
+                    </td>
+                    <td>
+                        align_vertical
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        수직 정렬 &gt; 위쪽 정렬
+                    </td>
+                    <td>
+                        valign_up
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        수직 정렬 &gt; 가운데 정렬
+                    </td>
+                    <td>
+                        valign_center
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        수직 정렬 &gt; 기준선 정렬
+                    </td>
+                    <td>
+                        valign_baseline
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        수직 정렬 &gt; 아래쪽 정렬
+                    </td>
+                    <td>
+                        valign_bottom
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        가로줄 속성
+                    </td>
+                    <td>
+                        row_property
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        세로줄 속성
+                    </td>
+                    <td>
+                        column_property
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        표 도구
+                    </td>
+                    <td>
+                        table_tool
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        표 도구 &gt; 표 텍스트로 변환
+                    </td>
+                    <td>
+                        convert_table_to_text
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        표 속성
+                    </td>
+                    <td>
+                        table_property
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        셀 속성
+                    </td>
+                    <td>
+                        cell_property
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        계산식  &gt; 가로줄 합계
+                    </td>
+                    <td>
+                        horizontal_sum
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        계산식  &gt; 세로줄 합계
+                    </td>
+                    <td>
+                        vertical_sum
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        계산식  &gt; 가로줄 평균
+                    </td>
+                    <td>
+                        horizontal_avg
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        계산식  &gt; 세로줄 평균
+                    </td>
+                    <td>
+                        vertical_avg
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        &#60;remove_item /&#62;에 하위 앨리먼트로 하위 메뉴 command 명을 지정해 주면 해당 하위 메뉴를 표시하지 않습니다.<br />
+        예)&#60;remove_item&#62;&#60;item&#62;table_select&#60;/item&#62;&#60;item&#62;table_tool&#60;/item&#62;&#60;/remove_item&#62;<br />
+        <br />
+        <span class="txt">
+            <span class="firebrick">m_tool</span>&nbsp;&nbsp;메뉴바에서 [도구] 메뉴를 표시하거나 숨기는 기능을 설정합니다. 하위메뉴는 다음과 같습니다.<br />
+        </span>
+        <table style="width: 500px;" class="h1_table">
+            <caption>메뉴바에서 [도구] 메뉴의 하위 메뉴</caption>
+            <colgroup>
+                <col style="width: 50%; text-align: left;">
+                <col style="width: 50%; text-align: left;">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>
+                        메뉴명
+                    </th>
+                    <th>
+                        command 명
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        대/소문자 바꾸기
+                    </td>
+                    <td>
+                        tool_replace
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        환경설정
+                    </td>
+                    <td>
+                        setting
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        &#60;remove_item /&#62;에 하위 앨리먼트로 하위 메뉴 command 명을 지정해 주면 해당 하위 메뉴를 표시하지 않습니다.<br />
+        예)&#60;remove_item&#62;&#60;item&#62;setting&#60;/item&#62;&#60;/remove_item&#62;<br />
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+<b>메뉴바에 파일,편집,보기,삽입,서식,표,도구 메뉴를 표시 설정 합니다.</b>
+
+.....
+&#60;top_menu&#62;
+    &#60;menu&#62;m_file&#60;/menu&#62;
+    &#60;menu&#62;m_edit&#60;/menu&#62;
+    &#60;menu&#62;m_view&#60;/menu&#62;
+    &#60;menu&#62;m_insert&#60;/menu&#62;
+    &#60;menu&#62;m_form&#60;/menu&#62;
+    &#60;menu&#62;m_table&#60;/menu&#62;
+    &#60;menu&#62;m_tool&#60;/menu&#62;
+    &#60;menu&#62;m_help&#60;/menu&#62;
+&#60;/top_menu&#62;
+.....
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

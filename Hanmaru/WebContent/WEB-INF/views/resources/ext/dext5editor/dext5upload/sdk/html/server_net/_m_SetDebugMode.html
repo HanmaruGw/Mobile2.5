@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con ">
+            <h3 class="title">DEXT5 Upload :: SetDebugMode</h3>
+            <p class="ttl">void SetDebugMode(bool isDebug, string debugFilePath)</p>
+            <p class="txt">
+                업로드,다운로드 등등의 모든 서버 동작 중 발생되는 로그를 출력하기 위하여 사용합니다.
+                <br />설정된 물리적 경로에 로그가 출력되어 파일로 생성됩니다.
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">isDebug</span>&nbsp;&nbsp;로그 출력 여부를 의미합니다. true: 로그 출력, false: 로그 출력 안합<br />
+                <span class="firebrick">debugFilePath</span>&nbsp;&nbsp;로그가 출력 될 파일의 경로값을 의미합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                기본값 : false
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+Raonwiz.Dext5.UploadHandler upload = new Raonwiz.Dext5.UploadHandler();
+
+<b>upload.SetDebugMode(true, @"로그파일 경로");</b>
+
+upload.Process(context);
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

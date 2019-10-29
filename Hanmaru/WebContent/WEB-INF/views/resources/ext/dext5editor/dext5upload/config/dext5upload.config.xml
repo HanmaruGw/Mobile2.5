@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Dext5Upload>
+  <license>
+    <product_key></product_key>
+    <license_key></license_key>
+  </license>
+  <setting>
+    <runtimes desc="html5,ieplugin,versionieplugin">html5</runtimes>    
+    <plugin_version desc="설정된 cab버전의 값이 우선순위로 적용됨"></plugin_version>
+    <width>800px</width>
+    <height desc="minHeight:120px">200px</height>    
+    <skin_name desc="blue,red,green,orange,purple,silver,brown,darkgray,gold,gray,pink,yellow" css_root_path="" color1="" color2="" color3="" text_color="" webfile_color="">blue</skin_name>
+    <lang>ko-kr</lang>
+    <mode views="list" desc="views : list - 리스트형태로 보기, thumbs - 썸네일형태로 보기">upload</mode>
+    <img_preview width="320px" height="280px">0</img_preview>
+    <show_status_bar show_limit="1" show_status="1" desc="1: 파일 제한 문구/현재 파일 상태 문구 보임, 0이면 숨김">1</show_status_bar>
+    <show_header_bar header_height="28px" desc="min header height:28px">1</show_header_bar>
+    <show_button_bar_edit align="left" desc="버튼 위치 정렬 왼쪽 : left, 오른쪽 :right">add,send,remove,remove_all</show_button_bar_edit>
+    <show_button_bar_view align="left" desc="버튼 위치 정렬 왼쪽 : left, 오른쪽 :right">open,saveandopen,download,download_all,print</show_button_bar_view>
+    <button_bar_position desc="edit/view 버튼 영역 위치 설정, 기본값은 bottom 이고, top : 위, bottom : 아래로 버튼 위치">bottom</button_bar_position>
+    <border_style desc="solid,dashed,none">none</border_style>
+    <max_one_file_size unit="MB" desc="0: 제한없음" unit_desc="B: byte, KB: kilobyte, MB: megabyte, GB: gigabyte">0</max_one_file_size>
+    <max_total_file_size unit="GB" desc="0: 제한없음" unit_desc="B: byte, KB: kilobyte, MB: megabyte, GB: gigabyte">0</max_total_file_size>
+    <max_total_file_count desc="0: 제한없음, 0보다 큰 수 인 경우 해당 개수를 초과해서 첨부">0</max_total_file_count>
+    <hide_list_info dexc="0: 업로드영역 이미지 보여줌, 1: 업로드영역 이미지 숨김">0</hide_list_info>
+    <extension allow_or_limit="0" desc="0: 제한으로 설정, 1: 허용으로 설정, 확장자는 ','로 구분"></extension>
+    <multi_file_select>1</multi_file_select>
+    <list_view_dbclick>1</list_view_dbclick>
+    <list_view_drag_and_drop>1</list_view_drag_and_drop>
+    <resume_mode upload="0" download="0"></resume_mode>
+    <folder_transfer desc="(플러그인 모드 전용)">0</folder_transfer>    
+    <timeout desc="unit:millisecond(플러그인 모드 전용)">0</timeout>
+    <automatic_connection desc="0: 기본값, 1: 묻지 않고 계속 다운로드/업로드 시도함(플러그인 모드 전용)">0</automatic_connection>
+    <show_folder_view desc="(플러그인 모드 전용)">1</show_folder_view>
+    <hide_context_menu desc="0: context 메뉴 사용, 1: context 메뉴 숨김">0</hide_context_menu>
+    <use_size_column desc="0: 파일 크기 사용 안함, 1: 파일 크기 사용 사용함">1</use_size_column>
+    <remove_context_item desc="우클릭 메뉴에서 삭제할 항목 입력(구분자는 ',')"></remove_context_item>
+    <remove_context_item_desc desc="remove_context_item 항목에 설정할 수 있는 값들의 설명 입니다.">
+      <item desc="파일추가(공통)">add_file</item>
+      <item desc="선택된파일 제거(공통)">remove_current_file</item>
+      <item desc="전체 파일 제거(공통)">remove_all_file</item>
+      <item desc="열기(공통)">open_current_file</item>
+      <item desc="선택된 파일 다운로드(공통)">download_current_file</item>
+      <item desc="전체 다운로드(공통)">download_all_file</item>
+      <item desc="폴더로 파일 추가(플러그인 전용)">add_files_from_folder</item>
+      <item desc="폴더추가(플러그인 전용)">add_folder</item>
+      <item desc="이미지 붙여넣기(플러그인 전용)">image_paste</item>
+      <item desc="인쇄(플러그인 전용)">print</item>
+      <item desc="설정(플러그인 전용)">setting</item>
+      <item desc="다운로드 후 열기(플러그인 전용)">download_and_open</item>
+	  <item desc="맨 앞으로(공통)">move_first</item>
+	  <item desc="앞으로(공통)">move_forward</item>
+	  <item desc="뒤로(공통)">move_backward</item>
+	  <item desc="맨 뒤로(공통)">move_end</item>
+    </remove_context_item_desc>
+    <large_files max_count="" max_total_size="" color="" text="" desc="0: 사용안함" unit="MB" unit_desc="B: byte, KB: kilobyte, MB: megabyte, GB: gigabyte">0</large_files>
+    <file_sort sort_field="0" sort_ascdesc="0" auto_sort="0" desc="sort_field(정렬 대상 필드값) - 0:Name 필드, 1:Size 필드 / sort_ascdsc(정렬 방법(Asc, Desc)) - 0:오름차순, 1:내림차순 / auto_sort(자동 정렬 수행 방법) - 0:자동 정렬기능 사용 안함, 1:새로운 파일이 첨부되었을 경우 첫 번째, 두 번째 옵션으로 전체 다시 정렬, 2:새로 추가되는 파일만을 첫 번째, 두 번째 옵션으로 정렬">0</file_sort>
+    <file_move_context_menu desc="파일이동 메뉴를 우클릭 메뉴에 추가할지 여부 설정">0</file_move_context_menu>
+	  <complete_event_reset_use desc="업로드 완료 이벤트에서 ResetUpload API 사용시 1로 설정해야함">0</complete_event_reset_use>
+    <user_message edit="" view="" desc="edit/view 에 문구 입력 사용, 기본값은 0 사용 안함, 1이면 사용">0</user_message>
+    <disable_alert_message>
+      <disable_delete_confirm desc="0: 모든 confirm창 활성, 1:모든 confirm창 비활성, 2:선택 항목제거만 confirm창 비활성, 3:전체 항목제거만 confirm창 비활성">0</disable_delete_confirm>
+      <duplication desc="1:파일 추가 중복 시 alert창 비활성">1</duplication>
+      <delete_unchosen desc="0:파일 삭제 시 선택된 파일이 없을 경우 alert창 활성, 1: 비활성">1</delete_unchosen>
+      <download_unchosen desc="0:파일 다운로드 시 선택된 파일이 없을 경우 alert창 활성, 1: 비활성">1</download_unchosen>
+      <open_unchosen desc="0:파일 열기 시 선택된 파일이 없을 경우 alert창 활성, 1: 비활성">1</open_unchosen>
+      <file_max_count_add desc="0:파일 최대 개수 추가 후 파일 추가 버튼 클릭시 alert창 활성, 1: 비활성">0</file_max_count_add>
+    </disable_alert_message>
+	  <allowed_zero_file_size desc="0byte의 파일 업로드를 허용할 지 여부, 기본값은 0:허용안함, 1:허용">0</allowed_zero_file_size>
+    <upload_transfer_window desc="업로드 전송창 UI 설정">
+      <view desc="standard(표준),light">standard</view>
+      <use_logo_image desc="0: logo 숨김, 1: logo 보여줌" logo_path="" logo_ver="1">1</use_logo_image>
+      <silent_upload desc="전송 팝업창 노출 여부, 기본값은 0:노출, 1:미노출">0</silent_upload>
+      <silent_download desc="다운로드 진행 팝업창 노출 여부, 기본값은 0:노출, 1:미노출, 2:일시정지,취소버튼 미노출 (플러그인 모드 전용)">0</silent_download>
+      <silent_download_ex desc="(웹표준 모드 전용) 다운로드 진행 팝업창 노출과 다운로드 된 파일사이즈 체크 여부, 기본값은 0:노출 및 체크, 1:미노출 및 체크안함(after_download_event, finish_downloaded_event, downloadMulti 사용 불가능)">0</silent_download_ex>
+    </upload_transfer_window>
+    <default_download_path desc="플러그인모드 전용">#|</default_download_path>
+    <transfer_background_style desc="웹표준모드 전용"></transfer_background_style>
+    <use_dropzone desc="Drop Zone 사용 설정, 기본값은 0:미사용, 1:사용">0</use_dropzone>    
+    <use_script_event_control desc="플러그인 모드에서 발생하는 이벤트를 javascript로 보내줌">0</use_script_event_control>
+    <use_dbclick_open desc="0 : 더블클릭시 파일 열기 안됨, 1: 더블클릭시 파일 열기 됨(기본값)">1</use_dbclick_open>
+    <allow_open_extension desc="열기 동작시 popup으로 열기할 확장자명을 콤마(,)로 구분하여 설정">bmp,gif,jpeg,jpg,png,tif,tiff,swf,htm,html,xml,txt</allow_open_extension>
+    <!--- Security -->
+    <security>
+      <encrypt_param>1</encrypt_param>
+    </security>
+    <!--- Security -->
+    <!-- dext5 event -->
+    <use_add_event desc="0 : 리스트 컨트롤에서 파일추가시 event 발생안함, 1: event 발생함">1</use_add_event>
+    <use_delete_event desc="0 : 리스트 컨트롤에서 파일삭제시 event 발생안함, 1: event 발생함">1</use_delete_event>
+    <use_view_or_open_event desc="0 : 파일 열기 시 event 발생 안함, 1: event 발생함">1</use_view_or_open_event>
+    <use_uploading_cancel_event desc="0 : 파일 전송 시 취소 event 발생 안함, 1: 취소 event 발생함">1</use_uploading_cancel_event>
+    <use_download_event desc="0 : 파일 다운로드 시 event 발생 안함, 1: 취소 event 발생함">1</use_download_event>
+	  <use_after_add_event desc="0 : 리스트 컨트롤에서 파일추가 후 event 발생안함, 1: event 발생함">1</use_after_add_event>
+	  <use_after_add_end_time_event desc="0 : 리스트 컨트롤에서 모든 파일추가 완료 후 event 발생안함, 1: event 발생함">1</use_after_add_end_time_event>
+    <use_delete_end_time_event desc="0 : 리스트 컨트롤에서 모든 파일삭제 완료 후 event 발생안함, 1: event 발생함">1</use_delete_end_time_event>
+    <use_after_download_event desc="0 : 다운로드 완료 후 event 발생안함, 1: event 발생함">1</use_after_download_event>    
+    <use_finish_downloaded_event desc="0 : 모든 파일 다운로드 완료 후 event 발생안함, 1: event 발생함">1</use_finish_downloaded_event>
+    <!-- dext5 event -->    
+  </setting>
+  <uploader_setting>
+    <develop_langage desc=".NET(C#, ASP): NET, JAVA(JSP): JSP">NET</develop_langage>
+    <handler_url></handler_url>
+	  <viewer_handler_url></viewer_handler_url>
+    <download_handler_url></download_handler_url>
+    <upload_method_html4 html4_limit_file_size="0" desc="html4에 대한 설정, 0: swf, 1: standard">1</upload_method_html4>
+    <chunk_size unit="MB" unit_desc="B: byte, KB: kilobyte, MB: megabyte, GB: gigabyte">1</chunk_size>
+    <folder_name_rule desc="년월일폴더는 yyyy/ 또는 yyyy/mm 등으로 입력, 그 외에는 일반 폴더">yyyy/mm</folder_name_rule>
+    <file_name_rule desc="GUID: guid, REALFILENAME: 실제파일명">GUID</file_name_rule>
+    <file_name_rule_ex desc="중복파일명처리, _ or # or i 중 택1 (i는 뒤에 숫자 자동증가)">_</file_name_rule_ex>    
+  </uploader_setting>
+  <add_ext_icon></add_ext_icon>
+</Dext5Upload>

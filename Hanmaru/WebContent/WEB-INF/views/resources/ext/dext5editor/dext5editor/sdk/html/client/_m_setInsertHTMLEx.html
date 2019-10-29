@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: setInsertHTMLEx</h3>
+    <p class="ttl">void setInsertHTMLEx(html, position, editor_id)</p>
+    <p class="txt">
+        에디터 디자인 영역에서 커서가 있는 위치 혹은 작성영역 제일 뒤에 html 소스를 삽입합니다.
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        없음.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+    <span class="firebrick">html</span>&nbsp;&nbsp;에디터 디자인 영역에 삽입할 html 소스입니다.<br />
+    <span class="firebrick">position</span>&nbsp;&nbsp;html 소스를 삽입할 위치를 의미합니다.<br />      
+    <span class="firebrick">editor_id</span>&nbsp;&nbsp;html 소스를 입력할 에디터의 id를 의미합니다.<br />        
+    </p>       
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        position 값은 0으로 설정 시 커서가 있는 위치에 html소스 삽입, 1로 설정 시 작성영역 제일 뒤에 삽입합니다.<br /><br />
+        에디터를 1개만 생성했을 경우 editor_id를 입력하지 않아도 html 소스를 삽입할 수 있습니다.<br />
+        예) id가 editor1인 에디터를 생성했을 경우<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEXT5.setInsertHTMLEx(html, 1, 'editor1'), DEXT5.setInsertHTMLEx(html, 1)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;모두 editor1 에디터 디자인 영역에서 작성영역 제일 뒤에 html 소스를 삽입합니다.<br />
+        <br />
+        에디터를 2개 이상 생성했을 경우 editor_id를 <b>반드시</b> 입력해야 합니다.<br />
+        예) id가 editor1, editor2인 에디터를 생성했을 경우<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEXT5.setInsertHTMLEx(html, 0, 'editor1') &nbsp;editor1 에디터 디자인 영역에서 작성영역 제일 뒤에 html 소스를 삽입합니다.<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEXT5.setInsertHTMLEx(html, 1, 'editor2') &nbsp;editor2 에디터 디자인 영역에서 커서위치에 html 소스를 삽입합니다.<br />
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+
+    function insertHTML() {
+        var html = '&#60;p&#62;Insert HTML Code&#60;/p&#62;';
+
+        // id가 editor1인 에디터 디자인 영역에서 작성영역 제일 뒤에 html 소스를 삽입합니다.
+        DEXT5.setInsertHTMLEx(html, 1, 'editor1'); //p태그를 삽입합니다.
+    }
+
+&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;
+  
+    &lt;!-- 에디터 생성 --&gt;
+    &#60;script type="text/javascript"&#62;
+        new Dext5editor('editor1');
+    &#60;/script&#62;       
+
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

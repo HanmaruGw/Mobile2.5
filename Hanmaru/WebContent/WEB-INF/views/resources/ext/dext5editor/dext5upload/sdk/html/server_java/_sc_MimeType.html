@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con">
+            <h3 class="title">DEXT5 Upload :: MimeType</h3>
+            <p class="ttl">MimeType 설정</p>
+            <p class="txt">
+                DEXT5 Upload가 정상적으로 로드되기 위해서는 설정파일인 dext5upload.config.xml 파일이 정상 로드되어야 합니다.
+                <br />그리고 이 xml 파일은 Server에서 Xml에 대한 Mimetype으로 읽혀져야 합니다.
+                <br />이 xml 파일이 "text/html" Mimetype(기본값)으로 읽혀지게 되면 DEXT5 Upload가 정상적으로 로드되지 않습니다.
+                <br />그래서 xml파일에 대한 Mimetype이 정상적으로 설정되어야 합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">설정 방법</p>
+            <div class="cord">
+                <pre class="pre">
+<span class="firebrick">Jeus</span>
+
+<b>1) Jeus 환경설정 MimeType 확인</b>
+
+"$JEUS_HOME/config/'hostname'/'hostname'_servlet_engine1/webcommon.xml"에
+아래 2개의 MimeType이 설정되어 있지 않으면 추가합니다.
+
+&#60;mime-mapping&#62;
+.....
+    &#60;extension&#62;xml&#60;/extension&#62;
+    &#60;mime-type&#62;text/xml&#60;/mime-type&#62;
+.....
+&#60;/mime-mapping&#62;
+
+<b>2)  웹 서버의 환경설정 MimeType 확인</b>
+<b>2-1)  WS Engine을 사용하는 경우</b>
+
+"$JEUS_HOME/config/'hostname'/'hostname'_ws_engine1/WSMain.xml"에
+아래 2개의 MimeType이 설정되어 있지 않으면 추가합니다.
+
+&#60;ext&#62;
+.....
+    &#60;name&#62;xml&#60;/name&#62;
+    &#60;mimetype&#62;text/xml&#60;/mimetype&#62;
+    &#60;svr-type&#62;HTML&#60;/svr-type&#62;
+.....
+&#60;/ext&#62;
+
+<b>2-2)  WebtoB를 사용하는 경우</b>
+
+"webtob/config/http.m"에 아래 2개의 MimeType이 설정되어 있지 않으면 추가합니다.
+
+*EXT
+xml     MimeType = "application/xml", SVRTYPE = HTML
+
+<span class="firebrick">WebLogic</span>
+
+<b>MimeType 확인</b>
+
+"$WebApplication_Root/WEB-INF/web.xml"에 아래 2개의 MimeType이 설정되어 있지 않으면 추가합니다.
+
+&#60;mime-mapping&#62;
+.....
+    &#60;extension&#62;xml&#60;/extension&#62;
+    &#60;mime-type&#62;text/xml&#60;/mime-type&#62;
+.....
+&#60;/mime-mapping&#62;
+
+<span class="firebrick">WebSphere</span>
+
+<b>MimeType 확인</b>
+
+WebSphere 관리자 페이지에서 아래 2개의 MimeType이 설정되어 있지 않으면 추가합니다.
+
+extension : xml
+mime-type : text/xml
+
+<span class="firebrick">iPlanet</span>
+
+<b>MimeType 확인</b>
+
+"$WebServer 설치 폴더/https-xxx/config/mime.conf"에 아래 2개의 MimeType이 설정되어 있지 않으면 추가합니다.
+
+type=text/xml     exts=xml
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

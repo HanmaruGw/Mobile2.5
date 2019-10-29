@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: EnterTag</h3>
+    <p class="ttl">XML : &#60;enter_tag&#62;.....&#60;/enter_tag&#62;, Config : config.EnterTag</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        Enter 키를 눌렀을 때 사용하게 될 태그를 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+    기본값은 "p" 태그이며, "br" 태그 등을 지정합니다.
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+<b>에디터에서 Enter 키를 눌렀을 때 사용할 태그를 br 태그로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;enter_tag&#62;br&#60;/enter_tag&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+ 
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;   
+    &#60;script type="text/javascript"&#62;
+
+        DEXT5.config.EnterTag = "br";
+
+        new Dext5editor("editor1");
+
+    &#60;/script&#62;       
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

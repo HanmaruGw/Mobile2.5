@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Upload :: MultiFileSelect</h3>
+    <p class="ttl">XML : &#60;multi_file_select&#62;.....&#60;/multi_file_select&#62;, Config : config.MultiFileSelect</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        업로드에서 파일 추가시 여러개 파일 선택 또는 한개씩만 선택 후 적용하도록 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        기본값은 "1" 이고 여러 개의 파일 선택할 수 있도록 설정합니다. "0" 으로 설정시 한개씩만 설정합니다. <br/>
+        (IE 브라우저는 IE10 이상부터 여러개 파일 선택 설정이 가능합니다. 플러그인 모드는 IE브라우저 버전에 상관 없이 사용 가능합니다.)     
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>파일선택 시 단일 파일 선택모드로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;multi_file_select&#62;0&#60;/multi_file_select&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        DEXT5UPLOAD.config.MultiFileSelect = '0';
+
+        new Dext5Upload("upload1");
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

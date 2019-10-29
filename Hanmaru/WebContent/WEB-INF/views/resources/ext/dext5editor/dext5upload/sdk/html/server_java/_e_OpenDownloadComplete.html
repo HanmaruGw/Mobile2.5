@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con">
+            <h3 class="title">DEXT5 Upload :: OpenDownloadCompleteEvent</h3>
+            <p class="ttl">void OpenDownloadCompleteEventEx<br />(Raonwiz.Dext5.Process.Entity.UploadEventEntity parameterEntity)</p>
+            <p class="txt">
+                파일 열기 또는 다운로드 후에 발생합니다.
+                <br />다운로드 받을 파일에 대한 정보를 얻은 후 해당 정보에 대하여 로그출력을 하려는 경우 사용합니다.
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">parameterEntity</span>&nbsp;&nbsp;다운로드 요청시 정보를 추출할 수 있는 Object를 의미합니다.<br />
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                dext5handler.jsp에서 서버 이벤트 사용시 반드시 4번째 파라미터의 event 객체를 Setting 해줘야 합니다.<br />"upload.Process(request, response, application, <span class="firebrick">event</span>);"
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+event.addOpenDownloadCompleteEventListenerEx(new Raonwiz.Dext5.OpenDownloadCompleteEventListenerEx() {
+    public void OpenDownloadCompleteEventEx(Raonwiz.Dext5.Process.Entity.UploadEventEntity parameterEntity) {
+        //다운로드 Request 정보를 추출합니다.
+        HttpServletRequest request = parameterEntity.getRequest();
+        //다운로드 Response 정보를 추출합니다.
+        HttpServletResponse response = parameterEntity.getResponse();
+        //다운로드 받을 파일의 물리적 경로를 추출합니다.
+        String[] downloadFilePath = parameterEntity.getDownloadFilePath();
+        //다운로드 받을 파일의 원본파일명을 추출합니다.
+        String[] downloadFileName = parameterEntity.getDownloadFileName();
+        //다운로드 받을 파일의 Custom Value를 추출합니다.
+        String[] downloadCustomValue = parameterEntity.getDownloadCustomValue();
+    }
+});
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

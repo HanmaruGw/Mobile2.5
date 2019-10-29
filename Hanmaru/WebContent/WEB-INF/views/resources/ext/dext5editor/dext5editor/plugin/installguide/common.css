@@ -1,0 +1,45 @@
+﻿@charset "utf-8";
+
+/* common */
+html,body{width:100%;height:100%}
+body,div,dl,dt,dd,ol,ul,li,h1,h2,h3,h4,h5,form,fieldset,p,button,input,object,pre,a,label{margin:0;padding:0;font-size:12px;font-family:dotum,돋움,tahoma,sans-serif; font-size:11px}
+img,fieldset,iframe{border:0}
+li{list-style: none}
+input,select,button{vertical-align:middle;cursor:pointer;}
+img{vertical-align:top}
+em,address{font-style:normal}
+a {text-decoration:none}
+a:hover{text-decoration:underline}
+hr{display:none}
+.hidden{display:none;}
+/* main */
+#DEXT_fiVe_UP_Popup_wrap{
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  /* No support for these yet, use at own risk */
+  -khtml-user-select: none;  
+  -o-user-select: none;
+  user-select: none; 
+  width:auto;height:100%; /*border-top:2px #0e639c solid; border-left:2px #0e639c solid; border-bottom:2px solid #0e639c; border-right:2px #0e639c solid;*/}
+#DEXT_fiVe_UP_Popup_head{display:none}
+
+.txt_install_guide { padding:15px 15px 0 15px;color:#444; text-align:center;}
+.txt_install_guide .guide_box{margin:0 auto; /*width:500px;*/ background:url(img_dext5.png) 15px 25px no-repeat; padding:0 0 0 125px}
+.txt_install_guide .guide_box h2{padding:0 0 10px 0;font-size:20px;color:#003c93;font-family:맑은 고딕,돋움,dotum,Arial,sans-serif;letter-spacing:-1px; text-align:left}
+.txt_install_guide .guide_box h3{padding:0 0 6px 0;font-size:14px;color:#3a3a3a;font-family:맑은 고딕,돋움,dotum,Arial,sans-serif; text-align:left}
+
+.txt_install_guide .guide_lst li{color:#333;padding-left:6px;line-height:17px;background:url('img_bul.gif') no-repeat 0 7px; text-align:left}
+.txt_install_guide .guide_lst li strong{display:block;padding-bottom:3px;color:#333}
+.txt_install_guide .guide_lst li span{color:#007ace;line-height:14px;font-family:Tahoma,dotum,Arial,sans-serif; font-size:12px;}
+.txt_install_guide .guide_lst .link_download{color:#cc4e01;font-weight:bold;text-decoration:underline; font-size:12px;}
+
+.txt_install_guide .info_os_chk{margin:10px 0 0 0;background-color:#e5eef5;padding:15px 0;}
+.txt_install_guide .info_os_chk p{text-align:center;font-weight:bold; font-size:12px;}
+.txt_install_guide .info_os_chk span{color:#003c93}
+.DEXT_fiVe_UP_Popup_mark_wrap{width:100%; text-align:center; padding-top:10px;}
+
+#DEXT_fiVe_UP_Popup_foot{height:15px;position:absolute;top:15px;right:15px;text-align:right}
+#DEXT_fiVe_UP_Popup_foot a{text-decoration:none; color:#cc4e01;}
+#DEXT_fiVe_UP_Popup_foot a span{width:15px; height:15px; line-height:15px; padding:1px 3px ; /*background-color:#ffffff; border:1px solid #909090;*/ font-size:11px; cursor:pointer;}
+

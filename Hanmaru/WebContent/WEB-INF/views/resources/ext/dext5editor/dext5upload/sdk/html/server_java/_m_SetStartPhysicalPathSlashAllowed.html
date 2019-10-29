@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con ">
+            <h3 class="title">DEXT5 Upload :: SetStartPhysicalPathSlashAllowed</h3>
+            <p class="ttl">void SetStartPhysicalPathSlashAllowed(boolean startPhysicalPathSlashAllowed)</p>
+            <p class="txt">
+                SetPhysicalPath의 설정값의 시작은 드라이브이거나 \\로 시작되어야 하는데
+                <br />/로 시작되도록 잘못 설정된 경우 DEXT5 Upload에서는 에러처리가 됩니다. (윈도우 서버 환경)
+                <br />하지만 PhysicalPath값을 /로 시작되도록 허용할 경우 설정해야 합니다.
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">startPhysicalPathSlashAllowed</span>&nbsp;&nbsp; PhysicalPath값을 /로 시작되도록 허용여부를 의미합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                기본값 : false
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+Raonwiz.Dext5.UploadHandler upload = new Raonwiz.Dext5.UploadHandler();
+
+<b>upload.SetStartPhysicalPathSlashAllowed(true);</b>
+
+String result = upload.Process(request, response, event);
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

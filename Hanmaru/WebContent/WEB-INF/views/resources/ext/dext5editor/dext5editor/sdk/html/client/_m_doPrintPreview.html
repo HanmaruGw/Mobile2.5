@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">
+    <span class="pl_type">[플러그인 전용]</span>                
+    <h3 class="title">DEXT5 Editor :: doPrintPreview</h3>
+    <p class="ttl">void doPrintPreview(strHeader, strFooter, editor_id)</p>
+    <p class="txt">
+        에디터에 작성한 소스를 프린트 미리보기 한 후 프린트 합니다.
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        없음.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">strHeader</span>&nbsp;&nbsp;프린트 머리글 부분에 나타낼 string 입니다.<br />
+        <span class="firebrick">strFooter</span>&nbsp;&nbsp;프린트 바닥글 부분에 나타낼 string 입니다.<br />
+        <span class="firebrick">editor_id</span>&nbsp;&nbsp;접근할 에디터의 id 입니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+    아래 내용은 strHeader, strFooter에 넣을 수 있는 값 입니다.<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&w : 페이지 제목<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&u : page URL<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&d : 약식 날짜<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&D : 긴 형식 날짜<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&t : 시간<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&T : 24시간 형식 시간<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&p : 페이지 번호<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&P : 전체 페이지 수<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&b + value : value를 우측 정렬<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&b + value + &b : value를 가운데 정렬<br />
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+
+    function doPrint(){
+        // 아래와 같이 실행하면 페이지 윗부분에는 페이지의 URL이 좌측에 표시되고
+        // 페이지 아래에는 "바닥글"이라는 string이 가운데에 표시되어 프린트됩니다.
+        DEXT5.doPrintPreview('&u', '&b바닥글&b', 'editor1');
+    }
+
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px;"&#62; 
+ 
+    &#60;!-- 에디터 생성 --&#62;  
+    &#60;script type="text/javascript"&#62;
+        new Dext5editor('editor1');
+    &#60;/script&#62;
+
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

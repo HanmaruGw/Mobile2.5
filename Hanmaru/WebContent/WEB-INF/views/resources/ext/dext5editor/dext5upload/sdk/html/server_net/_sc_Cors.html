@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con">
+            <h3 class="title">DEXT5 Upload :: Cross Origin Resource Sharing(CORS)</h3>
+            <p class="ttl">Cross Origin Resource Sharing(CORS) 설정</p>
+            <p class="txt">
+                Web Server와 WAS Server가 분리되어 Handler가 Cross Origin Resource Sharing(CORS) 설정이 필요한 경우 설정합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">설정 방법</p>
+            <div class="cord">
+                <pre class="pre">
+<b>IIS6</b>
+
+<span class="firebrick">Internet Information Service 6 (IIS6) 에서 설정</span>
+
+1. Internet Information Service 6 (IIS6) 실행
+2. CORS를 허용하려는 사이트에서 마우스 우측버튼을 클릭한 후 Properties 실행
+3. HTTP Headers Tab으로 이동
+4. 다음의 정보로 헤더를 추가
+    1) Header Name : Access-Control-Allow-Methods
+        Header Value : POST,GET,OPTIONS
+    2) Header Name : Access-Control-Allow-Headers
+        Header Value : content-type, dext5-encoded
+    3) Header Name : Access-Control-Allow-Origin
+        Header Value : *
+5. 확인 버튼 클릭
+
+<b>IIS7</b>
+
+<span class="firebrick">Web.config에서 설정</span>
+
+&#60;?xml version="1.0" encoding="UTF-8" ?&#62;
+&#60;configuration&#62;
+.....
+    &#60;system.webserver&#62;
+    .....
+        &#60;httpprotocol&#62;
+            &#60;customheaders&#62;
+                <b>&#60;add name="Access-Control-Allow-Methods" value="POST,GET,OPTIONS" /&#62;</b>
+                <b>&#60;add name="Access-Control-Allow-Headers" value="content-type, dext5-encoded" /&#62;</b>
+                <b>&#60;add name="Access-Control-Allow-Origin" value="*" /&#62;</b>
+            &#60;/customheaders&#62;
+        &#60;/httpprotocol&#62;
+    .....
+    &#60;/system.webserver&#62;
+.....
+&#60;/configuration&#62;
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

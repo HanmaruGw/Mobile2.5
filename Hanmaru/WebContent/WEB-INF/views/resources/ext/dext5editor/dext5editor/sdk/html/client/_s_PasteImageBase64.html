@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: PasteImageBase64</h3>
+    <p class="ttl">XML : &#60;paste_image_base64&#62;.....&#60;/paste_image_base64&#62;</p>
+    <p class="txt">
+        이미지를 붙여넣기 할 때 DEXT5 Handler를 사용하지 않고, IMG의 src 값을 base64로 처리합니다.<br/>
+        이 기능은 html5 spec을 지원하는 브라우저에서만 사용이 가능합니다.  
+    </p> 
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        기본값은 "0" 이며 사용하지 않음 (DEXT5 Handler를 사용하여 서버에 업로드한 이미지 경로를 사용),<br />
+        "1" 로 설정 시 base64 사용으로 설정합니다. 
+    </p>   
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>이미지를 붙여넣기 할 때 IMG의 src 값을 base64로 처리되도록 설정합니다.</b>
+
+.....
+&#60;extra_setting&#62;
+    &#60;paste_image_base64&#62;1&#60;/paste_image_base64&#62;
+    .....
+&#60;/extra_setting&#62;
+.....
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

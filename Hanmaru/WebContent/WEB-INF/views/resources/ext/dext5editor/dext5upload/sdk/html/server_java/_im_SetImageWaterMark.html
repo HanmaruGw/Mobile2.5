@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con ">
+            <h3 class="title">DEXT5 Upload :: SetImageWaterMark</h3>
+            <p class="ttl">void SetImageWaterMark<br />(String strSourceFile, String strWaterMarkFile, String strVAlignFrom, int nVMargin, String strHAlignFrom, int nHMargin, float nTransparency)</p>
+            <p class="txt">
+                파일 업로드 시 이미지 파일인 경우 이미지 워터마크를 적용할 경우 사용됩니다.
+                <br />이벤트 UploadCompleteBeforeEvent, UploadCompleteEvent 에서 사용이 가능합니다.
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">strSourceFile</span>&nbsp;&nbsp;이미지 파일의 물리적 경로를 의미합니다.<br />
+                <span class="firebrick">strWaterMarkFile</span>&nbsp;&nbsp;워터마크 처리할 이미지의 물리적 경로를 의미합니다.<br />
+                <span class="firebrick">strVAlignFrom</span>&nbsp;&nbsp;워터마크가 위치할 수직정렬의 값을 의미합니다. TOP,MIDDLE,BOTTOM<br />
+                <span class="firebrick">nVMargin</span>&nbsp;&nbsp;워터마크가 위치할 수직 Margin 값을 의미합니다.<br />
+                <span class="firebrick">strHAlignFrom</span>&nbsp;&nbsp;워터마크가 위치할 수평정렬의 값을 의미합니다. LEFT,CENTER,RIGHT<br />
+                <span class="firebrick">nHMargin</span>&nbsp;&nbsp;워터마크가 위치할 수평 Margin 값을 의미합니다.<br />
+                <span class="firebrick">nTransparency</span>&nbsp;&nbsp;워터마크의 투명도를 의미합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+String _newFileLocation = parameterEntity.getNewFileLocation();
+Raonwiz.Dext5.Common.Dext5Image dextImage = new Raonwiz.Dext5.Common.Dext5Image();
+try {              
+    String sourceFileFullPath = _newFileLocation;
+    
+    <b>String waterMarkFilePath = "c:\\temp\\dext5_logo.png";</b>
+    <b>dextImage.SetImageWaterMark(sourceFileFullPath, waterMarkFilePath, "TOP", 10, "RIGHT", 10, 0);</b>
+
+} catch (Exception ex) { }
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

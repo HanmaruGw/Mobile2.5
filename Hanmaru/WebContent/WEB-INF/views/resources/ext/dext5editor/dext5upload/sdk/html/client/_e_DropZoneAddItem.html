@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dext5help_content_right">
+        <div class="right_con">
+            <h3 class="title">DEXT5 Upload :: DropZoneAddItem</h3>
+            <p class="ttl">void DEXT5UPLOAD_DropZoneAddItem(objFile, strFilePath, objDropZoneId)</p>
+            <p class="txt">
+                DropZone에 파일을 Drop 후 발생합니다.
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">objFile</span>&nbsp;&nbsp;DropZone에 Drop된 파일객체를 의미합니다.(플러그인모드는 null)<br />
+                <span class="firebrick">strFilePath</span>&nbsp;&nbsp;DropZone에 Drop된 파일경로를 의미합니다.(웹표준모드는 null)<br />
+                <span class="firebrick">objDropZoneId</span>&nbsp;&nbsp;DropZone객체의 id를 의미합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                DEXT5 Upload 설정 config.xml에서 use_dropzone 값이 1일 경우 발생합니다.<br />
+                DropZone으로 만들려는 객체의 class명에 "dext5dropzone"이 포함되어야 발생합니다.
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;	
+
+&#60;script type="text/javascript"&#62;
+        function DEXT5UPLOAD_DropZoneAddItem(objFile, strFilePath, objDropZoneId) {
+            // 업로드에 DropZone에서 Drop된 파일을 추가하는 API
+            DEXT5UPLOAD.AddDropZoneFile(objFile, strFilePath, objDropZoneId);
+
+        }
+&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div id="dext5uploadDropzone" class="dext5dropzone" style="width: 800px; height: 60px; padding-top: 40px"&#62;&#60;b&#62;Drop Zone&#60;/b&#62;&#60;/div&#62;
+
+&#60;div style="width:800px;height:200px"&#62;  
+        &#60;script type="text/javascript"&#62;
+            new Dext5Upload("upload1");
+        &#60;/script&#62;
+&#60;/div&#62;
+        </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

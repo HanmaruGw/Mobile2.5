@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Column Property</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <style type="text/css">
+        .color li { width:14px; height:14px; float:left; padding:0px; margin:1px; border:0px none; list-style-type:none; cursor:pointer; }
+    </style>
+	
+	<script type="text/javascript">
+	    
+        function page_loaded_event() {
+
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+
+            document.getElementById("editor_popup_column_property").className = 'DEXT_fiVe_ED_Popup_Type01 DEXT_fiVe_PUi_' + _skin_name;
+
+            document.getElementById("span_title").innerHTML = LayerWin.dext5_lang.column_property.title;
+
+            document.getElementById("span_color").innerHTML = LayerWin.dext5_lang.column_property.color;
+            document.getElementById("label_width").innerHTML = LayerWin.dext5_lang.column_property.width;
+
+            document.getElementById("label_horizontal_align").innerHTML = LayerWin.dext5_lang.column_property.horizontal_align;
+            document.getElementById("label_vertical_align").innerHTML = LayerWin.dext5_lang.column_property.vertical_align;
+
+            document.getElementById("btn_ok").innerHTML = LayerWin.dext5_lang.column_property.btn_ok;
+            document.getElementById("btn_cancel").innerHTML = LayerWin.dext5_lang.column_property.btn_cancel;
+
+            document.title = LayerWin.dext5_lang.column_property.frame_title;
+
+            document.getElementById("tosavepathurl").value = LayerWin._dext_editor._config.toSavePathURL;
+
+            var header = LayerWin.getElementsByClass('EdiTor_Popup_header', document);
+            header[0].onselectstart = function () { return false; };
+            document.getElementById("btn_cancel").focus();
+
+            var _horizontal_align_value = LayerWin.dext5_lang.arr_horizontal_align_value.value;
+            var _cnt = _horizontal_align_value.length;
+            var _value = "";
+            var _text = "";
+            for (var i = 0; i < _cnt; i++) {
+                _value = LayerWin.dext5_lang.arr_horizontal_align_value.value[i];
+                _text = LayerWin.dext5_lang.arr_horizontal_align_value.text[i];
+                var option = document.createElement("OPTION");
+                option.value = _value;
+                option.text = _text;
+                document.getElementById("horizontal_align").options.add(option);
+            }
+            document.getElementById("horizontal_align").options[0].selected = true;
+
+            var _vertical_align_value = LayerWin.dext5_lang.arr_vertical_align_value.value;
+            var _cnt = _vertical_align_value.length;
+            var _value = "";
+            var _text = "";
+            for (var i = 0; i < _cnt; i++) {
+                _value = LayerWin.dext5_lang.arr_vertical_align_value.value[i];
+                _text = LayerWin.dext5_lang.arr_vertical_align_value.text[i];
+                var option = document.createElement("OPTION");
+                option.value = _value;
+                option.text = _text;
+                document.getElementById("vertical_align").options.add(option);
+            }
+            document.getElementById("vertical_align").options[0].selected = true;
+
+            if (LayerDoc.compatMode == "BackCompat") {
+                var inputs = document.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type == 'text') {
+                        inputs[i].style.height = '20px';
+                    }
+                }
+            }
+
+            set_page();
+            
+            setCursorPos(document.getElementById('a_select_color'), false, false);
+            LayerWin.setFocusFirstAndLast(document, document.getElementById('a_select_color'));
+        }
+
+        function set_page() {
+
+            var elem = LayerWin.GetTDTHCell(DEXTTOP.G_SELECTED_ELEMENT);
+            if (elem == null || elem == undefined) return;
+
+            var currTable = LayerWin.GetParentbyTagName(elem, "table");
+            if (currTable == null) return;
+
+            var nRowCnt = currTable.rows.length;
+            var rectCell = LayerWin.getClientRect(elem);
+            var cell = null;
+            var cellBgColor = "", cellWidth = "", cellHrAlign = "", cellVerticalAlign = "";
+            var bgCheck = true, widthCheck = true, hrAlignCheck = true, vAlignCheck = true, firstCellCheck = true;
+
+            for (var i = 0; i < nRowCnt; i++) {
+                var row = currTable.rows[i];
+                var nColCnt = row.cells.length;
+                for (var j = 0; j < nColCnt; j++) {
+                    cell = row.cells[j];
+                    var rect = LayerWin.getClientRect(cell);
+                    if (rectCell.left == rect.left) {
+                        if (!firstCellCheck) {
+                            if (bgCheck && cellBgColor != cell.style.backgroundColor) {
+                                bgCheck = false;
+                            }
+                            if (widthCheck && cellWidth != cell.style.width) {
+                                widthCheck = false;
+                            }
+                            if (hrAlignCheck && cellHrAlign != cell.style.textAlign) {
+                                hrAlignCheck = false;
+                            }
+                            if (vAlignCheck && cellVerticalAlign != cell.style.verticalAlign) {
+                                vAlignCheck = false;
+                            }
+                        }
+                        firstCellCheck = false;
+                        cellBgColor = cell.style.backgroundColor;
+                        cellWidth = cell.style.width;
+                        cellHrAlign = cell.style.textAlign;
+                        cellVerticalAlign = cell.style.verticalAlign;
+                    }
+                }
+            }
+
+            if (bgCheck) {
+                document.getElementById("background_color").style.backgroundColor = cellBgColor;
+            }
+            cellWidth = LayerWin.parseIntOr0(cellWidth);
+            if (widthCheck && cellWidth > 0) {
+                document.getElementById("column_width").value = cellWidth;
+            }
+            if (hrAlignCheck && cellHrAlign != "") {
+                document.getElementById("horizontal_align").value = cellHrAlign;
+            }
+            if (vAlignCheck && cellVerticalAlign != "") {
+                document.getElementById("vertical_align").value = cellVerticalAlign;
+            }
+        }
+
+	</script>
+</head>
+<body style="margin:0px; padding:0px;" onload="page_loaded_event()" >
+    <div id="editor_popup_column_property" class="editor_popup">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title"></span><span class="text">Dext5 Editor</span>
+            <div class="close">
+                <a href="javascript:event_dext_table_cancel();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / general -->
+        <div class="EdiTor_Popup_contents">
+            <div class="contents" style="height: 200px;">
+                <input type="hidden" id="tosavepathurl" name="tosavepathurl" value="" />
+                <div class="con border">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="24%"><span id="span_color"></span></td>
+                            <td width="76%">
+                                <div class="tsc" style="cursor:pointer;" onclick="javascript:LayerWin.showColorPopup(document,document.getElementById('background_color'),'background',undefined,-3,2);">
+                                    <a href="javascript:void(0)" id="a_select_color">
+                                        <span id="background_color"></span>
+                                    </a>
+                                </div>
+                            </td>      
+                        </tr>
+                        <tr>
+                            <td><label id="label_width" for="column_width"></label></td>
+                            <td width="76%"><input name="column_width" id="column_width" type="text" class="con_input" style="width:55px;" onkeydown="LayerWin.onlyNumber(event);" maxlength="4"/>px</td>
+                        </tr>    
+                    </table>
+                </div>
+                <div class="con">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="24%"><label id="label_horizontal_align" for="horizontal_align"></label></td>
+                            <td><select id="horizontal_align" name="horizontal_align" style="width:125px;"></select></td>
+                        </tr>
+                        <tr>
+                            <td><label id="label_vertical_align" for="vertical_align"></label></td>
+                            <td><select id="vertical_align" name="vertical_align" style="width:125px;"></select></td>
+                        </tr>          
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a href="javascript:event_dext_column_property_completed();" class="confirm" id="ok_btn"><span id="btn_ok"></span></a>
+            <a href="javascript:event_dext_table_cancel();" class="cancel"><span id="btn_cancel"></span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

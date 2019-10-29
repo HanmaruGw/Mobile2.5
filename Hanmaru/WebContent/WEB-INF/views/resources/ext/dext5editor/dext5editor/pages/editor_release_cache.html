@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Release</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />        
+        <script src="../config/dext_lang.js?ver=3.5.1267154.1700.01" type="text/javascript"></script>
+        <script src="../config/editor_crossdomain_config.js?ver=3.5.1267154.1700.01" type="text/javascript"></script>        
+        <script type="text/javascript">                
+            var isNeedRefresh = true;
+
+            var dext5editor_version_localStorage = window.localStorage.getItem("dext5editor_version");
+            if (dext5editor_version_localStorage) {
+                if (dext5editor_version_localStorage == parent.DEXT5.ReleaseVer) {
+                    isNeedRefresh = false;
+                }
+            }
+
+            if (isNeedRefresh) {
+                var localStorageValue;
+                for (var k in parent.DEXT5.fileCacheTable.items) {
+                    if (parent.DEXT5.fileCacheTable.hasItem(k)) {
+                        localStorageValue = window.localStorage.getItem(k);
+                        if (localStorageValue) {
+                            // nothing
+                        } else {
+                            isNeedRefresh = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        </script>
+        <script type="text/javascript">
+            var textValue = "";
+            for (var k in parent.DEXT5.fileCacheTable.items) {
+                if (parent.DEXT5.fileCacheTable.hasItem(k)) {
+
+                    if (parent.DEXT5.fileCacheTable.items[k].indexOf('/') > -1) {
+                        if (isNeedRefresh) {
+                            textValue = parent.DEXT5.ajax.load(parent.DEXT5.fileCacheTable.items[k]);                            
+                            try {
+                                window.localStorage.setItem(k, window.btoa(textValue));
+                            } catch (e) {
+                                window.localStorage.setItem(k, parent.DEXT5.util.base64_encode(textValue));
+                            }
+                            
+
+                        } else {
+                            textValue = window.localStorage.getItem(k);
+                            try {
+                                textValue = window.atob(textValue);
+                            } catch (e) {
+                                textValue = parent.DEXT5.util.base64_decode(textValue);
+                            }                            
+                        }
+                    }
+
+                    if (parent.DEXT5.fileCacheTable.items[k].indexOf(".js") > -1)
+                        document.write('<scr' + 'ipt type="text/javascript">' + textValue + '<\/scr' + 'ipt>');
+                    else if (parent.DEXT5.fileCacheTable.items[k].indexOf(".css") > -1)
+                        document.write('<style type="text/css">' + textValue + '<\/style>');
+
+                }
+
+                window.localStorage.setItem("dext5editor_version", parent.DEXT5.ReleaseVer);
+            }
+        </script>        
+        <script type="text/javascript">
+			//var local_frame = null;
+            _dext_editor = null;
+
+			function dext_frame_loaded_event(_editor_id, _config, _frame) {
+				//local_frame = _frame;
+			    
+				function loadJavascript(url, callback) {
+				    var head = document.getElementsByTagName("head")[0];
+				    var script = document.createElement("script");
+				    script.type = "text/javascript";
+
+				    if (typeof (callback) === "function") {
+				        var loaded = false;
+				        var _error = false;
+				        script.onreadystatechange = function () { if (this.readyState == 'loaded' || this.readyState == 'complete') { if (loaded || _error) { return; } loaded = true; callback(); } }
+				        script.onload = function () { if (loaded || _error) { return; } loaded = true; callback(); }
+				        // script.onerror = function () { _error = true; alert('ERROR : Cannot load the [' + url + ']'); }
+				        script.onerror = function () { _error = true; }
+				    }
+
+				    script.src = url;
+				    head.appendChild(script);
+				}
+
+				if (_config.useLocalFont == "1") {
+				    if (DEXTTOP.DEXT5.browser.ie) {
+				        fn_createDialogHelperObject(_config);
+				    }
+				}
+
+                if (_config.plugInUse == "1") {
+                	if (DEXTTOP.DEXT5.browser.ie) {
+                	    startCreationPluginObject(_config);
+                	}
+                	else { }
+                }
+
+             try {
+                 var loadEditorFn = function () {
+                     _dext_editor = new DEXT5_EDITOR(_editor_id, _config, _frame); _frame.editor = _dext_editor; _dext_editor.start();
+                     if (_config.useChart == "1") {
+                         if (!(DEXTTOP.DEXT5.UserAgent.os.name == "Windows" && DEXTTOP.DEXT5.browser.safari)) {
+                             if (!(DEXTTOP.DEXT5.browser.ie && DEXTTOP.DEXT5.browser.ieVersion < 9)) {
+                                 loadJavascript("../js/chartjs/chart.min.js?ver=" + DEXTTOP.DEXT5.ReleaseVer);
+                                 loadJavascript("../js/grid/grid.min.js?ver=" + DEXTTOP.DEXT5.ReleaseVer);
+                             }
+                         }
+                     }
+                     if (_config.sourceViewtype == "3") {
+                         loadJavascript("../js/editor_pretty.min.js?ver=" + DEXTTOP.DEXT5.ReleaseVer);
+                     }
+                     DEXT5_CONTEXT._config = _config; _config = null; _frame = null;
+                 };
+
+                 loadJavascript("../js/lang/" + _config.lang + ".js?ver=" + DEXTTOP.DEXT5.ReleaseVer, function () {
+                     if (!DEXTTOP.DEXT5.browser.mobile && (_config.useMouseTableInoutdent || _config.dragResize == "1")) {
+                         loadJavascript("../js/editor_dragresize.min.js?ver=" + DEXTTOP.DEXT5.ReleaseVer, loadEditorFn);
+                     } else {
+                         loadEditorFn();
+                     }
+                 });
+             }
+             catch (e) { alert("ErrCode : 1002"); }
+            }
+		</script>
+	</head>
+	<body style="margin:0px; padding:0px;">
+        <div id="editorContentArea"></div>
+	</body>
+</html>

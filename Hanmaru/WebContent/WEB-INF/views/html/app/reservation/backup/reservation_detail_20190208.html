@@ -1,0 +1,169 @@
+<div class="reservationContainer" ng-controller="ReservBookingDetailController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarBack" ng-click="popPage('pg_reserv_booking_detail')">
+			<img src="/resources/image/back_arrow.png">
+		</div>
+		<div class="headerBarTitle">
+			<span>예약신청</span>
+		</div>
+		
+		<!-- <label class="headerBarAttach workDiaryAttach" ng-click="initAttachFile()">
+			<img src="/resources/image/work_diary/ic_menu_attach_pressed.png">
+			<input type="file" ng-model="chooser_attach_file" class="work_diary_attach_file" reserv-attach-file-change="changeAttachFile">
+		</label> -->
+		
+		<div class="headerBarSearch approval_search">
+			
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	<div class="reservDetailDiv">
+		<div class="reservDetailWrap">
+			<div class="reservDetailAttend">
+				<p>참석인원</p>
+				<div class="reservSelectAttend">
+					<select name="reservSelectName" class="selectAttendList">
+						<option ng-selected="$first" ng-repeat="idx in attendanceLimit" value="{{idx}}">{{idx}}명</option>
+					</select>
+				</div>
+			</div>
+			<div class="reservEmergencyAddr">
+				<p>비상연락처</p>
+				<div class="reservWriteAddr">
+					<input type="text" ng-model="phoneNumber" placeholder="'-'없이 입력하세요.">
+				</div>
+			</div>
+			<div class="reservTapDiv">
+				<div class="reservTapAttend" ng-click="selectAttendansee()" ng-class="{'selected' :  isAttendansee == true}"><span>참석인원 선택</span></div>
+				<div class="reservTapAdd" ng-click="addScheduleBtn()" ng-class="{'selected' :  isSchedule == true}"><span>일정에 추가하기</span></div>
+			</div>
+			<div class="reservAttendDetail" ng-show="isAttendansee == true">
+				<div class="reservEssential">
+					<p>필수참석인원</p>
+					<div class="reservEssentialSelect">
+						<div class="wrap_selected_user" ng-repeat="user in mandatoryUserList">
+							<span ng-if="user.UserName != undefined && user.Type == undefined"> 
+								{{user.UserName}}/{{user.PositionName}}/{{user.DeptName}}/{{user.CompName}}
+							</span>
+							<span ng-if="user.UserName == undefined && user.Type == undefined">
+								{{user.DeptName}}
+							</span>
+							<span ng-if="user.Type != undefined">
+								{{user.Name}}
+							</span>
+							
+							<a ng-click="btnRemoveRecipient($index)"><img class="img_rcv_remove" src="/resources/image/icon/ic_x_normal.png"></a>
+						</div>
+					
+						<input type="search" class="txt_rcv_name" ng-model="txt_rcv_name" ng-trim="true" ng-keyup="btnDetectSearch($event)" >
+						<a ng-click="btnCallOrganSelect($event,'essential')"><img class="img_rcv_select" src="/resources/image/organization/ic_address_normal.png"></a>
+					</div>
+				</div>
+				<div class="reservPick">
+					<p>선택참석인원</p>
+					<div class="reservPickSelect">
+					
+						<div class="wrap_selected_user" ng-repeat="user in selectUserList">
+							<span ng-if="user.UserName != undefined && user.Type == undefined"> 
+								{{user.UserName}}/{{user.PositionName}}/{{user.DeptName}}/{{user.CompName}}
+							</span>
+							<span ng-if="user.UserName == undefined && user.Type == undefined">
+								{{user.DeptName}}
+							</span>
+							<span ng-if="user.Type != undefined">
+								{{user.Name}}
+							</span>
+							
+							<a ng-click="btnRemoveRecipient($index)">
+								<img src="/resources/image/icon/ic_x_normal.png">
+							</a>
+						</div>
+					
+						<input type="search" class="txt_rcv_name" ng-model="txt_rcv_name" ng-trim="true" ng-keyup="btnDetectSearch($event)">
+						<a ng-click="btnCallOrganSelect($event,'select')"><img src="/resources/image/organization/ic_address_normal.png"></a>
+					</div>
+				</div>
+			</div>
+			<div class="reservCheckRadio">
+				<div class="reservDecisionMaking">
+					<img class="flagReservType" src="/resources/image/icon/ic_circle_check_selected.png" ng-show="isReservDecision == true" ng-click="toggleReservDecision()">
+					<img class="flagReservType" src="/resources/image/icon/ic_circle_check_normal.png" ng-show="isReservDecision == false" ng-click="toggleReservDecision()">
+					<span>의사결정</span>
+				</div>
+				<div class="reservShareInfo">
+					<img class="flagReservType" src="/resources/image/icon/ic_circle_check_selected.png" ng-show="isReservInfo == true" ng-click="toggleReservInfo()">
+					<img class="flagReservType" src="/resources/image/icon/ic_circle_check_normal.png" ng-show="isReservInfo== false" ng-click="toggleReservInfo()">
+					<span>정보공유</span>
+				</div>
+				<div class="reservReport">
+					<img class="flagReservType" src="/resources/image/icon/ic_circle_check_selected.png" ng-show="isReservReport == true" ng-click="toggleReservReport()">
+					<img class="flagReservType" src="/resources/image/icon/ic_circle_check_normal.png" ng-show="isReservReport == false" ng-click="toggleReservReport()">
+					<span>보고</span>
+				</div>
+				<div class="reservOthers">
+					<img class="flagReservType" src="/resources/image/icon/ic_circle_check_selected.png" ng-show="isReservOthers == true" ng-click="toggleReservOthers()">
+					<img class="flagReservType" src="/resources/image/icon/ic_circle_check_normal.png" ng-show="isReservOthers == false" ng-click="toggleReservOthers()">
+					<span>기타</span>
+				</div>
+			</div>
+			<div class="reservDetailTime">
+				<p>예약시간</p>
+				<div class="reservDefaultTime">
+					<input type="text" class="defaultHolder" ng-model="reservDateTime" readonly="readonly" >
+				</div>
+			</div>
+			<div class="reservDetailPurpose">
+				<p>사용목적</p>
+				<div class="reservPurposeWrite">
+					<input type="text" placeholder="내용을 입력하세요." ng-model="purpose">
+				</div>
+			</div>
+			<div class="reservDetailCompany">
+				<p>참석업체명</p>
+				<div class="reservCompanyWrite">
+					<input type="text" placeholder="내용을 입력하세요." ng-model="attendees">
+				</div>
+			</div>
+			<div class="reservDetailExplanation">
+				<p>설명</p>
+				<div class="reservExplanWrite">
+					<input type="text" placeholder="내용을 입력하세요." ng-model="comment">
+				</div>
+			</div>
+			<div class="reservDetailAttach">
+				<p class="reservFileContents">첨부파일</p>
+				
+				<div class="reservFileAttach">
+					<div class="wrap_attach_file_list" ng-repeat="attach in attach_list">
+						<div class="file_ext">
+							<img ng-src="{{determineExtension(attach)}}">
+						</div>
+						
+						<div class="file_info">
+							<span>{{attach.name}}</span>
+							<span class="txt_fileSize">{{getFileSizeUnit(attach.size)}}</span>
+						</div>
+						
+						<a class="btn_remove_reserv_attach" ng-click="btnRemoveAttach($index)">
+							<img src="/resources/image/icon/ic_remove_normal.png">
+						</a>
+					</div>
+					
+					<label ng-click="initAttachFile()">
+						<img class="btn_attach_file" src="/resources/image/mail/ic_attach_pressed.png">
+						<input type="file" ng-model="chooser_attach_file" class="reserv_attach_file" reserv-attach-file-change="changeAttachFile">
+					</label>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+		
+		
+	<div class="reservBtn" ng-click="reservBtn()">
+		<span>예약</span>
+	</div>
+	
+	
+</div>

@@ -1,0 +1,128 @@
+<div class="boardContainer" ng-controller="boardDetailController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarBack" ng-click="popPage('pg_board_view')">
+			<img src="/resources/image/back_arrow.png">
+		</div>
+		<div class="headerBarTitle">
+			<span>{{displayName}}</span>
+		</div>
+		<div class="headerBarMove approval_attach">
+			
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	
+	<!--리스트-->
+	<div class="boardContentsDiv" ng-if="boardDetailData != undefined">
+		<div class="boardDetailTitle">
+			<span>{{boardDetailData.Subject}}</span>
+		</div>
+		<div class="boardWriterWrap">
+			<span class="boardUserWrap">
+				<p class="boardWriterName" ng-click="openUserDetailDialog()">{{regUserName}}</p>
+				<span>{{boardDetailData.RegDt | date:'yyyy.MM.dd'}}</span>
+			</span>
+			<span class="boardHitWrap">
+				<img src="/resources/image/board/ic_board_view.png">
+				<span>{{boardDetailData.Hit}}</span>
+			</span>
+		</div>
+		
+		<ul class="boardDetail_file" ng-if="boardDetailData.Files.length > 0"> <!-- ng-scope -->
+			<li ng-repeat="file in boardDetailData.Files" ><!-- class="ng-scopre" -->
+				<div class="file_ext">
+					<img ng-src="{{determineExtension(file)}}">
+				</div>
+				
+				<div class="file_info">
+					<a class="attach_file" ng-click="btnDownloadAttachFile($index, file.FileURL, file.FileName)" >{{file.FileName}}</a>
+					<span class="txt_fileSize">{{getFileSizeUnit(file.FileSize)}}</span>
+				</div>
+			</li>
+		</ul>
+			
+		<div class="boardContentsWrap">
+			<div id="boardDetailContents" class="boardDetailContents">
+				<div id="boardDetailHTMLContents" ng-bind-html="boardDetailData.Contents" data-elem="pinchzoomer"></div>
+			</div>
+		</div>
+		<div class="wrap_magnify">
+			<a class="plus" ng-click="btnBoardContentsZoomPlus()">
+				<img src="/resources/image/icon/ic_zoom_plus.png">
+			</a>
+			<a class="minus" ng-click="btnBoardContentsZoomMinus()">
+				<img src="/resources/image/icon/ic_zoom_minus.png">
+			</a>
+		</div>
+	</div>
+	
+	<!--예약-->
+	<!-- 사용자 상세정보 -->
+	<div class="orgBoardDetail" ng-class="{'show':selectOrganUser == true}">
+		<div class="memberProfile">
+			<span class="titleProfile">Profile</span>
+			<div class="memberProfilePhoto">
+				<img src="/resources/image/user/bg_user_info_no_photo.png" ng-class="{'enlarge' : isProfileImgEnlarge}"  class="profilePicture" ng-show="userDetailData == undefined || userDetailData.MyPhotoUrl.length == 0">
+				<img ng-src="{{userDetailData.MyPhotoUrl}}" ng-class="{'enlarge' : isProfileImgEnlarge}"  class="profilePicture" ng-show="userDetailData.MyPhotoUrl.length > 0" ng-hide="userDetailData == undefined || userDetailData.MyPhotoUrl.length == 0">
+				<img src="/resources/image/organization/ic_zoom_in_normal.png" class="profileZoom" ng-show="!isProfileImgEnlarge" ng-click="toggleProfileEnlarge()">
+				<img src="/resources/image/organization/ic_zoom_out_normal.png" class="profileZoomOut" ng-show="isProfileImgEnlarge" ng-click="toggleProfileEnlarge()">
+			</div>
+			<div class="wrap_memberInfo">
+				<div class="memberInfo_name">
+					<span>{{translateLanguage('user_name_')}} {{userDetailData.UserName}}</span>
+				</div>
+				<div class="memberInfo_company">
+					<span>{{translateLanguage('comp_dept_name_')}} {{userDetailData.CompName}} / {{userDetailData.DeptName}}</span>
+				</div>
+				<div class="memberInfo_office">
+					<span>{{translateLanguage('level_position_name_')}} {{userDetailData.LevelName}} / {{userDetailData.PositionName}}</span>
+				</div>
+				<div class="memberInfo_phone memberInfo_img">
+					<span>{{translateLanguage('location_phone_')}}</span>
+					<a ng-if="userDetailData.LocationPhone == ''">{{translateLanguage('unknown')}}</a>
+					<!-- <a ng-if="userDetailData.LocationPhone != ''" ng-click="doExecCallPhone(userDetailData.LocationPhone)">{{userDetailData.LocationPhone}}</a> -->
+					<a href="tel:{{userDetailData.LocationPhone}}" ng-if="userDetailData.LocationPhone != ''">{{userDetailData.LocationPhone}}</a>
+					
+					<a href="tel:{{userDetailData.LocationPhone}}" class="btn_img" ng-if="userDetailData.LocationPhone != ''">
+						<img src="/resources/image/organization/ic_location_phone_normal.png">
+					</a>
+				</div>
+				<div class="memberInfo_mobile memberInfo_img">
+					<span>{{translateLanguage('mobile_phone_')}}</span>
+					<a ng-if="userDetailData.MobilePhone == ''">{{translateLanguage('unknown')}}</a>
+					<!-- <a ng-if="userDetailData.MobilePhone != ''" ng-click="doExecCallPhone(userDetailData.MobilePhone)">{{userDetailData.MobilePhone}}</a> -->
+					<a href="tel:{{userDetailData.MobilePhone}}" ng-if="userDetailData.MobilePhone != ''">
+						{{userDetailData.MobilePhone}}
+					</a>
+					<a href="tel:{{userDetailData.MobilePhone}}" class="btn_img" ng-if="userDetailData.MobilePhone != ''">
+						<img src="/resources/image/organization/ic_mobile_phone_normal.png">
+					</a>
+				</div>
+				<div class="memberInfo_sms memberInfo_img">
+					<span>{{translateLanguage('mobile_sms_')}}</span>
+					<a ng-if="userDetailData.MobilePhone == ''">{{translateLanguage('unknown')}}</a>
+					<!-- <a ng-if="userDetailData.MobilePhone != ''" ng-click="doExecSMSPhone(userDetailData.MobilePhone)">{{userDetailData.MobilePhone}}</a> -->
+					<a href="sms:{{userDetailData.MobilePhone}}" ng-if="userDetailData.MobilePhone != ''">{{userDetailData.MobilePhone}}</a>
+					<a href="sms:{{userDetailData.MobilePhone}}" class="btn_img" ng-if="userDetailData.MobilePhone != ''">
+						<img src="/resources/image/organization/ic_mobile_sms_normal.png" ng-click="doExecSMSPhone(userDetailData.MobilePhone)">
+					</a>
+				</div>
+				<div class="memberInfo_email memberInfo_img">
+					<span>{{translateLanguage('email_address_')}}</span>
+					<a ng-if="userDetailData.EmailAddress == ''">{{translateLanguage('unknown')}}</a>
+					<a ng-if="userDetailData.EmailAddress != ''" ng-click="doExecEmail(userDetailData)">{{userDetailData.EmailAddress}}</a>
+					<a class="btn_img" ng-click="doExecEmail(userDetailData)">
+						<img src="/resources/image/organization/ic_email_address_normal.png">
+					</a>
+				</div>
+				<div class="memberInfo_place">
+					<span>{{translateLanguage('work_address_')}}</span>
+					{{userDetailData.CompName}}
+				</div>
+			</div>
+			<div class="profileDetailCheck" ng-click="closeUserDetailDialog()">확인</div>
+		</div>
+	</div>
+	
+</div>

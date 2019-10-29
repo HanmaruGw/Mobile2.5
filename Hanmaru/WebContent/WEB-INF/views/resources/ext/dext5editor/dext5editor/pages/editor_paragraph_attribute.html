@@ -1,0 +1,444 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Paragraph Attribute</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        document.write('<link href="' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" rel="stylesheet" type="text/css" />');
+        document.write('<scr' + 'ipt src="' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?ver=' + DEXTTOP.DEXT5.ReleaseVer + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <style type="text/css">
+        .color li {width: 14px; height: 14px; float: left; padding: 0px; margin: 1px; border: 0px none; list-style-type: none; cursor: pointer;}
+    </style>
+
+    <script type="text/javascript">
+        var elemModify = null;
+        try {
+            elemModify = DEXTTOP.G_SELECTED_ELEMENT;
+            if (elemModify && elemModify.tagName.toLowerCase() != "img") DEXTTOP.G_SELECTED_ELEMENT = elemModify = null;
+        } catch (e) {
+            elemModify = null;
+        }
+
+        function page_loaded_event() {
+
+            set_page_lang();
+            
+            if (LayerDoc.compatMode == "BackCompat") {
+                var inputs = document.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type == 'text') {
+                        inputs[i].style.height = '20px';
+                    }
+                }
+            }
+
+            setPage();
+
+            setCursorPos(document.getElementById('p_font_family'), true, false);
+            LayerWin.setFocusFirstAndLast(document, document.getElementById('p_font_family'));
+        }
+
+        function set_page_lang() {
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+            document.getElementById("editor_popup_input").className = 'DEXT_fiVe_ED_Popup_Type01 DEXT_fiVe_PUi_' + _skin_name;
+
+            document.getElementById("span_title").innerHTML = LayerWin.dext5_lang.paragraph_attribute.title;
+
+            document.getElementById("label_margin_left").innerHTML = LayerWin.dext5_lang.paragraph_attribute.margin_left;
+            document.getElementById("label_margin_right").innerHTML = LayerWin.dext5_lang.paragraph_attribute.margin_right;
+            document.getElementById("label_margin_top").innerHTML = LayerWin.dext5_lang.paragraph_attribute.margin_top;
+            document.getElementById("label_margin_bottom").innerHTML = LayerWin.dext5_lang.paragraph_attribute.margin_bottom;
+
+            document.getElementById("label_letter_spacing").innerHTML = LayerWin.dext5_lang.paragraph_attribute.letter_spacing;
+            document.getElementById("label_word_spacing").innerHTML = LayerWin.dext5_lang.paragraph_attribute.word_spacing;
+
+            document.getElementById("label_font_family").innerHTML = LayerWin.dext5_lang.paragraph_attribute.font_family;
+            document.getElementById("label_font_size").innerHTML = LayerWin.dext5_lang.paragraph_attribute.font_size;
+            document.getElementById("label_text_indent").innerHTML = LayerWin.dext5_lang.paragraph_attribute.text_indent;
+
+            document.getElementById("btn_ok").innerHTML = LayerWin.dext5_lang.input_common.btn_ok;
+            document.getElementById("btn_cancel").innerHTML = LayerWin.dext5_lang.input_common.btn_cancel;
+            document.title = LayerWin.dext5_lang.paragraph_attribute.title;
+
+            var margin_left_spinUp = document.getElementById("margin_left_spinUp");
+            var margin_right_spinUp = document.getElementById("margin_right_spinUp");
+            var margin_top_spinUp = document.getElementById("margin_top_spinUp");
+            var margin_bottom_spinUp = document.getElementById("margin_bottom_spinUp");
+            var letter_spacing_spinUp = document.getElementById("letter_spacing_spinUp");
+            var word_spacing_spinUp = document.getElementById("word_spacing_spinUp");
+            var text_indent_spinUp = document.getElementById("text_indent_spinUp");
+            var font_size_spinUp = document.getElementById("font_size_spinUp");
+
+            var margin_left_spinDown = document.getElementById("margin_left_spinDown");
+            var margin_right_spinDown = document.getElementById("margin_right_spinDown");
+            var margin_top_spinDown = document.getElementById("margin_top_spinDown");
+            var margin_bottom_spinDown = document.getElementById("margin_bottom_spinDown");
+            var letter_spacing_spinDown = document.getElementById("letter_spacing_spinDown");
+            var word_spacing_spinDown = document.getElementById("word_spacing_spinDown");
+            var text_indent_spinDown = document.getElementById("text_indent_spinDown");
+            var font_size_spinDown = document.getElementById("font_size_spinDown");
+
+            var p_margin_left = document.getElementById('p_margin_left');
+            var p_margin_right = document.getElementById('p_margin_right');
+            var p_margin_top = document.getElementById('p_margin_top');
+            var p_margin_bottom = document.getElementById('p_margin_bottom');
+            var p_letter_spacing = document.getElementById('p_letter_spacing');
+            var p_word_spacing = document.getElementById('p_word_spacing');
+            var p_text_indent = document.getElementById('p_text_indent');
+            var p_font_size = document.getElementById('p_font_size');
+
+            DEXTTOP.DEXT5.util.addEvent(margin_left_spinUp, 'click', function () { LayerWin.click_plus_func(p_margin_left, 9999, 1); });
+            DEXTTOP.DEXT5.util.addEvent(margin_right_spinUp, 'click', function () { LayerWin.click_plus_func(p_margin_right, 9999, 1); });
+            DEXTTOP.DEXT5.util.addEvent(margin_top_spinUp, 'click', function () { LayerWin.click_plus_func(p_margin_top, 9999, 1); });
+            DEXTTOP.DEXT5.util.addEvent(margin_bottom_spinUp, 'click', function () { LayerWin.click_plus_func(p_margin_bottom, 9999, 1); });
+            DEXTTOP.DEXT5.util.addEvent(letter_spacing_spinUp, 'click', function () { LayerWin.click_plus_func(p_letter_spacing, 9999, 1); });
+            DEXTTOP.DEXT5.util.addEvent(word_spacing_spinUp, 'click', function () { LayerWin.click_plus_func(p_word_spacing, 9999, 1); });
+            DEXTTOP.DEXT5.util.addEvent(text_indent_spinUp, 'click', function () { LayerWin.click_plus_func(p_text_indent, 9999, 1); });
+            DEXTTOP.DEXT5.util.addEvent(font_size_spinUp, 'click', function () { LayerWin.click_plus_func(p_font_size, 9999, 1); });
+
+            DEXTTOP.DEXT5.util.addEvent(margin_left_spinDown, 'click', function () { LayerWin.click_minus_func(p_margin_left, 0, 1); });
+            DEXTTOP.DEXT5.util.addEvent(margin_right_spinDown, 'click', function () { LayerWin.click_minus_func(p_margin_right, 0, 1); });
+            DEXTTOP.DEXT5.util.addEvent(margin_top_spinDown, 'click', function () { LayerWin.click_minus_func(p_margin_top, 0, 1); });
+            DEXTTOP.DEXT5.util.addEvent(margin_bottom_spinDown, 'click', function () { LayerWin.click_minus_func(p_margin_bottom, 0, 1); });
+            DEXTTOP.DEXT5.util.addEvent(letter_spacing_spinDown, 'click', function () { LayerWin.click_minus_func(p_letter_spacing, 0, 1); });
+            DEXTTOP.DEXT5.util.addEvent(word_spacing_spinDown, 'click', function () { LayerWin.click_minus_func(p_word_spacing, 0, 1); });
+            DEXTTOP.DEXT5.util.addEvent(text_indent_spinDown, 'click', function () { LayerWin.click_minus_func(p_text_indent, 0, 1); });
+            DEXTTOP.DEXT5.util.addEvent(font_size_spinDown, 'click', function () { LayerWin.click_minus_func(p_font_size, 0, 1); });
+
+            DEXTTOP.DEXT5.util.addEvent(p_margin_left, 'keydown', LayerWin.onlyNumber);
+            DEXTTOP.DEXT5.util.addEvent(p_margin_right, 'keydown', LayerWin.onlyNumber);
+            DEXTTOP.DEXT5.util.addEvent(p_margin_top, 'keydown', LayerWin.onlyNumber);
+            DEXTTOP.DEXT5.util.addEvent(p_margin_bottom, 'keydown', LayerWin.onlyNumber);
+            DEXTTOP.DEXT5.util.addEvent(p_letter_spacing, 'keydown', LayerWin.onlyNumber);
+            DEXTTOP.DEXT5.util.addEvent(p_word_spacing, 'keydown', LayerWin.onlyNumber);
+            DEXTTOP.DEXT5.util.addEvent(p_text_indent, 'keydown', LayerWin.onlyNumber);
+            DEXTTOP.DEXT5.util.addEvent(p_font_size, 'keydown', LayerWin.onlyNumber);
+
+            var header = LayerWin.getElementsByClass("EdiTor_Popup_header", document);
+            header[0].onselectstart = function () { return false; };
+        }
+
+        function setPage() {
+            setFontFamilySelect();
+            //setParagraphAttribute();
+        }
+
+        function setFontFamilySelect() {
+            var select = document.getElementById("font_family_select");
+
+            var font_famliy = DEXTTOP.DEXT5.util.xml.getNode(DEXTTOP.G_CURREDITOR._configXml, "font_family");
+            var cnt = DEXTTOP.DEXT5.util.xml.count(font_famliy, "font");
+
+            var opt = document.createElement("option");
+            opt.innerText = LayerWin.dext5_lang.paragraph_attribute.notapplicable;
+            opt.value = '';
+            opt.onmouseover = function (e) { this.parentElement.value = this.value; };
+            select.appendChild(opt);
+            opt = document.createElement("option");
+            opt.innerText = LayerWin.dext5_lang.icon.font_family;
+            opt.value = 'default';
+            opt.onmouseover = function (e) { this.parentElement.value = this.value; };
+            select.appendChild(opt);
+            
+            var p_font_family = document.getElementById('p_font_family');
+            p_font_family.childNodes[0].innerText = LayerWin.dext5_lang.paragraph_attribute.notapplicable;
+            p_font_family.childNodes[0].style.fontFamily = '';
+            p_font_family.childNodes[0].value = '';
+
+            for (var i = 0; i < cnt; i++) {
+                var font = DEXTTOP.DEXT5.util.xml.getNodeValueIdx(font_famliy, "font", i);
+                opt = document.createElement("option");
+                opt.innerText = font;
+                opt.style.fontFamily = font;
+                opt.value = font;
+                opt.onmouseover = function (e) { this.parentElement.value = this.value; };
+                select.appendChild(opt);
+
+                opt = undefined;
+            }
+            select.onblur = function (e) { this.style.display = "none"; };
+            select.onclick = function (e) {
+                this.style.display = "none";
+
+                this.target.childNodes[0].value = this.value;
+                this.target.value = this.value;
+                if (this.value == "default")
+                    this.target.childNodes[0].innerText = LayerWin.dext5_lang.icon.font_family;
+                else if (this.value == "")
+                    this.target.childNodes[0].innerText = LayerWin.dext5_lang.paragraph_attribute.notapplicable;
+                else
+                    this.target.childNodes[0].innerText = this.value;
+                
+                this.target.onchange();
+
+                return false;
+            };
+            select.onkeydown = function (e) {
+                if (e.keyCode == 13 || e.keyCode == 9) {
+                    this.target.childNodes[0].value = this.value;
+                    this.target.value = this.value;
+                    if (this.value == "default")
+                        this.target.childNodes[0].innerText = LayerWin.dext5_lang.icon.font_family;
+                    else if (this.value == "")
+                        this.target.childNodes[0].innerText = LayerWin.dext5_lang.paragraph_attribute.notapplicable;
+                    else
+                        this.target.childNodes[0].innerText = this.value;
+
+                    this.style.display = "none";
+
+                    this.target.focus();
+
+                    return false;
+                }
+            };
+
+            select.size = 10;
+            select.style.height = "172px";
+        }
+
+        function openFontSelect(tag) {
+            var rect = tag.getBoundingClientRect();
+            var select = document.getElementById("font_family_select");
+            
+            select.value = tag.value;
+            select.style.display = "block";
+            select.style.left = rect.left + "px";
+            
+            select.style.top = DEXTTOP.DEXT5.util.parseIntOr0(rect.top) + DEXTTOP.DEXT5.util.parseIntOr0(rect.height) + "px";
+            select.target = tag;
+
+            select.focus();
+
+            return false;
+        }
+        
+    </script>
+</head>
+<body style="margin:0px; padding:0px;" onload="page_loaded_event()">
+    <div id="editor_popup_input" class="editor_popup">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span class="subject" id="span_title"></span><span class="text"></span>
+            <div class="close">
+                <a href="javascript:event_dext_close();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / general -->
+        <div class="EdiTor_Popup_contents">
+            <div class="contents">
+                <div class="con border">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="20%"><label for="p_font_family" id="label_font_family">글꼴</label></td>
+                            <td width="30%">
+                                <table style="line-height: normal; table-layout: auto; width:100% !important;" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <select id="p_font_family" style="width: 90px;" onchange="" onmousedown="return openFontSelect(this);"><option></option></select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td><label for="p_font_size" id="label_font_size">글꼴 크기</label></td>
+                            <td>
+                                <table style="line-height: normal; table-layout: auto; width:100% !important;" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td width="50px">
+                                                <div class="no_a">
+                                                    <input id="p_font_size" name="p_font_size" type="text" style="height:20; width:30px;" class="con_input"  />
+                                                    <ul>
+                                                        <li id="font_size_spinUp"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ta_btn.gif" /></a></li>
+                                                        <li id="font_size_spinDown"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ba_btn.gif" /></a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>pt</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="p_text_indent" id="label_text_indent">들여쓰기</label></td>
+                            <td>
+                                <table style="line-height: normal; table-layout: auto; width:100% !important;" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td width="50px">
+                                                <div class="no_a">
+                                                    <input id="p_text_indent" name="p_text_indent" type="text" style="height:20; width:30px;" class="con_input"  />
+                                                    <ul>
+                                                        <li id="text_indent_spinUp"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ta_btn.gif" /></a></li>
+                                                        <li id="text_indent_spinDown"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ba_btn.gif" /></a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>px</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td width="20%"></td>
+                            <td width="20%"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="con border">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="20%"><label for="p_margin_left" id="label_margin_left">좌여백</label></td>
+                            <td width="30%">
+                                <table style="line-height: normal; table-layout: auto; width:100% !important;" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td width="50px">
+                                                <div class="no_a">
+                                                    <input id="p_margin_left" name="p_margin_left" type="text" style="height:20; width:30px;" class="con_input"  />
+                                                    <ul>
+                                                        <li id="margin_left_spinUp"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ta_btn.gif" /></a></li>
+                                                        <li id="margin_left_spinDown"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ba_btn.gif" /></a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>px</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td><label for="p_margin_right" id="label_margin_right">우여백</label></td>
+                            <td>
+                                <table style="line-height: normal; table-layout: auto; width:100% !important;" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td width="50px">
+                                                <div class="no_a">
+                                                    <input id="p_margin_right" name="p_margin_right" type="text" style="height:20; width:30px;" class="con_input"  />
+                                                    <ul>
+                                                        <li id="margin_right_spinUp"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ta_btn.gif" /></a></li>
+                                                        <li id="margin_right_spinDown"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ba_btn.gif" /></a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>px</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="p_margin_top" id="label_margin_top">상여백</label></td>
+                            <td>
+                                <table style="line-height: normal; table-layout: auto; width:100% !important;" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td width="50px">
+                                                <div class="no_a">
+                                                    <input id="p_margin_top" name="p_margin_top" type="text" style="height:20; width:30px;" class="con_input"  />
+                                                    <ul>
+                                                        <li id="margin_top_spinUp"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ta_btn.gif" /></a></li>
+                                                        <li id="margin_top_spinDown"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ba_btn.gif" /></a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>px</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td><label for="p_margin_bottom" id="label_margin_bottom">하여백</label></td>
+                            <td>
+                                <table style="line-height: normal; table-layout: auto; width:100% !important;" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td width="50px">
+                                                <div class="no_a">
+                                                    <input id="p_margin_bottom" name="p_margin_bottom" type="text" style="height:20; width:30px;" class="con_input"  />
+                                                    <ul>
+                                                        <li id="margin_bottom_spinUp"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ta_btn.gif" /></a></li>
+                                                        <li id="margin_bottom_spinDown"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ba_btn.gif" /></a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>px</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="con">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="20%"><label for="p_letter_spacing" id="label_letter_spacing">글자간격</label></td>
+                            <td width="30%">
+                                <table style="line-height: normal; table-layout: auto; width:100% !important;" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td width="50px">
+                                                <div class="no_a">
+                                                    <input id="p_letter_spacing" name="p_letter_spacing" type="text" style="height:20; width:30px;" class="con_input"  />
+                                                    <ul>
+                                                        <li id="letter_spacing_spinUp"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ta_btn.gif" /></a></li>
+                                                        <li id="letter_spacing_spinDown"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ba_btn.gif" /></a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>px</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td><label for="p_word_spacing" id="label_word_spacing">단어간격</label></td>
+                            <td>
+                                <table style="line-height: normal; table-layout: auto; width:100% !important;" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td width="50px">
+                                                <div class="no_a">
+                                                    <input id="p_word_spacing" name="p_word_spacing" type="text" style="height:20; width:30px;" class="con_input"  />
+                                                    <ul>
+                                                        <li id="word_spacing_spinUp"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ta_btn.gif" /></a></li>
+                                                        <li id="word_spacing_spinDown"><a style="cursor: pointer;" href="javascript:void(0);"><img width="15" height="10" src="../images/editor/dialog/btn/editor_ba_btn.gif" /></a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>px</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a href="javascript:dext_paragraph_attribute();" class="confirm" id="ok_btn"><span id="btn_ok"></span></a>
+            <a href="javascript:event_dext_close();" class="cancel"><span id="btn_cancel"></span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+    <select id="font_family_select" style="display:none; position:absolute; z-index:200; width:90px; height:20px;"></select>
+</body>
+</html>

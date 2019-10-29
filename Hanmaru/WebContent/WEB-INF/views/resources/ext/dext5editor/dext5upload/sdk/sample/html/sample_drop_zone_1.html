@@ -1,0 +1,218 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Upload Sample</title>
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+    <link href="../css/sample.common.css" rel="stylesheet" />    
+    <script src="../vender/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../js/sample.common.js" type="text/javascript"></script>
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+
+    <script src="../../../js/dext5upload.js" type="text/javascript"></script>
+   
+    <script type="text/javascript">
+        var G_UploadID;
+
+        // 생성완료 이벤트
+        function DEXT5UPLOAD_OnCreationComplete(uploadID) {
+            G_UploadID = uploadID;
+
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML = '업로드 생성 완료 : ' + uploadID + '<br/>';
+        }
+
+        // 전송시작 이벤트
+        function DEXT5UPLOAD_OnTransfer_Start(uploadID) {
+            G_UploadID = uploadID;
+
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML += '업로드 시작 : ' + uploadID + '<br/>';
+        }
+
+        // 전송완료 이벤트
+        function DEXT5UPLOAD_OnTransfer_Complete(uploadID) {
+            G_UploadID = uploadID;
+
+            var logBox = document.getElementById("logBox");
+
+            // DEXT5 Upload는 json, xml, text delimit 방식으로 결과값을 제공합니다.
+
+            // 신규 업로드된 파일
+            // var jsonNew = DEXT5UPLOAD.GetNewUploadListForJson(G_UploadID);
+            // if (jsonNew) fn_newJsonToStringForLargeFile(jsonNew);
+            // var xmlNew = DEXT5UPLOAD.GetNewUploadListForXml(G_UploadID);
+            // if (xmlNew) fn_newXmlToStringForLargeFile(xmlNew);
+            var textNew = DEXT5UPLOAD.GetNewUploadListForText(G_UploadID);
+            if (textNew) fn_newTextToString(textNew);
+
+            // 삭제된 파일
+            // var jsonDel = DEXT5UPLOAD.GetDeleteListForJson(G_UploadID);
+            // if (jsonDel) fn_delJsonToStringForLargeFile(jsonDel);
+            // var xmlDel = DEXT5UPLOAD.GetDeleteListForXml(G_UploadID);
+            // if (xmlDel) fn_delXmlToStringForLargeFile(xmlDel);
+            var textDel = DEXT5UPLOAD.GetDeleteListForText(G_UploadID);
+            if (textDel) fn_delTextToString(textDel);
+
+            // 전체결과
+            // var textAll = DEXT5UPLOAD.GetAllFileListForText(G_UploadID);
+            // var jsonAll = DEXT5UPLOAD.GetAllFileListForJson(G_UploadID);
+            // var xmlAll = DEXT5UPLOAD.GetAllFileListForXml(G_UploadID);
+
+            logBox.innerHTML += '<br/>' + '업로드 완료 : ' + G_UploadID + '<br/>';
+        }
+
+        // 오류 이벤트
+        function DEXT5UPLOAD_OnError(uploadID, code, message, uploadedFileListObj) {
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML += 'Error : ' + code + ', ' + message + '<br/>';
+
+            if (uploadedFileListObj != null && uploadedFileListObj != '') {
+                logBox.innerHTML += '업로드 된 파일 리스트 - <br/>';
+                var uploadedFileLen = uploadedFileListObj.length;
+                for (var i = 0; i < uploadedFileLen; i++) {
+                    logBox.innerHTML += uploadedFileListObj[i].uploadName + ', ' + uploadedFileListObj[i].uploadPath + '</br>';
+
+                    // guid: uploadedFileListObj[i].guid
+                    // originName: uploadedFileListObj[i].originName
+                    // fileSize: uploadedFileListObj[i].fileSize
+                    // uploadName: uploadedFileListObj[i].uploadName
+                    // uploadPath: uploadedFileListObj[i].uploadPath
+                    // logicalPath: uploadedFileListObj[i].logicalPath
+                    // order: uploadedFileListObj[i].order
+                    // status: uploadedFileListObj[i].status
+                    // mark: uploadedFileListObj[i].mark
+                    // responseCustomValue: uploadedFileListObj[i].responseCustomValue
+                }
+            }
+        }
+
+        // 취소 이벤트
+        function DEXT5UPLOAD_UploadingCancel(uploadID, uploadedFileListObj) {
+            G_UploadID = uploadID;
+
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML += '전송 취소 이벤트 : ' + G_UploadID + '<br/>';
+
+            if (uploadedFileListObj != null && uploadedFileListObj != '') {
+                logBox.innerHTML += '업로드 된 파일 리스트 - <br/>';
+                var uploadedFileLen = uploadedFileListObj.length;
+                for (var i = 0; i < uploadedFileLen; i++) {
+                    logBox.innerTmsl += ieplugin[i].uploadName + ', ' + uploadedFileListObj[i].uploadPath + '</br>';
+
+                    // guid: uploadedFileListObj[i].guid
+                    // originName: uploadedFileListObj[i].originName
+                    // fileSize: uploadedFileListObj[i].fileSize
+                    // uploadName: uploadedFileListObj[i].uploadName
+                    // uploadPath: uploadedFileListObj[i].uploadPath
+                    // logicalPath: uploadedFileListObj[i].logicalPath
+                    // order: uploadedFileListObj[i].order
+                    // status: uploadedFileListObj[i].status
+                    // mark: uploadedFileListObj[i].mark
+                    // responseCustomValue: uploadedFileListObj[i].responseCustomValue
+                }
+            }
+        }
+
+        // Drop Zone에 Drag&Drop 했을 경우 발생되는 이벤트 (objectId - Drop Zone Object ID)
+        function DEXT5UPLOAD_DropZoneAddItem(fileObject, filePath, objectId) {
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML += 'Drop Zone에 파일이 Drag&Drop 됨 <br/>';
+
+            DEXT5UPLOAD.AddDropZoneFile(fileObject, filePath, objectId);
+            logBox.innerHTML += 'Drag&Drop 된 파일이 ' + objectId + ' 업로드에 추가됨 <br/>';
+        }
+    </script>
+</head>
+<body style="text-align:center;">
+    <!-- 예제 1 -->
+    <ul class="info_lst_box">
+        <li>1. Drop Zone에 파일을 Drag&Drop 했을 경우 업로드에 파일이 추가되는 예제입니다.</li>
+    </ul>
+    <div class="btn_lst_box">
+        <p>아래 예제는 <b>각 Drop Zone에 연결 된 업로드</b>에 파일이 추가되는 예제입니다.</p><br />
+    </div>
+
+    <div id="dext5upload1" class="dext5dropzone" style="width: 800px; height: 60px; padding-top: 40px"><b>Drop Zone 1</b></div>
+    <br />
+    <div id="uploadHoder_PlaceHolder1" style="width: 800px; margin: 0 auto;"></div>
+    <div style="width: 800px; margin: 0 auto;">
+        <script type="text/javascript">
+            // 해당 config 이외의 설정도 가능합니다. (www.dext5.com > 개발센터 참조)
+            //DEXT5UPLOAD.config.InitXml = 'dext5upload.config.xml';
+            //DEXT5UPLOAD.config.SkinName = 'pink';
+            //DEXT5UPLOAD.config.Width = '200px';
+            DEXT5UPLOAD.config.Height = '150px';
+            //DEXT5UPLOAD.config.MaxTotalFileSize = '20GB';
+            //DEXT5UPLOAD.config.MaxOneFileSize = '20KB';
+            //DEXT5UPLOAD.config.MaxTotalFileCount = '9';
+            //DEXT5UPLOAD.config.MultiFileSelect = false;
+            //DEXT5UPLOAD.config.ExtensionAllowOrLimit = '0';
+            //DEXT5UPLOAD.config.ExtensionArr = 'png';            
+            //DEXT5UPLOAD.config.FolderNameRule = "/uploadfolder";
+            //DEXT5UPLOAD.config.Mode = 'view'; // edit, view
+            //DEXT5UPLOAD.config.ButtonBarView = "open,download,download_all"; // 0 일경우 버튼바 보이지 않음.
+            //DEXT5UPLOAD.config.Lang = "en-us"; // ko-kr, en-us, ja-jp, zh-cn, zh-tw
+            //DEXT5UPLOAD.config.UploadHolder = "uploadHoder_PlaceHolder";
+            //DEXT5UPLOAD.config.IgnoreSameUploadName = "1";
+
+            DEXT5UPLOAD.config.UseDropzone = "1";
+            //DEXT5UPLOAD.config.InitVisible = false; //업로드를 숨기길 원할 경우 설정.
+
+            //DEXT5UPLOAD.config.Runtimes = ''; // 웹표준모드 : html5, 플러그인모드(IE전용) : ieplugin, version이하 플러그인(IE전용) : versionieplugin
+
+            DEXT5UPLOAD.config.UploadHolder = "uploadHoder_PlaceHolder1";
+
+            var upload = new Dext5Upload("dext5upload1");
+        </script>
+    </div>
+
+    <br /><br />
+
+    <div id="dext5upload2" class="dext5dropzone" style="width: 800px; height: 60px;padding-top:40px"><b>Drop Zone 2</b></div>
+    <br />
+    <div id="uploadHoder_PlaceHolder2" style="width: 800px; margin: 0 auto;"></div>
+    <div style="width: 800px; margin: 0 auto;">
+        <script type="text/javascript">
+            // 해당 config 이외의 설정도 가능합니다. (www.dext5.com > 개발센터 참조)
+            //DEXT5UPLOAD.config.InitXml = 'dext5upload.config.xml';
+            //DEXT5UPLOAD.config.SkinName = 'pink';
+            //DEXT5UPLOAD.config.Width = '200px';
+            DEXT5UPLOAD.config.Height = '150px';
+            //DEXT5UPLOAD.config.MaxTotalFileSize = '20GB';
+            //DEXT5UPLOAD.config.MaxOneFileSize = '20KB';
+            //DEXT5UPLOAD.config.MaxTotalFileCount = '9';
+            //DEXT5UPLOAD.config.MultiFileSelect = false;
+            //DEXT5UPLOAD.config.ExtensionAllowOrLimit = '0';
+            //DEXT5UPLOAD.config.ExtensionArr = 'png';
+            //DEXT5UPLOAD.config.FolderNameRule = "/uploadfolder";
+            //DEXT5UPLOAD.config.Mode = 'view'; // edit, view
+            //DEXT5UPLOAD.config.ButtonBarView = "open,download,download_all"; // 0 일경우 버튼바 보이지 않음.
+            //DEXT5UPLOAD.config.Lang = "en-us"; // ko-kr, en-us, ja-jp, zh-cn, zh-tw
+            //DEXT5UPLOAD.config.UploadHolder = "uploadHoder_PlaceHolder";
+            //DEXT5UPLOAD.config.IgnoreSameUploadName = "1";
+
+            DEXT5UPLOAD.config.UseDropzone = "1";
+            //DEXT5UPLOAD.config.InitVisible = false; //업로드를 숨기길 원할 경우 설정.
+
+            //DEXT5UPLOAD.config.Runtimes = '';   // 웹표준모드 : html5, 플러그인모드(IE전용) : ieplugin, version이하 플러그인(IE전용) : versionieplugin
+
+            DEXT5UPLOAD.config.UploadHolder = "uploadHoder_PlaceHolder2";
+
+            // 업로드 전송창을 부모창에 띄우기 위한 설정.
+            // 업로드를 iframe 형태로 띄우는 경우 사이즈가 작아서 전송창이 가려질 때 설정하면 유용합니다.
+            //DEXT5UPLOAD.config.DialogWindow = parent.window;
+
+            var upload = new Dext5Upload("dext5upload2");
+        </script>
+    </div>
+
+    <br /><br />
+    <!-- 로그영역 -->
+    <div id="logBox" class="logBox" style="overflow: auto;"></div>
+    <!-- //로그영역 -->
+</body>
+</html>

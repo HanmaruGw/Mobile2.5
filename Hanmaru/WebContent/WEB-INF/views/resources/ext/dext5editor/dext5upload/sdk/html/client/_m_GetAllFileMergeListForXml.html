@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Upload :: GetAllFileMergeListForXml</h3>
+    <p class="ttl">object GetAllFileMergeListForXml(uploadID)</p>
+    <p class="txt">
+        전송완료 후 새롭게 업로드 된 파일과 이미 업로드된 파일 리스트 모두를 순서대로 xml 형태로 리턴합니다.
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+       <span class="firebrick">object</span>&nbsp;&nbsp;전송완료 후 업로드된 모든 파일이 합쳐진 리스트를 의미합니다.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">uploadID</span>&nbsp;&nbsp;파일 리스트를 가져올 업로드의 id를 의미합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        없음.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+        function DEXT5UPLOAD_OnTransfer_Complete(uploadID) {
+            var file_list = DEXT5UPLOAD.GetAllFileMergeListForXml("upload1");
+
+                // 아래의 xml구조를 참고하셔서 xml을 파싱하신 후 파일정보를 추출하시면 됩니다.
+                //&#60;files&#62;
+                //      &#60;file&#62;
+                //          &#60;type&#62; // 파일유형( 1 - 웹파일, 0 - 업로드 파일)
+                //          &#60;uniqKey&#62; // 웹파일 추가 시 설정한 유니크키
+                //          &#60;originalname&#62; // 원본파일명
+                //          &#60;uploadname&#62; // 업로드 된 파일명
+                //          &#60;size&#62; // 파일크기
+                //          &#60;guid&#62; // 업로드 파일명(guid)
+                //          &#60;uploadpath&#62; // 업로드 경로
+                //          &#60;status&#62; // 업로드 상태
+                //          &#60;logicalpath&#62; // 폴더구조로 업로드 또는 웹파일 추가 시 파일의 폴더경로
+                //          &#60;extension&#62; // 확장자
+                //          &#60;localpath&#62; // 로컬경로
+                //          &#60;mark&#62; // markValue
+                //          &#60;responsecustomvalue&#62; // 서버로부터 받은 customValue
+                //          &#60;order&#62; // 업로드리스트에서의 순서
+                //          &#60;customValue&#62; // 웹파일 추가 시 설정한 customValue
+                //      &#60;/file&#62;
+                //&#60;/files&#62;
+        }
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+        &#60;script type="text/javascript"&#62;
+            new Dext5Upload("upload1");
+        &#60;/script&#62;
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,26 @@
+<div class="reservationContainer" ng-controller="reservResourceInfoController">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarBack" ng-click="popPage('pg_reserv_info')">
+			<img src="/resources/image/back_arrow.png">
+		</div>
+		<div class="headerBarTitle">
+			<span>{{translateLanguage('resource_info')}}</span>
+		</div>
+		<div class="headerBarMove approval_attach">
+			
+		</div>
+		<div class="headerBarSearch approval_search">
+			
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	
+	<!--상세 정보-->
+	<div class="reservDetailInfo">
+		<div class="detailInfoReserv">
+			<div class="detailContentsTop"><p>{{reservInfo}}</p></div>
+		</div>
+		<div class="viewCloseBtn" ng-click="popPage('pg_reserv_info')"><span>닫기</span></div>
+	</div>
+</div>

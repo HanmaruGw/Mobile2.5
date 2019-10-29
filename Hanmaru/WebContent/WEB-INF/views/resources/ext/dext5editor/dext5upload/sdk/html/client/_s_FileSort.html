@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">               
+    <h3 class="title">DEXT5 Upload :: FileSort</h3>
+    <p class="ttl">XML : &#60;file_sort&#62;.....&#60;/file_sort&#62;, Config : config.UseFileSort<br />XML : &#60;file_sort sort_field="....."&#62;&#60;/file_sort&#62;, Config : config.FileSortField<br />XML : &#60;file_sort sort_ascdesc="....."&#62;&#60;/file_sort&#62;, Config : config.FileSortAscDesc<br />XML : &#60;file_sort auto_sort="....."&#62;&#60;/file_sort&#62;, Config : config.AutoSort</p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+      파일 정렬 기능을 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">XML:file_sort, Config:UseFileSort</span>&nbsp;&nbsp;"0"이면 파일 정렬 기능 사용 안함이고, "1"으로 설정시 파일 정렬 기능 사용입니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:sort_field, Config:FileSortField</span>&nbsp;&nbsp;정렬 대상 필드 값<br />
+            <span style="padding-left:194px">"0"이면 "Name 필드 정렬"이고, "1"로 설정시 "Size 필드 정렬"입니다.</span>
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:sort_ascdesc, Config:FileSortAscDesc</span>&nbsp;&nbsp;정렬 방법<br/>
+            <span style="padding-left:234px">"0"이면 "오름차순", "1"이면 "내림차순" 입니다.</span>
+            </span><br />
+        <span class="txt">
+            <span class="firebrick">XML:auto_sort, Config:AutoSort</span>&nbsp;&nbsp;자동 정렬 수행 방법<br />
+            <span style="padding-left:177px">"0"이면 "자동 정렬 사용 안함"이고,</span><br/>
+            <span style="padding-left:177px">"1"으로 설정시 "전체 다시 정렬" (새로운 파일이 첨부되었을 경우 설정한 정렬 옵션으로 전체 다시 정렬),</span><br />
+            <span style="padding-left:177px">"2"으로 설정시 "새로 추가 된 파일만 정렬" (새로 추가되는 파일만을 설정한 정렬 옵션으로 정렬) 입니다.</span>
+        </span><br />
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>정렬기능 사용하고, Name 필드로 정렬 설정</b>
+<b>오름차순 정렬 설정하고, 자동 정렬은 사용하지 않도록 설정</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;file_sort sort_field="0" sort_ascdesc="0" auto_sort="0"&#62;1&#60;/file_sort&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5upload/js/dext5upload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        DEXT5UPLOAD.config.UseFileSort = '1';
+        DEXT5UPLOAD.config.FileSortField = '0';
+        DEXT5UPLOAD.config.FileSortAscDesc = '0';
+        DEXT5UPLOAD.config.AutoSort = '0';
+
+        new Dext5Upload("upload1");
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

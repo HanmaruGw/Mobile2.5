@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 User Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/help.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title01">Hangul Input Problem(Firefox 41.0 version)</h3>
+    <a name="bug1" id="bug1"></a>
+    <h4>Phenomenon</h4>
+    <p class="manual_con">
+        <span class="manual_txt3">In the Firefox 41.0 version from the dext5 editor, When you enter the Hangul text after changing the line, the curser moves to the previous line. After certain amount time has passed, the cursor is moved forcibly to the first row. This phenomenon can occur in any HTML.</span>
+    </p>
+    <h4>Cause</h4>
+     <p class="manual_con">
+        <span class="manual_txt3">
+        In Firefox 41.0 version, The cause of the error of Hangul input function is from the collision of the <span class="txt_red2 type_txt">TSF(Text Service Framework is new IME API.)</span> function of MS that has been provided since Windows Vista.
+        </span>
+    </p>
+    <h4>Solution</h4>
+    <p class="manual_con">
+        <span class="manual_txt3">Please upgrade to the <a href="https://www.mozilla.org/ko/firefox/new/" target="_blank" class="txt_link" title="Firefox upgrade Site">Firefox 42.0 version</a>. (No automatic upgrade support)</span>
+    </p>                                                                                                        
+    </div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">           
+    <h3 class="title">DEXT5 Editor :: IgnoreSameEditorName</h3>
+    <p class="ttl">config.IgnoreSameEditorName</p>
+    <p class="txt">
+        에디터 명을 중복 생성 할 수 없도록 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        기본값은 "0" 이고, "1" 로 설정 시 중복된 에디터 명이 발생 할 경우 에디터에서 임의로 변경 합니다. (단, 동적 생성 시)
+    </p>
+    <p class="mttl01">sample code</p>            
+    <div class="cord">
+        <pre class="pre">
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+ 
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;   
+    &#60;script type="text/javascript"&#62;
+
+        // 중복 된 에디터 명이 발생 할 경우 임의로 변경 설정합니다.
+        DEXT5.config.IgnoreSameEditorName = "1";
+
+        new Dext5editor("editor1");
+
+    &#60;/script&#62;       
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+
