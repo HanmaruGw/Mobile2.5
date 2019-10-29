@@ -29,13 +29,13 @@ appHanmaru.controller('splashController', ['$scope', '$http', '$rootScope','$tim
 		
 		var param = callApiObject('login', 'autoLogin', loginData);
 		
-		console.log(param);
+//		console.log(param);
 		
 		$http(param).success(function(data) {
 			var code = parseInt(data.Code, 10);
 			if(code == 1){
 				var autoLoginInfo = JSON.parse(data.value);
-				console.log(autoLoginInfo);
+//				console.log(autoLoginInfo);
 				
 				var accessInfoData = {
 					userID : $rs.appUserId,
@@ -51,8 +51,8 @@ appHanmaru.controller('splashController', ['$scope', '$http', '$rootScope','$tim
 					$rs.$broadcast('initLoginPage');
 				}
 			}else{
-				console.log('로그인 저장된 정보 없음 id',$rs.appUserId);
-				console.log('로그인 저장된 정보 없음 pin',$rs.appPinNumber);
+//				console.log('로그인 저장된 정보 없음 id',$rs.appUserId);
+//				console.log('로그인 저장된 정보 없음 pin',$rs.appPinNumber);
 				$rs.$broadcast('initLoginPage');
 			}
 		});
@@ -66,11 +66,7 @@ appHanmaru.controller('splashController', ['$scope', '$http', '$rootScope','$tim
 
 // loginController
 appHanmaru.controller('loginController', ['$scope', '$http', '$rootScope', function($s, $http, $rs) {
-
 	$rs.apiURL = '';
-	$rs.deviceID = '';
-	$rs.gcmToken = '';
-	$rs.appVersion = '';
 	// 간편 로그인을 위한 AOS / IOS 저장 id
 //	$rs.appUserId = ''; //2019.10.24 수정 - jh.j
 	$s.pin_input_id = '';
@@ -142,7 +138,6 @@ appHanmaru.controller('loginController', ['$scope', '$http', '$rootScope', funct
 	// console.log(data);
 			});
 		}
-		
 		
 		window.callFocusOut = function(){
 			$s.doBlurLayout();
@@ -524,6 +519,11 @@ appHanmaru.controller('loginController', ['$scope', '$http', '$rootScope', funct
 // mainController
 appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce',function($s, $http, $rs, $sce) {
 	$rs.agent = getOS();
+	
+	$rs.deviceID = '';
+	$rs.gcmToken = '';
+	$rs.appVersion = '';
+	
 	$s.slideProfileImgShow = false;		// 슬라이드 메뉴 프로필 이미지 영역 //2019-09-17 김현석
 										// [슬라이드 메뉴 프로필 이미지 false가 기본으로 변경]
 	$rs.slideMenuShow = false;			// 슬라이드 메뉴
@@ -567,6 +567,10 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 		$rs.appVersion = version;
 		$rs.gcmToken = gcmToken;
 	}
+
+	//TEST ID / PW
+//	$rs.appUserId = 'jh1.jang';
+//	$rs.appPinNumber = '841414';
 	
 	//2019.10.24 자동 로그인 관련 로직 추가 - jh.j
 	// 핀번호 로그인을 위한 아이디 불러오기
@@ -584,13 +588,6 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 	};
 	
 	$rs.accessUser = function(accessInfoData){
-		// 언어설정.
-		$rs.translateLanguage = function(htmlID) {
-			var localLang = sessionStorage.getItem("language");
-			var langType = localLang == undefined || localLang === null ? "KOR" : $rs.userInfo.Lang;
-			var str = language[langType][htmlID];
-			return str;
-		};
 		
 		if(accessInfoData.isPinLogin){//$s.isPinLogin //변경
 			var loginData = {
@@ -601,7 +598,6 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 				AppType:accessInfoData.generalLogin_domain//$s.generalLogin_domain //변경
 			};
 			var param = callApiObject('login', 'pinLogin', loginData);
-			console.log('핀로그인');
 		}else{
 			var loginData = {
 				userID:accessInfoData.userID, //$rs.general_id //변경
@@ -613,12 +609,9 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 				AppType:accessInfoData.generalLogin_domain//$s.generalLogin_domain //변경
 			};
 			var param = callApiObject('login', 'generalLogin', loginData);
-			console.log('일반로그인');
 		}
-		console.log(param);
 		
 		$http(param).success(function(data) {
-			console.log(data)
 			var code = parseInt(data.Code, 10);
 			if(code == 1){
 				$rs.userInfo = JSON.parse(data.value);
@@ -659,6 +652,16 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 				$rs.dialog_toast = true;
 				$rs.dialog_progress = false;
 			}
+			
+			// 언어설정.
+			$rs.translateLanguage = function(htmlID) {
+				var localLang = sessionStorage.getItem("language");
+				if($rs.userInfo.Lang == undefined)$rs.userInfo.Lang = 'KOR';
+				var langType = localLang == undefined || localLang === null ? "KOR" : $rs.userInfo.Lang;
+				var str = language[langType][htmlID];
+				return str;
+			};
+			
 		}).then(function(){
 			if(androidWebView != undefined) {
 				androidWebView.focusToWebView();
@@ -1033,7 +1036,6 @@ appHanmaru.controller('mainListController', ['$scope', '$http', '$rootScope', '$
 		var param = callApiObject('board', 'boardBoxs', {LoginKey:$rs.userInfo.LoginKey,CompanyCode:''});
 		$http(param).success(function(data) {
 			var boardData = JSON.parse(data.value);
-			console.log(boardData);
 			
 			$rs.subMenuType = 'main';
 			$rs.subMenuList = boardData;
@@ -2883,6 +2885,9 @@ appHanmaru.controller('settingController', ['$scope', '$http', '$rootScope', '$t
 
 	// 푸시설정
 	function requestPushSetting(){
+		
+		console.log($rs.gcmToken);
+		
 		var approvalPush = $s.approvalPush ? 1 : 0;
 		var documentPush = $s.documentPush ? 1 : 0;
 		var reqPushData = {
