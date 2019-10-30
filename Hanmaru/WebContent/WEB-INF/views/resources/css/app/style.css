@@ -1008,16 +1008,16 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .reservHaveSubs::after{content:"";display:table;clear:both}
 .reservHaveTime::after{content:"";display:table;clear:both}
 .reservHaveTime p{width:18%;display:inline-block;font-size:3.5vw}
-.reservHaveTime .reservHaveFirst{position:relative;display:inline-block;width:77%;height:4%;margin-top:2vw 0vw;border-bottom:1px solid #CFD3DA;text-align:center}
+.reservHaveTime .reservHaveFirst{position:relative;display:inline-block;width:77%;height:4%;padding: 2vw 0vw;border-bottom:1px solid #CFD3DA;text-align:center}
 .reservHaveTime .reservHaveFirst input{display:inline-block;font-size:3.5vw;;line-height:160%;width:100%;height:100%;background:url('/resources/image/ic-calendar.png') no-repeat right 21vw center;background-size:10%;border:none;/* text-align:center */text-indent:22vw}
 .reservHaveTime .reservHaveFirst input::placeholder{color:#000}
 .reservHaveTime .reservHaveFirst img{position:absolute;top:50%;right:2vw;transform:translateY(-50%);display:inline-block;width:9%;padding-left:2vw}
 .reservSelectTime{position:relative;margin-top:1vw;}
 .reservSelectTime::after{content:"";display:table;clear:both}
 .reservSelectTime p{width:18%;display:inline-block;font-size:3.5vw}
-.reservSelectTime .reservSelectHour{position:relative;display:inline-block;width:40%;height:4%;margin-top:2vw;padding:0 4vw;border-bottom:1px solid #CFD3DA}
-.reservSelectTime .reservSelectHour ul .hourBaseSelect{position:relative;text-align:center}
-.reservSelectTime .reservSelectMinute ul .minuteBaseSelect{position:relative;text-align:center}
+.reservSelectTime .reservSelectHour{position:relative;display:inline-block;width:40%;height:4%;padding:0 4vw;border-bottom:1px solid #CFD3DA}
+.reservSelectTime .reservSelectHour ul .hourBaseSelect{position:relative;text-align:center;padding: 2vw 0;}
+.reservSelectTime .reservSelectMinute ul .minuteBaseSelect{position:relative;text-align:center;padding: 2vw 0;}
 .hourBaseSelect .hourListSelect{/* display:none; */width:100%;position:absolute;top:5.5vw;left:50%;transform:translateX(-50%);background:#fff;border-radius:2.23vw;border:1px solid #E4E7EB;padding:1.834vw 5.3vw 4.834vw;box-shadow:#00000030 0 1px 2px 0;z-index:5000;text-align:left;height:28.3vh;overflow-y:scroll;}
 .hourBaseSelect .hourListSelect li{padding:2vw 0}
 .hourBaseSelect .hourListSelect li .selectHourColor{color:#4E86FF}
@@ -1027,7 +1027,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .reservSelectTime .reservSelectHour li a{font-size:3.88vw}
 .reservSelectFirst .firstSelectTime{font-size:3.5vw;text-align:left;padding-left:3vw}
 .reservSelectSecond .lastSelectTime{font-size:3.5vw;text-align:left;padding-left:3vw}
-.reservSelectSecond .reservSelectMinute{position:relative;display:inline-block;width:50%;height:4%;margin-top:2vw;padding:0 4vw;border-bottom:1px solid #CFD3DA}
+.reservSelectSecond .reservSelectMinute{position:relative;display:inline-block;width:50%;height:4%;padding:0 4vw;border-bottom:1px solid #CFD3DA}
 .reservSelectTime .reservSelectMinute li a{font-size:3.88vw}
 .selectFirstList{position:absolute;display:none;width:100%;z-index:1}
 .reservSelectTime .selectFirstOption{width:100%;height:100%;border:none}
@@ -1036,24 +1036,26 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .reservHaveContents .reservCheckBtn span{display:inline-block;width:32.78vw;padding:2.1vw 0;border:1px solid #4E86FF;border-radius:5px;margin:6.667vw 0;font-size:3.5vw;color:#4E86FF}
 .reservCheckList{display:inline-block;width:100%;height:13%;border-bottom:1px solid #e2e2e2;box-shadow:0 1px 0 #fff;background:#F2F4F8;}
 .reservCheckList::after{contents:"";display:table;clear:both}
-.reservCheckList .reservCheckContents{float:left;padding:2.2vw 0;margin-left:2vw}
+.reservCheckList .reservCheckContents{float:left;padding:2.2vw 0;margin-left:3.5vw}
 .reservCheckContents span{font-size:3.5vw}
 .reservCheckContents p{font-size:3.2vw;color:#9b9b9b;margin-top: 1vw;margin-bottom: 1vw;}
-.reservCheckList .reservSelectBtn{float:right;font-size:3.5vw;border-radius:5px;width:18%;padding:2vw 0;margin:3.5vw 4.8vw 3.5vw 0;text-align:center;background-image: linear-gradient(to right, #5574f7, #3c8bff, #319fff, #42b2ff, #60c3ff);color:#fff}
+.reservCheckList .reservSelectBtn{float:right;font-size:3.5vw;border-radius:5px;width:18%;padding:2vw 0;margin: 3.5vw 4vw 3.5vw 0;text-align:center;background-image: linear-gradient(to right, #5574f7, #3c8bff, #319fff, #42b2ff, #60c3ff);color:#fff}
 .reservCheckList .reservSelectBtn:active, .reservSelectBtn:focus{background:#ddd}
 .reservNoResult{background:#fff;text-align:center;font-size:3.5vw;}
 
 /*예약 상세*/
 .reservDetailDiv{/* display:none; */background:#fff;width:100%;height:85%;font-size:3.5vw;overflow:scroll;z-index:4000}
-.reservDetailWrap{padding:6.5vw 3.5vw 0 3.5vw}
-.reservDetailWrap .reservDetailAttend p{font-size:3.5vw;width:20%;display:inline-block}
-.reservDetailAttend .reservSelectAttend{position:relative;display:inline-block;width:70%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:6vw;padding-bottom:1.2vw}
+.reservDetailWrap{padding: 3.5vw 3.5vw 0 3.5vw;}
+.reservDetailAttend {margin-top: 2vw;}
+.reservDetailWrap .reservDetailAttend p{font-size:3.5vw;width:24%;display:inline-block}
+.reservDetailAttend .reservSelectAttend{position:relative;display:inline-block;width:64%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:4vw;padding: 0 0 2vw 2vw;}
 .reservSelectAttend span{font-size:3.5vw}
 .reservationContainer .AttendSelectFirst{position:relative;font-size:0;color:#2B2F3B}
 .reservationContainer .AttendSelectFirst img{display:inline-block;width:2.78vw}
 .reservationContainer .attendSelectFirstName{display:inline-block;font-size:3.5vw;color:#4E86FF;padding:0 4.45vw 0 0}
 .reservationContainer .selectContentsAttend{display:none;position:absolute;top:5.5vw;left:6%;transform:translateX(-50%);background:#fff;border-radius:2.23vw;border:1px solid #E4E7EB;padding:2.44vw 1.172vw;box-shadow:#00000030 0 1px 2px 0;z-index:5000;text-align:left}
 .selectAttendList{width:100%;height:100%;border:none;font-size:3.5vw;background-color: #fff;}
+reservEmergencyAddr {margin-top: 2vw;}
 .reservEmergencyAddr p{font-size:3.5vw;width:20%;display:inline-block}
 .reservEmergencyAddr .reservWriteAddr{position:relative;display:inline-block;width:70%;height:4%;border-bottom:1px solid #CFD3DA;margin-top:4vw;margin-left:6vw}
 .reservWriteAddr input{width:100%;height:90%;border:none;font-size:3.5vw;}
