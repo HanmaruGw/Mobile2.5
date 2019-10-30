@@ -1066,20 +1066,20 @@ reservEmergencyAddr {margin-top: 2vw;}
 .reservTapDiv .reservTapAdd.selected{display:inline-block;width:48%;background:#fff;border:1px solid #4E86FF;border-radius:0 5px 5px 0;font-size:3.5vw;color:#4E86FF;padding:2vw 0}
 .reservAttendDetail{/* display:none; */font-size:3.5vw;margin-top:2vw} /*참석인원 선택 누르면 감춰둔 부분 보여지게끔*/
 .reservAttendDetail .reservEssential{}
-.reservAttendDetail .reservEssential p{font-size:3.5vw;width:25%;display:inline-block}
-.reservEssential .reservEssentialSelect{position:relative;display:inline-block;width:74%}
-.reservEssentialSelect .wrap_selected_user{overflow: hidden;position: relative;display: inline-block;max-width: 80%;padding: 0.5vw 6vw 0.5vw 2vw;text-overflow: ellipsis;white-space: nowrap;color: #4E86FF;}
-.reservEssentialSelect input{width: 100%;height: 7%;border: none;border-bottom: 2px solid #eff0f3;color: #4E86FF;}
-.reservEssentialSelect .img_rcv_select{position:absolute;top:50%;right:0;transform:translateY(-50%);width:8%}
+.reservAttendDetail .reservEssential p{font-size:3.5vw;width:24%;display:inline-block}
+.reservEssential .reservEssentialSelect{position:relative;display:inline-block;width:66%;margin: 1vw 0 0 4vw;}
+.reservEssentialSelect .wrap_selected_user{overflow: hidden;position: relative;/*display: inline-block;*/max-width: 100%;padding: 1.5vw 6vw 1.5vw 2vw;text-overflow: ellipsis;white-space: nowrap;color: #4E86FF;}
+.reservEssentialSelect input{width: 100%;height: 7%;border: none;border-bottom: 2px solid #eff0f3;color: #4E86FF;padding: 0 0 2vw 2vw;}
+.reservEssentialSelect .img_rcv_select{position:absolute;/* top:50%; */right:0;/* transform:translateY(-50%); */width:8%}
 .reservEssentialSelect .img_rcv_remove{width:3vw;margin-left:3vw;}
 .reservEssentialSelect .wrap_selected_user span{color:#4E86FF}
 .reservAttendDetail .reservPick{}
-.reservAttendDetail .reservPick p{font-size:3.5vw;width:25%;display:inline-block} 
+.reservAttendDetail .reservPick p{font-size:3.5vw;width:24%;display:inline-block} 
 
-.reservPick .reservPickSelect{position:relative;display:inline-block;width:74%}
-.reservPickSelect .wrap_selected_user{overflow: hidden;position: relative;display: inline-block;max-width: 80%;padding: 0.5vw 6vw 0.5vw 2vw;text-overflow: ellipsis;white-space: nowrap;color: #4E86FF;}
-.reservPickSelect input{width: 100%;height: 7%;border: none;border-bottom: 2px solid #eff0f3;color: #4E86FF;}
-.reservPickSelect .img_rcv_select{position:absolute;top:50%;right:0;transform:translateY(-50%);width:8%}
+.reservPick .reservPickSelect{position:relative;display:inline-block;width:66%;margin: 1vw 0 0 4vw;}
+.reservPickSelect .wrap_selected_user{overflow: hidden;position: relative;/* display: inline-block; */max-width: 100%;padding: 1.5vw 6vw 1.5vw 2vw;text-overflow: ellipsis;white-space: nowrap;color: #4E86FF;}
+.reservPickSelect input{width: 100%;height: 7%;border: none;border-bottom: 2px solid #eff0f3;color: #4E86FF;padding: 0 0 2vw 2vw;}
+.reservPickSelect .img_rcv_select{position:absolute;/* top:50%; */right:0;/* transform:translateY(-50%); */width:8%}
 .reservPickSelect .img_rcv_remove{width:3vw;margin-left:3vw;}
 .reservPickSelect .wrap_selected_user span{color:#4E86FF}
 .reservCheckRadio{width:100%;font-size:0;margin-top:4vw}
@@ -1099,7 +1099,7 @@ reservEmergencyAddr {margin-top: 2vw;}
 .reservOthers input{background:url('/resources/image/reservation/ic_circle_check_normal.png') no-repeat;}
 .reservOthers span{font-size:3.5vw}
 .reservDetailTime{margin-top:4vw}
-.reservDetailTime p{font-size:3.5vw;display:inline-block;width:20%}
+.reservDetailTime p{font-size:3.5vw;display:inline-block;width:24%}
 .reservDetailTime .reservDefaultTime{position:relative;display:inline-block;width:70%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:6vw;padding-left:2vw;padding-bottom:1.2vw}
 .reservDefaultTime input{width:100%;height:90%;border:none;font-size: 3.5vw;}
 .reservDefaultTime .defaultHolder::placeholder{color:#000}
