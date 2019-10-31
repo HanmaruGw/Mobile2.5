@@ -1115,16 +1115,18 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .reservDetailExplanation p{font-size:3.5vw;display:inline-block;width:24%}
 .reservDetailExplanation .reservExplanWrite{position:relative;display:inline-block;width:64%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:4vw;padding: 0 0 2vw 2vw;}
 .reservExplanWrite input{width:100%;height:90%;border:none;font-size:3.5vw;}
-.reservDetailAttach{position:relative;margin-top:2vw}
-.reservDetailAttach .reservFileAttach{position:absolute;top:0;right:2vw;width:64%;height:4vh;/* border-bottom:1px solid #aeaeae; */margin-left:4vw;padding: 2vw 0 2vw 2vw;}
+.reservDetailAttach{position:relative;margin-top:3vw}
+.reservDetailAttach .reservFileAttach{position:absolute;top:0;right:2vw;width:64%;/* border-bottom:1px solid #aeaeae; */margin-left:4vw;padding: 0 0 2vw 2vw;}
 .reservDetailAttach .reservFileContents{font-size:3.5vw;display:inline-block;width:24%;vertical-align:top}
 .reservFileAttach .reservFileInfo{position:absolute;top:0;font-size:3.5vw;padding-left:14vw}
 .reservFileAttach span{display:block;color:#7f7f7f;display: block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .reservFileAttach img{width:6vw}
-.reservFileAttach .btn_attach_file{position:absolute;top:5vw;right:1vw;transform:translateY(-50%);width:8%}
+.reservFileAttach .btn_attach_file{position:absolute;top:1vw;right:1vw;/* transform:translateY(-50%); */width:8%}
 .reservFileAttach .reserv_attach_file{display:none;}
+.wrap_attach_file_list {position: relative;width: 52vw;height: 8vw;}
 .wrap_attach_file_list .file_ext{display:inline-block;}
-.wrap_attach_file_list .file_info{display:inline-block;max-width:65%}
+.wrap_attach_file_list .file_info{display:inline-block;max-width:65%;position: absolute;margin-left: 1vw;top: 1vw;}
+.btn_remove_reserv_attach {position: absolute;right: 0;top: 0.5vw;}
 
 /*자원예약 데이터 없을 시*/
 .reservDataVoid{display:none;background:#fff;width:100%;height:93%;position:absolute;bottom:0;left:0;text-align:center;z-index:0}
