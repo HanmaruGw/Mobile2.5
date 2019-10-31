@@ -775,7 +775,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .headerBarTitle input{width:calc(100% - 4vw);height:90%;margin:0 2vw;border:none;border-bottom:1px solid #2B2F3B;font-size:3.5vw;text-indent:3.2vw;padding:2vw 0 0 0;letter-spacing: -2px;}
 .headerBarTitle.org_keywordBar{/*border-bottom:1px solid #e2e2e2*/}
 .headerBarMove.org_select img{position:absolute;width:40%;top:50%;left:50%;transform:translate(-50%, -50%)}
-.headerBarMove.org_select p{top: calc(50% - 3.5vw); position: absolute;}
+.headerBarMove.org_select p{top: calc(50% - 4vw); position: absolute; font-size:4vw}
 .orgDataVoid{position:absolute;width:calc(100% - 4vw);height:86%;top:14%;padding:0 2vw;background:#fff;text-align:center}
 .orgDataVoid.alt{overflow-y:auto;height:79%}
 .orgDataVoid .orgSearchResult{display:table-cell;vertical-align:middle;font-size:3.5vw;color:#222}
@@ -809,7 +809,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .orgMemberSelect.alt ul li{position:relative;display:table;float:left;width:33.3%;height:100%;text-align:center;cursor:pointer;top: calc(50% - 3.5vw);}
 .orgMemberSelect.alt ul li img{width:4.445vw;display:inline-block;vertical-align:middle;margin-right:2.223vw}
 .orgMemberSelect.alt ul li:last-child{width:33.4%}
-.orgMemberSelect.alt ul li a{display:inline-block;font-size:3.7vw;color:#fff;text-align:center;vertical-align:middle}
+.orgMemberSelect.alt ul li a{display:inline-block;font-size:4vw;color:#fff;text-align:center;vertical-align:middle}
 
 
 .orgSelectedDialog{display:block;position:absolute;top:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:5999}
@@ -911,7 +911,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .reservCancel{overflow: hidden;text-align: center;border-top: 1px solid #e2e2e2;}
 .reservCancel span{font-size: 3.5vw;padding: 2vw 0vw 2vw 0vw;text-align: center;display: inline-block;}
 .reservBtn{position: absolute;background: linear-gradient(to right, #5574f7, #3c8bff, #319fff, #42b2ff, #60c3ff);bottom: 0;width: 100%;height: 7%;}
-.reservBtn span{color:#fff;font-size:3.5vw;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}
+.reservBtn span{color:#fff;font-size:4vw;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}
 
 /*자원예약내용 상세*/
 .reservContentsDetail{background:#fff;width:100%;height:93%;font-size:0;overflow:scroll;z-index:4000}
