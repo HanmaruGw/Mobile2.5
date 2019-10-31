@@ -1055,7 +1055,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .reservationContainer .attendSelectFirstName{display:inline-block;font-size:3.5vw;color:#4E86FF;padding:0 4.45vw 0 0}
 .reservationContainer .selectContentsAttend{display:none;position:absolute;top:5.5vw;left:6%;transform:translateX(-50%);background:#fff;border-radius:2.23vw;border:1px solid #E4E7EB;padding:2.44vw 1.172vw;box-shadow:#00000030 0 1px 2px 0;z-index:5000;text-align:left}
 .selectAttendList{width:100%;height:100%;border:none;font-size:3.5vw;background-color: #fff;}
-reservEmergencyAddr {margin-top: 4vw;}
+.reservEmergencyAddr {margin-top: 2vw;}
 .reservEmergencyAddr p{font-size:3.5vw;width:24%;display:inline-block}
 .reservEmergencyAddr .reservWriteAddr{position:relative;display:inline-block;width:64%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:4vw;padding: 0 0 2vw 2vw;}
 .reservWriteAddr input{width:100%;height:90%;border:none;font-size:3.5vw;}
@@ -1073,7 +1073,7 @@ reservEmergencyAddr {margin-top: 4vw;}
 .reservEssentialSelect .img_rcv_select{position:absolute;/* top:50%; */right:0;/* transform:translateY(-50%); */width:8%}
 .reservEssentialSelect .img_rcv_remove{width:3vw;margin-left:3vw;}
 .reservEssentialSelect .wrap_selected_user span{color:#4E86FF}
-.reservAttendDetail .reservPick{}
+.reservAttendDetail .reservPick{margin-top: 1vw;}
 .reservAttendDetail .reservPick p{font-size:3.5vw;width:24%;display:inline-block} 
 
 .reservPick .reservPickSelect{position:relative;display:inline-block;width:66%;margin: 1vw 0 0 4vw;}
