@@ -775,7 +775,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .headerBarTitle input{width:calc(100% - 4vw);height:90%;margin:0 2vw;border:none;border-bottom:1px solid #2B2F3B;font-size:3.5vw;text-indent:3.2vw;padding:2vw 0 0 0;letter-spacing: -2px;}
 .headerBarTitle.org_keywordBar{/*border-bottom:1px solid #e2e2e2*/}
 .headerBarMove.org_select img{position:absolute;width:40%;top:50%;left:50%;transform:translate(-50%, -50%)}
-.headerBarMove.org_select p{transform:translate(0%, -15%)}
+.headerBarMove.org_select p{transform:translate(0%, 48%)}
 .orgDataVoid{position:absolute;width:calc(100% - 4vw);height:86%;top:14%;padding:0 2vw;background:#fff;text-align:center}
 .orgDataVoid.alt{overflow-y:auto;height:79%}
 .orgDataVoid .orgSearchResult{display:table-cell;vertical-align:middle;font-size:3.5vw;color:#222}
@@ -1055,9 +1055,9 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .reservationContainer .attendSelectFirstName{display:inline-block;font-size:3.5vw;color:#4E86FF;padding:0 4.45vw 0 0}
 .reservationContainer .selectContentsAttend{display:none;position:absolute;top:5.5vw;left:6%;transform:translateX(-50%);background:#fff;border-radius:2.23vw;border:1px solid #E4E7EB;padding:2.44vw 1.172vw;box-shadow:#00000030 0 1px 2px 0;z-index:5000;text-align:left}
 .selectAttendList{width:100%;height:100%;border:none;font-size:3.5vw;background-color: #fff;}
-reservEmergencyAddr {margin-top: 2vw;}
-.reservEmergencyAddr p{font-size:3.5vw;width:20%;display:inline-block}
-.reservEmergencyAddr .reservWriteAddr{position:relative;display:inline-block;width:70%;height:4%;border-bottom:1px solid #CFD3DA;margin-top:4vw;margin-left:6vw}
+reservEmergencyAddr {margin-top: 4vw;}
+.reservEmergencyAddr p{font-size:3.5vw;width:24%;display:inline-block}
+.reservEmergencyAddr .reservWriteAddr{position:relative;display:inline-block;width:64%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:4vw;padding: 0 0 2vw 2vw;}
 .reservWriteAddr input{width:100%;height:90%;border:none;font-size:3.5vw;}
 .reservTapDiv{text-align:center;margin-top:4vw}
 .reservTapDiv .reservTapAttend{display:inline-block;width:49%;background:#fff;border-right:none;border-radius:5px 0 0 5px;border:1px solid #d9d9d9;font-size:3.5vw;color:#a3a3a3;padding:2vw 0}
