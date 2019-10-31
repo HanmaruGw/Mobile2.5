@@ -775,7 +775,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .headerBarTitle input{width:calc(100% - 4vw);height:90%;margin:0 2vw;border:none;border-bottom:1px solid #2B2F3B;font-size:3.5vw;text-indent:3.2vw;padding:2vw 0 0 0;letter-spacing: -2px;}
 .headerBarTitle.org_keywordBar{/*border-bottom:1px solid #e2e2e2*/}
 .headerBarMove.org_select img{position:absolute;width:40%;top:50%;left:50%;transform:translate(-50%, -50%)}
-.headerBarMove.org_select p{transform:translate(0%, 48%)}
+.headerBarMove.org_select p{transform:translate(0%, 24%)}
 .orgDataVoid{position:absolute;width:calc(100% - 4vw);height:86%;top:14%;padding:0 2vw;background:#fff;text-align:center}
 .orgDataVoid.alt{overflow-y:auto;height:79%}
 .orgDataVoid .orgSearchResult{display:table-cell;vertical-align:middle;font-size:3.5vw;color:#222}
