@@ -1100,24 +1100,24 @@ reservEmergencyAddr {margin-top: 2vw;}
 .reservOthers span{font-size:3.5vw}
 .reservDetailTime{margin-top:4vw}
 .reservDetailTime p{font-size:3.5vw;display:inline-block;width:24%}
-.reservDetailTime .reservDefaultTime{position:relative;display:inline-block;width:70%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:6vw;padding-left:2vw;padding-bottom:1.2vw}
+.reservDetailTime .reservDefaultTime{position:relative;display:inline-block;width:64%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:4vw;padding: 0 0 2vw 2vw;}
 .reservDefaultTime input{width:100%;height:90%;border:none;font-size: 3.5vw;}
 .reservDefaultTime .defaultHolder::placeholder{color:#000}
-.reservDetailPurpose{margin-top:4vw}
-.reservDetailPurpose p{font-size:3.5vw;display:inline-block;width:20%}
-.reservDetailPurpose .reservPurposeWrite{position:relative;display:inline-block;width:70%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:6vw;padding-left:2vw;padding-bottom:1.2vw}
+.reservDetailPurpose{margin-top:2vw}
+.reservDetailPurpose p{font-size:3.5vw;display:inline-block;width:24%}
+.reservDetailPurpose .reservPurposeWrite{position:relative;display:inline-block;width:64%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:4vw;padding: 0 0 2vw 2vw;}
 .reservPurposeWrite input{width:100%;height:90%;border:none;font-size:3.5vw;}
-.reservDetailCompany{margin-top:4vw}
-.reservDetailCompany p{font-size:3.5vw;display:inline-block;width:20%}
-.reservDetailCompany .reservCompanyWrite{position:relative;display:inline-block;width:70%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:6vw;padding-left:2vw;padding-bottom:1.2vw}
+.reservDetailCompany{margin-top:2vw}
+.reservDetailCompany p{font-size:3.5vw;display:inline-block;width:24%}
+.reservDetailCompany .reservCompanyWrite{position:relative;display:inline-block;width:64%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:4vw;padding: 0 0 2vw 2vw;}
 .reservCompanyWrite input{width:100%;height:90%;border:none;font-size:3.5vw;}
-.reservDetailExplanation{margin-top:4vw}
-.reservDetailExplanation p{font-size:3.5vw;display:inline-block;width:20%}
-.reservDetailExplanation .reservExplanWrite{position:relative;display:inline-block;width:70%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:6vw;padding-left:2vw;padding-bottom:1.2vw}
+.reservDetailExplanation{margin-top:2vw}
+.reservDetailExplanation p{font-size:3.5vw;display:inline-block;width:24%}
+.reservDetailExplanation .reservExplanWrite{position:relative;display:inline-block;width:64%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:4vw;padding: 0 0 2vw 2vw;}
 .reservExplanWrite input{width:100%;height:90%;border:none;font-size:3.5vw;}
-.reservDetailAttach{position:relative;margin-top:4vw}
-.reservDetailAttach .reservFileAttach{position:absolute;top:0;right:2vw;width:70%;height:4vh;/* border-bottom:1px solid #aeaeae; */margin-left:6vw;padding:2vw 0 2vw 2vw}
-.reservDetailAttach .reservFileContents{font-size:3.5vw;display:inline-block;width:20%;vertical-align:top}
+.reservDetailAttach{position:relative;margin-top:2vw}
+.reservDetailAttach .reservFileAttach{position:absolute;top:0;right:2vw;width:64%;height:4vh;/* border-bottom:1px solid #aeaeae; */margin-left:4vw;padding: 2vw 0 2vw 2vw;}
+.reservDetailAttach .reservFileContents{font-size:3.5vw;display:inline-block;width:24%;vertical-align:top}
 .reservFileAttach .reservFileInfo{position:absolute;top:0;font-size:3.5vw;padding-left:14vw}
 .reservFileAttach span{display:block;color:#7f7f7f;display: block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .reservFileAttach img{width:6vw}
