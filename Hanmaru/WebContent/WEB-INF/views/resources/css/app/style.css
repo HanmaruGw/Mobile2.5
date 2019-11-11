@@ -7,7 +7,7 @@
 /*@font-face {font-family:'NanumGothic';font-weight: 400;src: url(/resources/fonts/NanumBarunGothic.eot);src:url(/resources/fonts/NanumBarunGothic.eot?#iefix) format('embedded-opentype'),url(/resources/fonts/NanumBarunGothic.woff) format('woff'),url(/resources/fonts/NanumBarunGothic.ttf) format('truetype');}*/
 @font-face {font-family:'spoqa';font-weight:400;src:url(/resources/fonts/spoqa/Spoqa-Regular.woff) format('woff'),url(/resources/fonts/spoqa/Spoqa-Regular.ttf) format('truetype');}
 
-html, body{position:relative;overflow:hidden;width:100vw;height:100vh;margin:0 !important;padding:0;font-family:'spoqa';-webkit-overflow-scrolling:touch;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+html, body{position:relative;overflow:hidden;width:100vw;height:100vh;margin:0 !important;padding:0;font-family:'spoqa';-webkit-overflow-scrolling:touch;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;font-size:3.5vw;}
 input::placeholder{color:#cdcdcd;font-size:3.5vw}
 textarea, textarea::placeholder{font-family:'spoqa'!important;font-weight:normal!important}
 ::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder, :-ms-input-placeholder {font-family:'spoqa'}
@@ -775,7 +775,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .headerBarTitle input{width:calc(100% - 4vw);height:90%;margin:0 2vw;border:none;border-bottom:1px solid #2B2F3B;font-size:3.5vw;text-indent:3.2vw;padding:2vw 0 0 0;letter-spacing: -2px;}
 .headerBarTitle.org_keywordBar{/*border-bottom:1px solid #e2e2e2*/}
 .headerBarMove.org_select img{position:absolute;width:40%;top:50%;left:50%;transform:translate(-50%, -50%)}
-.headerBarMove.org_select p{transform:translate(0%, -15%)}
+.headerBarMove.org_select p{top: calc(50% - 4vw); position: absolute; font-size:4vw}
 .orgDataVoid{position:absolute;width:calc(100% - 4vw);height:86%;top:14%;padding:0 2vw;background:#fff;text-align:center}
 .orgDataVoid.alt{overflow-y:auto;height:79%}
 .orgDataVoid .orgSearchResult{display:table-cell;vertical-align:middle;font-size:3.5vw;color:#222}
@@ -806,10 +806,10 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .orgMemberSelect.alt{/* display:none; */position:absolute;bottom:0;width:100%;height:7%;background:#4E86FF}
 .orgMemberSelect.alt ul{height:100%}
 .orgMemberSelect.alt ul::after{content:"";display:table;clear:both}
-.orgMemberSelect.alt ul li{position:relative;display:table;float:left;width:33.3%;height:100%;text-align:center;padding:2vw 0;cursor:pointer}
+.orgMemberSelect.alt ul li{position:relative;display:table;float:left;width:33.3%;height:100%;text-align:center;cursor:pointer;top: calc(50% - 3.5vw);}
 .orgMemberSelect.alt ul li img{width:4.445vw;display:inline-block;vertical-align:middle;margin-right:2.223vw}
 .orgMemberSelect.alt ul li:last-child{width:33.4%}
-.orgMemberSelect.alt ul li a{display:inline-block;font-size:3.7vw;color:#fff;text-align:center;vertical-align:middle}
+.orgMemberSelect.alt ul li a{display:inline-block;font-size:4vw;color:#fff;text-align:center;vertical-align:middle}
 
 
 .orgSelectedDialog{display:block;position:absolute;top:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:5999}
@@ -911,7 +911,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .reservCancel{overflow: hidden;text-align: center;border-top: 1px solid #e2e2e2;}
 .reservCancel span{font-size: 3.5vw;padding: 2vw 0vw 2vw 0vw;text-align: center;display: inline-block;}
 .reservBtn{position: absolute;background: linear-gradient(to right, #5574f7, #3c8bff, #319fff, #42b2ff, #60c3ff);bottom: 0;width: 100%;height: 7%;}
-.reservBtn span{color:#fff;font-size:3.5vw;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}
+.reservBtn span{color:#fff;font-size:4vw;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}
 
 /*자원예약내용 상세*/
 .reservContentsDetail{background:#fff;width:100%;height:93%;font-size:0;overflow:scroll;z-index:4000}
@@ -1008,16 +1008,16 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .reservHaveSubs::after{content:"";display:table;clear:both}
 .reservHaveTime::after{content:"";display:table;clear:both}
 .reservHaveTime p{width:18%;display:inline-block;font-size:3.5vw}
-.reservHaveTime .reservHaveFirst{position:relative;display:inline-block;width:77%;height:4%;margin-top:2vw 0vw;border-bottom:1px solid #CFD3DA;text-align:center}
+.reservHaveTime .reservHaveFirst{position:relative;display:inline-block;width:77%;height:4%;padding: 2vw 0vw;border-bottom:1px solid #CFD3DA;text-align:center}
 .reservHaveTime .reservHaveFirst input{display:inline-block;font-size:3.5vw;;line-height:160%;width:100%;height:100%;background:url('/resources/image/ic-calendar.png') no-repeat right 21vw center;background-size:10%;border:none;/* text-align:center */text-indent:22vw}
 .reservHaveTime .reservHaveFirst input::placeholder{color:#000}
 .reservHaveTime .reservHaveFirst img{position:absolute;top:50%;right:2vw;transform:translateY(-50%);display:inline-block;width:9%;padding-left:2vw}
 .reservSelectTime{position:relative;margin-top:1vw;}
 .reservSelectTime::after{content:"";display:table;clear:both}
 .reservSelectTime p{width:18%;display:inline-block;font-size:3.5vw}
-.reservSelectTime .reservSelectHour{position:relative;display:inline-block;width:40%;height:4%;margin-top:2vw;padding:0 4vw;border-bottom:1px solid #CFD3DA}
-.reservSelectTime .reservSelectHour ul .hourBaseSelect{position:relative;text-align:center}
-.reservSelectTime .reservSelectMinute ul .minuteBaseSelect{position:relative;text-align:center}
+.reservSelectTime .reservSelectHour{position:relative;display:inline-block;width:40%;height:4%;padding:0 4vw;border-bottom:1px solid #CFD3DA}
+.reservSelectTime .reservSelectHour ul .hourBaseSelect{position:relative;text-align:center;padding: 2vw 0;}
+.reservSelectTime .reservSelectMinute ul .minuteBaseSelect{position:relative;text-align:center;padding: 2vw 0;}
 .hourBaseSelect .hourListSelect{/* display:none; */width:100%;position:absolute;top:5.5vw;left:50%;transform:translateX(-50%);background:#fff;border-radius:2.23vw;border:1px solid #E4E7EB;padding:1.834vw 5.3vw 4.834vw;box-shadow:#00000030 0 1px 2px 0;z-index:5000;text-align:left;height:28.3vh;overflow-y:scroll;}
 .hourBaseSelect .hourListSelect li{padding:2vw 0}
 .hourBaseSelect .hourListSelect li .selectHourColor{color:#4E86FF}
@@ -1027,7 +1027,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .reservSelectTime .reservSelectHour li a{font-size:3.88vw}
 .reservSelectFirst .firstSelectTime{font-size:3.5vw;text-align:left;padding-left:3vw}
 .reservSelectSecond .lastSelectTime{font-size:3.5vw;text-align:left;padding-left:3vw}
-.reservSelectSecond .reservSelectMinute{position:relative;display:inline-block;width:50%;height:4%;margin-top:2vw;padding:0 4vw;border-bottom:1px solid #CFD3DA}
+.reservSelectSecond .reservSelectMinute{position:relative;display:inline-block;width:50%;height:4%;padding:0 4vw;border-bottom:1px solid #CFD3DA}
 .reservSelectTime .reservSelectMinute li a{font-size:3.88vw}
 .selectFirstList{position:absolute;display:none;width:100%;z-index:1}
 .reservSelectTime .selectFirstOption{width:100%;height:100%;border:none}
@@ -1036,26 +1036,28 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .reservHaveContents .reservCheckBtn span{display:inline-block;width:32.78vw;padding:2.1vw 0;border:1px solid #4E86FF;border-radius:5px;margin:6.667vw 0;font-size:3.5vw;color:#4E86FF}
 .reservCheckList{display:inline-block;width:100%;height:13%;border-bottom:1px solid #e2e2e2;box-shadow:0 1px 0 #fff;background:#F2F4F8;}
 .reservCheckList::after{contents:"";display:table;clear:both}
-.reservCheckList .reservCheckContents{float:left;padding:2.2vw 0;margin-left:2vw}
+.reservCheckList .reservCheckContents{float:left;padding:2.2vw 0;margin-left:3.5vw}
 .reservCheckContents span{font-size:3.5vw}
 .reservCheckContents p{font-size:3.2vw;color:#9b9b9b;margin-top: 1vw;margin-bottom: 1vw;}
-.reservCheckList .reservSelectBtn{float:right;font-size:3.5vw;border-radius:5px;width:18%;padding:2vw 0;margin:3.5vw 4.8vw 3.5vw 0;text-align:center;background-image: linear-gradient(to right, #5574f7, #3c8bff, #319fff, #42b2ff, #60c3ff);color:#fff}
+.reservCheckList .reservSelectBtn{float:right;font-size:3.5vw;border-radius:5px;width:18%;padding:2vw 0;margin: 3.5vw 4vw 3.5vw 0;text-align:center;background-image: linear-gradient(to right, #5574f7, #3c8bff, #319fff, #42b2ff, #60c3ff);color:#fff}
 .reservCheckList .reservSelectBtn:active, .reservSelectBtn:focus{background:#ddd}
 .reservNoResult{background:#fff;text-align:center;font-size:3.5vw;}
 
 /*예약 상세*/
 .reservDetailDiv{/* display:none; */background:#fff;width:100%;height:85%;font-size:3.5vw;overflow:scroll;z-index:4000}
-.reservDetailWrap{padding:6.5vw 3.5vw 0 3.5vw}
-.reservDetailWrap .reservDetailAttend p{font-size:3.5vw;width:20%;display:inline-block}
-.reservDetailAttend .reservSelectAttend{position:relative;display:inline-block;width:70%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:6vw;padding-bottom:1.2vw}
+.reservDetailWrap{padding: 3.5vw 3.5vw 0 3.5vw;}
+.reservDetailAttend {margin-top: 2vw;}
+.reservDetailWrap .reservDetailAttend p{font-size:3.5vw;width:24%;display:inline-block}
+.reservDetailAttend .reservSelectAttend{position:relative;display:inline-block;width:64%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:4vw;padding: 0 0 2vw 2vw;}
 .reservSelectAttend span{font-size:3.5vw}
 .reservationContainer .AttendSelectFirst{position:relative;font-size:0;color:#2B2F3B}
 .reservationContainer .AttendSelectFirst img{display:inline-block;width:2.78vw}
 .reservationContainer .attendSelectFirstName{display:inline-block;font-size:3.5vw;color:#4E86FF;padding:0 4.45vw 0 0}
 .reservationContainer .selectContentsAttend{display:none;position:absolute;top:5.5vw;left:6%;transform:translateX(-50%);background:#fff;border-radius:2.23vw;border:1px solid #E4E7EB;padding:2.44vw 1.172vw;box-shadow:#00000030 0 1px 2px 0;z-index:5000;text-align:left}
 .selectAttendList{width:100%;height:100%;border:none;font-size:3.5vw;background-color: #fff;}
-.reservEmergencyAddr p{font-size:3.5vw;width:20%;display:inline-block}
-.reservEmergencyAddr .reservWriteAddr{position:relative;display:inline-block;width:70%;height:4%;border-bottom:1px solid #CFD3DA;margin-top:4vw;margin-left:6vw}
+.reservEmergencyAddr {margin-top: 2vw;}
+.reservEmergencyAddr p{font-size:3.5vw;width:24%;display:inline-block}
+.reservEmergencyAddr .reservWriteAddr{position:relative;display:inline-block;width:64%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:4vw;padding: 0 0 2vw 2vw;}
 .reservWriteAddr input{width:100%;height:90%;border:none;font-size:3.5vw;}
 .reservTapDiv{text-align:center;margin-top:4vw}
 .reservTapDiv .reservTapAttend{display:inline-block;width:49%;background:#fff;border-right:none;border-radius:5px 0 0 5px;border:1px solid #d9d9d9;font-size:3.5vw;color:#a3a3a3;padding:2vw 0}
@@ -1064,20 +1066,20 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .reservTapDiv .reservTapAdd.selected{display:inline-block;width:48%;background:#fff;border:1px solid #4E86FF;border-radius:0 5px 5px 0;font-size:3.5vw;color:#4E86FF;padding:2vw 0}
 .reservAttendDetail{/* display:none; */font-size:3.5vw;margin-top:2vw} /*참석인원 선택 누르면 감춰둔 부분 보여지게끔*/
 .reservAttendDetail .reservEssential{}
-.reservAttendDetail .reservEssential p{font-size:3.5vw;width:25%;display:inline-block}
-.reservEssential .reservEssentialSelect{position:relative;display:inline-block;width:74%}
-.reservEssentialSelect .wrap_selected_user{overflow: hidden;position: relative;display: inline-block;max-width: 80%;padding: 0.5vw 6vw 0.5vw 2vw;text-overflow: ellipsis;white-space: nowrap;color: #4E86FF;}
-.reservEssentialSelect input{width: 100%;height: 7%;border: none;border-bottom: 2px solid #eff0f3;color: #4E86FF;}
-.reservEssentialSelect .img_rcv_select{position:absolute;top:50%;right:0;transform:translateY(-50%);width:8%}
+.reservAttendDetail .reservEssential p{font-size:3.5vw;width:24%;display:inline-block}
+.reservEssential .reservEssentialSelect{position:relative;display:inline-block;width:66%;margin: 1vw 0 0 4vw;}
+.reservEssentialSelect .wrap_selected_user{overflow: hidden;position: relative;/*display: inline-block;*/max-width: 100%;padding: 1.5vw 6vw 1.5vw 2vw;text-overflow: ellipsis;white-space: nowrap;color: #4E86FF;}
+.reservEssentialSelect input{width: 100%;height: 7%;border: none;border-bottom: 2px solid #eff0f3;color: #4E86FF;padding: 0 0 2vw 2vw;}
+.reservEssentialSelect .img_rcv_select{position:absolute;/* top:50%; */right:0;/* transform:translateY(-50%); */width:8%}
 .reservEssentialSelect .img_rcv_remove{width:3vw;margin-left:3vw;}
 .reservEssentialSelect .wrap_selected_user span{color:#4E86FF}
-.reservAttendDetail .reservPick{}
-.reservAttendDetail .reservPick p{font-size:3.5vw;width:25%;display:inline-block} 
+.reservAttendDetail .reservPick{margin-top: 1vw;}
+.reservAttendDetail .reservPick p{font-size:3.5vw;width:24%;display:inline-block} 
 
-.reservPick .reservPickSelect{position:relative;display:inline-block;width:74%}
-.reservPickSelect .wrap_selected_user{overflow: hidden;position: relative;display: inline-block;max-width: 80%;padding: 0.5vw 6vw 0.5vw 2vw;text-overflow: ellipsis;white-space: nowrap;color: #4E86FF;}
-.reservPickSelect input{width: 100%;height: 7%;border: none;border-bottom: 2px solid #eff0f3;color: #4E86FF;}
-.reservPickSelect .img_rcv_select{position:absolute;top:50%;right:0;transform:translateY(-50%);width:8%}
+.reservPick .reservPickSelect{position:relative;display:inline-block;width:66%;margin: 1vw 0 0 4vw;}
+.reservPickSelect .wrap_selected_user{overflow: hidden;position: relative;/* display: inline-block; */max-width: 100%;padding: 1.5vw 6vw 1.5vw 2vw;text-overflow: ellipsis;white-space: nowrap;color: #4E86FF;}
+.reservPickSelect input{width: 100%;height: 7%;border: none;border-bottom: 2px solid #eff0f3;color: #4E86FF;padding: 0 0 2vw 2vw;}
+.reservPickSelect .img_rcv_select{position:absolute;/* top:50%; */right:0;/* transform:translateY(-50%); */width:8%}
 .reservPickSelect .img_rcv_remove{width:3vw;margin-left:3vw;}
 .reservPickSelect .wrap_selected_user span{color:#4E86FF}
 .reservCheckRadio{width:100%;font-size:0;margin-top:4vw}
@@ -1097,32 +1099,34 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .reservOthers input{background:url('/resources/image/reservation/ic_circle_check_normal.png') no-repeat;}
 .reservOthers span{font-size:3.5vw}
 .reservDetailTime{margin-top:4vw}
-.reservDetailTime p{font-size:3.5vw;display:inline-block;width:20%}
-.reservDetailTime .reservDefaultTime{position:relative;display:inline-block;width:70%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:6vw;padding-left:2vw;padding-bottom:1.2vw}
+.reservDetailTime p{font-size:3.5vw;display:inline-block;width:24%}
+.reservDetailTime .reservDefaultTime{position:relative;display:inline-block;width:64%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:4vw;padding: 0 0 2vw 2vw;}
 .reservDefaultTime input{width:100%;height:90%;border:none;font-size: 3.5vw;}
 .reservDefaultTime .defaultHolder::placeholder{color:#000}
-.reservDetailPurpose{margin-top:4vw}
-.reservDetailPurpose p{font-size:3.5vw;display:inline-block;width:20%}
-.reservDetailPurpose .reservPurposeWrite{position:relative;display:inline-block;width:70%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:6vw;padding-left:2vw;padding-bottom:1.2vw}
+.reservDetailPurpose{margin-top:2vw}
+.reservDetailPurpose p{font-size:3.5vw;display:inline-block;width:24%}
+.reservDetailPurpose .reservPurposeWrite{position:relative;display:inline-block;width:64%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:4vw;padding: 0 0 2vw 2vw;}
 .reservPurposeWrite input{width:100%;height:90%;border:none;font-size:3.5vw;}
-.reservDetailCompany{margin-top:4vw}
-.reservDetailCompany p{font-size:3.5vw;display:inline-block;width:20%}
-.reservDetailCompany .reservCompanyWrite{position:relative;display:inline-block;width:70%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:6vw;padding-left:2vw;padding-bottom:1.2vw}
+.reservDetailCompany{margin-top:2vw}
+.reservDetailCompany p{font-size:3.5vw;display:inline-block;width:24%}
+.reservDetailCompany .reservCompanyWrite{position:relative;display:inline-block;width:64%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:4vw;padding: 0 0 2vw 2vw;}
 .reservCompanyWrite input{width:100%;height:90%;border:none;font-size:3.5vw;}
-.reservDetailExplanation{margin-top:4vw}
-.reservDetailExplanation p{font-size:3.5vw;display:inline-block;width:20%}
-.reservDetailExplanation .reservExplanWrite{position:relative;display:inline-block;width:70%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:6vw;padding-left:2vw;padding-bottom:1.2vw}
+.reservDetailExplanation{margin-top:2vw}
+.reservDetailExplanation p{font-size:3.5vw;display:inline-block;width:24%}
+.reservDetailExplanation .reservExplanWrite{position:relative;display:inline-block;width:64%;height:4%;border-bottom:1px solid #CFD3DA;margin-left:4vw;padding: 0 0 2vw 2vw;}
 .reservExplanWrite input{width:100%;height:90%;border:none;font-size:3.5vw;}
-.reservDetailAttach{position:relative;margin-top:4vw}
-.reservDetailAttach .reservFileAttach{position:absolute;top:0;right:2vw;width:70%;height:4vh;/* border-bottom:1px solid #aeaeae; */margin-left:6vw;padding:2vw 0 2vw 2vw}
-.reservDetailAttach .reservFileContents{font-size:3.5vw;display:inline-block;width:20%;vertical-align:top}
+.reservDetailAttach{position:relative;margin-top:3vw}
+.reservDetailAttach .reservFileAttach{position:absolute;top:0;right:2vw;width:64%;/* border-bottom:1px solid #aeaeae; */margin-left:4vw;padding: 0 0 2vw 2vw;}
+.reservDetailAttach .reservFileContents{font-size:3.5vw;display:inline-block;width:24%;vertical-align:top}
 .reservFileAttach .reservFileInfo{position:absolute;top:0;font-size:3.5vw;padding-left:14vw}
 .reservFileAttach span{display:block;color:#7f7f7f;display: block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .reservFileAttach img{width:6vw}
-.reservFileAttach .btn_attach_file{position:absolute;top:5vw;right:1vw;transform:translateY(-50%);width:8%}
+.reservFileAttach .btn_attach_file{position:absolute;top:1vw;right:1vw;/* transform:translateY(-50%); */width:8%}
 .reservFileAttach .reserv_attach_file{display:none;}
+.wrap_attach_file_list {position: relative;width: 52vw;height: 8vw;}
 .wrap_attach_file_list .file_ext{display:inline-block;}
-.wrap_attach_file_list .file_info{display:inline-block;max-width:65%}
+.wrap_attach_file_list .file_info{display:inline-block;max-width:65%;position: absolute;margin-left: 1vw;top: 1vw;}
+.btn_remove_reserv_attach {position: absolute;right: 0;top: 0.5vw;}
 
 /*자원예약 데이터 없을 시*/
 .reservDataVoid{display:none;background:#fff;width:100%;height:93%;position:absolute;bottom:0;left:0;text-align:center;z-index:0}
@@ -2660,4 +2664,4 @@ diary 검색 드롭다운
 .AutoLoginDiv {float:left;width:40%;margin: 0.7vw;}
 #mailContents html body{margin:0}
 
-/*수정테스트.*/
+/* 수정테스트 수정 테스트 깃 테스트 */
