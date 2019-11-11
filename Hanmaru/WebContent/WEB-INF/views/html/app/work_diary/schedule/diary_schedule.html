@@ -1,5 +1,5 @@
 
-<div class="workDiaryContainer" ng-controller="diaryScheduelController">
+<div class="workDiaryContainer" id="diaryScheduelController" ng-controller="diaryScheduelController">
 	<!-- 헤더바 -->
 	<div class="headerBar">
 		<div class="headerBarMenu" ng-click="slideMenuClick()">
@@ -107,6 +107,7 @@
 			</ul>
 
 			<div id="calendar" ng-show="isCalendarSearch == false" style="height:97%"></div>
+			
 			<div id="calendarSearchResult" ng-show="isCalendarSearch == true">
 				<div class="wrapSearchElem" ng-repeat="elem in arrSearchResult">
 					<div class="btnColorBullet">
