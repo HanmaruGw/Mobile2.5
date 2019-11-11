@@ -9,51 +9,17 @@ var appHanmaru = angular.module('appHanmaru', ['ngSanitize', 'ngAnimate','ngRout
 var globalTest;
 var mailBody='';
 
-// 데이터 이동전에 페이지로드되었는지 확인하는 함수 - 로드확인되면 그때 데이터 전송
-function nextPageData($rs,menuName,controlName,param1,param2,param3,param4){
-	var control= $("#"+controlName+"Controller");
-	if(!control.length){
-		var timer = setInterval(function() { 
-			// 실행할 스크립트
-			if(param1==""||param1==null||param1==undefined){
-				nextPageData($rs,menuName,controlName);
-			}else if(param2==""||param2==null||param2==undefined){
-				nextPageData($rs,menuName,controlName,param1);	
-			}else if(param2==""||param2==null||param2==undefined){
-				nextPageData($rs,menuName,controlName,param1,param2);	
-			}else if(param3==""||param3==null||param3==undefined){
-				nextPageData($rs,menuName,controlName,param1,param2,param3);	
-			}else{
-				nextPageData($rs,menuName,controlName,param1,param2,param3,param4);	
-			}
-			clearInterval(timer); 
-		}, 10);
-	}else{
-		if(param1==""||param1==null||param1==undefined){
-			$rs.$broadcast(menuName);	
-		}else if(param2==""||param2==null||param2==undefined){
-			$rs.$broadcast(menuName,param1);	
-		}else if(param2==""||param2==null||param2==undefined){
-			$rs.$broadcast(menuName,param1,param2);	
-		}else if(param3==""||param3==null||param3==undefined){
-			$rs.$broadcast(menuName,param1,param2,param3);	
-		}else{
-			$rs.$broadcast(menuName,param1,param2,param3,param4);	
-		}
-		
-	}
-}
 
-// splash controller
+//splash controller
 appHanmaru.controller('splashController', ['$scope', '$http', '$rootScope','$timeout', function($s, $http, $rs, $timeout) {
 	
-// var loginData = {
-// userID:$s.appUserId,
-// autoLogin:'N'
-// };
-// var param=callApiObject('login', 'autoLoginSetting', loginData);
-// $http(param).success(function(data) {
-// });
+//	var loginData = {
+//			userID:$s.appUserId,
+//			autoLogin:'N'
+//			};
+//	var param=callApiObject('login', 'autoLoginSetting', loginData);	
+//	$http(param).success(function(data) {
+//	});
 	
 	$rs.checkAutoLogin = function(){
 		var loginData = { userID:$rs.appUserId, DeviceID:$rs.deviceID,
@@ -61,13 +27,13 @@ appHanmaru.controller('splashController', ['$scope', '$http', '$rootScope','$tim
 		
 		var param = callApiObject('login', 'autoLogin', loginData);
 		
-// console.log(param);
+//		console.log(param);
 		
 		$http(param).success(function(data) {
 			var code = parseInt(data.Code, 10);
 			if(code == 1){
 				var autoLoginInfo = JSON.parse(data.value);
-// console.log(autoLoginInfo);
+//				console.log(autoLoginInfo);
 				
 				var accessInfoData = {
 					userID : $rs.appUserId,
@@ -79,21 +45,18 @@ appHanmaru.controller('splashController', ['$scope', '$http', '$rootScope','$tim
 				
 				if(autoLoginInfo.AutoLogin=='Y'){
 					$rs.accessUser(accessInfoData);
-					$rs.currentPageId = 'main';
 				}else{
-					$rs.currentPageId = 'member/login';
-					nextPageData($rs,'initLoginPage','Login');
+					$rs.$broadcast('initLoginPage');
 				}
 			}else{
-				$rs.currentPageId = 'member/login';
-				nextPageData($rs,'initLoginPage','Login');
+				$rs.$broadcast('initLoginPage');
 			}
 		});
 	}
 	
 	$timeout(function(){
 		$rs.checkAutoLogin();
-	}, 0);
+	}, 3000);
 	
 }]);
 
@@ -101,7 +64,7 @@ appHanmaru.controller('splashController', ['$scope', '$http', '$rootScope','$tim
 appHanmaru.controller('loginController', ['$scope', '$http', '$rootScope', function($s, $http, $rs) {
 	$rs.apiURL = '';
 	// 간편 로그인을 위한 AOS / IOS 저장 id
-// $rs.appUserId = ''; //2019.10.24 수정 - jh.j
+//	$rs.appUserId = ''; //2019.10.24 수정 - jh.j
 	$s.pin_input_id = '';
 	$s.pin_input_pwd = '';
 	$s.isPinLogin = true; // 간편 핀번호 로그인 여부
@@ -154,8 +117,7 @@ appHanmaru.controller('loginController', ['$scope', '$http', '$rootScope', funct
 					var resData = JSON.parse(data.value);
 					$s.domainList = resData.Domain;
 					
-					$s.generalLogin_domain = $s.domainList[0];// halla.com
-																// //hd-bsnc.com
+					$s.generalLogin_domain = $s.domainList[0];// halla.com //hd-bsnc.com
 					$s.simpleLogin_domain = $s.domainList[0];// halla.com
 				}
 			});
@@ -366,25 +328,28 @@ appHanmaru.controller('loginController', ['$scope', '$http', '$rootScope', funct
 	    	    $s.inputPinNumber = _value;   
 	    	    
 	    	    if($s.inputPinNumber.length == 6) {
-	    	    	androidWebView.popupKeyboardClose();
-					$s.performGeneralLogin(); // 핀번호
+	    	    	$s.performGeneralLogin(); //핀번호 6자리 입력하면 바로 로그인
 	    	    }
 	    	}
 		}
 		angular.element('#login_pin_number').on('keyup', $s.loginPinChanged);
 		
 		/**
-		 * function initPinCss(){
-		 * $('.simple_passwd_write_circle').each(function(i,v) {
-		 * $(this).removeClass('check_write_circle'); });
-		 * 
-		 * $('.passwd_settings_six_write').each(function(i,v) { $(this).empty();
-		 * });
-		 * 
-		 * angular.element('#input_pin_number').val('');
-		 * angular.element('#login_pin_number').val(''); $s.settingPinNumber =
-		 * ''; $s.inputPinNumber = ''; }
-		 */
+		function initPinCss(){
+			$('.simple_passwd_write_circle').each(function(i,v) { 
+				$(this).removeClass('check_write_circle');
+		    });
+			
+			$('.passwd_settings_six_write').each(function(i,v) { 
+			    $(this).empty();
+		    });
+			
+			angular.element('#input_pin_number').val('');
+			angular.element('#login_pin_number').val('');
+			$s.settingPinNumber = ''; 
+			$s.inputPinNumber = ''; 
+		}
+		**/
 		
 		
 		// 실제 핀번호 세팅
@@ -461,7 +426,7 @@ appHanmaru.controller('loginController', ['$scope', '$http', '$rootScope', funct
 				generalLogin_domain : $s.generalLogin_domain
 			}
 			$rs.accessUser(accessInfoData);
-			// versionCheck();
+			//versionCheck();
 			
 			// chatbotLogin();
 		}
@@ -483,9 +448,13 @@ appHanmaru.controller('loginController', ['$scope', '$http', '$rootScope', funct
 		
 		
 		/**
-		 * function loginFailResult(){ setTimeout(function(){ $rs.dialog_toast =
-		 * false; $rs.$apply(); },1000); }
-		 */
+		function loginFailResult(){
+			setTimeout(function(){
+				$rs.dialog_toast = false;
+				$rs.$apply();
+			},1000);
+		}
+		**/
 		
 	// function chatbotLogin(){
 	// var loginData = {
@@ -523,8 +492,6 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 	$rs.gcmToken = '';
 	$rs.appVersion = '';
 	
-	$rs.currentPageId = '_include/splash';
-	
 	$s.slideProfileImgShow = false;		// 슬라이드 메뉴 프로필 이미지 영역 //2019-09-17 김현석
 										// [슬라이드 메뉴 프로필 이미지 false가 기본으로 변경]
 	$rs.slideMenuShow = false;			// 슬라이드 메뉴
@@ -547,7 +514,7 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 		} 
 	} else if($rs.agent=='ios') {
 		webkit.messageHandlers.sendDeviceInfo.postMessage("success");
-		// 핀번호 로그인을 위한 아이디 불러오기
+		//핀번호 로그인을 위한 아이디 불러오기 
 		webkit.messageHandlers.getIosUserId.postMessage("success");			
 	}
 	
@@ -568,103 +535,76 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 		$rs.appVersion = version;
 		$rs.gcmToken = gcmToken;
 	}
-	
-	window.getAndroidPinLoginUserId = function(userId,pinNumber){
-		$rs.appUserId = userId;
-		$rs.appPinNumber = pinNumber;
-	};
 
-	// 메뉴
-	window.goMain = function(){
-		androidWebView.menuType($rs.subMenuType);
-	}
 	
-	// 2019.10.24 자동 로그인 관련 로직 추가 - jh.j
+	//2019.10.24 자동 로그인 관련 로직 추가 - jh.j
 	// 핀번호 로그인을 위한 아이디 불러오기
 	window.getAndroidPinLoginUserId = function(userId,pinNumber){
 		$rs.appUserId = userId;
 		$rs.appPinNumber = pinNumber;
 	};
-	// ios
+	//ios
 	getIosPinLoginUserId = function(userId,pinNumber){
 		$rs.appUserId = userId;
 		$rs.appPinNumber = pinNumber;
 	};
 	
-	
 	$rs.accessUser = function(accessInfoData){
 		
-		// TEST ID / PW
-// $rs.appUserId = 'jh1.jang';
-// $rs.appPinNumber = '841414';
+		//TEST ID / PW
+//		$rs.appUserId = 'jh1.jang';
+//		$rs.appPinNumber = '841414';
 		
-		if(accessInfoData.isPinLogin){// $s.isPinLogin //변경
+		if(accessInfoData.isPinLogin){//$s.isPinLogin //변경
 			var loginData = {
 				userID:$rs.appUserId,
 				DeviceID:$rs.deviceID,
-				PinCode : accessInfoData.inputPinNumber, // $s.inputPinNumber,
-															// //변경
+				PinCode : accessInfoData.inputPinNumber, //$s.inputPinNumber, //변경
 				AppVersion:$rs.appVersion,
-				AppType:accessInfoData.generalLogin_domain// $s.generalLogin_domain
-															// //변경
+				AppType:accessInfoData.generalLogin_domain//$s.generalLogin_domain //변경
 			};
 			var param = callApiObject('login', 'pinLogin', loginData);
 		}else{
 			var loginData = {
-				userID:accessInfoData.userID, // $rs.general_id //변경
+				userID:accessInfoData.userID, //$rs.general_id //변경
 				DeviceID:$rs.deviceID,
 				PhoneModel:$rs.phoneModel,
 				PhoneBrand:$rs.phoneBrand,
-				Password:accessInfoData.userPwd, // $rs.general_pw //변경
+				Password:accessInfoData.userPwd, //$rs.general_pw //변경
 				AppVersion:$rs.appVersion,
-				AppType:accessInfoData.generalLogin_domain// $s.generalLogin_domain
-															// //변경
+				AppType:accessInfoData.generalLogin_domain//$s.generalLogin_domain //변경
 			};
 			var param = callApiObject('login', 'generalLogin', loginData);
 		}
-		$rs.currentPageId = 'main'
+		
 		$http(param).success(function(data) {
 			var code = parseInt(data.Code, 10);
 			if(code == 1){
 				$rs.userInfo = JSON.parse(data.value);
 				
 				if($rs.userInfo.MainView === 'NEWS'){
-					$rs.currentPageId = 'main'
-					nextPageData($rs,'initMainBox','mainList');
-					// $rs.$broadcast('initMainBox');
+					$rs.$broadcast('initMainBox');
 				}else if($rs.userInfo.MainView === 'MAIL'){
-					$rs.currentPageId = 'mail/mail_list'
-					// $rs.$broadcast('initMailBox');
-					nextPageData($rs,'initMailBox',"mail");
+					$rs.$broadcast('initMailBox');
 				}
 				else if($rs.userInfo.MainView === 'BOARD'){
-					$rs.currentPageId = 'board/board_list'
-					// $rs.$broadcast('initBoardBox');
-					nextPageData($rs,'initBoardBox','boardList');
+					$rs.$broadcast('initBoardBox');
 				}
 				else if($rs.userInfo.MainView === 'APPROVAL'){
-					$rs.currentPageId = 'approval/approval_list'
-					// $rs.$broadcast('initApprovalBox');
-					nextPageData($rs,'initApprovalBox','approval');
+					$rs.$broadcast('initApprovalBox');
 				}
 				else if($rs.userInfo.MainView === 'ORG'){
-					$rs.currentPageId = 'organization/organization_list'
-					// $rs.$broadcast('initInsaBox');
-					nextPageData($rs,'initInsaBox','organ');
+					$rs.$broadcast('initInsaBox');
 				}
 				else if($rs.userInfo.MainView === 'WORK'){
 					// workDiary 작업이후 추가할것.
-					$rs.currentPageId = 'work_diary/schedule/diary_schedule'
-					// $rs.$broadcast('initWorkBox');
-					nextPageData($rs,'initWorkBox','diaryScheduel');
+					$rs.$broadcast('initWorkBox');
 				};
 				
 				$rs.chatbotUserId = $s.isPinLogin ? $rs.appUserId+'@'+ $s.generalLogin_domain : $rs.general_id+'@'+$s.generalLogin_domain; // 소문자
-				$rs.chatbotLoginKey = 'f4356076dd634af7a47ea50763dc51bd'; // exs-mobile에서
-																			// 사용가능한
-																			// key값
+				$rs.chatbotLoginKey = 'f4356076dd634af7a47ea50763dc51bd'; // exs-mobile에서 사용가능한 key값
 				
-				// pin번호 저장 -> ios쪽 추가 작업 필요.
+				//pin번호 저장 -> ios쪽 추가 작업 필요.
 				if($rs.agent == 'android'){
 					if(androidWebView != undefined) {
 						androidWebView.setAndroidPinLoginNumber(accessInfoData.inputPinNumber);
@@ -692,7 +632,7 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 			if(androidWebView != undefined) {
 				androidWebView.focusToWebView();
 			}
-// if (accessInfoData.isPinLogin) initPinCss();
+//			if (accessInfoData.isPinLogin) initPinCss();
 			$rs.loginFailResult();
 		});
 	}
@@ -704,7 +644,7 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 		},1000);
 	}
 	
-	// *******************챗봇***************************
+	//*******************챗봇***************************
 	// 챗봇 로그인 처리및 음성인식 init
 	$rs.showSttIcon = function(isLogin,userId,userPw){
 		if($rs.agent == 'android'){
@@ -720,7 +660,7 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 			webkit.messageHandlers.isAvailableSTT.postMessage(dic);
 		}
 	}
-	// 챗봇 메인화면 check 함수.
+	//챗봇 메인화면 check 함수.
 	$rs.checkMainView = function(isMainView){
 		if(isMainView){
 			$rs.showSttIcon(true,$rs.chatbotUserId.toLowerCase(),$rs.chatbotLoginKey);
@@ -800,34 +740,6 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 // $s.slideProfileImgShow = true;
 // }
 // };
-	function PageSearch(menuName,type){
-		switch(menuName){
-		case 'main':
-			return type=='url'?'main':'mainList';
-			break
-		case 'work':
-			return type=='url'?'work_diary/schedule/diary_schedule':'diaryScheduel';
-			break
-		case 'mail':
-			return type=='url'?'mail/mail_list':'mail';
-			break
-		case 'approval':
-			return type=='url'?'approval/approval_list':'approval';
-			break
-		case 'board':
-			return type=='url'?'board/board_list':'boardList';
-			break
-		case 'insa':
-			return type=='url'?'organization/organization_list':'organ';
-			break
-		case 'reserv':
-			return type=='url'?'reservation/reservation_list':'reservList';
-			break
-		case 'attendance':
-			return type=='url'?'attendance/attendance_management':'attendance';
-			break
-		}
-	}
 	
 	$rs.loadMenu = function(menuName) {
 		
@@ -862,18 +774,12 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 			$rs.subMenuType = 'reserv';
 			$rs.subMenuList = $rs.reservSubMenuName;
 			$rs.currSubMenu = $rs.reservSubMenuName[0].MenuKey; 
-			$rs.currentPageId = 'reservation/reservation_list' // [페이지 HTML변경]
-			// $rs.$broadcast('initReservList');
-			nextPageData($rs,'initReservList','reservList'); // 페이지 변경될때
-																// 데이터이동되도록 함수설정
+			$rs.$broadcast('initReservList');
 		}
 		else if(menuName === 'attendance'){
 			var now = moment(new Date()).format("YYYY-MM-DD");
 			$rs.subMenuType = 'attendance';
-			$rs.currentPageId = 'attendance/attendance_management' // [페이지 HTML변경]
-			// $rs.$broadcast('initAttendanceList',now);
-			nextPageData($rs,'initAttendanceList','attendance',now); // 페이지 변경될때 데이터이동되도록 함수설정
-			
+			$rs.$broadcast('initAttendanceList',now);
 		}else{
 			var param = callApiObject(menuName, menuName+'Boxs', loginData);
 			console.log(param);
@@ -886,64 +792,35 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 					for(idx in boxList) {
 						if(boxList[idx].FolderId === 'ARRIVE') {
 							$rs.currSubMenu = boxList[idx].FolderId;
-							
-							$rs.currentPageId = PageSearch(menuName,'url'); // [페이지
-																			// HTML변경]
-							// $rs.$broadcast('init'+capitalMenuName+'List',
-							// boxList[idx].DisplayName);
-							nextPageData($rs,'init'+capitalMenuName+'List',PageSearch(menuName,'id'), boxList[idx].DisplayName); // 페이지 변경될때 데이터이동되도록 함수설정
-							
-							
+							$rs.$broadcast('init'+capitalMenuName+'List', boxList[idx].DisplayName);
 							break;
 						} 
 					}
 				} else if (menuName === 'mail'){
 					$rs.currSubMenu = boxList[0].FolderId;
 					initMailTree(boxList);
-					$rs.currentPageId = PageSearch(menuName,'url'); // [페이지
-																	// HTML변경]
-					// $rs.$broadcast('init'+capitalMenuName+'List',
-					// boxList[0].DisplayName);
-					nextPageData($rs,'init'+capitalMenuName+'List',PageSearch(menuName,'id'), boxList[0].DisplayName); // 페이지 변경될때 데이터이동되도록 함수설정
-					
-					
+					$rs.$broadcast('init'+capitalMenuName+'List', boxList[0].DisplayName);
 					$rs.loading();
 				}else if(menuName === 'insa'){
-					$rs.currentPageId = PageSearch(menuName,'url'); // [페이지
-																	// HTML변경]
-					// $rs.$broadcast('init'+capitalMenuName+'List');
-					nextPageData($rs,'init'+capitalMenuName+'List',PageSearch(menuName,'id')); // 페이지 변경될때 데이터이동되도록 함수설정
-					
-					
+					$rs.$broadcast('init'+capitalMenuName+'List');
 				}else if(menuName === 'work'){
 					$rs.subMenuType = 'work';
 					$rs.subMenuList = boxList.Menus;
 					
 					$rs.currSubMenu = boxList.Menus[0].MenuKey; 
-					$rs.currentPageId = PageSearch(menuName,'url'); // [페이지
-																	// HTML변경]
-					// $rs.$broadcast('init'+capitalMenuName+'List',boxList.Menus[0].MenuName);
-					nextPageData($rs,'init'+capitalMenuName+'List',PageSearch(menuName,'id'),boxList.Menus[0].MenuName); // 페이지 변경될때 데이터이동되도록 함수설정
-					
+					$rs.$broadcast('init'+capitalMenuName+'List',boxList.Menus[0].MenuName);
 				}else if(menuName === 'main'){
 					var param = callApiObject('board', 'boardBoxs', {LoginKey:$rs.userInfo.LoginKey,CompanyCode:''});
 					$http(param).success(function(data) {
 						var boardData = JSON.parse(data.value);
 						$rs.subMenuType = 'main';
 						$rs.subMenuList = boardData;
-						$rs.currentPageId = PageSearch(menuName,'url'); // [페이지
-																		// HTML변경]
-						// $rs.$broadcast('init'+capitalMenuName+'List',boardData);
-						nextPageData($rs,'init'+capitalMenuName+'List',PageSearch(menuName,'id'),boardData); // 페이지 변경될때 데이터이동되도록 함수설정
 						
+						$rs.$broadcast('init'+capitalMenuName+'List',boardData);
 					});
 				}else if(menuName === 'board'){
 					$rs.subMenuType = 'board';
-					$rs.currentPageId = PageSearch(menuName,'url');// [페이지
-																	// HTML변경]
-					// $rs.$broadcast('initBoardList',boxList[0].BoardType,boxList[0].MasterID,boxList[0].Name);
-					nextPageData($rs,'initBoardList',PageSearch(menuName,'id'),boxList[0].BoardType,boxList[0].MasterID,boxList[0].Name); // 페이지 변경될때 데이터이동되도록 함수설정
-					
+					$rs.$broadcast('initBoardList',boxList[0].BoardType,boxList[0].MasterID,boxList[0].Name);
 					$rs.currSubMenu = boxList[0].MasterID;
 				}
 			});
@@ -1038,9 +915,8 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 	$rs.btnSetting = function(){
 		$rs.slideMenuShow = false;
 		$rs.currMenuSlide = false;
-		$rs.currentPageId = 'settings/settings'
-		// $rs.$broadcast('initSetting');
-		nextPageData($rs,'initSetting','setting'); // 페이지 변경될때 데이터이동되도록 함수설정
+		
+		$rs.$broadcast('initSetting');
 	};
 	
 	function initMailTree(boxList) {
@@ -1104,12 +980,9 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 	// back button
 	window.checkCanGoBack = function(){
 		var currPage = angular.element('[class^="panel"][class*="current"]');
-		var pageName = currPage.eq(currPage.length-1).attr('id'); // 가장 위에 출력된
-								
-		if($rs.subMenuType != 'main'){
-			$rs.loadMenu('main');
-		}
-		else if(currPage.length > 1){
+		var pageName = currPage.eq(currPage.length-1).attr('id'); // 가장 위에 출력된 화면
+		
+		if(currPage.length > 1){
 			if(androidWebView != undefined) {
 				androidWebView.isCanGoBack(true);
 				$s.popPage(pageName);
@@ -1232,24 +1105,16 @@ appHanmaru.controller('mainListController', ['$scope', '$http', '$rootScope', '$
 		$s.masterID = $s.noticeList[0].MasterID;
 		var pageName = angular.element('[class^="panel"][class*="current"]').attr('id');
 		$s.displayName = '사우소식';
-		
-		$rs.currentPageId = 'board/board_list'
 		pushPage(pageName, 'pg_board_list');
-		// $rs.$broadcast('initBoardList',$s.boardType,$s.masterID,$s.displayName);
-		nextPageData($rs,'initBoardList','boardList',$s.boardType,$s.masterID,$s.displayName); // 페이지 변경될때 데이터이동되도록 함수설정
-		
+		$rs.$broadcast('initBoardList',$s.boardType,$s.masterID,$s.displayName);
 	}
 	$s.btnOrganMore = function(){
 		$s.boardType = $s.pressList[0].BoardType;
 		$s.masterID = $s.pressList[0].MasterID;
 		$s.displayName = '인사발령';
 		var pageName = angular.element('[class^="panel"][class*="current"]').attr('id');
-		
-		$rs.currentPageId = 'board/board_list'
 		pushPage(pageName, 'pg_board_list');
-		// $rs.$broadcast('initBoardList',$s.boardType,$s.masterID,$s.displayName);
-		nextPageData($rs,'initBoardList','boardList',$s.boardType,$s.masterID,$s.displayName); // 페이지 변경될때 데이터이동되도록 함수설정
-		
+		$rs.$broadcast('initBoardList',$s.boardType,$s.masterID,$s.displayName);
 	}
 }]);
 
@@ -1386,10 +1251,7 @@ appHanmaru.controller('attendanceController', ['$scope', '$http', '$rootScope', 
 		$s.$apply(function() {
 			if(type === 'start') {
 				$s.txtNowDate = value;
-				$rs.currentPageId = 'attendance/attendance_management'
-				// $rs.$broadcast('initAttendanceList',value);
-				nextPageData($rs,'initAttendanceList','attendance',value); // 페이지 변경될때 데이터이동되도록 함수설정
-				
+				$rs.$broadcast('initAttendanceList',value);
 			} 
 		});
 	}
@@ -1402,10 +1264,7 @@ appHanmaru.controller('attendanceController', ['$scope', '$http', '$rootScope', 
 		}
 		
 		$s.$watch('txtNowDate',function(value){
-			$rs.currentPageId = 'attendance/attendance_management'
-			// $rs.$broadcast('initAttendanceList',value);
-			nextPageData($rs,'initAttendanceList','attendance',value); // 페이지 변경될때 데이터이동되도록 함수설정
-			
+			$rs.$broadcast('initAttendanceList',value);
 		});
 	};
 
@@ -1482,21 +1341,15 @@ appHanmaru.controller('reservListController', ['$scope', '$http', '$rootScope', 
 		};
 		var param = callApiObject('reserv','resourceReservationState',reqReservCancelData);
 		$http(param).success(function(data){
-			$rs.currentPageId = 'reservation/reservation_list'
-			// $rs.$broadcast('initReservList');
-			nextPageData($rs,'initReservList','reservList'); // 페이지 변경될때
-																// 데이터이동되도록 함수설정
+			$rs.$broadcast('initReservList');
 			$s.isCancelReserv = false;
 		});
 	}
 	
 	$s.btnReservDetail = function(reservItem){
 		if(!$s.isCancelReserv){
-			// $rs.pushOnePage('pg_reserv_view');
-			$rs.currentPageId = 'reservation/reservation_view'
-			// $rs.$broadcast('initReservView',reservItem);
-			nextPageData($rs,'initReservView','ReservView',reservItem); // 페이지 변경될때 데이터이동되도록 함수설정
-			
+			$rs.pushOnePage('pg_reserv_view');
+			$rs.$broadcast('initReservView',reservItem);
 		}
 	}
 	
@@ -1532,10 +1385,7 @@ appHanmaru.controller('reservListController', ['$scope', '$http', '$rootScope', 
 	$s.reservBtn = function(){
 		var pageName = angular.element('[class^="panel"][class*="current"]').attr('id');
 		pushPage(pageName, 'pg_reserv_booking_list');
-		$rs.currentPageId = 'reservation/reservation_have'
-		// $rs.$broadcast('initBookingList');
-		nextPageData($rs,'initBookingList','ReservBookingList'); // 페이지 변경될때 데이터이동되도록 함수설정
-		
+		$rs.$broadcast('initBookingList');
 	}
 	
 	$s.chooseSearchDate = function(type){
@@ -1585,13 +1435,8 @@ appHanmaru.controller('ReservViewController', ['$scope', '$http', '$rootScope', 
 	});
 	
 	$s.btnResourceInfo = function(resourceInfo){
-		
-		$rs.currentPageId = 'reservation/reservation_detailview'; // 추가 페이지 변경
-		// $rs.pushOnePage('pg_reserv_info');
-		// $rs.$broadcast('initReservInfo',resourceInfo);
-		nextPageData($rs,'initReservInfo','reservResourceInfo'); // 페이지 변경될때 데이터이동되도록 함수설정
-		
-		
+		$rs.pushOnePage('pg_reserv_info');
+		$rs.$broadcast('initReservInfo',resourceInfo);
 	}
 	
 	$s.reservCancel = function(seq){
@@ -1603,10 +1448,7 @@ appHanmaru.controller('ReservViewController', ['$scope', '$http', '$rootScope', 
 		};
 		var param = callApiObject('reserv','resourceReservationState',reqReservCancelData);
 		$http(param).success(function(data){
-			$rs.currentPageId = 'reservation/reservation_detail';
-			// $rs.$broadcast('initReservList');
-			nextPageData($rs,'initReservList','ReservBookingDetail'); // 페이지 변경될때 데이터이동되도록 함수설정
-			
+			$rs.$broadcast('initReservList');
 			$s.isCancelReserv = false;
 			$rs.popPage('pg_reserv_view');
 		});
@@ -1727,17 +1569,7 @@ appHanmaru.controller('ReservBookingListController', ['$scope', '$http', '$rootS
 		var now = moment(new Date()).format("YYYY-MM-DD");
 		$s.txtSearchDate = now;
 		
-		var d = new Date();
-		var Hour = d.getHours();
-		var Minute = d.getMinutes();
-		if(Minute > 30){
-			Minute = "00";
-			Hour = Hour+1<10?"0"+Hour+1:Hour+1;	
-		}else{
-			Minute = "30";
-		}
-		
-		$s.txtStartTime = Hour+":"+Minute// $s.timeList[0].value;
+		$s.txtStartTime = $s.timeList[0].value;
 		$s.txtPeriod = $s.periodList[0].name;
 		$s.periodValue = $s.periodList[0].value;
 		$s.reservPossibleList = new Array();
@@ -1798,14 +1630,8 @@ appHanmaru.controller('ReservBookingListController', ['$scope', '$http', '$rootS
 	}
 	
 	$s.reservChoiceBtn = function(reservPossibleItem){
-		$rs.currentPageId = 'reservation/reservation_detail'
-		// $rs.pushOnePage('pg_reserv_booking_detail');
-		
-		// $rs.$broadcast('initReservBookingDetail',$s.areaCode,reservPossibleItem,$s.startDateTime,$s.endDateTime);
-		nextPageData($rs,'initReservBookingDetail','ReservBookingDetail',$s.areaCode,reservPossibleItem,$s.startDateTime,$s.endDateTime); // 페이지
-																																			// 변경될때
-																																			// 데이터이동되도록
-																																			// 함수설정
+		$rs.pushOnePage('pg_reserv_booking_detail');
+		$rs.$broadcast('initReservBookingDetail',$s.areaCode,reservPossibleItem,$s.startDateTime,$s.endDateTime);
 		
 		$s.popPage('pg_reserv_booking_list');
 	}
@@ -1939,13 +1765,8 @@ appHanmaru.controller('ReservBookingDetailController', ['$scope', '$http', '$roo
 		};
 		var param = callApiObject('reserv','resourceWriteReservation',reqReserv);
 		$http(param).success(function(data){
-			$rs.currentPageId = 'reservation/reservation_list'
-				
 			$rs.pushPage('pg_reserv_booking_detail', 'pg_reserv_list');
-			// $rs.$broadcast('initReservList');
-			nextPageData($rs,'initReservList','reservList'); // 페이지 변경될때
-																// 데이터이동되도록 함수설정
-			
+			$rs.$broadcast('initReservList');
 			initData();
 		});
 	}
@@ -1953,12 +1774,8 @@ appHanmaru.controller('ReservBookingDetailController', ['$scope', '$http', '$roo
 	$s.btnCallOrganSelect = function(e,attendType) {
 		var currPage = angular.element('[class^="panel"][class*="current"]');
 		var pageName = currPage.eq(currPage.length-1).attr('id');
-		
-		$rs.currentPageId = 'organization/organization_list_reserv'
-		// $rs.$broadcast('initInsaReservList',attendType);
-		nextPageData($rs,'initInsaReservList','organReserv',attendType); // 페이지 변경될때 데이터이동되도록 함수설정
-		
-		// pushOnePage('pg_insa_list_reserv');
+		$rs.$broadcast('initInsaReservList',attendType);
+		pushOnePage('pg_insa_list_reserv');
 	}
 	
 	// 조직도 사용자 선택 반영
@@ -2038,12 +1855,7 @@ appHanmaru.controller('ReservBookingDetailController', ['$scope', '$http', '$roo
 	$s.popPage = function(currentPage){
 		initData();
 		pushPage(currentPage, 'pg_reserv_booking_list');
-		
-		$rs.currentPageId = 'reservation/reservation_have'
-		// $rs.$broadcast('initBookingList');
-		nextPageData($rs,'initBookingList','ReservBookingList'); // 페이지 변경될때 데이터이동되도록 함수설정
-		
-		
+		$rs.$broadcast('initBookingList');
 	}
 	
 	$s.changeAttachFile = function(e){//
@@ -2294,11 +2106,8 @@ appHanmaru.controller('organReservController', ['$scope', '$http', '$rootScope',
 	// 이메일
 	$s.doExecEmail = function(email) {
 		$s.arr_selected_rcv.push(email);
-		$rs.currentPageId = 'mail/mail_write'; 
-		// $rs.$broadcast("mailApplySelectedUser", $s.arr_selected_rcv, new
-		// Array(), new Array());
-		nextPageData($rs,'mailApplySelectedUser','hallaMailWrite', $s.arr_selected_rcv, new Array(), new Array()); // 페이지 변경될때 데이터이동되도록 함수설정
 		
+		$rs.$broadcast("mailApplySelectedUser", $s.arr_selected_rcv, new Array(), new Array());
 		var currPage = angular.element('[class^="panel"][class*="current"]');
 		var pageName = currPage.eq(currPage.length-1).attr('id');
 		popPage(pageName);
@@ -2570,71 +2379,28 @@ appHanmaru.controller('organReservController', ['$scope', '$http', '$rootScope',
 	$s.btnApplySelectedUser = function(e){
 		// 2019-02-05 PK 캘린더 분기문
 		if( $s.attendType == 'cal_Attendee' ) {
-			$rs.currentPageId = 'work_diary/schedule/schedule_write';
-			// $rs.$broadcast("Cal_Apply_Attendee", $s.arr_cal_attendee);
-			nextPageData($rs,'Cal_Apply_Attendee','scheduleWrite', $s.arr_cal_attendee); // 페이지
-																							// 변경될때
-																							// 데이터이동되도록
-																							// 함수설정
+			$rs.$broadcast("Cal_Apply_Attendee", $s.arr_cal_attendee);
 		}
 		else if( $s.attendType == 'cal_Jointowner' ) {
-			$rs.currentPageId = 'work_diary/schedule/schedule_write';
-			// $rs.$broadcast("Cal_Apply_Jointowner", $s.arr_cal_Jointowner);
-			nextPageData($rs,'Cal_Apply_Jointowner','scheduleWrite', $s.arr_cal_Jointowner); // 페이지
-																								// 변경될때
-																								// 데이터이동되도록
-																								// 함수설정
+			$rs.$broadcast("Cal_Apply_Jointowner", $s.arr_cal_Jointowner);
 		}
 		else if( $s.attendType == 'ShareUser' ) {
-			$rs.currentPageId = 'work_diary/schedule/diary_schedule'
-			// $rs.$broadcast("Apply_ShareUser", $s.arr_shareUser);
-			nextPageData($rs,'Apply_ShareUser','diaryScheduel', $s.arr_shareUser); // 페이지
-																					// 변경될때
-																					// 데이터이동되도록
-																					// 함수설정
+			$rs.$broadcast("Apply_ShareUser", $s.arr_shareUser);
 		} 
 		else if($s.attendType == 'workReport'){
-			$rs.currentPageId = 'work_diary/report/report_write'
-			// $rs.$broadcast("workReportApplySelectedUser",
-			// $s.arr_selected_rcv);
-			nextPageData($rs,'workReportApplySelectedUser','reportWrite', $s.arr_selected_rcv); // 페이지
-																								// 변경될때
-																								// 데이터이동되도록
-																								// 함수설정
+			$rs.$broadcast("workReportApplySelectedUser", $s.arr_selected_rcv);
 		}
 		else if($s.attendType == 'workPlan'){
-			$rs.currentPageId = 'work_diary/plan/plan_write'
-			// $rs.$broadcast("workPlanApplySelectedUser", $s.arr_selected_rcv);
-			nextPageData($rs,'workPlanApplySelectedUser','planWrite',$s.arr_selected_rcv); // 페이지
-																							// 변경될때
-																							// 데이터이동되도록
-																							// 함수설정
+			$rs.$broadcast("workPlanApplySelectedUser", $s.arr_selected_rcv);
 		}
 		else if($s.attendType == 'workTaskAttendance'){
-			$rs.currentPageId = 'work_diary/work/work_write'
-			// $rs.$broadcast("workTaskApplyAttendanceUser",
-			// $s.arr_selected_rcv);
-			nextPageData($rs,'workTaskApplyAttendanceUser','workWrite',$s.arr_selected_rcv); // 페이지
-																								// 변경될때
-																								// 데이터이동되도록
-																								// 함수설정
+			$rs.$broadcast("workTaskApplyAttendanceUser", $s.arr_selected_rcv);
 		}
 		else if($s.attendType == 'workTaskShare'){
-			$rs.currentPageId = 'work_diary/work/work_write'
-			// $rs.$broadcast("workTaskApplyShareUser", $s.arr_selected_rcv);
-			nextPageData($rs,'workTaskApplyShareUser','workWrite',$s.arr_selected_rcv); // 페이지
-																						// 변경될때
-																						// 데이터이동되도록
-																						// 함수설정
+			$rs.$broadcast("workTaskApplyShareUser", $s.arr_selected_rcv);
 		}
 		else {
-			$rs.currentPageId = 'reservation/reservation_detail'
-			// $rs.$broadcast("reservApplySelectedUser", $s.attendType,
-			// $s.arr_selected_rcv, $s.arr_selected_cc);
-			nextPageData($rs,'reservApplySelectedUser','ReservBookingDetail', $s.attendType, $s.arr_selected_rcv, $s.arr_selected_cc); // 페이지
-																																		// 변경될때
-																																		// 데이터이동되도록
-																																		// 함수설정
+			$rs.$broadcast("reservApplySelectedUser", $s.attendType, $s.arr_selected_rcv, $s.arr_selected_cc);	
 		}
 		
 		$s.attendType = undefined;
@@ -2714,10 +2480,9 @@ appHanmaru.controller('boardListController', ['$scope', '$http', '$rootScope', '
 			var boxList = JSON.parse(data.value);
 			$rs.subMenuList = boxList;
 			$rs.subMenuType = 'board';
-			
 			$rs.$broadcast('initBoardList',boxList[0].BoardType,boxList[0].MasterID,boxList[0].Name);
 			$rs.currSubMenu = boxList[0].MasterID;
-		    
+			
 			var pageName = angular.element('[class^="panel"][class*="current"]').attr('id');
 			pushPage(pageName, 'pg_board_list');
 		});
@@ -2796,7 +2561,6 @@ appHanmaru.controller('boardListController', ['$scope', '$http', '$rootScope', '
 	
 	// 공지 리스트 중 하나 클릭 시 공지사항 상세 화면 이동
 	$rs.boardDetail = function(e, board, boardType, displayName) {
-		$('.boardContentsWrap').scrollTop(0);
 		if(boardType != ''){ // 메인에서 접근할 경우 boardType존재, 게시판에서 접근할 경우
 								// boardType ''
 			$s.boardType = boardType;
@@ -2816,14 +2580,8 @@ appHanmaru.controller('boardListController', ['$scope', '$http', '$rootScope', '
 		$http(param).success(function(data) {
 			console.log(data);
 			var boardData = JSON.parse(data.value);
-			// $rs.pushOnePage('pg_board_view');
-			
-			$rs.currentPageId = 'board/board_view'
-			// $rs.$broadcast('initBoardDetail', boardData, displayName);
-			nextPageData($rs,'initBoardDetail','boardDetail', boardData, displayName); // 페이지
-																						// 변경될때
-																						// 데이터이동되도록
-																						// 함수설정
+			$rs.pushOnePage('pg_board_view');
+			$rs.$broadcast('initBoardDetail', boardData, displayName);
 		});
 	}
 	
@@ -2914,7 +2672,7 @@ appHanmaru.controller('boardDetailController', ['$scope', '$http', '$rootScope',
 			$rs.dialog_progress = false;
 		});
 		
-		// 게시글 스크롤 초기화
+		//게시글 스크롤 초기화
 		
 	})
 	
@@ -3101,35 +2859,20 @@ appHanmaru.controller('settingController', ['$scope', '$http', '$rootScope', '$t
 		
 	// 언어설정 페이지 이동
 	$s.btnLanguageSetting = function(event){
-		// $rs.pushOnePage('pg_setting_language');
-		$rs.currentPageId = 'settings/settings_language_detail'
-		// $rs.$broadcast('initLanguageList',$s.myLanguageCode,$s.languageList);
-		nextPageData($rs,'initLanguageList','settingLanguage',$s.myLanguageCode,$s.languageList); // 페이지
-																									// 변경될때
-																									// 데이터이동되도록
-																									// 함수설정
+		$rs.pushOnePage('pg_setting_language');
+		$rs.$broadcast('initLanguageList',$s.myLanguageCode,$s.languageList);
 	};
 	
 	// 회사설정 페이지 이동
 	$s.btnCompanySetting = function(event){
-		// $rs.pushOnePage('pg_setting_company');
-		$rs.currentPageId = 'settings/settings_company_detail'
-		// $rs.$broadcast('initCompanySetting',$s.myCompanyCode,$s.companyList);
-		nextPageData($rs,'initCompanySetting','settingCompany',$s.myCompanyCode,$s.companyList); // 페이지
-																									// 변경될때
-																									// 데이터이동되도록
-																									// 함수설정
+		$rs.pushOnePage('pg_setting_company');
+		$rs.$broadcast('initCompanySetting',$s.myCompanyCode,$s.companyList);
 	}
 	
 	// 메인페이지 설정 이동
 	$s.btnMainpageSetting = function(event){
-		// $rs.pushOnePage('pg_setting_mainpage');
-		$rs.currentPageId = 'settings/settings_mainpage_detail'
-		// $rs.$broadcast('initMainpageList',$s.myMainpageCode,$s.mainPageList);
-		nextPageData($rs,'initMainpageList','settingMainpage',$s.myMainpageCode,$s.mainPageList); // 페이지
-																									// 변경될때
-																									// 데이터이동되도록
-																									// 함수설정
+		$rs.pushOnePage('pg_setting_mainpage');
+		$rs.$broadcast('initMainpageList',$s.myMainpageCode,$s.mainPageList);
 	}
 	// 결재처리 알림
 	$s.btnApprovalPush = function(event){
@@ -3181,10 +2924,7 @@ appHanmaru.controller('settingController', ['$scope', '$http', '$rootScope', '$t
 		$http(param).success(function(data) {
 			$rs.result_message = '설정변경이 적용 되었습니다';
 			$rs.dialog_toast = true;
-			$rs.currentPageId = 'settings/settings'
-			// $rs.$broadcast('initSetting');
-			nextPageData($rs,'initSetting','setting'); // 페이지 변경될때 데이터이동되도록
-														// 함수설정
+			$rs.$broadcast('initSetting');
 		}).then(function(){
 			setTimeout(function(){
 				$rs.dialog_toast = false;
@@ -3271,10 +3011,8 @@ appHanmaru.controller('settingController', ['$scope', '$http', '$rootScope', '$t
 		
 		localStorage.removeItem("account");
 		
-		$rs.currentPageId = 'member/login';
-		// $rs.$broadcast('initLoginPage');
-		nextPageData($rs,'initLoginPage','Login'); // 페이지 변경될때 데이터이동되도록 함수설정
-// pushPage(pageName, 'pg_login');
+		$rs.$broadcast('initLoginPage');
+//		pushPage(pageName, 'pg_login');
 	}
 	
 }]);
@@ -3302,12 +3040,7 @@ appHanmaru.controller('settingCompanyController', ['$scope', '$http', '$rootScop
 		$s.selectedCompanyCode = $s.companyList[$s.curIdx].code;
 		$s.selectedCompanyName = $s.companyList[$s.curIdx].name;
 		
-		$rs.currentPageId = 'settings/settings'
-		// $rs.$broadcast('setCompany',$s.selectedCompanyCode,$s.selectedCompanyName);
-		nextPageData($rs,'setCompany','setting',$s.selectedCompanyCode,$s.selectedCompanyName); // 페이지
-																								// 변경될때
-																								// 데이터이동되도록
-																								// 함수설정
+		$rs.$broadcast('setCompany',$s.selectedCompanyCode,$s.selectedCompanyName);
 		$rs.popPage('pg_setting_company');
 	}
 	
@@ -3335,12 +3068,7 @@ appHanmaru.controller('settingLanguageController', ['$scope', '$http', '$rootSco
 		$s.languageCode = $s.languageList[$s.curIdx].code;
 		$s.languageName = $s.languageList[$s.curIdx].name;
 		
-		$rs.currentPageId = 'settings/settings'
-		// $rs.$broadcast('setLanguage',$s.languageCode,$s.languageName);
-		nextPageData($rs,'setLanguage','setting',$s.languageCode,$s.languageName); // 페이지
-																					// 변경될때
-																					// 데이터이동되도록
-																					// 함수설정
+		$rs.$broadcast('setLanguage',$s.languageCode,$s.languageName);
 		$rs.popPage('pg_setting_language');
 	};
 	
@@ -3367,12 +3095,8 @@ appHanmaru.controller('settingMainpageController', ['$scope', '$http', '$rootSco
 	$s.setMainpage = function(){
 		$s.mainpageCode = $s.mainpageList[$s.curIdx].code;
 		$s.mainpageName = $s.mainpageList[$s.curIdx].name;
-		$rs.currentPageId = 'settings/settings'
-		// $rs.$broadcast('setMainpage',$s.mainpageCode,$s.mainpageName);
-		nextPageData($rs,'setMainpage','setting',$s.mainpageCode,$s.mainpageName); // 페이지
-																					// 변경될때
-																					// 데이터이동되도록
-																					// 함수설정
+		
+		$rs.$broadcast('setMainpage',$s.mainpageCode,$s.mainpageName);
 		$rs.popPage('pg_setting_mainpage');
 	};
 }]);
@@ -3395,9 +3119,9 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 // $s.searchSel = '제목';
 	$s.editTxt = '편집';
 	$s.mailListPage = 1;
-	// 2019.10.21 추가 - jh.j
+	//2019.10.21 추가 - jh.j
 	$rs.isMailBottomLoading = false;
-	// 2019.10.21 추가끝
+	//2019.10.21 추가끝
 	
 	$s.SearchTypeOptions = [
 		{'value':'subject','name':'제목'},
@@ -3411,8 +3135,8 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
   	$s.curSearchType = 0;
   	
 	$rs.$on('initSearchValue',function(event){
-		// 2019.10.21 수정 - jh.j
-	  	// 메일 검색시 default 날짜를 3개월전으로.
+		//2019.10.21 수정 - jh.j
+	  	//메일 검색시 default 날짜를 3개월전으로.
 		$s.SearchValue = '';
 		var now = moment(new Date()).format("YYYY-MM-DD");
 		var monthAgo = moment(new Date()).subtract(3, 'months').format("YYYY-MM-DD");
@@ -3420,7 +3144,7 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 		$s.txtSearchEnd = now;
 		
 		$s.SearchType = $s.SearchTypeOptions[0].value;		
-		// 2019.10.21 수정끝
+		//2019.10.21 수정끝
 	});
 	
 	$rs.$on('displayMailName', function(event, data){
@@ -3436,12 +3160,8 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 			$rs.currSubMenu = mailBoxList[0].FolderId;
 			
 			initMailTree(mailBoxList);
-			$rs.currentPageId = 'mail/mail_list'
-			// $rs.$broadcast('initMailList', mailBoxList[0].DisplayName);
-			nextPageData($rs,'initMailList','mail', mailBoxList[0].DisplayName); // 페이지
-																					// 변경될때
-																					// 데이터이동되도록
-																					// 함수설정
+			
+			$rs.$broadcast('initMailList', mailBoxList[0].DisplayName);
 		});
 	});
 	
@@ -3608,7 +3328,7 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 	});
 	
 	$rs.$on('initMailList', function(event, data) {
-		// $rs.dialog_progress = true;
+		//$rs.dialog_progress = true;
 		// data => menuName
 		$s.mailListPage = 1;
 		
@@ -3623,8 +3343,8 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 		}
 		
 		
-		// 2019.10.21 수정 - jh.j
-		// 3개월에 해당하는 data만 로드하도록 수정.
+		//2019.10.21 수정 - jh.j
+		//3개월에 해당하는 data만 로드하도록 수정.
 		var now = moment(new Date()).format("YYYY-MM-DD");
 		var monthAgo = moment(new Date()).subtract(3, 'months').format("YYYY-MM-DD");
 		$s.txtSearchStart = monthAgo;
@@ -3638,7 +3358,7 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 			StartDate:$s.txtSearchStart,
 			EndDate:$s.txtSearchEnd
 		};
-		// 2019.10.21 수정끝.
+		//2019.10.21 수정끝.
 		
 		var param = callApiObject('mail', 'mailList', reqMailListData);
 		$http(param).success(function(data) {
@@ -3883,14 +3603,9 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 					mail.IsRead = true;
 					// console.log($s.mailList[index].isRead);
 				}).then(function(){
-					// $rs.pushOnePage('pg_mail_view');
-					$rs.currentPageId = 'mail/mail_view'
-					// $rs.$broadcast('initMailDetail',mail);
-					nextPageData($rs,'initMailDetail','hallaMailDetail',mail); // 페이지
-																				// 변경될때
-																				// 데이터이동되도록
-																				// 함수설정
-					// $rs.$broadcast('refreshMailBox');
+					$rs.pushOnePage('pg_mail_view');
+					$rs.$broadcast('initMailDetail',mail);
+					$rs.$broadcast('refreshMailBox');
 				});
 			});
 			
@@ -4008,11 +3723,8 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 	}
 	
 	$s.btnShowMailWrite = function() {
-		// $rs.pushOnePage('pg_mail_write');
-		$rs.currentPageId = 'mail/mail_write'
-		// $rs.$broadcast('mailContentsReset');
-		nextPageData($rs,'mailContentsReset','hallaMailWrite'); // 페이지 변경될때
-																// 데이터이동되도록 함수설정
+		$rs.pushOnePage('pg_mail_write');
+		$rs.$broadcast('mailContentsReset');
 	}
 	
 	$rs.pushOnePage = function(currPageName) {
@@ -4060,17 +3772,17 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 					for(idx in mailList.Mails) {
 						$rs.mailList.push(mailList.Mails[idx]);
 					}
-					// 2019.10.22 추가 - jh.j
-					// 하단 로딩처리
+					//2019.10.22 추가 - jh.j
+					//하단 로딩처리
 					$rs.isMailBottomLoading = false;
-					// 2019.10.22 추가 끝.
+					//2019.10.22 추가 끝.
 				} else {
 					$s.mailListPage--;
 				}
 			}, 500);
 		}).then(function(){
 			$timeout(function(){
-// $rs.dialog_progress = false;
+//				$rs.dialog_progress = false;
 				$rs.isMailBottomLoading = false;
 			}, 1000);
 		});
@@ -4593,14 +4305,8 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 			recipients.EMailAddress = $rs.mailData.FromEmailAddress;
 			recipientArray.push(recipients);
 			
-			// $rs.pushOnePage('pg_mail_write');
-			$rs.currentPageId = 'mail/mail_write'
-			// $rs.$broadcast('initReplyForwardMailData', $s.currSelectedMail,
-			// true, recipientArray, 2);
-			nextPageData($rs,'initReplyForwardMailData','hallaMailWrite', $s.currSelectedMail, true, recipientArray, 2); // 페이지
-																															// 변경될때
-																															// 데이터이동되도록
-																															// 함수설정
+			$rs.pushOnePage('pg_mail_write');
+			$rs.$broadcast('initReplyForwardMailData', $s.currSelectedMail, true, recipientArray, 2);
 			$s.dismissDlgMailPopupMenu();
 			$s.currSelectedMail = undefined;
 		});
@@ -4626,14 +4332,8 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 
 			var recipientArray = new Array();
 			
-			// $rs.pushOnePage('pg_mail_write');
-			$rs.currentPageId = 'mail/mail_write'
-			// $rs.$broadcast('initReplyForwardMailData', $s.currSelectedMail,
-			// true, recipientArray, 4);
-			nextPageData($rs,'initReplyForwardMailData','hallaMailWrite', $s.currSelectedMail, true, recipientArray, 4); // 페이지
-																															// 변경될때
-																															// 데이터이동되도록
-																															// 함수설정
+			$rs.pushOnePage('pg_mail_write');
+			$rs.$broadcast('initReplyForwardMailData', $s.currSelectedMail, true, recipientArray, 4);
 			$s.dismissDlgMailPopupMenu();
 			$s.currSelectedMail = undefined;
 		});
@@ -4771,12 +4471,12 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 				if(scope.agent == 'ios') {
 					if ((el.scrollHeight - el.scrollTop) == clientHeight) { // fully
 																			// scrolled
-						// scope.$root.dialog_progress = true;
+						//scope.$root.dialog_progress = true;
 						scope.$apply(fn);
 					}
 				} else{
 					if((el.scrollTop + clientHeight + 0.5) >= el.scrollHeight){
-						// scope.$root.dialog_progress = true;
+						//scope.$root.dialog_progress = true;
 						scope.$apply(fn);
 					}
 				}
@@ -4832,15 +4532,14 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 	    return $(elm[0]).xpull({
 	    	pullThreshold: 50,
 	        maxPullThreshold: 0,
-	        /*
-			 * 'onPullThreshold' : function(){
-			 * angular.element('.pull-indicator.mail').show(); },
-			 */
+	        /*'onPullThreshold' : function(){
+	        	angular.element('.pull-indicator.mail').show();
+	        },*/
 	        'callback': function(e) {
-	        	// angular.element('.pull-indicator.mail').hide();
+	        	//angular.element('.pull-indicator.mail').hide();
         		scope.$apply(attr.ngXpull);
         		scope.$root.$broadcast('initMailList', scope.displayName);
-        		// scope.$root.dialog_progress = true;
+        		//scope.$root.dialog_progress = true;
 	        	return;
 	        }
 	    });
@@ -4963,7 +4662,7 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 						$rs.mailData.HTMLBody = $sce.trustAsHtml($rs.mailData.Body);
 			        });
 					
-					// 2019-09-26 김현석 [메일 이전,다음보기시 유저정보 갱신부분 추가] start
+					//2019-09-26 김현석 [메일 이전,다음보기시 유저정보 갱신부분 추가] start
 					$s.userDetailData = undefined;
 					var reqUserDetailData = {
 						LoginKey:$rs.userInfo.LoginKey,
@@ -4985,7 +4684,7 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 					}).then(function(){
 						$rs.dialog_progress = false;
 					});
-					// end
+					//end
 				}, 100);
 			}
 		}).then(function(){
@@ -5001,12 +4700,8 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 			}
 			var readParam = callApiObject('mail', 'mailDoRead', readMailData);
 			$http(readParam).success(function(readResultData) {
-				
-				$rs.currentPageId = 'mail/mail_list'
-				//$rs.$broadcast('applyMailReadStatus', $rs.mailData, reqMailDetailData.MailId);
-				nextPageData($rs,'applyMailReadStatus','mail', $rs.mailData, reqMailDetailData.MailId); //페이지 변경될때 데이터이동되도록 함수설정
-
-				// $rs.$broadcast('refreshMailBox');
+				$rs.$broadcast('applyMailReadStatus', $rs.mailData, reqMailDetailData.MailId);
+				$rs.$broadcast('refreshMailBox');
 			});
 			
 			
@@ -5319,15 +5014,8 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 		$rs.mailData.Body=mailBody;
 		parseCIDAttachMailData($rs.mailData);
 		
-		// $rs.pushPage('pg_mail_view', 'pg_mail_write');
-		
-		$rs.currentPageId = 'mail/mail_write'
-		// $rs.$broadcast('initReplyForwardMailData', $rs.mailData, true,
-		// recipientArray, 2);
-		nextPageData($rs,'initReplyForwardMailData','hallaMailWrite', $rs.mailData, true, recipientArray, 2); // 페이지
-																												// 변경될때
-																												// 데이터이동되도록
-																												// 함수설정
+		$rs.pushPage('pg_mail_view', 'pg_mail_write');
+		$rs.$broadcast('initReplyForwardMailData', $rs.mailData, true, recipientArray, 2);
 	}
 	
 	
@@ -5355,15 +5043,8 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 		$rs.mailData.Body=mailBody;
 		parseCIDAttachMailData($rs.mailData);
 		
-		// $rs.pushPage('pg_mail_view', 'pg_mail_write');
-		
-		$rs.currentPageId = 'mail/mail_write'
-			// $rs.$broadcast('initReplyForwardMailData', $rs.mailData, true,
-			// recipientArray, 3);
-		nextPageData($rs,'initReplyForwardMailData','hallaMailWrite', $rs.mailData, true, recipientArray, 3); // 페이지
-																												// 변경될때
-																												// 데이터이동되도록
-																												// 함수설정
+		$rs.pushPage('pg_mail_view', 'pg_mail_write');
+		$rs.$broadcast('initReplyForwardMailData', $rs.mailData, true, recipientArray, 3);
 	}
 	
 	$s.btnForward = function(e) {
@@ -5375,15 +5056,8 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 		$rs.mailData.Body=mailBody;
 		parseCIDAttachMailData($rs.mailData);
 		
-		// $rs.pushPage('pg_mail_view', 'pg_mail_write');
-		
-		$rs.currentPageId = 'mail/mail_write'
-		// $rs.$broadcast('initReplyForwardMailData', $rs.mailData, true,
-		// recipientArray, 4);
-		nextPageData($rs,'initReplyForwardMailData','hallaMailWrite', $rs.mailData, true, recipientArray, 4); // 페이지
-																												// 변경될때
-																												// 데이터이동되도록
-																												// 함수설정
+		$rs.pushPage('pg_mail_view', 'pg_mail_write');
+		$rs.$broadcast('initReplyForwardMailData', $rs.mailData, true, recipientArray, 4);
 	}
 	// 답장/전달 end
 	
@@ -5494,11 +5168,8 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 		var arr = new Array();
 		arr.push(user);
 		
-		$rs.currentPageId = 'mail/mail_write' //추가 페이지 변경
-		//$rs.$broadcast("mailApplySelectedUser", arr, new Array(), new Array());
-    	nextPageData($rs,'mailApplySelectedUser','hallaMailWrite', arr, new Array(), new Array()); //페이지 변경될때 데이터이동되도록 함수설정
-
-		// pushOnePage('pg_mail_write');
+		$rs.$broadcast("mailApplySelectedUser", arr, new Array(), new Array());
+		pushOnePage('pg_mail_write');
 		
 		$s.closeOrganUserDialog();
 	}
@@ -6387,12 +6058,8 @@ appHanmaru.controller('hallaMailWriteCtrl', ['$scope', '$http', '$rootScope', fu
 	$s.btnCallOrganSelect = function(e) {
 		var currPage = angular.element('[class^="panel"][class*="current"]');
 		var pageName = currPage.eq(currPage.length-1).attr('id');
-		
-		$rs.currentPageId = 'organization/organization_list_alt'
-		//$rs.$broadcast('initInsaAltList');
-		nextPageData($rs,'initInsaAltList','organAlt'); //페이지 변경될때 데이터이동되도록 함수설정
-
-		// pushOnePage('pg_insa_list_alt');
+		$rs.$broadcast('initInsaAltList');
+		pushOnePage('pg_insa_list_alt');
 	}
 	
 	/*
@@ -6425,9 +6092,9 @@ appHanmaru.controller('approvalController', ['$scope', '$http', '$rootScope', '$
 	$s.DraftDeptSearch = '';
 	$s.StartDate = '';
 	$s.EndDate = '';
-	// 2019.10.23 추가 - jh.j
+	//2019.10.23 추가 - jh.j
 	$rs.isApprovalBottomLoading = false;
-	// 2019.10.23 추가끝
+	//2019.10.23 추가끝
 	
 	$s.curSearchType1 = 0;
 	$s.curSearchType2 = 0;
@@ -6489,14 +6156,13 @@ appHanmaru.controller('approvalController', ['$scope', '$http', '$rootScope', '$
 	});
 	
 	$rs.$on('initApprovalList', function(event, data) {
-		// $rs.dialog_progress = true;
+		//$rs.dialog_progress = true;
 		$s.approvalListPage = 1;
 		$s.displayName = data;
 		
 		// 검색조건 초기화
 		$rs.$broadcast('initSearchValue');
 		
-
 		//2019.11.11 수정
 		//검색 기준 : 3개월 전 문서만 불러오도록 수정.
 //		if($rs.currSubMenu === 'ARRIVE'){
@@ -6516,7 +6182,7 @@ appHanmaru.controller('approvalController', ['$scope', '$http', '$rootScope', '$
 		var yearAgo = moment(new Date()).subtract(3, 'months').format("YYYY-MM-DD");
 		$s.txtSearchStart = yearAgo;
 		$s.txtSearchEnd = now;
-
+		
 		var reqApprovalListData = {
 			LoginKey:$rs.userInfo.LoginKey,
 			PageSize:20,
@@ -6571,7 +6237,7 @@ appHanmaru.controller('approvalController', ['$scope', '$http', '$rootScope', '$
 			}
 // $rs.approvalData = approvalData;
 // $rs.approvalData.HTMLBody = $sce.trustAsHtml($rs.approvalData.Body);
-			// $rs.pushOnePage('pg_approval_view');
+			$rs.pushOnePage('pg_approval_view');
 			$rs.$broadcast('initApprovalDetail', approvalData, displayName);
 		});
 	}
@@ -6717,9 +6383,9 @@ appHanmaru.controller('approvalController', ['$scope', '$http', '$rootScope', '$
 	// 다음페이지 읽기
 	$s.readApprovalNextPage = function(){
 // //console.log($rs.currSubMenu);
-		// 2019.10.23 추가 - jh.j
+		//2019.10.23 추가 - jh.j
 		$rs.isApprovalBottomLoading = true;
-		// 2019.10.23 추가끝
+		//2019.10.23 추가끝
 		$s.approvalListPage++;
 		
 		var reqApprovalListData = {
@@ -6761,9 +6427,9 @@ appHanmaru.controller('approvalController', ['$scope', '$http', '$rootScope', '$
 					$rs.result_message = '마지막 리스트 입니다.';
 					$rs.dialog_toast = true;
 				}
-				// 2019.10.23 추가 - jh.j
+				//2019.10.23 추가 - jh.j
 				$rs.isApprovalBottomLoading = false;
-				// 2019.10.23 추가끝
+				//2019.10.23 추가끝
 			}, 500);
 			$rs.dialog_progress = false;
 		}).then(function(){
@@ -6795,10 +6461,10 @@ appHanmaru.controller('approvalController', ['$scope', '$http', '$rootScope', '$
 	    	pullThreshold: 50,
 	        maxPullThreshold: 0,
 	        'callback': function(e) {
-	        	// angular.element('.pull-indicator.approval').hide();
+	        	//angular.element('.pull-indicator.approval').hide();
 	        	scope.$apply(attr.ngXpull);
 	        	scope.$root.$broadcast('initApprovalList', scope.displayName);
-	        	// scope.$root.dialog_progress = true;
+	        	//scope.$root.dialog_progress = true;
 	        	return;
 	        }
 	    });
@@ -7279,14 +6945,8 @@ appHanmaru.controller('organController', ['$scope', '$http', '$rootScope', '$tim
 		var arr = new Array();
 		arr.push(user);
 		
-		$rs.currentPageId = 'mail/mail_write'
-		// $rs.$broadcast("mailApplySelectedUser", arr, new Array(), new
-		// Array());
-		nextPageData($rs,'mailApplySelectedUser','hallaMailWrite', arr, new Array(), new Array()); // 페이지
-																									// 변경될때
-																									// 데이터이동되도록
-																									// 함수설정
-		// pushOnePage('pg_mail_write');
+		$rs.$broadcast("mailApplySelectedUser", arr, new Array(), new Array());
+		pushOnePage('pg_mail_write');
 		
 		$s.closeOrganUserDialog();
 	}
@@ -7583,13 +7243,7 @@ appHanmaru.controller('organAltController', ['$scope', '$http', '$rootScope', '$
 	$s.doExecEmail = function(email) {
 		$s.arr_selected_rcv.push(email);
 		
-		$rs.currentPageId = 'mail/mail_write'
-		//$rs.$broadcast("mailApplySelectedUser", $s.arr_selected_rcv, new Array(), new Array());
-		nextPageData($rs,'mailApplySelectedUser','hallaMailWrite', $s.arr_selected_rcv, new Array(), new Array()); // 페이지
-																													// 변경될때
-																													// 데이터이동되도록
-																													// 함수설정
-
+		$rs.$broadcast("mailApplySelectedUser", $s.arr_selected_rcv, new Array(), new Array());
 		var currPage = angular.element('[class^="panel"][class*="current"]');
 		var pageName = currPage.eq(currPage.length-1).attr('id');
 		popPage(pageName);
@@ -7798,10 +7452,7 @@ appHanmaru.controller('organAltController', ['$scope', '$http', '$rootScope', '$
 	}
 	
 	$s.btnApplySelectedUser = function(e){
-		$rs.currentPageId = 'mail/mail_write';
-		//$rs.$broadcast("mailApplySelectedUser", $s.arr_selected_rcv, $s.arr_selected_cc, $s.arr_selected_bcc);
-		nextPageData($rs,'mailApplySelectedUser','hallaMailWrite', $s.arr_selected_rcv, $s.arr_selected_cc, $s.arr_selected_bcc); // 페이지
-		
+		$rs.$broadcast("mailApplySelectedUser", $s.arr_selected_rcv, $s.arr_selected_cc, $s.arr_selected_bcc);
 		var currPage = angular.element('[class^="panel"][class*="current"]');
 		var pageName = currPage.eq(currPage.length-1).attr('id');
 		popPage(pageName);
@@ -7816,10 +7467,7 @@ appHanmaru.controller('organAltController', ['$scope', '$http', '$rootScope', '$
 	}
 	
 	$s.popPage = function(){
-		$rs.currentPageId = 'mail/mail_write';
-		//$rs.$broadcast("mailApplySelectedUser", $s.arr_selected_rcv, $s.arr_selected_cc, $s.arr_selected_bcc);
-		nextPageData($rs,'mailApplySelectedUser','hallaMailWrite', $s.arr_selected_rcv, $s.arr_selected_cc, $s.arr_selected_bcc); // 페이지
-		
+		$rs.$broadcast("mailApplySelectedUser", $s.arr_selected_rcv, $s.arr_selected_cc, $s.arr_selected_bcc);
 		var currPage = angular.element('[class^="panel"][class*="current"]');
 		var pageName = currPage.eq(currPage.length-1).attr('id');
 		popPage('pg_insa_list_alt');
@@ -8199,10 +7847,8 @@ appHanmaru.controller('diaryScheduelController', ['$scope', '$http', '$rootScope
 	$s.Btn_Schedule_View = function(itemData) {
 		$s.isDlgScheduleDetail = false;
 		
-		// $rs.pushOnePage('pg_schedule_view');
-		$rs.currentPageId = 'work_diary/schedule/schedule_view'
-		//$rs.$broadcast('initScheduleView', itemData);
-		nextPageData($rs,'initScheduleView','scheduleView',itemData); //페이지 변경될때 데이터이동되도록 함수설정
+		$rs.pushOnePage('pg_schedule_view');
+		$rs.$broadcast('initScheduleView', itemData);
 	}
 	
 	// 일정 타이틀(년.월) 변경
@@ -8298,24 +7944,16 @@ appHanmaru.controller('diaryScheduelController', ['$scope', '$http', '$rootScope
 	$s.btnShowScheduleWrite = function(){
 		$s.isDlgScheduleDetail = false;
 		
-		// $rs.pushOnePage('pg_schedule_write');
-		$rs.currentPageId = 'work_diary/schedule/schedule_write'
-		//$rs.$broadcast('initScheduleWrite');
-		nextPageData($rs,'initScheduleWrite','scheduleWrite'); //페이지 변경될때 데이터이동되도록 함수설정
-
+		$rs.pushOnePage('pg_schedule_write');
+		$rs.$broadcast('initScheduleWrite');
 	}
 	
 	$s.btnShowScheduleWrite_Time = function() {
 		$s.isDlgScheduleDetail = false;
 		
-		// $rs.pushOnePage('pg_schedule_write');
-		$rs.currentPageId = 'work_diary/schedule/schedule_write';
-		
-		//$rs.$broadcast( 'initScheduleWrite' );
-		//$rs.$broadcast('initScheduleData', $s.currSelectedDate );
-		
-		nextPageData($rs,'initScheduleWrite','scheduleWrite'); //페이지 변경될때 데이터이동되도록 함수설정
-		nextPageData($rs,'initScheduleData','scheduleWrite', $s.currSelectedDate); //페이지 변경될때 데이터이동되도록 함수설정
+		$rs.pushOnePage('pg_schedule_write');
+		$rs.$broadcast( 'initScheduleWrite' );
+		$rs.$broadcast('initScheduleData', $s.currSelectedDate );
 	}
 	
 	$s.scheduleDateSelectBtn = function(event){
@@ -8399,7 +8037,6 @@ appHanmaru.controller('diaryScheduelController', ['$scope', '$http', '$rootScope
 			$s.cal.fullCalendar('gotoDate', $s.currentYear + '-' + $s.currentMonth );
 			
 			$s.currentMonth--;
-			
 			$rs.$broadcast('initWorkList');
 		});
 	}
@@ -8430,12 +8067,8 @@ appHanmaru.controller('diaryScheduelController', ['$scope', '$http', '$rootScope
 	$s.addShareUser = function(e, type) {
 		var currPage = angular.element('[class^="panel"][class*="current"]');
 		var pageName = currPage.eq(currPage.length-1).attr('id');
-		
-		$rs.currentPageId = 'organization/organization_list_reserv'
-		//$rs.$broadcast('initInsaReservList',type);
-		nextPageData($rs,'initInsaReservList','organReserv',type); //페이지 변경될때 데이터이동되도록 함수설정
-
-		// pushOnePage('pg_insa_list_reserv');
+		$rs.$broadcast('initInsaReservList',type);
+		pushOnePage('pg_insa_list_reserv');
 	}
 	
 	// 2019-02-11 PK 일정참고자 리스트 선택 반영
@@ -8652,10 +8285,8 @@ appHanmaru.controller('scheduleViewController', ['$scope', '$http', '$rootScope'
 	
 	// 2019-03-06 PK 일정 수정
 	$s.ScheduleSetting = function() {
-		// $rs.pushOnePage( 'pg_schedule_write' );
-		$rs.currentPageId = 'work_diary/schedule/schedule_write'
-		//$rs.$broadcast( 'initScheduleWrite', $s.ScheduleItem, $s.ScheduleViewData );
-		nextPageData($rs,'initScheduleWrite','scheduleWrite', $s.ScheduleItem, $s.ScheduleViewData); //페이지 변경될때 데이터이동되도록 함수설정
+		$rs.pushOnePage( 'pg_schedule_write' );
+		$rs.$broadcast( 'initScheduleWrite', $s.ScheduleItem, $s.ScheduleViewData );
 	}
 }]);
 
@@ -9258,10 +8889,7 @@ appHanmaru.controller('scheduleWriteController', ['$scope', '$http', '$rootScope
 				if(code === 1) {
 					setTimeout(function(){
 						$s.popPage('pg_schedule_write');
-						$rs.currentPageId = 'work_diary/schedule/diary_schedule';
-						//$rs.$broadcast('ChangeWorkList');
-						nextPageData($rs,'ChangeWorkList','diaryScheduel'); //페이지 변경될때 데이터이동되도록 함수설정
-
+						$rs.$broadcast('ChangeWorkList');
 					}, 1000);
 				} else if(code === -1) {
 					alert(data.value);
@@ -9424,7 +9052,7 @@ appHanmaru.controller('scheduleWriteController', ['$scope', '$http', '$rootScope
 		var currPage = angular.element('[class^="panel"][class*="current"]');
 		var pageName = currPage.eq(currPage.length-1).attr('id');
 		$rs.$broadcast('initInsaReservList',attendType);
-		// pushOnePage('pg_insa_list_reserv');
+		pushOnePage('pg_insa_list_reserv');
 	}
 	
 	// 2019-02-05 PK 참석자 리스트 선택 반영
@@ -9901,7 +9529,7 @@ appHanmaru.controller('workTaskController', ['$scope', '$http', '$rootScope', '$
 			var sendData = JSON.parse(data.value);
 			var code = parseInt(data.Code, 10);
 			if(code === 1) {
-				// $rs.pushOnePage('pg_task_write');
+				$rs.pushOnePage('pg_task_write');
 				$rs.$broadcast('initTaskWrite',sendData);
 				$s.isShowTempleteDlg = false;
 			} else if(code === -1) {
@@ -9954,7 +9582,7 @@ appHanmaru.controller('workTaskController', ['$scope', '$http', '$rootScope', '$
 	}
 	
 	$s.moveTaskView = function(event, taskListItem){
-		// $rs.pushOnePage('pg_task_view');
+		$rs.pushOnePage('pg_task_view');
 		$rs.$broadcast('initTaskDetailView',taskListItem);
 	}
 	
@@ -10110,7 +9738,7 @@ appHanmaru.controller('taskViewController', ['$scope', '$http', '$rootScope', '$
 	
 	$s.taskModify = function(event){
 		$rs.$broadcast('initTaskWrite',$s.resTaskDetail);
-		// $rs.pushOnePage('pg_task_write');
+		$rs.pushOnePage('pg_task_write');
 		popPage('pg_task_view');
 	};
 	
@@ -10356,7 +9984,7 @@ appHanmaru.controller('workWriteController', ['$scope', '$http', '$rootScope', '
 		var currPage = angular.element('[class^="panel"][class*="current"]');
 		var pageName = currPage.eq(currPage.length-1).attr('id');
 		$rs.$broadcast('initInsaReservList',attendType);
-		// pushOnePage('pg_insa_list_reserv');
+		pushOnePage('pg_insa_list_reserv');
 	}
 	
 	// 조직도 사용자(담당자) 선택 반영
@@ -10499,7 +10127,7 @@ appHanmaru.controller('reportListController', ['$scope', '$http', '$rootScope', 
 			var sendData = JSON.parse(data.value);
 			var code = parseInt(data.Code, 10);
 			if(code === 1) {
-				// $rs.pushOnePage('pg_report_write');
+				$rs.pushOnePage('pg_report_write');
 				$rs.$broadcast('initReportWrite',sendData);
 				$s.isShowTempleteDlg = false;
 			} else if(code === -1) {
@@ -10575,7 +10203,7 @@ appHanmaru.controller('reportListController', ['$scope', '$http', '$rootScope', 
 	}
 	
 	$s.moveReportView = function(event, reportListItem){
-		// $rs.pushOnePage('pg_report_view');
+		$rs.pushOnePage('pg_report_view');
 		$rs.$broadcast('initReportDetailView',reportListItem);
 	};
 	
@@ -10649,7 +10277,7 @@ appHanmaru.controller('reportViewController', ['$scope', '$http', '$rootScope', 
 	
 	$s.reportModify = function(event){
 		$rs.$broadcast('initReportWrite',$s.resReportDetail);
-		// $rs.pushOnePage('pg_report_write');
+		$rs.pushOnePage('pg_report_write');
 		popPage('pg_report_view');
 	};
 	
@@ -10740,7 +10368,7 @@ appHanmaru.controller('reportWriteController', ['$scope', '$http', '$rootScope',
 		var currPage = angular.element('[class^="panel"][class*="current"]');
 		var pageName = currPage.eq(currPage.length-1).attr('id');
 		$rs.$broadcast('initInsaReservList',attendType);
-		// pushOnePage('pg_insa_list_reserv');
+		pushOnePage('pg_insa_list_reserv');
 	}
 	
 	// 조직도 사용자 선택 반영
@@ -10866,7 +10494,7 @@ appHanmaru.controller('planListController', ['$scope', '$http', '$rootScope', '$
 			var code = parseInt(data.Code, 10);
 			if(code === 1) {
 				$rs.$broadcast('initPlanWrite',sendData);
-				// $rs.pushOnePage('pg_plan_write');
+				$rs.pushOnePage('pg_plan_write');
 				$s.isShowTempleteDlg = false;
 			} else if(code === -1) {
 				alert(data.value);
@@ -10944,7 +10572,7 @@ appHanmaru.controller('planListController', ['$scope', '$http', '$rootScope', '$
 			if(code === 1) {
 				setTimeout(function(){
 					$rs.$broadcast('initPlanWrite');
-					// $rs.pushOnePage('pg_plan_write',sendData);
+					$rs.pushOnePage('pg_plan_write',sendData);
 					$s.isShowTempleteDlg = false;
 				}, 1000);
 			} else if(code === -1) {
@@ -10957,7 +10585,7 @@ appHanmaru.controller('planListController', ['$scope', '$http', '$rootScope', '$
 	}
 	
 	$s.movePlanView = function(event, planListItem){
-		// $rs.pushOnePage('pg_plan_view');
+		$rs.pushOnePage('pg_plan_view');
 		$rs.$broadcast('initPlanDetailView',planListItem);
 	}
 	
@@ -11269,3 +10897,4 @@ function logicTest() {
 		}
 	}
 }
+
