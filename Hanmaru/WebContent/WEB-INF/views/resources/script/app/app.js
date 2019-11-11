@@ -760,7 +760,6 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 		var loginData = {
 			LoginKey:$rs.userInfo.LoginKey
 		};
-		// todo 실제 날짜 function 호출하도록 바꿀것.
 		if(menuName === 'work'){
 			var now = moment(new Date()).format("YYYY-MM-DD");
 			var future = moment(new Date()).add(1,'d').format("YYYY-MM-DD");
@@ -783,6 +782,7 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 			$rs.$broadcast('initAttendanceList',now);
 		}else{
 			var param = callApiObject(menuName, menuName+'Boxs', loginData);
+			console.log(param);
 			$http(param).success(function(data) {
 				var boxList = JSON.parse(data.value);
 				$rs.subMenuList = boxList;
@@ -6163,19 +6163,25 @@ appHanmaru.controller('approvalController', ['$scope', '$http', '$rootScope', '$
 		// 검색조건 초기화
 		$rs.$broadcast('initSearchValue');
 		
-		if($rs.currSubMenu === 'ARRIVE'){ // 미결함은 날짜제한 없음, 나머지 결재함은 1년전~당일 기준
-											// 날짜 설정 필요.
-			$s.txtSearchStart = '';
-			$s.txtSearchEnd = '';
-		}else{
-			//2019.10.21 수정 - jh.j
-			//3개월 전 data만 로드 되도록 수정.
-			var now = moment(new Date()).format("YYYY-MM-DD");
-			var yearAgo = moment(new Date()).subtract(3, 'months').format("YYYY-MM-DD");
-			$s.txtSearchStart = yearAgo;
-			$s.txtSearchEnd = now;
-			//2019.10.21 수정끝.
-		}
+		//2019.11.11 수정
+		//검색 기준 : 3개월 전 문서만 불러오도록 수정.
+//		if($rs.currSubMenu === 'ARRIVE'){
+//			var now = moment(new Date()).format("YYYY-MM-DD");
+//			var yearAgo = moment(new Date()).subtract(3, 'months').format("YYYY-MM-DD");
+//			$s.txtSearchStart = yearAgo;
+//			$s.txtSearchEnd = now;
+////			$s.txtSearchStart = '';
+////			$s.txtSearchEnd = '';
+//		}else{
+//			var now = moment(new Date()).format("YYYY-MM-DD");
+//			var yearAgo = moment(new Date()).subtract(3, 'months').format("YYYY-MM-DD");
+//			$s.txtSearchStart = yearAgo;
+//			$s.txtSearchEnd = now;
+//		}
+		var now = moment(new Date()).format("YYYY-MM-DD");
+		var yearAgo = moment(new Date()).subtract(3, 'months').format("YYYY-MM-DD");
+		$s.txtSearchStart = yearAgo;
+		$s.txtSearchEnd = now;
 		
 		var reqApprovalListData = {
 			LoginKey:$rs.userInfo.LoginKey,
@@ -6193,6 +6199,7 @@ appHanmaru.controller('approvalController', ['$scope', '$http', '$rootScope', '$
 		};
 		
 		var param = callApiObject('approval', 'approvalList', reqApprovalListData);
+		console.log(param);
 		
 		$http(param).success(function(data) {
 			var approvalList = JSON.parse(data.value);
