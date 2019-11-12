@@ -1600,7 +1600,7 @@ diary 검색 드롭다운
 .scheduleSecondSelect pp{font-size:3.5vw;color:#BCBEC1;/*vertical-align:middle;*/font-family: Arial;font-size: 3.5vw;}
 
 .checkDateWrap{position:relative;width:100%}
-.checkDateWrap p{display:inline-block;width:15vw;font-size:3.2vw;margin: 1em 0.5em;}
+/* .checkDateWrap p{display:inline-block;width:15vw;font-size:3.2vw;margin: 1em 0.5em;}*/
 .checkDateWrap .scheduleTimeDiv{display: inline-block;width: 76vw;margin-left: 15vw;}
 .scheduleTimeDiv .scheduleTimeWrap{border-bottom:1px solid #eff0f3;}
 .scheduleTimeWrap::after{content:"";display:table;clear:both}
