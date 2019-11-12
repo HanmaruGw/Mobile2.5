@@ -1394,7 +1394,7 @@ diary 검색 드롭다운
 /* 달력제외css */
 /**workDiary start**/
 .workDiaryContainer{position:absolute;width:100%;height:100%}
-.headerBarTitle.diaryDrop{left:0;transform:translate(250%, -50%);text-align:left}
+.headerBarTitle.diaryDrop{left:50%;transform:translate(-50%, -50%);text-align:left}
 .headerBarTitle.diaryDrop img{display:inline-block;width:21%;vertical-align:middle}
 .headerBarTitle.diaryDrop span{display:inline-block;font-size:4.5vw;color:#4C5264;vertical-align:middle}
 .headerBarSearch.workDiarySearch{float:right;width:12%;height:100%;position:relative}
