@@ -406,7 +406,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .mailListBox > div:first-child ng-include[src="rightTemplate"]{display:table;height:100%}
 .mailListBox > div:first-child ng-include[src="rightTemplate"] p{display:table-cell;vertical-align:middle;white-space:nowrap} */
 /*.mailListDiv.full .mailListBox{height:6%}*/
-.mailListDayDiv{background:#F2F4F8;color:#333333;font-size:3vw;padding:2vw 4vw}
+.mailListDayDiv{background:#F2F4F8;color:#333333;font-size:3vw;padding:0.8vw 4vw}
 .mailListEdit{width:5%;height:50%;margin-top:1vw;float:left;position:relative;margin:2.5vw 1vw 2.5vw 2.5vw;}
 .mailListEdit div{border:1px solid #1470de;border-radius:50%;width:60%;height:0;padding:30% 0}
 .mailListEdit div.selected{background-color:#1470de}
@@ -1394,7 +1394,7 @@ diary 검색 드롭다운
 /* 달력제외css */
 /**workDiary start**/
 .workDiaryContainer{position:absolute;width:100%;height:100%}
-.headerBarTitle.diaryDrop{left:0;transform:translate(220%, -60%);text-align:left}
+.headerBarTitle.diaryDrop{left:0;transform:translate(250%, -50%);text-align:left}
 .headerBarTitle.diaryDrop img{display:inline-block;width:21%;vertical-align:middle}
 .headerBarTitle.diaryDrop span{display:inline-block;font-size:4.5vw;color:#4C5264;vertical-align:middle}
 .headerBarSearch.workDiarySearch{float:right;width:12%;height:100%;position:relative}
@@ -1402,7 +1402,7 @@ diary 검색 드롭다운
 .headerBarAttach.workDiaryAttach{float:right;width:12%;height:100%;position:relative}
 .headerBarAttach.workDiaryAttach img {position:absolute;width:40%;top:50%;left:50%;transform:translate(-50%, -50%)}
 .headerBarSend.workDiaryWrite{float:right;width:12%;height:100%;position:relative}
-.headerBarSend.workDiaryWrite img{width:70%;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}
+.headerBarSend.workDiaryWrite img{width:60%;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}
 .headerBarMove.write img{width:6.5vw}
 .headerUnderBar.diaryUnderHeight{position:absolute}
 .workDiarySearchBack{display:none;background:rgba(0,0,0,0.5);width:100%;height:93%;position:absolute;top:20vw;z-index:5999}
@@ -1560,10 +1560,10 @@ diary 검색 드롭다운
 .scheduleListTop li input{width:100%;text-align:center;padding:2vw 0;box-shadow:inset 1px 1px 1px #ccc} */
 .workDiaryWriteBack{display:none;background:rgba(0,0,0,0.6);width:100%;height:93%;position:absolute;z-index:5999}
 .diaryWriteDiv{font-size:0;overflow-x:hidden;height:100vh}
-.diaryWriteDiv .diaryWriteContents{padding:3%}
+.diaryWriteDiv .diaryWriteContents{padding:2vw 5.5vw 3.5vw 3.5vw}
 .writeContentsCalendar::after{content:"";display:table;clear:both}
-.writeContentsCalendar p{float:left;display:inline-block;width:15vw;font-size:3.2vw;margin: 1em 0.5em;}
-.writeContentsCalendar .calendarOptionSelect{display:inline-block;width:72vw;height:6.6vw;padding-bottom:1.2vw;border-bottom:2px solid #eff0f3;margin-top:10px;}
+.writeContentsCalendar p{float: left;display: inline-block;width: 15vw;font-size: 3.5vw;margin: 0;padding: 3vw 0;}
+.writeContentsCalendar .calendarOptionSelect{display: inline-block;width: 72vw;padding: 3vw 2vw;border-bottom: 1px solid #eff0f3;}
 .calendarOptionSelect span{display:inline-block;font-size:3.2vw;color:#4E86FF;vertical-align:middle}
 .calendarOptionSelect img{display:inline-block;margin-left:2vw;vertical-align:middle}
 .writeScheduleTitle{margin-top:1.4vw}
