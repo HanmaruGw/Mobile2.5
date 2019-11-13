@@ -1625,7 +1625,7 @@ diary 검색 드롭다운
 .scheduleWorkDiv p{float: left;display: inline-block;font-size: 3.5vw;width: 15vw;margin: 0;padding: 3vw 0;}
 .scheduleWorkDiv .scheduleWorkSelect{display: inline-block;width: 72vw; padding: 3vw 2vw;border-bottom: 1px solid #eff0f3;}
 .scheduleWorkSelect span{display:inline-block;font-size:3.5vw;color:#4E86FF;vertical-align:middle;}
-.scheduleWorkSelect img{display:inline-block;margin-left:2vw;vertical-align:middle;padding-top: 0.5vw;}
+.scheduleWorkSelect img{display:inline-block;margin-left:2vw;vertical-align:middle;}
 .scheduleAttendeeDiv{}
 .scheduleAttendeeDiv p{display: inline-block;font-size: 3.5vw;width: 15vw;padding: 3vw 0;margin: 0;}
 .scheduleAttendeeDiv .scheduleAttendeeContents{position:relative;width:100%;display:inline-block;font-size:3.5vw;}
@@ -1633,18 +1633,18 @@ diary 검색 드롭다운
 .scheduleAttendeeContents img{position: absolute;right: 0;transform: translateY(-50%);width: 6vw;}
 
 /* 2019-02-05 PK */
-.scheduleAttendeeDiv .wrap_selected_user{overflow: hidden;position: relative;display: inline-block;max-width: 66vw;padding: 1vw 6vw 1vw 2vw;text-overflow: ellipsis;white-space: nowrap;color: #4E86FF;font-size: 3.5vw;}
+.scheduleAttendeeDiv .wrap_selected_user{overflow: hidden;position: relative;display: inline-block;max-width: 68vw;padding: 1vw 6vw 1vw 2vw;text-overflow: ellipsis;white-space: nowrap;color: #4E86FF;font-size: 3.5vw;}
 .wrap_selected_user a{position:absolute;top:50%;right:1vw;transform:translateY(-50%)}
 .wrap_selected_user a img{width:3vw;margin-left:1vw;vertical-align:middle;margin-bottom:1vw;}
 
 .scheduleSharerDiv{}
 .scheduleSharerDiv p{display: inline-block;width: 15vw;padding: 3vw 0;margin: 0;}
 .scheduleSharerDiv .scheduleSharerContents{position:relative;width:100%;display:inline-block;font-size:3.5vw;}
-.scheduleSharerContents input{width: 76vw;border: none;border-bottom: 1px solid #eff0f3;color: #4E86FF;padding: 1vw 2vw 3vw 1vw;font-size: 3.5vw;}
+.scheduleSharerContents input{width: 76vw;border: none;border-bottom: 1px solid #eff0f3;color: #4E86FF;padding: 1vw 2vw 3vw 2vw;font-size: 3.5vw;}
 .scheduleSharerContents img{position:absolute;right:0;transform:translateY(-50%);width:6vw}
 
 /* 2019-02-06 PK */
-.scheduleSharerDiv .wrap_selected_user{overflow: hidden;position: relative;display: inline-block;max-width: 66vw;padding: 1vw 6vw 1vw 2vw;text-overflow: ellipsis;white-space: nowrap;color: #4E86FF;}
+.scheduleSharerDiv .wrap_selected_user{overflow: hidden;position: relative;display: inline-block;max-width: 68vw;padding: 1vw 6vw 1vw 2vw;text-overflow: ellipsis;white-space: nowrap;color: #4E86FF;}
 .wrap_selected_user a{position:absolute;top:50%;right:1vw;transform:translateY(-50%)}
 .wrap_selected_user a img{width:3vw;margin-left:1vw;vertical-align:middle;margin-bottom:1vw;}
 
@@ -1656,24 +1656,24 @@ diary 검색 드롭다운
 .shareSelectWrap .shareSelectAll{display:inline-block;width:40%;margin-left:2vw}
 .shareSelectAll input{display:inline-block;vertical-align:middle;margin-right:2vw}
 .shareSelectAll span{display:inline-block;vertical-align:middle;font-size:3.2vw}
-.scheduleReservationDiv{margin-top:3.6vw}
-.scheduleReservationDiv p{float:left;display:inline-block;font-size:3.2vw;width:20%}
-.scheduleReservationDiv .scheduleReservationContents{display:inline-block;width:80%;height:6.6vw;padding-bottom:0.8vw;border-bottom:2px solid #eff0f3;margin-top:12px;}
-.scheduleReservationContents span{display:inline-block;font-size:3.2vw;color:#4E86FF;vertical-align:middle}
+
+.scheduleReservationDiv p{float: left;display: inline-block;font-size: 3.5vw;width: 15vw;padding: 3vw 0;margin: 0;}
+.scheduleReservationDiv .scheduleReservationContents{display: inline-block;width: 72vw;padding: 3vw 2vw;border-bottom: 1px solid #eff0f3;}
+.scheduleReservationContents span{display:inline-block;font-size:3.5vw;color:#4E86FF;vertical-align:middle}
 .scheduleReservationContents img{display:inline-block;margin-left:2vw;vertical-align:middle}
-.scheduleOptionDiv{margin-top:3.6vw}
-.scheduleOptionDiv p{float:left;display:inline-block;font-size:3.2vw;width:20%}
-.scheduleOptionDiv .colorOptionDiv{display:inline-block;width:80%;border-bottom:2px solid #eff0f3}
+
+.scheduleOptionDiv p{float: left;display: inline-block;font-size: 3.5vw;width: 15vw;margin: 0;padding: 3vw 0;}
+.scheduleOptionDiv .colorOptionDiv{display: inline-block;width: 72vw;border-bottom: 1px solid #eff0f3;padding: 3vw 2vw;}
 .colorOptionDiv ul{display:inline-block;}
-.colorOptionDiv ul .colorPickerOption{display:inline-block;background:#ffcc00;width:5.556vw;height:5.556vw;margin:2vw;border-radius:4px}
+.colorOptionDiv ul .colorPickerOption{display:inline-block;background:#ffcc00;width:5vw;height:5vw;margin:2.6vw;border-radius:4px}
 .colorOptionDiv ul .colorPickerOption:focus{transform:scale(1.2, 1.2)}
 
-.schedulelAttachDiv{position:relative;margin-top:2vw}
+.schedulelAttachDiv{position:relative;}
 .schedulelAttachDiv::after{content:"";display:table;clear:both}
 .schedulelAttachDiv .scheduleFileAttach{display:block;position:relative;/*height:100%;*/width:80%}
-.schedulelAttachDiv .scheduleFileNoList{float:right;display:inline-block;position:relative;width:80%;height:5%;border-bottom:2px solid #eff0f3;margin-left:4vw;padding:0 0 2vw 0;min-height:40px;}
-.scheduleFileNoList img{position:absolute;top:22px ;right:0;transform:translateY(-50%);width:6.67vw}
-.schedulelAttachDiv .scheduleAttachTitle{float:left;font-size:3.5vw;display:inline-block;width:15%;/*padding:1.8vw 0*/}
+.schedulelAttachDiv .scheduleFileNoList{float: right;display: inline-block;position: relative;width: 72vw;border-bottom: 1px solid #eff0f3;padding: 3vw 2vw;}
+.scheduleFileNoList img{position:absolute;top:22px ;right:0;transform:translateY(50%);width:6vw}
+.schedulelAttachDiv .scheduleAttachTitle{float: left;font-size: 3.5vw;display: inline-block;width: 15vw;padding: 3vw 0;margin: 0;}
 .scheduleFileAttach{/*display:none !important;*/background:url('/resources/image/extension/file-pdf-1.png')no-repeat 0% 100%;background-size:8.9vw}
 .scheduleFileAttach .scheduleFileInfo{font-size:3.5vw;/*padding-left:10vw;*/line-height:2vw}
 .scheduleFileAttach span{display:block;color:#BCBEC1;margin-top:2vw}
