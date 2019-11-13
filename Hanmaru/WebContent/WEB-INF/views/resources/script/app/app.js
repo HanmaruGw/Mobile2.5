@@ -995,7 +995,7 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 				androidWebView.isCanGoBack(false);
 			}
 		}
-		
+		 
 	};
 	
 	window.callPopPage = function(){
