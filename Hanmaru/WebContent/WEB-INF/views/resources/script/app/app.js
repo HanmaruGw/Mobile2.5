@@ -983,7 +983,7 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 		var pageName = currPage.eq(currPage.length-1).attr('id'); // 가장 위에 출력된 화면
 		
 		if(currPage.length > 1){
-			if(androidWebView != undefined) {
+			if(androidWebView != undefined) { 
 				androidWebView.isCanGoBack(true);
 //				$s.popPage(pageName);
 			}			
