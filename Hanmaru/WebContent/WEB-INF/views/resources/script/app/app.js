@@ -976,7 +976,7 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 			}
 		}, 200);
 	};
-	
+	 
 	// back button
 	window.checkCanGoBack = function(){
 		var currPage = angular.element('[class^="panel"][class*="current"]');
