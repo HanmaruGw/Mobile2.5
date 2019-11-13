@@ -1565,7 +1565,7 @@ diary 검색 드롭다운
 .writeContentsCalendar p{float: left;display: inline-block;width: 15vw;font-size: 3.5vw;margin: 0;padding: 3vw 0;}
 .writeContentsCalendar .calendarOptionSelect{display: inline-block;width: 72vw;padding: 3vw 2vw;border-bottom: 1px solid #eff0f3;}
 .calendarOptionSelect span{display:inline-block;font-size:3.5vw;color:#4E86FF;vertical-align:middle}
-.calendarOptionSelect img{display:inline-block;margin-left:2vw;vertical-align:middle}
+.calendarOptionSelect img{display:inline-block;margin-left:2vw;vertical-align:middle;width: 3.8vw;}
 /*.writeScheduleTitle{}*/
 .writeScheduleTitle::after{content:"";display:table;clear:both}
 .writeScheduleTitle p{display:inline-block;width:15vw;font-size:3.5vw;margin: 0;padding: 3vw 0;}
@@ -1583,13 +1583,13 @@ diary 검색 드롭다운
 /*.scheduleFirstDate ppp{width:60%;border:none;text-align:left;background-size:6.67vw;padding:3.2vw 2vw;margin-left:32px;font-size:15px;}*/
 .scheduleFirstDate p{display: inline-block;width: 20vw;margin-left: 8vw;font-size: 3.5vw;}
 .scheduleFirstDate p::placeholder{color:#000}
-.scheduleFirstDate img{width: 20%;position: absolute;}
+.scheduleFirstDate img{width: 6vw;position: absolute;}
 .scheduleSwungDash{display:inline-block;font-size:3.5vw;color:#8E8E93;vertical-align:super}
 .scheduleDateDiv .scheduleSecondDate{display: inline-block;width: 30vw; margin-left: 8px;position: relative;}
 /*.scheduleSecondDate ppp{width:100%;border:none;text-align:right;background-size:6.67vw;padding:3.2vw 2vw;margin-left:32px;font-size:15px;}*/
 .scheduleSecondDate p{display: inline-block;font-size: 3.5vw; margin-left: 8vw; width: 20vw;}
 .scheduleSecondDate p::placeholder{color:#000}
-.scheduleSecondDate img{width: 20%; position: absolute;}
+.scheduleSecondDate img{width: 6vw; position: absolute;}
 /*.scheduleFirstSelect{display:inline-block;margin-top:4vw;border-bottom:1px solid #d8d8d8;width:45%;padding-bottom:1.2vw}*/
 .scheduleFirstSelect{display: inline-block;width: 20vw;padding: 3vw 2vw;}
 .scheduleFirstSelect .firstSelectOption{border:none;width:100%;background-color:#fff;font-size: 3.5vw;}
@@ -1614,7 +1614,7 @@ diary 검색 드롭다운
 
 .checkDateWrap .checkAllDate{position: absolute;top: 50%; right: 2vw;transform: translateY(-50%);display: inline-block;}
 .checkDateWrap .allDateWrap{}
-.checkDateWrap .allDateWrap img{display:inline-block;vertical-align:middle;margin-right:2vw}
+.checkDateWrap .allDateWrap img{display:inline-block;vertical-align:middle;margin-right:2vw;width: 5vw;}
 .checkDateWrap .allDateWrap span{display:inline-block;font-size:3.5vw;vertical-align:middle}
 
 .scheduleDetailBtn{/*display:none;*/margin-top:5.2vw}   /* 자세히 버튼을 클릭하면, 상세 작성 내용이 나오며 버튼은 사라짐. */
@@ -1625,7 +1625,7 @@ diary 검색 드롭다운
 .scheduleWorkDiv p{float: left;display: inline-block;font-size: 3.5vw;width: 15vw;margin: 0;padding: 3vw 0;}
 .scheduleWorkDiv .scheduleWorkSelect{display: inline-block;width: 72vw; padding: 3vw 2vw;border-bottom: 1px solid #eff0f3;}
 .scheduleWorkSelect span{display:inline-block;font-size:3.5vw;color:#4E86FF;vertical-align:middle;}
-.scheduleWorkSelect img{display:inline-block;margin-left:2vw;vertical-align:middle;}
+.scheduleWorkSelect img{display:inline-block;margin-left:2vw;vertical-align:middle;width: 3.8vw;}
 .scheduleAttendeeDiv{}
 .scheduleAttendeeDiv p{display: inline-block;font-size: 3.5vw;width: 15vw;padding: 3vw 0;margin: 0;}
 .scheduleAttendeeDiv .scheduleAttendeeContents{position:relative;width:100%;display:inline-block;font-size:3.5vw;}
@@ -1660,7 +1660,7 @@ diary 검색 드롭다운
 .scheduleReservationDiv p{float: left;display: inline-block;font-size: 3.5vw;width: 15vw;padding: 3vw 0;margin: 0;}
 .scheduleReservationDiv .scheduleReservationContents{display: inline-block;width: 72vw;padding: 3vw 2vw;border-bottom: 1px solid #eff0f3;}
 .scheduleReservationContents span{display:inline-block;font-size:3.5vw;color:#4E86FF;vertical-align:middle}
-.scheduleReservationContents img{display:inline-block;margin-left:2vw;vertical-align:middle}
+.scheduleReservationContents img{display:inline-block;margin-left:2vw;vertical-align:middle;width: 3.8vw;}
 
 .scheduleOptionDiv p{float: left;display: inline-block;font-size: 3.5vw;width: 15vw;margin: 0;padding: 3vw 0;}
 .scheduleOptionDiv .colorOptionDiv{display: inline-block;width: 72vw;border-bottom: 1px solid #eff0f3;padding: 3vw 2vw;}
