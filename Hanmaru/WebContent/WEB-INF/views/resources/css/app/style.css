@@ -1627,13 +1627,16 @@ diary 검색 드롭다운
 .scheduleWorkSelect span{display:inline-block;font-size:3.5vw;color:#4E86FF;vertical-align:middle;}
 .scheduleWorkSelect img{display:inline-block;margin-left:2vw;vertical-align:middle;width: 3.8vw;}
 .scheduleAttendeeDiv{}
-.scheduleAttendeeDiv p{display: inline-block;font-size: 3.5vw;width: 15vw;padding: 3vw 0;margin: 0;}
+.scheduleAttendeeDiv p{display: inline-block;font-size: 3.5vw;width: 15vw;padding: 3vw 0;margin: 0;float: left;}
 .scheduleAttendeeDiv .scheduleAttendeeContents{position:relative;width:100%;display:inline-block;font-size:3.5vw;}
-.scheduleAttendeeContents input{width: 76vw;border: none;border-bottom: 1px solid #eff0f3;color: #4E86FF;padding: 1vw 2vw 3vw 2vw;font-size: 3.5vw;}
+.scheduleAttendeeContents input{width: 66vw;border: none;color: #4E86FF;padding: 0.5vw 2vw 2vw 2vw;font-size: 3.5vw;}
 .scheduleAttendeeContents img{position: absolute;right: 0;transform: translateY(-50%);width: 6vw;}
 
+/* 2019-11-13 HJ */
+.scheduleAttendeeUserList, .scheduleSharerUserList {width: 72vw;right: 0;padding: 3vw 2vw 1vw 2vw;float: left;border-bottom: 1px solid #eff0f3;}
+
 /* 2019-02-05 PK */
-.scheduleAttendeeDiv .wrap_selected_user{overflow: hidden;position: relative;display: inline-block;max-width: 68vw;padding: 1vw 6vw 1vw 2vw;text-overflow: ellipsis;white-space: nowrap;color: #4E86FF;font-size: 3.5vw;}
+.scheduleAttendeeDiv .wrap_selected_user{overflow: hidden;position: relative;display: inline-block; width: 56vw;padding:0.5vw 6vw 0.5vw 2vw;text-overflow: ellipsis;white-space: nowrap;color: #4E86FF;font-size: 3.5vw;}
 .wrap_selected_user a{position:absolute;top:50%;right:1vw;transform:translateY(-50%)}
 .wrap_selected_user a img{width:3vw;margin-left:1vw;vertical-align:middle;margin-bottom:1vw;}
 
@@ -1670,7 +1673,7 @@ diary 검색 드롭다운
 
 .schedulelAttachDiv{position:relative;}
 .schedulelAttachDiv::after{content:"";display:table;clear:both}
-.schedulelAttachDiv .scheduleFileAttach{display:block;position:relative;width:88%}
+.schedulelAttachDiv .scheduleFileAttach{display:block;position:relative;width:64vw;}
 .schedulelAttachDiv .scheduleFileNoList{float: right;display: inline-block;position: relative;width: 72vw;border-bottom: 1px solid #eff0f3;padding: 1vw 2vw;min-height: 10vw;}
 .scheduleFileNoList img{position: absolute;top: 3vw;right: 0;/* transform: translateY(-50%); */width: 6vw;}
 .schedulelAttachDiv .scheduleAttachTitle{float: left;font-size: 3.5vw;display: inline-block;width: 15vw;padding: 3vw 0;margin: 0;}
