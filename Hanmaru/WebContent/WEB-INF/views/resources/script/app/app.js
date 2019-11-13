@@ -981,7 +981,7 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 	window.checkCanGoBack = function(){
 		var currPage = angular.element('[class^="panel"][class*="current"]');
 		var pageName = currPage.eq(currPage.length-1).attr('id'); // 가장 위에 출력된 화면
-		
+		 
 		if(currPage.length > 1){
 			if(androidWebView != undefined) { 
 				androidWebView.isCanGoBack(true);
