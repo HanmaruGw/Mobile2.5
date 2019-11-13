@@ -1671,7 +1671,7 @@ diary 검색 드롭다운
 .schedulelAttachDiv{position:relative;}
 .schedulelAttachDiv::after{content:"";display:table;clear:both}
 .schedulelAttachDiv .scheduleFileAttach{display:block;position:relative;width:88%}
-.schedulelAttachDiv .scheduleFileNoList{float: right;display: inline-block;position: relative;width: 72vw;border-bottom: 1px solid #eff0f3;padding: 1vw 2vw;min-height: 6vw;}
+.schedulelAttachDiv .scheduleFileNoList{float: right;display: inline-block;position: relative;width: 72vw;border-bottom: 1px solid #eff0f3;padding: 1vw 2vw;min-height: 10vw;}
 .scheduleFileNoList img{position: absolute;top: 3vw;right: 0;/* transform: translateY(-50%); */width: 6vw;}
 .schedulelAttachDiv .scheduleAttachTitle{float: left;font-size: 3.5vw;display: inline-block;width: 15vw;padding: 3vw 0;margin: 0;}
 .scheduleFileAttach{/*display:none !important;*/background:url('/resources/image/extension/file-pdf-1.png')no-repeat 0% 100%;background-size:8.9vw}
