@@ -13,8 +13,9 @@
 		</div>
 		-->
 		
-		<div class="headerBarTitle diaryDrop" >
-			<span class="txtDateSearch" ng-click="chooseSearchDate('end')"  style="cursor: pointer;">{{currentYear}}. {{currentMonth}}</span>
+		<div class="headerBarTitle diaryDrop" ng-click="chooseSearchDate('end')" style="cursor: pointer;">
+			<span>{{currentYear}}. {{currentMonth}}</span>
+			<img src="/resources/image/work_diary/drop_option_black.png">
 		</div>
 		
 		<!--
@@ -66,7 +67,18 @@
 	</div>
 	
 	<div class="diarysearchDivBase" ng-show="isShowScheduleSearch == true ">
+	
 		<div class="diarySearchDiv" >		
+				<div class="diarySearchDate">
+					<div class="diarySearchStart" ng-click="chooseSearchDate('start')">
+						<img src="/resources/image/mail/ic-calendar.png"> <input type="text" readonly="readonly" class="txtDateSearch ng-pristine ng-valid" ng-model="txtSearchStart" ng-trim="true">
+					</div>
+					<div class="diarySwungDash">~</div>
+					<div class="diarySearchEnd" ng-click="chooseSearchDate('end')">
+						<img src="/resources/image/mail/ic-calendar.png"> <input type="text" readonly="readonly" class="txtDateSearch ng-pristine ng-valid" ng-model="txtSearchEnd" ng-trim="true">
+					</div>
+			</div>
+			
 			<div class="diarySearchOption" ><!-- ng-click="searchOption()" -->
 				<ul class="diarySearchSelect">
 					<li class="diarySelectFirst">
@@ -106,6 +118,7 @@
 			</ul>
 
 			<div id="calendar" ng-show="isCalendarSearch == false" style="height:97%"></div>
+			
 			<div id="calendarSearchResult" ng-show="isCalendarSearch == true">
 				<div class="wrapSearchElem" ng-repeat="elem in arrSearchResult">
 					<div class="btnColorBullet">
@@ -216,8 +229,6 @@
 				<div class="dialogShareCalendarBtn">
 					<a><span ng-click="addShareUser($event, 'ShareUser')" class="dialogShareCalendarAction">추가</span></a>
 				</div>
-			</div>
-			<div class="dialogShareCalendarCheckDb">
 				<div class="dialogShareCalendarBtn">
 					<a><span ng-click="applyShareUser($event)" class="dialogShareCalendarAction">적용</span></a>
 				</div>
