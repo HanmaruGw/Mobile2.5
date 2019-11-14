@@ -103,7 +103,9 @@
 					<div class="scheduleAttendeeDiv">
 						<div class="scheduleAttendeeContents">
 							<p>참석자</p>
-							<div style="display:inline-grid;width:75%;margin-left:30px">
+							<div class="scheduleAttendeeUserList">
+								<input type="search" class="txt_attendee_name" ng-model="txt_attendee_name" ng-trim="true" ng-keyup="btnDetectSearch('attendee', $event)" ng-click="btnDetectSearch('attendee', $event)">
+								
 								<!-- 2019-02-05 PK 참석자 리스트 -->
 								<div class="wrap_selected_user" ng-repeat="user in arr_Attendee_list">
 									<span>{{user.DisplayName}}</span>

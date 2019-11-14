@@ -3,6 +3,7 @@
 var androidWebView = window.AndroidBridge;
 var appHanmaru = angular.module('appHanmaru', ['ngSanitize', 'ngAnimate','ngRoute',])
 .config(function($sceDelegateProvider, $compileProvider) {
+	
 	$sceDelegateProvider.resourceUrlWhitelist(['self']);
 	$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel|sms):/);
 });

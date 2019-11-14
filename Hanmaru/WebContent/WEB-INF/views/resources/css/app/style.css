@@ -2665,3 +2665,17 @@ diary 검색 드롭다운
 #mailContents html body{margin:0}
 
 /* 수정테스트 수정 테스트 깃 테스트 */
+
+.diarySearchDate{width:100%;padding:2.23vw 0;background:#E4E7EB;border-radius:2.23vw;text-align:center;font-size:0;margin-bottom:2vw}
+.diarySearchDate::after{content:"";display:table;clear:both}
+.diarySearchDate div{display:inline-block}
+
+.diarySearchStart{margin-right:2.5vw}
+.diarySearchEnd{margin-left:2.5vw}
+.diarySearchStart, .diarySearchEnd{cursor:pointer}
+.diarySearchStart input, .diarySearchEnd input{display:inline-block;width:32vw;font-size:3.5vw;vertical-align:middle;border:none;background:none;cursor:pointer}
+.diarySearchStart::after{content:"";display:table;clear:both}
+.diarySearchEnd::after{content:"";display:table;clear:both}
+.diarySearchStart input::placeholder{color:#2B2F3B}
+.diarySearchEnd input::placeholder{color:#BCBEC1}
+.diarySearchStart img, .diarySearchEnd img{display:inline-block;width:6vw;margin-right:1vw;vertical-align:middle}
