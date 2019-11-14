@@ -14,7 +14,7 @@
 			
 		</div>
 		<div class="headerUnderBar"></div>
-	</div>
+	</div> 
 	
 	<div class="workDiaryWriteBack"></div>
 	<div class="diaryWriteDiv">
@@ -103,7 +103,7 @@
 					<div class="scheduleAttendeeDiv">
 						<div class="scheduleAttendeeContents">
 							<p>참석자</p>
-							<div style="display:inline-grid;width:72vw;margin-left: -1vw;">
+							<div class="scheduleAttendeeUserList">
 								<input type="search" class="txt_attendee_name" ng-model="txt_attendee_name" ng-trim="true" ng-keyup="btnDetectSearch('attendee', $event)" ng-click="btnDetectSearch('attendee', $event)">
 								
 								<!-- 2019-02-05 PK 참석자 리스트 -->
@@ -134,14 +134,14 @@
 									</ul>
 								</div>
 								
-								<a><img src="/resources/image/ic-add-people.png" ng-click="btnCallOrganSelect($event, 'cal_Attendee')" style="bottom: -0.5vw;"></a>
+								<a><img src="/resources/image/ic-add-people.png" ng-click="btnCallOrganSelect($event, 'cal_Attendee')" style="top: 5.4vw;"></a>
 							</div>
 						</div>
 					</div>
 					<div class="scheduleSharerDiv">
 						<div class="scheduleSharerContents">
 							<p>공유자</p>
-							<div style="display:inline-grid;width: 72vw;margin-left: -1vw;">
+							<div class="scheduleSharerUserList">
 							<input type="search" class="txt_jointowner_name" ng-model="txt_jointowner_name" ng-trim="true" ng-keyup="btnDetectSearch('jointowner', $event)" ng-click="btnDetectSearch('jointowner', $event)">
 								
 								<!-- 2019-02-05 PK 공유자 리스트 -->
@@ -173,7 +173,7 @@
 									</ul>
 								</div>
 								
-								<a><img src="/resources/image/ic-add-people.png" ng-click="btnCallOrganSelect($event, 'cal_Jointowner')" style="bottom: -0.5vw;"></a>
+								<a><img src="/resources/image/ic-add-people.png" ng-click="btnCallOrganSelect($event, 'cal_Jointowner')" style="top: 5.4vw;"></a>
 							</div>
 						</div>
 						<!-- <div class="shareSelectWrap">
@@ -262,7 +262,7 @@
 				<span>작업 선택</span>
 				<img src="/resources/image/ic-delete.png" ng-click="dismissDlgScheduleWork($event)">
 			</div>
-			<div class="dialogShareCalendarWrap" style="height:77.5%;">
+			<div class="dialogShareCalendarWrap">
 				<div class="dialogShareCalendarContents" ng-repeat="cal in arrScheduleWork" ng-click="selectScheduleWork(cal)">
 					<div class="dialogCalendarList">
 						<img src="/resources/image/selectbox-square-on.png" ng-show="cal.IsChecked==true">
