@@ -806,7 +806,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .orgMemberSelect.alt{/* display:none; */position:absolute;bottom:0;width:100%;height:7%;background:#4E86FF}
 .orgMemberSelect.alt ul{height:100%}
 .orgMemberSelect.alt ul::after{content:"";display:table;clear:both}
-.orgMemberSelect.alt ul li{position:relative;display:table;float:left;width:33.3%;height:100%;text-align:center;cursor:pointer;top: calc(50% - 3.5vw);}
+.orgMemberSelect.alt ul li{position:relative;display:table;float:left;width:33.3%;text-align:center;cursor:pointer;top: calc(50% - 3.5vw);}
 .orgMemberSelect.alt ul li img{width:4.445vw;display:inline-block;vertical-align:middle;margin-right:2.223vw}
 .orgMemberSelect.alt ul li:last-child{width:33.4%}
 .orgMemberSelect.alt ul li a{display:inline-block;font-size:4vw;color:#fff;text-align:center;vertical-align:middle}
@@ -814,13 +814,13 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 
 .orgSelectedDialog{display:block;position:absolute;top:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:5999}
 .orgSelectedDialog.show{display:block!important}
-.orgSelectedDialog .orgSelectedHeader{padding:3vw 0;border-bottom:1px solid #E7E7E7;background-color:#F2F4F8;border-radius: 2vw 2vw;font-weight:bold}
-.orgSelectedDialog .wrap_orgSelectedContents{display:block;position:absolute;top:50%;left:50%;width:70%;background:#fff;border-radius:5px;text-align:center;transform:translate(-50%, -50%);z-index:6000}
-.orgSelectedDialog .orgSelectedContents{overflow-y:auto;height:50vw;padding:0 2vw}
-.orgSelectedDialog .orgSelectedContents ul li{position:relative;padding:2vw 4vw;border-bottom:1px solid #E7E7E7;text-align:left}
-.orgSelectedDialog .orgSelectedContents ul li a.btnRemoveUserDept{position:absolute;display:inline-block;top:50%;right:1vw;width:4vw;height:4vw;padding:1vw;transform:translateY(-50%);-ms-transform:translateY(-50%);-webkit-transform:translateY(-50%);-o-transform:translateY(-50%);-moz-transform:translateY(-50%)}
-.orgSelectedDialog .orgSelectedContents ul li a.btnRemoveUserDept img{vertical-align:top;width:3.5vw}
-.orgSelectedDialog .orgSelectedFooter{padding:3vw 0;border-top:1px solid #4E86FF;color:#4E86FF}
+.orgSelectedDialog .orgSelectedHeader{padding:3vw 0;border-bottom:1px solid #E7E7E7;background-color:#F2F4F8;border-radius: 2vw 2vw 0 0;font-weight:600;font-size: 4vw;}
+.orgSelectedDialog .wrap_orgSelectedContents{display:block;position:absolute;top:50%;left:50%;width:70%;background:#fff;border-radius:2vw;text-align:center;transform:translate(-50%, -50%);z-index:6000}
+.orgSelectedDialog .orgSelectedContents{overflow-y:auto;height:80vw;padding:2vw 3vw;}
+.orgSelectedDialog .orgSelectedContents ul li{position: relative;padding: 3vw 2vw;border-bottom: 1px solid #E7E7E7;text-align: left;font-size: 3.5vw;}
+.orgSelectedDialog .orgSelectedContents ul li a.btnRemoveUserDept{position: absolute;display: inline-block;top: 4vw;right: 2vw;}
+.orgSelectedDialog .orgSelectedContents ul li a.btnRemoveUserDept img{vertical-align:top;width:3vw}
+.orgSelectedDialog .orgSelectedFooter{padding: 3vw 0;border-top: 2px solid #4E86FF;color: #4E86FF;font-size: 4vw;font-weight: 600;}
 
 .memberProfile::after{content:"";display:table;clear:both}
 .memberProfile .titleProfile{display:block;padding:2vw 0;border-bottom:2px solid #dedede;background-color: #F2F4F8;border-radius: 5px;font-weight:bold}
@@ -2349,7 +2349,7 @@ diary 검색 드롭다운
 .dialogConferenceSelectTop::after{content:"";display:table;clear:both}
 .dialogConferenceSelectTop span{display:inline-block;padding-left:1vw;font-size:4vw;font-weight:bold;color:#2B2F3B}
 .dialogConferenceSelectTop img{position:absolute;top:50%;right:4vw;transform:translateY(-50%);width:4vw;}
-.dialogConferenceSelectWrap{padding:2vw 4vw;overflow:scroll;height:80%}
+.dialogConferenceSelectWrap{padding:2vw 4vw;overflow:scroll;height:76%}
 .dialogConferenceSelectContents{}
 .dialogConferenceList{width:100%;padding:3vw 0;border-bottom:1px solid #E4E7EB}
 .dialogConferenceList:last-child{border-bottom:none}
@@ -2670,7 +2670,6 @@ diary 검색 드롭다운
 
 /* 수정테스트 수정 테스트 깃 테스트 */
 
-/* 워크다이어리 검색 날자 추가 2019-11-14 */
 .diarySearchDate{width:100%;padding:2.23vw 0;background:#E4E7EB;border-radius:2.23vw;text-align:center;font-size:0;margin-bottom:2vw}
 .diarySearchDate::after{content:"";display:table;clear:both}
 .diarySearchDate div{display:inline-block}
