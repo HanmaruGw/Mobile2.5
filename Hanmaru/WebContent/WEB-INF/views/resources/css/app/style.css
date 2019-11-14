@@ -2325,77 +2325,77 @@ diary 검색 드롭다운
 
 /*워크다이어리-공유캘린더 다이얼로그*/
 .dialogShareCalendarBase{position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:5999}
-.dialogShareCalendar{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:72vw;height:100vw;border-radius:8px;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
+.dialogShareCalendar{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:72vw;height:120vw;border-radius:8px;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
 .dialogShareCalendarTop{position:relative;padding:3vw;background:#F2F4F8;border-radius:8px 8px 0 0;border-bottom:1px solid #E4E7EB}
 .dialogShareCalendarTop::after{content:"";display:table;clear:both}
 .dialogShareCalendarTop span{display:inline-block;padding-left:1vw;font-size:4vw;font-weight:bold;color:#2B2F3B}
 .dialogShareCalendarTop img{position:absolute;top:50%;right:4vw;transform:translateY(-50%);width: 4vw;}
-.dialogShareCalendarWrap{padding:2vw 4vw;overflow:scroll;height:78%}
+.dialogShareCalendarWrap{padding:2vw 4vw;overflow:scroll;height:80%}
 .dialogShareCalendarContents{}
-.dialogCalendarList{width:100%;padding:2.8vw 0;border-bottom:1px solid #E4E7EB}
+.dialogCalendarList{width:100%;padding:3vw 0;border-bottom:1px solid #E4E7EB}
 
-.dialogCalendarList img{display:inline-block;vertical-align:middle}
+.dialogCalendarList img{display:inline-block;vertical-align:middle;width: 5vw;}
 .dialogCalendarList span{display:inline-block;padding-left:1.6vw;font-size:3.5vw;vertical-align:middle;width: 57vw;}
 .dialogShareCalendarCheck{position:fixed;bottom:0;width:100%;text-align:center}
-.dialogShareCalendarCheck .dialogShareCalendarBtn{padding:1.6vw 0;border-top:2px solid #4E86FF}
+.dialogShareCalendarCheck .dialogShareCalendarBtn{padding:3vw 0;border-top:2px solid #4E86FF}
 .dialogShareCalendarCheck .dialogShareCalendarBtn a{display:inline-block}
-.dialogShareCalendarBtn .dialogShareCalendarAction{display:inline-block;font-size:4vw;font-weight:bold;color:#4e86ff;line-height:10vw}
+.dialogShareCalendarBtn .dialogShareCalendarAction{display:inline-block;font-size:4vw;font-weight:bold;color:#4e86ff;}
 
 /*워크다이어리-회의실 선택 다이얼로그*/
 .dialogConferenceSelectBase{position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:5999}
 /*.dialogConferenceSelect{display:none;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:66.67vw;height:70.556vw;border-radius:8px;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}*/
-.dialogConferenceSelect{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:66.67vw;height:70.556vw;border-radius:8px;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
-.dialogConferenceSelectTop{position:relative;padding:3.06vw;background:#F2F4F8;border-radius:8px 8px 0 0;border-bottom:1px solid #E4E7EB}
+.dialogConferenceSelect{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:72vw;height:120vw;border-radius:8px;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
+.dialogConferenceSelectTop{position:relative;padding:3vw;background:#F2F4F8;border-radius:8px 8px 0 0;border-bottom:1px solid #E4E7EB}
 .dialogConferenceSelectTop::after{content:"";display:table;clear:both}
-.dialogConferenceSelectTop span{display:inline-block;padding-left:1.39vw;font-size:4vw;font-weight:bold;color:#2B2F3B}
-.dialogConferenceSelectTop img{position:absolute;top:50%;right:4vw;transform:translateY(-50%);width:3vw;}
-.dialogConferenceSelectWrap{padding:0 4.45vw 4.78vw 4.45vw;overflow:scroll;height:62%}
-.dialogConferenceSelectContents{height:100%;overflow-y:scroll}
-.dialogConferenceList{width:100%;padding:2.78vw 0 2.23vw 0;border-bottom:1px solid #E4E7EB}
+.dialogConferenceSelectTop span{display:inline-block;padding-left:1vw;font-size:4vw;font-weight:bold;color:#2B2F3B}
+.dialogConferenceSelectTop img{position:absolute;top:50%;right:4vw;transform:translateY(-50%);width:4vw;}
+.dialogConferenceSelectWrap{padding:2vw 4vw;overflow:scroll;height:80%}
+.dialogConferenceSelectContents{}
+.dialogConferenceList{width:100%;padding:3vw 0;border-bottom:1px solid #E4E7EB}
 .dialogConferenceList:last-child{border-bottom:none}
-.dialogConferenceList img{display:inline-block;width:5.556vw;vertical-align:middle}
+.dialogConferenceList img{display:inline-block;width:5vw;vertical-align:middle}
 .dialogConferenceList span{display:inline-block;padding-left:2.4vw;font-size:3.5vw;vertical-align:middle;text-overflow: ellipsis;width:80%;overflow:hidden}
 .dialogConferenceCheck{position:fixed;bottom:0;width:100%;text-align:center}
-.dialogConferenceCheck .dialogConferenceBtn{padding:1.6vw 0;border-top:2px solid #4E86FF}
+.dialogConferenceCheck .dialogConferenceBtn{padding:3vw 0;border-top:2px solid #4E86FF}
 .dialogConferenceCheck .dialogConferenceBtn a{display:inline-block}
-.dialogConferenceBtn .dialogConferenceAction{display:inline-block;font-size:4vw;font-weight:bold;color:#4e86ff;line-height:10vw}
+.dialogConferenceBtn .dialogConferenceAction{display:inline-block;font-size:4vw;font-weight:bold;color:#4e86ff;}
 
 /*워크다이어리-일정보기 다이얼로그*/
 .dialogScheduleViewingBase {position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:5999}
-.dialogScheduleViewing{/*display:none;*/position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:66.67vw;height:116.112vw;border-radius:8px;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
-.dialogScheduleViewingTop{position:relative;padding:3.06vw;background:#F2F4F8;border-radius:8px 8px 0 0;border-bottom:1px solid #E4E7EB}
-.dialogScheduleViewingTop .dialogScheduleAdd{display:inline-block;font-size:15px;float:right;}
+.dialogScheduleViewing{/*display:none;*/position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:72vw;height:120vw;border-radius:8px;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
+.dialogScheduleViewingTop{position:relative;padding:3vw;background:#F2F4F8;border-radius:8px 8px 0 0;border-bottom:1px solid #E4E7EB}
+.dialogScheduleViewingTop .dialogScheduleAdd{display:inline-block;font-size:3.5vw;float:right;}
 .dialogScheduleViewingTop::after{content:"";display:table;clear:both}
-.dialogScheduleViewingTop span{display:inline-block;padding-left:1.39vw;font-size:4.45vw;font-weight:bold;color:#2B2F3B}
+.dialogScheduleViewingTop span{display:inline-block;padding-left:1vw;font-size:4vw;font-weight:bold;color:#2B2F3B}
 .dialogScheduleViewingTop img{position:absolute;top:50%;right:4vw;transform:translateY(-50%);}
-.dialogScheduleDate{width:100%;height:8.89vw;background:linear-gradient(to right, #5574f7 0%, #60c3ff 100%)}
-.dialogScheduleDate span{display:inline-block;padding:1.7vw 4.45vw;font-size:3.89vw;color:#fff}
-.dialogScheduleViewingWrap{height:69.5%;padding:0 4.45vw 4.78vw 4.45vw}
-.dialogScheduleViewingContents{height:100%;overflow-y:scroll}
-.dialogScheduleViewingList{width:100%;padding:2.7vw 0 2.5vw 0;border-bottom:1px solid #E4E7EB}
+.dialogScheduleDate{width:100%;background:linear-gradient(to right, #5574f7 0%, #60c3ff 100%)}
+.dialogScheduleDate span{display:inline-block;padding:1.6vw 4vw;font-size:3.5vw;color:#fff}
+.dialogScheduleViewingWrap{padding:2vw 4vw;overflow:scroll;height:69%}
+.dialogScheduleViewingContents{}
+.dialogScheduleViewingList{width:100%;padding:2vw 0;border-bottom:1px solid #E4E7EB}
 .dialogScheduleViewingList:last-child{/*border-bottom:none*/}
 /*.dialogScheduleViewingList .scheduleViewingListLabel.labelGreen{display:inline-block;width:2.23vw;height:8.89vw;background:#5DBD7C; vertical-align:middle}*/
-.dialogScheduleViewingList .scheduleViewingListLabel{display:inline-block;width:2.23vw;height:8.89vw;background:#5DBD7C; vertical-align:middle}
-.dialogScheduleViewingList .scheduleViewingListText{display:inline-block;width:96%;height:10vw;vertical-align:middle;overflow:hidden;text-overflow:ellipsis;}
-.dialogScheduleViewingList .scheduleViewingListText span{display:inline-block;font-size:14px;color:#2B2F3B;text-overflow:ellipsis;overflow:hidden;margin-top:-2px;margin-left:7px;white-space:nowrap;}
-.dialogScheduleViewingList .scheduleViewingListText p{font-size:3.34vw;color:#717883;text-overflow:ellipsis;overflow:hidden;margin-top:0px;margin-left:7px;height:40px;white-space:nowrap;}
+.dialogScheduleViewingList .scheduleViewingListLabel{display:inline-block;width:2vw;height:8vw;background:#5DBD7C; vertical-align:middle}
+.dialogScheduleViewingList .scheduleViewingListText{display: inline-block;vertical-align: middle;padding: 0 2vw;}
+.dialogScheduleViewingList .scheduleViewingListText span{display: inline-block;font-size: 3.5vw;color: #2B2F3B;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;width: 58vw;}
+.dialogScheduleViewingList .scheduleViewingListText p{font-size: 3vw;color: #717883;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;margin: 0;width: 58vw;}
 .dialogScheduleViewingCheck{position:fixed;bottom:0;width:100%;text-align:center}
-.dialogScheduleViewingCheck .dialogScheduleViewingBtn{padding:1.67vw 0;border-top:2px solid #4E86FF}
+.dialogScheduleViewingCheck .dialogScheduleViewingBtn{padding:3vw 0;border-top:2px solid #4E86FF}
 .dialogScheduleViewingCheck .dialogScheduleViewingBtn a{display:inline-block}
-.dialogScheduleViewingBtn .dialogScheduleViewingAction{display:inline-block;font-size:3.5vw;font-weight:bold;color:#4e86ff;line-height:10vw}
+.dialogScheduleViewingBtn .dialogScheduleViewingAction{display:inline-block;font-size:4vw;font-weight:bold;color:#4e86ff;}
 
 /*워크다이어리-템플릿 선택(내작업) 다이얼로그*/
 .dialogTemplateSelect{/* display:none; */position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:66.67vw;height:70.556vw;border-radius:8px;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
-.dialogTemplateSelectTop{position:relative;padding:3.06vw;background:#F2F4F8;border-radius:8px 8px 0 0;border-bottom:1px solid #E4E7EB}
+.dialogTemplateSelectTop{position:relative;padding:3vw;background:#F2F4F8;border-radius:8px 8px 0 0;border-bottom:1px solid #E4E7EB}
 .dialogTemplateSelectTop::after{content:"";display:table;clear:both}
-.dialogTemplateSelectTop span{display:inline-block;padding-left:1.39vw;font-size:4.45vw;font-weight:bold;color:#2B2F3B}
+.dialogTemplateSelectTop span{display:inline-block;padding-left:1vw;font-size:4vw;font-weight:bold;color:#2B2F3B}
 .dialogTemplateSelectTop img{position:absolute;top:50%;right:4vw;transform:translateY(-50%);}
-.dialogTemplateSelectWrap{padding:0 4.45vw 4.78vw 4.45vw;overflow: scroll;height: 39vw;}
+.dialogTemplateSelectWrap{padding:2vw 4vw;overflow:scroll;height:69%}
 .dialogTemplateSelectContents{/* height:60%;overflow-y:scroll */}
-.dialogTemplateList{width:100%;padding:2.78vw 0 2.23vw 0;border-bottom:1px solid #E4E7EB}
-.dialogTemplateList:last-child{border-bottom:none}
-.dialogTemplateList img{display:inline-block;width:5.556vw;vertical-align:middle}
-.dialogTemplateList span{display:inline-block;padding-left:2.23vw;font-size:4.17vw;vertical-align:middle}
+.dialogTemplateList{width:100%;padding:2vw 0;border-bottom:1px solid #E4E7EB}
+.dialogTemplateList:last-child{/*border-bottom:none*/}
+.dialogTemplateList img{display:inline-block;width:5vw;vertical-align:middle}
+.dialogTemplateList span{display:inline-block;padding-left:2.23vw;font-size:4vw;vertical-align:middle}
 .dialogTemplateCheck{/* position:absolute;bottom:0; */width:100%;text-align:center}
 .dialogTemplateCheck .dialogTemplateBtn{padding:1.67vw 0;border-top:2px solid #4E86FF}
 .dialogTemplateCheck .dialogTemplateBtn a{display:inline-block}
@@ -2659,7 +2659,7 @@ diary 검색 드롭다운
 .wrapApprovalSearchOptionBtn button{border: none;width: 36%;background: #4C5264;font-size: 3.5vw;color: #fff;padding: 3vw 2vw;border-radius: 2.3vw;margin-top: 3.5vw;}
 .wrapMailSearchOptionBtn  button{border: none;width: 36%;background: #4C5264;font-size: 3.5vw;color: #fff;padding: 3vw 2vw;border-radius: 2.3vw;margin-top: 3.5vw;}
 .dialogShareCalendarCheckDb {float: left;bottom: 0;width: 50%;text-align: center;}
-.dialogShareCalendarCheckDb .dialogShareCalendarBtn {padding: 1.67vw 0;border-top: 2px solid #4E86FF;}
+.dialogShareCalendarCheckDb .dialogShareCalendarBtn {padding: 3vw 0;border-top: 2px solid #4E86FF;}
 .wrapShareUserInfo{width:43vw}
 
 .AutologinCheck img{position: absolute;width: 100%;top: 10%;left: 10%;}
