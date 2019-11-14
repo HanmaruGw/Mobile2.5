@@ -10,7 +10,7 @@ var appHanmaru = angular.module('appHanmaru', ['ngSanitize', 'ngAnimate','ngRout
 var globalTest;
 var mailBody='';
 
-
+ 
 //splash controller
 appHanmaru.controller('splashController', ['$scope', '$http', '$rootScope','$timeout', function($s, $http, $rs, $timeout) {
 	
@@ -5338,7 +5338,8 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 	$s.maxZoom = 2;
 	$s.currZoom = 1;
 	$s.btnMailContentsZoomPlus = function() {
-		$s.currZoom++;
+//		$s.currZoom++;
+		$s.currZoom += 0.5;
 		if($s.currZoom <= $s.maxZoom) {
 			var el = angular.element('#mailDetailHTMLContents');
 			el.css({
@@ -5351,7 +5352,8 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 	};
 	
 	$s.btnMailContentsZoomMinus = function() {
-		$s.currZoom--;
+//		$s.currZoom--;
+		$s.currZoom -= 0.5;
 		if($s.currZoom >= $s.minZoom) {
 			var el = angular.element('#mailDetailHTMLContents');
 			el.css({
