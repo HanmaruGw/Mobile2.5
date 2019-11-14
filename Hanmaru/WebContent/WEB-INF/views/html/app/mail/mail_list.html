@@ -1,4 +1,4 @@
-<div class="mailContainer" ng-controller="mailController"
+<div class="mailContainer" id="mailController" ng-controller="mailController"
 	ng-click="hideMailVisibleOption($event)">
 	<!-- 헤더바 -->
 	<div class="headerBar">
@@ -61,8 +61,8 @@
 			</div>
 			<div class="mailSwungDash">~</div>
 			<div class="mailSearchEnd" ng-click="chooseSearchDate('end')">
-				<img src="/resources/image/mail/ic-calendar.png"> <input
-					type="text" readonly="readonly" class="txtDateSearch"
+				<img src="/resources/image/mail/ic-calendar.png"> 
+				<input type="text" readonly="readonly" class="txtDateSearch"
 					ng-model="txtSearchEnd" ng-trim="true">
 			</div>
 		</div>

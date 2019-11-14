@@ -406,7 +406,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .mailListBox > div:first-child ng-include[src="rightTemplate"]{display:table;height:100%}
 .mailListBox > div:first-child ng-include[src="rightTemplate"] p{display:table-cell;vertical-align:middle;white-space:nowrap} */
 /*.mailListDiv.full .mailListBox{height:6%}*/
-.mailListDayDiv{background:#F2F4F8;color:#333333;font-size:3vw;padding:2vw 4vw}
+.mailListDayDiv{background:#F2F4F8;color:#333333;font-size:3vw;padding:0.8vw 4vw}
 .mailListEdit{width:5%;height:50%;margin-top:1vw;float:left;position:relative;margin:2.5vw 1vw 2.5vw 2.5vw;}
 .mailListEdit div{border:1px solid #1470de;border-radius:50%;width:60%;height:0;padding:30% 0}
 .mailListEdit div.selected{background-color:#1470de}
@@ -1394,7 +1394,7 @@ diary 검색 드롭다운
 /* 달력제외css */
 /**workDiary start**/
 .workDiaryContainer{position:absolute;width:100%;height:100%}
-.headerBarTitle.diaryDrop{left:0;transform:translate(220%, -60%);text-align:left}
+.headerBarTitle.diaryDrop{left:50%;transform:translate(-50%, -50%);text-align:left}
 .headerBarTitle.diaryDrop img{display:inline-block;width:21%;vertical-align:middle}
 .headerBarTitle.diaryDrop span{display:inline-block;font-size:4.5vw;color:#4C5264;vertical-align:middle}
 .headerBarSearch.workDiarySearch{float:right;width:12%;height:100%;position:relative}
@@ -1402,7 +1402,7 @@ diary 검색 드롭다운
 .headerBarAttach.workDiaryAttach{float:right;width:12%;height:100%;position:relative}
 .headerBarAttach.workDiaryAttach img {position:absolute;width:40%;top:50%;left:50%;transform:translate(-50%, -50%)}
 .headerBarSend.workDiaryWrite{float:right;width:12%;height:100%;position:relative}
-.headerBarSend.workDiaryWrite img{width:70%;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}
+.headerBarSend.workDiaryWrite img{width:60%;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}
 .headerBarMove.write img{width:6.5vw}
 .headerUnderBar.diaryUnderHeight{position:absolute}
 .workDiarySearchBack{display:none;background:rgba(0,0,0,0.5);width:100%;height:93%;position:absolute;top:20vw;z-index:5999}
@@ -1560,49 +1560,49 @@ diary 검색 드롭다운
 .scheduleListTop li input{width:100%;text-align:center;padding:2vw 0;box-shadow:inset 1px 1px 1px #ccc} */
 .workDiaryWriteBack{display:none;background:rgba(0,0,0,0.6);width:100%;height:93%;position:absolute;z-index:5999}
 .diaryWriteDiv{font-size:0;overflow-x:hidden;height:100vh}
-.diaryWriteDiv .diaryWriteContents{padding:3%}
+.diaryWriteDiv .diaryWriteContents{padding:2vw 5.5vw 3.5vw 3.5vw}
 .writeContentsCalendar::after{content:"";display:table;clear:both}
-.writeContentsCalendar p{float:left;display:inline-block;width:15vw;font-size:3.2vw;margin: 1em 0.5em;}
-.writeContentsCalendar .calendarOptionSelect{display:inline-block;width:72vw;height:6.6vw;padding-bottom:1.2vw;border-bottom:2px solid #eff0f3;margin-top:10px;}
-.calendarOptionSelect span{display:inline-block;font-size:3.2vw;color:#4E86FF;vertical-align:middle}
-.calendarOptionSelect img{display:inline-block;margin-left:2vw;vertical-align:middle}
-.writeScheduleTitle{margin-top:1.4vw}
+.writeContentsCalendar p{float: left;display: inline-block;width: 15vw;font-size: 3.5vw;margin: 0;padding: 3vw 0;}
+.writeContentsCalendar .calendarOptionSelect{display: inline-block;width: 72vw;padding: 3vw 2vw;border-bottom: 1px solid #eff0f3;}
+.calendarOptionSelect span{display:inline-block;font-size:3.5vw;color:#4E86FF;vertical-align:middle}
+.calendarOptionSelect img{display:inline-block;margin-left:2vw;vertical-align:middle;width: 3.8vw;}
+/*.writeScheduleTitle{}*/
 .writeScheduleTitle::after{content:"";display:table;clear:both}
-.writeScheduleTitle p{display:inline-block;width:15vw;font-size:3.2vw;margin: 1em 0.5em;}
-.writeScheduleTitle .scheduleTitleEdit{display:inline-block;width:72vw;border-bottom:2px solid #eff0f3}
-.scheduleTitleEdit input{width:100%;height:10vw;border:none;}
-.scheduleContentsDiv{margin-top:0.8vw;position: relative;}
+.writeScheduleTitle p{display:inline-block;width:15vw;font-size:3.5vw;margin: 0;padding: 3vw 0;}
+.writeScheduleTitle .scheduleTitleEdit{display: inline-block;width: 72vw;border-bottom: 1px solid #eff0f3;padding: 3vw 2vw;}
+.scheduleTitleEdit input{border: none;font-size: 3.5vw;}
+/*.scheduleContentsDiv{}*/
 .scheduleContentsDiv::after{content:"";display:table;clear:both}
-.scheduleContentsDiv p{display:inline;width:70px;font-size:3.2vw;position:absolute;margin: 1em 0.5em;}
+.scheduleContentsDiv p{display: inline-block;width: 15vw;font-size: 3.5vw;margin: 0;}
 /*.scheduleContentsDiv .scheduleDateDiv{position:relative;display:inline-block;width:80%}*/
-.scheduleContentsDiv .scheduleDateDiv{display:inline-block;width:73vw;margin-top:10px;margin-left:18vw;}
+.scheduleContentsDiv .scheduleDateDiv{display:inline-block;}
 /*.scheduleDateDiv .scheduleDateWrap{border-bottom:2px solid #eff0f3;text-align:center}*/
-.scheduleDateDiv .scheduleDateWrap{border-bottom:2px solid #eff0f3;text-align:left;}
+.scheduleDateDiv .scheduleDateWrap{border-bottom: 1px solid #eff0f3;text-align: left;width: 72vw;padding: 3vw 2vw;}
 .scheduleDateWrap::after{content:"";display:table;clear:both}
-.scheduleDateDiv .scheduleFirstDate{display:inline-block;width:45%;height:40%;position:relative;}
+.scheduleDateDiv .scheduleFirstDate{display: inline-block;width: 30vw;position: relative;}
 /*.scheduleFirstDate ppp{width:60%;border:none;text-align:left;background-size:6.67vw;padding:3.2vw 2vw;margin-left:32px;font-size:15px;}*/
-.scheduleFirstDate p{display:inline-block;width:95px;text-align:left;margin-top:4px;margin-left:3px;font-size:3.2vw;position:absolute;}
+.scheduleFirstDate p{display: inline-block;width: 20vw;margin-left: 8vw;font-size: 3.5vw;}
 .scheduleFirstDate p::placeholder{color:#000}
-.scheduleFirstDate img{width:23%;display:inline-block;height:20%;}
+.scheduleFirstDate img{width: 6vw;position: absolute;}
 .scheduleSwungDash{display:inline-block;font-size:3.5vw;color:#8E8E93;vertical-align:super}
-.scheduleDateDiv .scheduleSecondDate{display:inline-block;width:45%;margin-left:5px;text-align:left;position:relative;}
+.scheduleDateDiv .scheduleSecondDate{display: inline-block;width: 30vw; margin-left: 8px;position: relative;}
 /*.scheduleSecondDate ppp{width:100%;border:none;text-align:right;background-size:6.67vw;padding:3.2vw 2vw;margin-left:32px;font-size:15px;}*/
-.scheduleSecondDate p{display:inline-block;position:absolute;font-size:3.2vw;margin-left:3px;margin-top:1.2vw;width:95px;}
+.scheduleSecondDate p{display: inline-block;font-size: 3.5vw; margin-left: 8vw; width: 20vw;}
 .scheduleSecondDate p::placeholder{color:#000}
-.scheduleSecondDate img{width:23%;height:20%;display:inline-block;margin-left:8vw;}
+.scheduleSecondDate img{width: 6vw; position: absolute;}
 /*.scheduleFirstSelect{display:inline-block;margin-top:4vw;border-bottom:1px solid #d8d8d8;width:45%;padding-bottom:1.2vw}*/
-.scheduleFirstSelect{display:inline-block;margin-top:4vw;width:30%;padding-bottom:1.2vw}
-.scheduleFirstSelect .firstSelectOption{border:none;width:100%;background-color:white;}
-.scheduleFirstSelect pp{display:inline-block;font-size:3.2vw;color:#BCBEC1;/*vertical-align:middle;*/font-family: Arial;font-size: 13.3333px;}
+.scheduleFirstSelect{display: inline-block;width: 20vw;padding: 3vw 2vw;}
+.scheduleFirstSelect .firstSelectOption{border:none;width:100%;background-color:#fff;font-size: 3.5vw;}
+.scheduleFirstSelect pp{color:#BCBEC1;/*vertical-align:middle;*/font-family: Arial;font-size: 3.5vw;}
 /*.scheduleSecondSelect{display:inline-block;margin-top:4vw;border-bottom:1px solid #d8d8d8;width:45%;padding-bottom:1.2vw;margin-left:7.5vw}*/
-.scheduleSecondSelect{display:inline-block;margin-top:4vw;width:30%;padding-bottom:1.2vw;margin-left:7.5vw}
-.scheduleSecondSelect .secondSelectOption{border:none;width:100%;background-color:white;}
-.scheduleSecondSelect pp{display:inline-block;font-size:3.2vw;color:#BCBEC1;/*vertical-align:middle;*/font-family: Arial;font-size: 13.3333px;}
+.scheduleSecondSelect{display: inline-block;width: 20vw;padding: 3vw 2vw;margin-left: 4vw;}
+.scheduleSecondSelect .secondSelectOption{border:none;width:100%;background-color:white;font-size: 3.5vw;}
+.scheduleSecondSelect pp{font-size:3.5vw;color:#BCBEC1;/*vertical-align:middle;*/font-family: Arial;font-size: 3.5vw;}
 
 .checkDateWrap{position:relative;width:100%}
-.checkDateWrap p{display:inline-block;width:15vw;font-size:3.2vw;margin: 1em 0.5em;}
-.checkDateWrap .scheduleTimeDiv{position:relative;display:inline-block;width:73vw;margin-top:1vw;}
-.scheduleTimeDiv .scheduleTimeWrap{position:relative;border-bottom:2px solid #eff0f3;padding: 0 1vw;}
+/* .checkDateWrap p{display:inline-block;width:15vw;font-size:3.2vw;margin: 1em 0.5em;}*/
+.checkDateWrap .scheduleTimeDiv{display: inline-block;width: 76vw;margin-left: 15vw;}
+.scheduleTimeDiv .scheduleTimeWrap{border-bottom:1px solid #eff0f3;}
 .scheduleTimeWrap::after{content:"";display:table;clear:both}
 .scheduleTimeDiv .scheduleFirstTime{position:relative;display:inline-block;width:30%}
 .scheduleFirstTime input{width:100%;border:none;padding:3.6vw 0}
@@ -1612,40 +1612,40 @@ diary 검색 드롭다운
 .scheduleSecondTime input{width:100%;border:none;padding:3.2vw 0}
 .scheduleSecondTime input::placeholder{color:#BCBEC1}
 
-.checkDateWrap .checkAllDate{position:absolute;top:65%;right:0;transform:translateY(-50%);display:inline-block}
+.checkDateWrap .checkAllDate{position: absolute;top: 50%; right: 2vw;transform: translateY(-50%);display: inline-block;}
 .checkDateWrap .allDateWrap{}
-.checkDateWrap .allDateWrap img{display:inline-block;vertical-align:middle;margin-right:2vw}
-.checkDateWrap .allDateWrap span{display:inline-block;font-size:3.2vw;vertical-align:middle}
+.checkDateWrap .allDateWrap img{display:inline-block;vertical-align:middle;margin-right:2vw;width: 5vw;}
+.checkDateWrap .allDateWrap span{display:inline-block;font-size:3.5vw;vertical-align:middle}
 
 .scheduleDetailBtn{/*display:none;*/margin-top:5.2vw}   /* 자세히 버튼을 클릭하면, 상세 작성 내용이 나오며 버튼은 사라짐. */
 .scheduleDetailBtn div{border-radius:5px;color:#fff;background:#4E86FF;font-size:3.2vw;padding:2.78vw 0;width:33.34vw;text-align:center;margin:0 auto;}
 .scheduleDetailBtn div:active, div:focus{background:#ddd;color:#007dff}
-.scheduleDetailContents{/* display:none; */width:100%;margin-top:3.6vw;} /* 자세히 버튼 클릭시 나오는 레이아웃 */
+.scheduleDetailContents{/* display:none; */width:100%;} /* 자세히 버튼 클릭시 나오는 레이아웃 */
 .scheduleWorkDiv::after{content:"";display:table;clear:both}
-.scheduleWorkDiv p{float:left;display:inline-block;font-size:3.2vw;width:15vw;margin: 1em 0.5em;}
-.scheduleWorkDiv .scheduleWorkSelect{display:inline-block;width:73vw;height:6.6vw;/*padding-bottom:1.2vw;*/border-bottom:2px solid #eff0f3;margin-top:11px;}
-.scheduleWorkSelect span{display:inline-block;font-size:3.2vw;color:#4E86FF;vertical-align:middle;padding-top: 0.5vw;}
-.scheduleWorkSelect img{display:inline-block;margin-left:2vw;vertical-align:middle;padding-top: 0.5vw;}
+.scheduleWorkDiv p{float: left;display: inline-block;font-size: 3.5vw;width: 15vw;margin: 0;padding: 3vw 0;}
+.scheduleWorkDiv .scheduleWorkSelect{display: inline-block;width: 72vw; padding: 3vw 2vw;border-bottom: 1px solid #eff0f3;}
+.scheduleWorkSelect span{display:inline-block;font-size:3.5vw;color:#4E86FF;vertical-align:middle;}
+.scheduleWorkSelect img{display:inline-block;margin-left:2vw;vertical-align:middle;width: 3.8vw;}
 .scheduleAttendeeDiv{}
-.scheduleAttendeeDiv p{display:inline-block;font-size:3.2vw;width:14.5vw}
-.scheduleAttendeeDiv .scheduleAttendeeContents{position:relative;width:100%;display:inline-block;font-size:3.2vw;}
-.scheduleAttendeeContents input{width:73vw;height:140%;border:none;border-bottom:2px solid #eff0f3;color:#4E86FF;margin-top: 2vw;}
-.scheduleAttendeeContents img{position:absolute;top:25%;right:0;transform:translateY(-50%);width:6.67vw}
+.scheduleAttendeeDiv p{display: inline-block;font-size: 3.5vw;width: 15vw;padding: 3vw 0;margin: 0;}
+.scheduleAttendeeDiv .scheduleAttendeeContents{position:relative;width:100%;display:inline-block;font-size:3.5vw;}
+.scheduleAttendeeContents input{width: 76vw;border: none;border-bottom: 1px solid #eff0f3;color: #4E86FF;padding: 1vw 2vw 3vw 2vw;font-size: 3.5vw;}
+.scheduleAttendeeContents img{position: absolute;right: 0;transform: translateY(-50%);width: 6vw;}
 
 /* 2019-02-05 PK */
-.scheduleAttendeeDiv .wrap_selected_user{overflow:hidden;position:relative;display:inline-block;max-width:80%;margin:0 1vw 1vw -7px;padding:0.5vw 6vw 0.5vw 2vw;/* border-radius:10vw;background-color:#E1E1E1; */text-overflow:ellipsis;white-space:nowrap;color:#4E86FF}
-.wrap_selected_user a{position:absolute;top:50%;right:2vw;transform:translateY(-50%)}
+.scheduleAttendeeDiv .wrap_selected_user{overflow: hidden;position: relative;display: inline-block;max-width: 68vw;padding: 1vw 6vw 1vw 2vw;text-overflow: ellipsis;white-space: nowrap;color: #4E86FF;font-size: 3.5vw;}
+.wrap_selected_user a{position:absolute;top:50%;right:1vw;transform:translateY(-50%)}
 .wrap_selected_user a img{width:3vw;margin-left:1vw;vertical-align:middle;margin-bottom:1vw;}
 
 .scheduleSharerDiv{}
-.scheduleSharerDiv p{display:inline-block;font-size:3.2vw;width:10%}
-.scheduleSharerDiv .scheduleSharerContents{position:relative;width:100%;display:inline-block;font-size:12px}
-.scheduleSharerContents input{width:107%;height:140%;border:none;border-bottom:2px solid #eff0f3;color:#4E86FF}
-.scheduleSharerContents img{position:absolute;top:50%;right:0;transform:translateY(-50%);width:6.67vw}
+.scheduleSharerDiv p{display: inline-block;width: 15vw;padding: 3vw 0;margin: 0;}
+.scheduleSharerDiv .scheduleSharerContents{position:relative;width:100%;display:inline-block;font-size:3.5vw;}
+.scheduleSharerContents input{width: 76vw;border: none;border-bottom: 1px solid #eff0f3;color: #4E86FF;padding: 1vw 2vw 3vw 2vw;font-size: 3.5vw;}
+.scheduleSharerContents img{position:absolute;right:0;transform:translateY(-50%);width:6vw}
 
 /* 2019-02-06 PK */
-.scheduleSharerDiv .wrap_selected_user{overflow:hidden;position:relative;display:inline-block;max-width:80%;margin:0 1vw 1vw -7px;padding:0.5vw 6vw 0.5vw 2vw;/* border-radius:10vw;background-color:#E1E1E1; */text-overflow:ellipsis;white-space:nowrap;color:#4E86FF}
-.wrap_selected_user a{position:absolute;top:50%;right:5px;transform:translateY(-50%)}
+.scheduleSharerDiv .wrap_selected_user{overflow: hidden;position: relative;display: inline-block;max-width: 68vw;padding: 1vw 6vw 1vw 2vw;text-overflow: ellipsis;white-space: nowrap;color: #4E86FF;}
+.wrap_selected_user a{position:absolute;top:50%;right:1vw;transform:translateY(-50%)}
 .wrap_selected_user a img{width:3vw;margin-left:1vw;vertical-align:middle;margin-bottom:1vw;}
 
 .shareSelectWrap{width:80%;margin-top:2vw;margin-left:20%}
@@ -1656,28 +1656,28 @@ diary 검색 드롭다운
 .shareSelectWrap .shareSelectAll{display:inline-block;width:40%;margin-left:2vw}
 .shareSelectAll input{display:inline-block;vertical-align:middle;margin-right:2vw}
 .shareSelectAll span{display:inline-block;vertical-align:middle;font-size:3.2vw}
-.scheduleReservationDiv{margin-top:3.6vw}
-.scheduleReservationDiv p{float:left;display:inline-block;font-size:3.2vw;width:20%}
-.scheduleReservationDiv .scheduleReservationContents{display:inline-block;width:80%;height:6.6vw;padding-bottom:0.8vw;border-bottom:2px solid #eff0f3;margin-top:12px;}
-.scheduleReservationContents span{display:inline-block;font-size:3.2vw;color:#4E86FF;vertical-align:middle}
-.scheduleReservationContents img{display:inline-block;margin-left:2vw;vertical-align:middle}
-.scheduleOptionDiv{margin-top:3.6vw}
-.scheduleOptionDiv p{float:left;display:inline-block;font-size:3.2vw;width:20%}
-.scheduleOptionDiv .colorOptionDiv{display:inline-block;width:80%;border-bottom:2px solid #eff0f3}
+
+.scheduleReservationDiv p{float: left;display: inline-block;font-size: 3.5vw;width: 15vw;padding: 3vw 0;margin: 0;}
+.scheduleReservationDiv .scheduleReservationContents{display: inline-block;width: 72vw;padding: 3vw 2vw;border-bottom: 1px solid #eff0f3;}
+.scheduleReservationContents span{display:inline-block;font-size:3.5vw;color:#4E86FF;vertical-align:middle}
+.scheduleReservationContents img{display:inline-block;margin-left:2vw;vertical-align:middle;width: 3.8vw;}
+
+.scheduleOptionDiv p{float: left;display: inline-block;font-size: 3.5vw;width: 15vw;margin: 0;padding: 3vw 0;}
+.scheduleOptionDiv .colorOptionDiv{display: inline-block;width: 72vw;border-bottom: 1px solid #eff0f3;padding: 3vw 2vw;}
 .colorOptionDiv ul{display:inline-block;}
-.colorOptionDiv ul .colorPickerOption{display:inline-block;background:#ffcc00;width:5.556vw;height:5.556vw;margin:2vw;border-radius:4px}
+.colorOptionDiv ul .colorPickerOption{display:inline-block;background:#ffcc00;width:5vw;height:5vw;margin:2.6vw;border-radius:4px}
 .colorOptionDiv ul .colorPickerOption:focus{transform:scale(1.2, 1.2)}
 
-.schedulelAttachDiv{position:relative;margin-top:2vw}
+.schedulelAttachDiv{position:relative;}
 .schedulelAttachDiv::after{content:"";display:table;clear:both}
-.schedulelAttachDiv .scheduleFileAttach{display:block;position:relative;/*height:100%;*/width:80%}
-.schedulelAttachDiv .scheduleFileNoList{float:right;display:inline-block;position:relative;width:80%;height:5%;border-bottom:2px solid #eff0f3;margin-left:4vw;padding:0 0 2vw 0;min-height:40px;}
-.scheduleFileNoList img{position:absolute;top:22px ;right:0;transform:translateY(-50%);width:6.67vw}
-.schedulelAttachDiv .scheduleAttachTitle{float:left;font-size:3.5vw;display:inline-block;width:15%;/*padding:1.8vw 0*/}
+.schedulelAttachDiv .scheduleFileAttach{display:block;position:relative;width:88%}
+.schedulelAttachDiv .scheduleFileNoList{float: right;display: inline-block;position: relative;width: 72vw;border-bottom: 1px solid #eff0f3;padding: 1vw 2vw;min-height: 10vw;}
+.scheduleFileNoList img{position: absolute;top: 3vw;right: 0;/* transform: translateY(-50%); */width: 6vw;}
+.schedulelAttachDiv .scheduleAttachTitle{float: left;font-size: 3.5vw;display: inline-block;width: 15vw;padding: 3vw 0;margin: 0;}
 .scheduleFileAttach{/*display:none !important;*/background:url('/resources/image/extension/file-pdf-1.png')no-repeat 0% 100%;background-size:8.9vw}
-.scheduleFileAttach .scheduleFileInfo{font-size:3.5vw;/*padding-left:10vw;*/line-height:2vw}
-.scheduleFileAttach span{display:block;color:#BCBEC1;margin-top:2vw}
-.scheduleFileAttach img{position:absolute;top:30%;/*right:-10%;*/transform:translateY(-50%);width:6.67vw}
+.scheduleFileAttach .scheduleFileInfo{font-size: 3.5vw;line-height: 5vw;margin: 2vw 0;}
+.scheduleFileAttach span{display:block;color:#BCBEC1;}
+.scheduleFileAttach img{position: absolute;top: 1.6vw; width: 3vw;}
 
 /*jjhlde Modified - 달력 전체 크기 수정*/
 .fc-view-container{height:100%;}

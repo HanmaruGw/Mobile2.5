@@ -1,5 +1,5 @@
 
-<div class="workDiaryContainer" ng-controller="diaryScheduelController">
+<div class="workDiaryContainer" id="diaryScheduelController" ng-controller="diaryScheduelController">
 	<!-- 헤더바 -->
 	<div class="headerBar">
 		<div class="headerBarMenu" ng-click="slideMenuClick()">
@@ -13,9 +13,8 @@
 		</div>
 		-->
 		
-		<div class="headerBarTitle diaryDrop" ng-click="chooseSearchDate('end')" style="cursor: pointer;">
-			<span>{{currentYear}}. {{currentMonth}}</span>
-			<img src="/resources/image/work_diary/drop_option_black.png">
+		<div class="headerBarTitle diaryDrop" >
+			<span class="txtDateSearch" ng-click="chooseSearchDate('end')"  style="cursor: pointer;">{{currentYear}}. {{currentMonth}}</span>
 		</div>
 		
 		<!--

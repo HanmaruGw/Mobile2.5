@@ -1,4 +1,4 @@
-<div class="reservationContainer" ng-controller="ReservBookingListController">
+<div class="reservationContainer" id="ReservBookingListController" ng-controller="ReservBookingListController">
 	<!-- 헤더바 -->
 	<div class="headerBar">
 		<div class="headerBarBack"  ng-click="slideMenuClick()">
@@ -51,7 +51,7 @@
 								<a>{{txtStartTime}}</a>
 								<ul class="hourListSelect" ng-show="isTimeShow === true">
 									<!-- <li><a class="selectHourColor">10:00</a></li> css 참고-->
-									<li ng-repeat="time in timeList" ng-click="applyStartTime(time.value)"><a>{{time.name}}</a></li>
+									<li ng-repeat="time in timeList" ng-click="applyStartTime(time.value)"><a ng-class="{'selectTime':txtStartTime==time.name}">{{time.name}}</a></li>
 								</ul>
 							</li>
 						</ul>
