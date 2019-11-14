@@ -3,6 +3,7 @@
 var androidWebView = window.AndroidBridge;
 var appHanmaru = angular.module('appHanmaru', ['ngSanitize', 'ngAnimate','ngRoute',])
 .config(function($sceDelegateProvider, $compileProvider) {
+	
 	$sceDelegateProvider.resourceUrlWhitelist(['self']);
 	$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel|sms):/);
 });
@@ -10,16 +11,16 @@ var globalTest;
 var mailBody='';
 
 
-//splash controller
+// splash controller
 appHanmaru.controller('splashController', ['$scope', '$http', '$rootScope','$timeout', function($s, $http, $rs, $timeout) {
 	
-//	var loginData = {
-//			userID:$s.appUserId,
-//			autoLogin:'N'
-//			};
-//	var param=callApiObject('login', 'autoLoginSetting', loginData);	
-//	$http(param).success(function(data) {
-//	});
+// var loginData = {
+// userID:$s.appUserId,
+// autoLogin:'N'
+// };
+// var param=callApiObject('login', 'autoLoginSetting', loginData);
+// $http(param).success(function(data) {
+// });
 	
 	$rs.checkAutoLogin = function(){
 		var loginData = { userID:$rs.appUserId, DeviceID:$rs.deviceID,
@@ -27,13 +28,13 @@ appHanmaru.controller('splashController', ['$scope', '$http', '$rootScope','$tim
 		
 		var param = callApiObject('login', 'autoLogin', loginData);
 		
-//		console.log(param);
+// console.log(param);
 		
 		$http(param).success(function(data) {
 			var code = parseInt(data.Code, 10);
 			if(code == 1){
 				var autoLoginInfo = JSON.parse(data.value);
-//				console.log(autoLoginInfo);
+// console.log(autoLoginInfo);
 				
 				var accessInfoData = {
 					userID : $rs.appUserId,
@@ -64,7 +65,7 @@ appHanmaru.controller('splashController', ['$scope', '$http', '$rootScope','$tim
 appHanmaru.controller('loginController', ['$scope', '$http', '$rootScope', function($s, $http, $rs) {
 	$rs.apiURL = '';
 	// 간편 로그인을 위한 AOS / IOS 저장 id
-//	$rs.appUserId = ''; //2019.10.24 수정 - jh.j
+// $rs.appUserId = ''; //2019.10.24 수정 - jh.j
 	$s.pin_input_id = '';
 	$s.pin_input_pwd = '';
 	$s.isPinLogin = true; // 간편 핀번호 로그인 여부
@@ -117,7 +118,8 @@ appHanmaru.controller('loginController', ['$scope', '$http', '$rootScope', funct
 					var resData = JSON.parse(data.value);
 					$s.domainList = resData.Domain;
 					
-					$s.generalLogin_domain = $s.domainList[0];// halla.com //hd-bsnc.com
+					$s.generalLogin_domain = $s.domainList[0];// halla.com
+																// //hd-bsnc.com
 					$s.simpleLogin_domain = $s.domainList[0];// halla.com
 				}
 			});
@@ -328,28 +330,25 @@ appHanmaru.controller('loginController', ['$scope', '$http', '$rootScope', funct
 	    	    $s.inputPinNumber = _value;   
 	    	    
 	    	    if($s.inputPinNumber.length == 6) {
-	    	    	$s.performGeneralLogin(); //핀번호 6자리 입력하면 바로 로그인
+	    	    	androidWebView.popupKeyboardClose();
+					$s.performGeneralLogin(); // 핀번호
 	    	    }
 	    	}
 		}
 		angular.element('#login_pin_number').on('keyup', $s.loginPinChanged);
 		
 		/**
-		function initPinCss(){
-			$('.simple_passwd_write_circle').each(function(i,v) { 
-				$(this).removeClass('check_write_circle');
-		    });
-			
-			$('.passwd_settings_six_write').each(function(i,v) { 
-			    $(this).empty();
-		    });
-			
-			angular.element('#input_pin_number').val('');
-			angular.element('#login_pin_number').val('');
-			$s.settingPinNumber = ''; 
-			$s.inputPinNumber = ''; 
-		}
-		**/
+		 * function initPinCss(){
+		 * $('.simple_passwd_write_circle').each(function(i,v) {
+		 * $(this).removeClass('check_write_circle'); });
+		 * 
+		 * $('.passwd_settings_six_write').each(function(i,v) { $(this).empty();
+		 * });
+		 * 
+		 * angular.element('#input_pin_number').val('');
+		 * angular.element('#login_pin_number').val(''); $s.settingPinNumber =
+		 * ''; $s.inputPinNumber = ''; }
+		 */
 		
 		
 		// 실제 핀번호 세팅
@@ -419,14 +418,20 @@ appHanmaru.controller('loginController', ['$scope', '$http', '$rootScope', funct
 			
 			// ****version check
 			var accessInfoData = {
-				userID : $s.isPinLogin ? $rs.appUserId : $s.general_id,//$rs.appUserId== '' ? $s.general_id : $rs.appUserId, //2019.10.28 수정
+				userID : $s.isPinLogin ? $rs.appUserId : $s.general_id,// $rs.appUserId==
+																		// '' ?
+																		// $s.general_id
+																		// :
+																		// $rs.appUserId,
+																		// //2019.10.28
+																		// 수정
 				userPwd :  $s.general_pw,
 				isPinLogin : $s.isPinLogin,
 				inputPinNumber : $s.inputPinNumber,
 				generalLogin_domain : $s.generalLogin_domain
 			}
 			$rs.accessUser(accessInfoData);
-			//versionCheck();
+			// versionCheck();
 			
 			// chatbotLogin();
 		}
@@ -448,13 +453,9 @@ appHanmaru.controller('loginController', ['$scope', '$http', '$rootScope', funct
 		
 		
 		/**
-		function loginFailResult(){
-			setTimeout(function(){
-				$rs.dialog_toast = false;
-				$rs.$apply();
-			},1000);
-		}
-		**/
+		 * function loginFailResult(){ setTimeout(function(){ $rs.dialog_toast =
+		 * false; $rs.$apply(); },1000); }
+		 */
 		
 	// function chatbotLogin(){
 	// var loginData = {
@@ -500,7 +501,7 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 		pushPage(prevPageName, currPageName)
 	};
 	
-	$rs.apiURL = "http://eptest.halla.com";
+	$rs.apiURL = "https://ep.halla.com";
 	
 	objApiURL.setApiDomain($rs.apiURL);
 	objApiURL.initApiDomain();
@@ -514,7 +515,7 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 		} 
 	} else if($rs.agent=='ios') {
 		webkit.messageHandlers.sendDeviceInfo.postMessage("success");
-		//핀번호 로그인을 위한 아이디 불러오기 
+		// 핀번호 로그인을 위한 아이디 불러오기
 		webkit.messageHandlers.getIosUserId.postMessage("success");			
 	}
 	
@@ -537,42 +538,46 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 	}
 
 	
-	//2019.10.24 자동 로그인 관련 로직 추가 - jh.j
+	// 2019.10.24 자동 로그인 관련 로직 추가 - jh.j
 	// 핀번호 로그인을 위한 아이디 불러오기
 	window.getAndroidPinLoginUserId = function(userId,pinNumber){
 		$rs.appUserId = userId;
 		$rs.appPinNumber = pinNumber;
 	};
-	//ios
+	// ios
 	getIosPinLoginUserId = function(userId,pinNumber){
 		$rs.appUserId = userId;
 		$rs.appPinNumber = pinNumber;
 	};
 	
+	
 	$rs.accessUser = function(accessInfoData){
 		
-		//TEST ID / PW
-//		$rs.appUserId = 'jh1.jang';
-//		$rs.appPinNumber = '841414';
+		// TEST ID / PW
+// $rs.appUserId = 'jh1.jang';
+// $rs.appPinNumber = '841414';
 		
-		if(accessInfoData.isPinLogin){//$s.isPinLogin //변경
+		if(accessInfoData.isPinLogin){// $s.isPinLogin //변경
 			var loginData = {
 				userID:$rs.appUserId,
 				DeviceID:$rs.deviceID,
-				PinCode : accessInfoData.inputPinNumber, //$s.inputPinNumber, //변경
+				PinCode : accessInfoData.inputPinNumber, // $s.inputPinNumber,
+															// //변경
 				AppVersion:$rs.appVersion,
-				AppType:accessInfoData.generalLogin_domain//$s.generalLogin_domain //변경
+				AppType:accessInfoData.generalLogin_domain// $s.generalLogin_domain
+															// //변경
 			};
 			var param = callApiObject('login', 'pinLogin', loginData);
 		}else{
 			var loginData = {
-				userID:accessInfoData.userID, //$rs.general_id //변경
+				userID:accessInfoData.userID, // $rs.general_id //변경
 				DeviceID:$rs.deviceID,
 				PhoneModel:$rs.phoneModel,
 				PhoneBrand:$rs.phoneBrand,
-				Password:accessInfoData.userPwd, //$rs.general_pw //변경
+				Password:accessInfoData.userPwd, // $rs.general_pw //변경
 				AppVersion:$rs.appVersion,
-				AppType:accessInfoData.generalLogin_domain//$s.generalLogin_domain //변경
+				AppType:accessInfoData.generalLogin_domain// $s.generalLogin_domain
+															// //변경
 			};
 			var param = callApiObject('login', 'generalLogin', loginData);
 		}
@@ -602,9 +607,11 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 				};
 				
 				$rs.chatbotUserId = $s.isPinLogin ? $rs.appUserId+'@'+ $s.generalLogin_domain : $rs.general_id+'@'+$s.generalLogin_domain; // 소문자
-				$rs.chatbotLoginKey = 'f4356076dd634af7a47ea50763dc51bd'; // exs-mobile에서 사용가능한 key값
+				$rs.chatbotLoginKey = 'f4356076dd634af7a47ea50763dc51bd'; // exs-mobile에서
+																			// 사용가능한
+																			// key값
 				
-				//pin번호 저장 -> ios쪽 추가 작업 필요.
+				// pin번호 저장 -> ios쪽 추가 작업 필요.
 				if($rs.agent == 'android'){
 					if(androidWebView != undefined) {
 						androidWebView.setAndroidPinLoginNumber(accessInfoData.inputPinNumber);
@@ -632,7 +639,7 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 			if(androidWebView != undefined) {
 				androidWebView.focusToWebView();
 			}
-//			if (accessInfoData.isPinLogin) initPinCss();
+// if (accessInfoData.isPinLogin) initPinCss();
 			$rs.loginFailResult();
 		});
 	}
@@ -644,7 +651,7 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 		},1000);
 	}
 	
-	//*******************챗봇***************************
+	// *******************챗봇***************************
 	// 챗봇 로그인 처리및 음성인식 init
 	$rs.showSttIcon = function(isLogin,userId,userPw){
 		if($rs.agent == 'android'){
@@ -660,7 +667,7 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 			webkit.messageHandlers.isAvailableSTT.postMessage(dic);
 		}
 	}
-	//챗봇 메인화면 check 함수.
+	// 챗봇 메인화면 check 함수.
 	$rs.checkMainView = function(isMainView){
 		if(isMainView){
 			$rs.showSttIcon(true,$rs.chatbotUserId.toLowerCase(),$rs.chatbotLoginKey);
@@ -980,9 +987,19 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 	// back button
 	window.checkCanGoBack = function(){
 		var currPage = angular.element('[class^="panel"][class*="current"]');
-		var pageName = currPage.eq(currPage.length-1).attr('id'); // 가장 위에 출력된 화면
-		
-		if(currPage.length > 1){
+		var pageName = currPage.eq(currPage.length-1).attr('id'); // 가장 위에 출력된
+				
+		if ($rs.slideMenuShow == true) {
+			// 닫기
+			$rs.slideMenuShow = false;
+			$rs.currMenuSlide = false;
+			// 메뉴 초기화
+			$rs.isApprovalSearchDDShow = false;
+		}
+		else if($rs.subMenuType != 'main'){
+			$rs.loadMenu('main');
+		}
+		else if(currPage.length > 1){
 			if(androidWebView != undefined) {
 				androidWebView.isCanGoBack(true);
 				$s.popPage(pageName);
@@ -1569,7 +1586,17 @@ appHanmaru.controller('ReservBookingListController', ['$scope', '$http', '$rootS
 		var now = moment(new Date()).format("YYYY-MM-DD");
 		$s.txtSearchDate = now;
 		
-		$s.txtStartTime = $s.timeList[0].value;
+		var d = new Date();
+		var Hour = d.getHours();
+		var Minute = d.getMinutes();
+		if(Minute > 30){
+			Minute = "00";
+			Hour = Hour+1<10?"0"+Hour+1:Hour+1;	
+		}else{
+			Minute = "30";
+		}
+		
+		$s.txtStartTime = Hour+":"+Minute// $s.timeList[0].value;
 		$s.txtPeriod = $s.periodList[0].name;
 		$s.periodValue = $s.periodList[0].value;
 		$s.reservPossibleList = new Array();
@@ -2561,6 +2588,7 @@ appHanmaru.controller('boardListController', ['$scope', '$http', '$rootScope', '
 	
 	// 공지 리스트 중 하나 클릭 시 공지사항 상세 화면 이동
 	$rs.boardDetail = function(e, board, boardType, displayName) {
+		$('.boardContentsWrap').scrollTop(0);
 		if(boardType != ''){ // 메인에서 접근할 경우 boardType존재, 게시판에서 접근할 경우
 								// boardType ''
 			$s.boardType = boardType;
@@ -2672,7 +2700,7 @@ appHanmaru.controller('boardDetailController', ['$scope', '$http', '$rootScope',
 			$rs.dialog_progress = false;
 		});
 		
-		//게시글 스크롤 초기화
+		// 게시글 스크롤 초기화
 		
 	})
 	
@@ -3012,7 +3040,7 @@ appHanmaru.controller('settingController', ['$scope', '$http', '$rootScope', '$t
 		localStorage.removeItem("account");
 		
 		$rs.$broadcast('initLoginPage');
-//		pushPage(pageName, 'pg_login');
+// pushPage(pageName, 'pg_login');
 	}
 	
 }]);
@@ -3119,9 +3147,9 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 // $s.searchSel = '제목';
 	$s.editTxt = '편집';
 	$s.mailListPage = 1;
-	//2019.10.21 추가 - jh.j
+	// 2019.10.21 추가 - jh.j
 	$rs.isMailBottomLoading = false;
-	//2019.10.21 추가끝
+	// 2019.10.21 추가끝
 	
 	$s.SearchTypeOptions = [
 		{'value':'subject','name':'제목'},
@@ -3135,8 +3163,8 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
   	$s.curSearchType = 0;
   	
 	$rs.$on('initSearchValue',function(event){
-		//2019.10.21 수정 - jh.j
-	  	//메일 검색시 default 날짜를 3개월전으로.
+		// 2019.10.21 수정 - jh.j
+	  	// 메일 검색시 default 날짜를 3개월전으로.
 		$s.SearchValue = '';
 		var now = moment(new Date()).format("YYYY-MM-DD");
 		var monthAgo = moment(new Date()).subtract(3, 'months').format("YYYY-MM-DD");
@@ -3144,7 +3172,7 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 		$s.txtSearchEnd = now;
 		
 		$s.SearchType = $s.SearchTypeOptions[0].value;		
-		//2019.10.21 수정끝
+		// 2019.10.21 수정끝
 	});
 	
 	$rs.$on('displayMailName', function(event, data){
@@ -3328,7 +3356,7 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 	});
 	
 	$rs.$on('initMailList', function(event, data) {
-		//$rs.dialog_progress = true;
+		// $rs.dialog_progress = true;
 		// data => menuName
 		$s.mailListPage = 1;
 		
@@ -3343,8 +3371,8 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 		}
 		
 		
-		//2019.10.21 수정 - jh.j
-		//3개월에 해당하는 data만 로드하도록 수정.
+		// 2019.10.21 수정 - jh.j
+		// 3개월에 해당하는 data만 로드하도록 수정.
 		var now = moment(new Date()).format("YYYY-MM-DD");
 		var monthAgo = moment(new Date()).subtract(3, 'months').format("YYYY-MM-DD");
 		$s.txtSearchStart = monthAgo;
@@ -3358,7 +3386,7 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 			StartDate:$s.txtSearchStart,
 			EndDate:$s.txtSearchEnd
 		};
-		//2019.10.21 수정끝.
+		// 2019.10.21 수정끝.
 		
 		var param = callApiObject('mail', 'mailList', reqMailListData);
 		$http(param).success(function(data) {
@@ -3772,17 +3800,17 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 					for(idx in mailList.Mails) {
 						$rs.mailList.push(mailList.Mails[idx]);
 					}
-					//2019.10.22 추가 - jh.j
-					//하단 로딩처리
+					// 2019.10.22 추가 - jh.j
+					// 하단 로딩처리
 					$rs.isMailBottomLoading = false;
-					//2019.10.22 추가 끝.
+					// 2019.10.22 추가 끝.
 				} else {
 					$s.mailListPage--;
 				}
 			}, 500);
 		}).then(function(){
 			$timeout(function(){
-//				$rs.dialog_progress = false;
+// $rs.dialog_progress = false;
 				$rs.isMailBottomLoading = false;
 			}, 1000);
 		});
@@ -4471,12 +4499,12 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 				if(scope.agent == 'ios') {
 					if ((el.scrollHeight - el.scrollTop) == clientHeight) { // fully
 																			// scrolled
-						//scope.$root.dialog_progress = true;
+						// scope.$root.dialog_progress = true;
 						scope.$apply(fn);
 					}
 				} else{
 					if((el.scrollTop + clientHeight + 0.5) >= el.scrollHeight){
-						//scope.$root.dialog_progress = true;
+						// scope.$root.dialog_progress = true;
 						scope.$apply(fn);
 					}
 				}
@@ -4532,14 +4560,15 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 	    return $(elm[0]).xpull({
 	    	pullThreshold: 50,
 	        maxPullThreshold: 0,
-	        /*'onPullThreshold' : function(){
-	        	angular.element('.pull-indicator.mail').show();
-	        },*/
+	        /*
+			 * 'onPullThreshold' : function(){
+			 * angular.element('.pull-indicator.mail').show(); },
+			 */
 	        'callback': function(e) {
-	        	//angular.element('.pull-indicator.mail').hide();
+	        	// angular.element('.pull-indicator.mail').hide();
         		scope.$apply(attr.ngXpull);
         		scope.$root.$broadcast('initMailList', scope.displayName);
-        		//scope.$root.dialog_progress = true;
+        		// scope.$root.dialog_progress = true;
 	        	return;
 	        }
 	    });
@@ -4662,7 +4691,7 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 						$rs.mailData.HTMLBody = $sce.trustAsHtml($rs.mailData.Body);
 			        });
 					
-					//2019-09-26 김현석 [메일 이전,다음보기시 유저정보 갱신부분 추가] start
+					// 2019-09-26 김현석 [메일 이전,다음보기시 유저정보 갱신부분 추가] start
 					$s.userDetailData = undefined;
 					var reqUserDetailData = {
 						LoginKey:$rs.userInfo.LoginKey,
@@ -4684,7 +4713,7 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 					}).then(function(){
 						$rs.dialog_progress = false;
 					});
-					//end
+					// end
 				}, 100);
 			}
 		}).then(function(){
@@ -6092,9 +6121,9 @@ appHanmaru.controller('approvalController', ['$scope', '$http', '$rootScope', '$
 	$s.DraftDeptSearch = '';
 	$s.StartDate = '';
 	$s.EndDate = '';
-	//2019.10.23 추가 - jh.j
+	// 2019.10.23 추가 - jh.j
 	$rs.isApprovalBottomLoading = false;
-	//2019.10.23 추가끝
+	// 2019.10.23 추가끝
 	
 	$s.curSearchType1 = 0;
 	$s.curSearchType2 = 0;
@@ -6156,33 +6185,34 @@ appHanmaru.controller('approvalController', ['$scope', '$http', '$rootScope', '$
 	});
 	
 	$rs.$on('initApprovalList', function(event, data) {
-		//$rs.dialog_progress = true;
+		// $rs.dialog_progress = true;
 		$s.approvalListPage = 1;
 		$s.displayName = data;
 		
 		// 검색조건 초기화
 		$rs.$broadcast('initSearchValue');
 		
-		//2019.11.11 수정
-		//검색 기준 : 3개월 전 문서만 불러오도록 수정.
-//		if($rs.currSubMenu === 'ARRIVE'){
-//			var now = moment(new Date()).format("YYYY-MM-DD");
-//			var yearAgo = moment(new Date()).subtract(3, 'months').format("YYYY-MM-DD");
-//			$s.txtSearchStart = yearAgo;
-//			$s.txtSearchEnd = now;
-////			$s.txtSearchStart = '';
-////			$s.txtSearchEnd = '';
-//		}else{
-//			var now = moment(new Date()).format("YYYY-MM-DD");
-//			var yearAgo = moment(new Date()).subtract(3, 'months').format("YYYY-MM-DD");
-//			$s.txtSearchStart = yearAgo;
-//			$s.txtSearchEnd = now;
-//		}
+
+		// 2019.11.11 수정
+		// 검색 기준 : 3개월 전 문서만 불러오도록 수정.
+// if($rs.currSubMenu === 'ARRIVE'){
+// var now = moment(new Date()).format("YYYY-MM-DD");
+// var yearAgo = moment(new Date()).subtract(3, 'months').format("YYYY-MM-DD");
+// $s.txtSearchStart = yearAgo;
+// $s.txtSearchEnd = now;
+// // $s.txtSearchStart = '';
+// // $s.txtSearchEnd = '';
+// }else{
+// var now = moment(new Date()).format("YYYY-MM-DD");
+// var yearAgo = moment(new Date()).subtract(3, 'months').format("YYYY-MM-DD");
+// $s.txtSearchStart = yearAgo;
+// $s.txtSearchEnd = now;
+// }
 		var now = moment(new Date()).format("YYYY-MM-DD");
 		var yearAgo = moment(new Date()).subtract(3, 'months').format("YYYY-MM-DD");
 		$s.txtSearchStart = yearAgo;
 		$s.txtSearchEnd = now;
-		
+
 		var reqApprovalListData = {
 			LoginKey:$rs.userInfo.LoginKey,
 			PageSize:20,
@@ -6383,9 +6413,9 @@ appHanmaru.controller('approvalController', ['$scope', '$http', '$rootScope', '$
 	// 다음페이지 읽기
 	$s.readApprovalNextPage = function(){
 // //console.log($rs.currSubMenu);
-		//2019.10.23 추가 - jh.j
+		// 2019.10.23 추가 - jh.j
 		$rs.isApprovalBottomLoading = true;
-		//2019.10.23 추가끝
+		// 2019.10.23 추가끝
 		$s.approvalListPage++;
 		
 		var reqApprovalListData = {
@@ -6427,9 +6457,9 @@ appHanmaru.controller('approvalController', ['$scope', '$http', '$rootScope', '$
 					$rs.result_message = '마지막 리스트 입니다.';
 					$rs.dialog_toast = true;
 				}
-				//2019.10.23 추가 - jh.j
+				// 2019.10.23 추가 - jh.j
 				$rs.isApprovalBottomLoading = false;
-				//2019.10.23 추가끝
+				// 2019.10.23 추가끝
 			}, 500);
 			$rs.dialog_progress = false;
 		}).then(function(){
@@ -6461,10 +6491,10 @@ appHanmaru.controller('approvalController', ['$scope', '$http', '$rootScope', '$
 	    	pullThreshold: 50,
 	        maxPullThreshold: 0,
 	        'callback': function(e) {
-	        	//angular.element('.pull-indicator.approval').hide();
+	        	// angular.element('.pull-indicator.approval').hide();
 	        	scope.$apply(attr.ngXpull);
 	        	scope.$root.$broadcast('initApprovalList', scope.displayName);
-	        	//scope.$root.dialog_progress = true;
+	        	// scope.$root.dialog_progress = true;
 	        	return;
 	        }
 	    });
@@ -8037,6 +8067,7 @@ appHanmaru.controller('diaryScheduelController', ['$scope', '$http', '$rootScope
 			$s.cal.fullCalendar('gotoDate', $s.currentYear + '-' + $s.currentMonth );
 			
 			$s.currentMonth--;
+			
 			$rs.$broadcast('initWorkList');
 		});
 	}

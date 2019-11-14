@@ -83,9 +83,17 @@
 					</li>
 				</ul>
 			</div>
-			
+			<div class="diarySearchDate">
+				<div class="diarySearchStart" ng-click="chooseSearchDate('start')">
+					<img src="/resources/image/mail/ic-calendar.png"> <input type="text" readonly="readonly" class="txtDateSearch ng-pristine ng-valid" ng-model="txtSearchStart" ng-trim="true">
+				</div>
+				<div class="diarySwungDash">~</div>
+				<div class="diarySearchEnd" ng-click="chooseSearchDate('end')">
+					<img src="/resources/image/mail/ic-calendar.png"> <input type="text" readonly="readonly" class="txtDateSearch ng-pristine ng-valid" ng-model="txtSearchEnd" ng-trim="true">
+				</div>
+			</div>
 			<div class="diarySearchKeyword">
-				<input type="text" placeholder="검색어 입력">
+				<input type="text" ng-model="searchValue" placeholder="검색어 입력">
 				<button ng-click="btnSearchSchedule()">검색</button>
 				<!-- ng-model="SearchValue" ng-trim="true"
 				ng-click="btnSearchMail()" -->
