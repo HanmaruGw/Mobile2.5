@@ -8342,8 +8342,9 @@ appHanmaru.controller('scheduleWriteController', ['$scope', '$http', '$rootScope
 	$s.isDetail = false;
 	
 	// 2019-02-14 PK 달력 설정
-	$s.txtSearchStart = '';
-	$s.txtSearchEnd = '';
+	var today = new Date();
+	$s.txtSearchStart = today.getFullYear()+'-'+today.getMonth()-1+'-'+today.getDate();
+	$s.txtSearchEnd = today.getFullYear()+'-'+today.getMonth()+'-'+today.getDate();
 	
 	// 2019-02-06 PK 작업 선택
 	$s.isDlgScheduleWork = false;
