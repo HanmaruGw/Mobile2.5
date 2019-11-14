@@ -1581,7 +1581,18 @@ appHanmaru.controller('ReservBookingListController', ['$scope', '$http', '$rootS
 		var now = moment(new Date()).format("YYYY-MM-DD");
 		$s.txtSearchDate = now;
 		
-		$s.txtStartTime = $s.timeList[0].value;
+		//자원예약 시간 현재시간기준으로 계산(default)
+		var d = new Date();
+		var Hour = d.getHours();
+		var Minute = d.getMinutes();
+		if(Minute > 30){
+			Minute = "00";
+			Hour = Hour+1<10?"0"+Hour+1:Hour+1;	
+		}else{
+			Minute = "30";
+		}
+		
+		$s.txtStartTime = Hour+":"+Minute// $s.timeList[0].value;
 		$s.txtPeriod = $s.periodList[0].name;
 		$s.periodValue = $s.periodList[0].value;
 		$s.reservPossibleList = new Array();
@@ -2573,6 +2584,8 @@ appHanmaru.controller('boardListController', ['$scope', '$http', '$rootScope', '
 	
 	// 공지 리스트 중 하나 클릭 시 공지사항 상세 화면 이동
 	$rs.boardDetail = function(e, board, boardType, displayName) {
+		//게시판 들어갔을때 항상 위에서부터 시작되도록 수정
+		$('.boardContentsWrap').scrollTop(0);
 		if(boardType != ''){ // 메인에서 접근할 경우 boardType존재, 게시판에서 접근할 경우
 								// boardType ''
 			$s.boardType = boardType;
@@ -7955,8 +7968,9 @@ appHanmaru.controller('diaryScheduelController', ['$scope', '$http', '$rootScope
 			var workListData = JSON.parse(data.value);
 			$s.arrSearchResult = workListData.Items;
 		}).then(function(){
-			$s.isShowScheduleSearch = false;
-		});
+			//워크다이어리 검색부분 숨김처리 해제
+			//$s.isShowScheduleSearch = false;
+		}); 
 	}
 	
 	$s.applySearchType = function(value) {
