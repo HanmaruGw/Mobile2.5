@@ -2330,7 +2330,7 @@ diary 검색 드롭다운
 .dialogShareCalendarTop::after{content:"";display:table;clear:both}
 .dialogShareCalendarTop span{display:inline-block;padding-left:1vw;font-size:4vw;font-weight:bold;color:#2B2F3B}
 .dialogShareCalendarTop img{position:absolute;top:50%;right:4vw;transform:translateY(-50%);width: 4vw;}
-.dialogShareCalendarWrap{padding:2vw 4vw;overflow:scroll;height:80%}
+.dialogShareCalendarWrap{padding:2vw 4vw;overflow:scroll;height:76%}
 .dialogShareCalendarContents{}
 .dialogCalendarList{width:100%;padding:3vw 0;border-bottom:1px solid #E4E7EB}
 
@@ -2658,8 +2658,8 @@ diary 검색 드롭다운
 .wrapApprovalSearchOptionBtn{text-align:center}
 .wrapApprovalSearchOptionBtn button{border: none;width: 36%;background: #4C5264;font-size: 3.5vw;color: #fff;padding: 3vw 2vw;border-radius: 2.3vw;margin-top: 3.5vw;}
 .wrapMailSearchOptionBtn  button{border: none;width: 36%;background: #4C5264;font-size: 3.5vw;color: #fff;padding: 3vw 2vw;border-radius: 2.3vw;margin-top: 3.5vw;}
-.dialogShareCalendarCheckDb {float: left;bottom: 0;width: 50%;text-align: center;}
-.dialogShareCalendarCheckDb .dialogShareCalendarBtn {padding: 3vw 0;border-top: 2px solid #4E86FF;}
+.dialogShareCalendarCheckDb {position: fixed;bottom: 0;width: 100%;text-align: center;}
+.dialogShareCalendarCheckDb .dialogShareCalendarBtn {padding: 3vw 0;border-top: 2px solid #4E86FF;width: 50%;float: left;}
 .wrapShareUserInfo{width:43vw}
 
 .AutologinCheck img{position: absolute;width: 100%;top: 10%;left: 10%;}
