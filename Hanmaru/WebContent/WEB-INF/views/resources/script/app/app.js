@@ -21,7 +21,7 @@ appHanmaru.controller('splashController', ['$scope', '$http', '$rootScope','$tim
 //	var param=callApiObject('login', 'autoLoginSetting', loginData);	
 //	$http(param).success(function(data) {
 //	});
-	
+	 
 	$rs.checkAutoLogin = function(){
 		var loginData = { userID:$rs.appUserId, DeviceID:$rs.deviceID,
 		AppVersion:$rs.appVersion, AppType:'' };
