@@ -800,7 +800,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .organizationBack{display:none;background:rgba(0,0,0,0.5);width:100%;height:100%;position:absolute;z-index:1}
 .orgMemberDetail{display:none;position:fixed;top:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:5999}
 .orgMemberDetail.show{display:block!important}
-.orgMemberDetail .memberProfile{position:absolute;top:50%;left:50%;width:75%;background:#fff;border-radius:5px;text-align:center;transform:translate(-50%, -50%);z-index:6000}
+.orgMemberDetail .memberProfile{position:absolute;top:50%;left:50%;width:75%;background:#fff;border-radius:2vw;text-align:center;transform:translate(-50%, -50%);z-index:6000}
 
 /* 조직도 사용자 선택 */
 .orgMemberSelect.alt{/* display:none; */position:absolute;bottom:0;width:100%;height:7%;background:#4E86FF}
@@ -816,14 +816,14 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .orgSelectedDialog.show{display:block!important}
 .orgSelectedDialog .orgSelectedHeader{padding:3vw 0;border-bottom:1px solid #E7E7E7;background-color:#F2F4F8;border-radius: 2vw 2vw 0 0;font-weight:600;font-size: 4vw;}
 .orgSelectedDialog .wrap_orgSelectedContents{display:block;position:absolute;top:50%;left:50%;width:70%;background:#fff;border-radius:2vw;text-align:center;transform:translate(-50%, -50%);z-index:6000}
-.orgSelectedDialog .orgSelectedContents{overflow-y:auto;height:80vw;padding:2vw 3vw;}
+.orgSelectedDialog .orgSelectedContents{overflow-y:auto;height:80vw;padding:2vw 4vw;}
 .orgSelectedDialog .orgSelectedContents ul li{position: relative;padding: 3vw 2vw;border-bottom: 1px solid #E7E7E7;text-align: left;font-size: 3.5vw;}
 .orgSelectedDialog .orgSelectedContents ul li a.btnRemoveUserDept{position: absolute;display: inline-block;top: 4vw;right: 2vw;}
 .orgSelectedDialog .orgSelectedContents ul li a.btnRemoveUserDept img{vertical-align:top;width:3vw}
 .orgSelectedDialog .orgSelectedFooter{padding: 3vw 0;border-top: 2px solid #4E86FF;color: #4E86FF;font-size: 4vw;font-weight: 600;}
 
 .memberProfile::after{content:"";display:table;clear:both}
-.memberProfile .titleProfile{display:block;padding:2vw 0;border-bottom:2px solid #dedede;background-color: #F2F4F8;border-radius: 5px;font-weight:bold}
+.memberProfile .titleProfile{display:block;padding:2vw 0;border-bottom:2px solid #dedede;background-color: #F2F4F8;border-radius: 2vw 2vw 0 0;font-weight:bold}
 .memberProfilePhoto{position:relative;width:100%;background:#fff;border-bottom:1px solid #dedede;padding:2vw 0}
 .profilePicture{/* width:15%;padding:0.8vw */border-radius: 30vw;width: 18vw;height: 18vw;}
 .profilePicture.enlarge{/* width:40% */border-radius: 50vw;width: 30vw;height: 30vw;}
@@ -861,7 +861,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .memberInfo_email span{display:inline-block;vertical-align:middle}
 .memberInfo_place{font-size:3.5vw;text-align:left;padding-left:2vw;padding:2.2vw 2vw}
 .memberInfo_place span{display:inline-block}
-.profileDetailCheck{font-size:4.5vw;border-top:1px solid #4E86FF;color:#4E86FF;padding:3.2vw 0;font-weight:bold}
+.profileDetailCheck{font-size:4vw;border-top:1px solid #4E86FF;color:#4E86FF;padding:3vw 0;font-weight:600}
 .memberInfo_img img{float:right;display:inline-block;vertical-align:middle;width:7vw;height:7vw}
 .orgSideNavi{/*position:absolute;*/top:0;width:100%;height:100%;z-index:2500}
 .orgSideNavi::after{content:"";display:table;clear:both}
@@ -2325,7 +2325,7 @@ diary 검색 드롭다운
  
 /*워크다이어리-공유캘린더 다이얼로그*/
 .dialogShareCalendarBase{position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:5999}
-.dialogShareCalendar{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:72vw;height:120vw;border-radius:2vw;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
+.dialogShareCalendar{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:72vw;height:120vw;border-radius:2vw;box-shadow:0px 2px 3px #00000016;font-size:3.5;z-index:6000;}
 .dialogShareCalendarTop{position:relative;padding:3vw;background:#F2F4F8;border-radius:2vw 2vw 0 0;border-bottom:1px solid #E4E7EB}
 .dialogShareCalendarTop::after{content:"";display:table;clear:both}
 .dialogShareCalendarTop span{display:inline-block;padding-left:1vw;font-size:4vw;font-weight:bold;color:#2B2F3B}
@@ -2335,11 +2335,13 @@ diary 검색 드롭다운
 .dialogCalendarList{width:100%;padding:3vw 0;border-bottom:1px solid #E4E7EB}
 
 .dialogCalendarList img{display:inline-block;vertical-align:middle;width: 5vw;}
-.dialogCalendarList span{display:inline-block;padding-left:1.6vw;font-size:3.5vw;vertical-align:middle;width: 57vw;}
+.dialogCalendarList span {padding-left: 1.6vw;}
+.dialogCalendarList .wrapShareUserInfo span{display:inline-block;padding-left:1.6vw;font-size:3.5vw;vertical-align:middle;}
 .dialogShareCalendarCheck{position:fixed;bottom:0;width:100%;text-align:center}
 .dialogShareCalendarCheck .dialogShareCalendarBtn{padding:3vw 0;border-top:2px solid #4E86FF}
 .dialogShareCalendarCheck .dialogShareCalendarBtn a{display:inline-block}
 .dialogShareCalendarBtn .dialogShareCalendarAction{display:inline-block;font-size:4vw;font-weight:bold;color:#4e86ff;}
+.dialogCalendarList .wrapShareUserExit img {width: 6vw}
 
 /*워크다이어리-회의실 선택 다이얼로그*/
 .dialogConferenceSelectBase{position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:5999}
