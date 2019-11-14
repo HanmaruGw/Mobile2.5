@@ -7968,7 +7968,7 @@ appHanmaru.controller('diaryScheduelController', ['$scope', '$http', '$rootScope
 		}).then(function(){
 			//워크다이어리 검색부분 숨김처리 해제
 			//$s.isShowScheduleSearch = false;
-		});
+		}); 
 	}
 	
 	$s.applySearchType = function(value) {
