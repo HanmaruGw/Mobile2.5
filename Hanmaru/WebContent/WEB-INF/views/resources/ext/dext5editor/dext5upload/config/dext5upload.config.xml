@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿﻿<?xml version="1.0" encoding="utf-8" ?>
 <Dext5Upload>
   <license>
-    <product_key></product_key>
-    <license_key></license_key>
+    <product_key>IBD8-GEB6-JWW1-M01T</product_key>
+    <license_key>YeYkvzhZtLcGIylVc8YgJKsYiaVJuzdMD0DlGI5SZQA68qpKJfeMiLhvzVorxcbscyMKesS8TecFcqZZcETGUVxy9nPChWs_p2OvFrZXn_t1vt2Cp9VKOl844L2xS6X46YVpYYf3vF16_cQchfR3qkOYMI_IcXZBbXGc061y25838hKoV1XMKVOo65zegctYgXB8rxw5KAdjpVeZNrTSqfF5FY9Rx-ediSKJbMz4IKkXalmG1asEbOH8py2F6v6ttPEBNLNMIFC5I3eTHUZwkBHb8iJl7ZDLbVg-JhRZaOhsAYWwdE8lMZ9CK_BEyMI70</license_key>
   </license>
   <setting>
     <runtimes desc="html5,ieplugin,versionieplugin">html5</runtimes>    
