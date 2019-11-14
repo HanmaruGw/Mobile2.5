@@ -339,7 +339,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .footerBar a.btnFooterMenu{position:relative;display:inline-block;float:left;width:20%;padding:1vw 0;text-align:center}
 .footerBar a.btnFooterMenu img{height:6.5vw}
 .footerBar .btnFooterText{display:block;font-size:3.2vw;color:#2B2F3B}
-.wrapReplyMenu{position:absolute;bottom:1vw;left:55%;transform:translateX(-50%);z-index:2500;position: absolute;right: -1vw;background: #fff;z-index: 2000;border-radius: 8px;border: 1px solid #E4E7EB;bottom: 12vw;width:20vw;box-shadow:1px 2px 2px #E4E7EB}
+.wrapReplyMenu{position:absolute;bottom:1vw;left:55%;transform:translateX(-50%);z-index:2500;position: absolute;right: -1vw;background: #fff;z-index: 2000;border-radius: 2vw;border: 1px solid #E4E7EB;bottom: 12vw;width:20vw;box-shadow:1px 2px 2px #E4E7EB}
 .wrapReplyMenu .replyMenuContents{display:inline-block;width:20.556vw;height:25.452vw;padding:2vw 0;border:1px solid #CCC;border-radius:2.23vw;background-color:#FFF;box-shadow: #00000030 0 1px 2px 0;}
 .wrapReplyMenu span{display:inline-block;width:20vw;/* height:6vw;margin-top:1vw; */padding:2vw 0;font-size:3.5vw}
 
@@ -673,7 +673,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 
 
 /*approval sort menu*/
-.approvalSortMenu{position:absolute;top:11vw;right:3vw;background:#fff;/* box-shadow:-1px 2px 2px #cccccc */;z-index:2000;border-radius:8px;border: 1px solid #CFD3DA;}
+.approvalSortMenu{position:absolute;top:11vw;right:3vw;background:#fff;/* box-shadow:-1px 2px 2px #cccccc */;z-index:2000;border-radius:2vw;border: 1px solid #CFD3DA;}
 .approvalSortMenu span{position:relative;display:block;font-size:3.5vw;padding:2vw 4vw 2vw 8vw}
 .approvalSortMenu span.selected{color:#4E86FF}
 .approvalSortMenu span.not_selected{color:#000}
@@ -2172,7 +2172,7 @@ diary 검색 드롭다운
 
 /*간편 비밀번호 설정 다이얼로그*/
 .simplePasswordBack{background:rgba(0,0,0,0.5);width:100%;height:100%;position:absolute;z-index:5999}
-.simplePasswordDiv{position:absolute;top:40%;left:50%;transform:translate(-50%, -50%);background:#fff;width:77.78vw;height:44.17vw;border-radius:8px;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
+.simplePasswordDiv{position:absolute;top:40%;left:50%;transform:translate(-50%, -50%);background:#fff;width:77.78vw;height:44.17vw;border-radius:2vw;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
 .simplePasswordTop{position:relative;padding:3%;text-align:center}
 .simplePasswordTop span{display:inline-block;font-size:5vw;color:#2B2F3B}
 .simplePasswordTop p{display:block;margin-top:1.111vw;font-size:3.5vw;color:#2B2F3B40}
@@ -2185,7 +2185,7 @@ diary 검색 드롭다운
 .simplePasswordBtn .simplePasswordAction{display:inline-block;margin-left:5vw;font-size:3.5vw;font-weight:bold;color:#4e86ff;line-height:10vw}
 
 /*간편 비밀번호 설정 완료 다이얼로그*/
-.simplePasswordCompDiv{position:absolute;top:40%;left:50%;transform:translate(-50%, -50%);background:#fff;width:77.78vw;height:44.17vw;border-radius:8px;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
+.simplePasswordCompDiv{position:absolute;top:40%;left:50%;transform:translate(-50%, -50%);background:#fff;width:77.78vw;height:44.17vw;border-radius:2vw;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
 .simplePasswordCompTop{position:relative;padding:3%;text-align:left}
 .simplePasswordCompTop span{display:inline-block;padding:4.445vw;font-size:5vw;color:#2B2F3B}
 .simplePasswordCompCheck{padding:0 11vw;text-align:right}
@@ -2325,8 +2325,8 @@ diary 검색 드롭다운
  
 /*워크다이어리-공유캘린더 다이얼로그*/
 .dialogShareCalendarBase{position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:5999}
-.dialogShareCalendar{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:72vw;height:120vw;border-radius:8px;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
-.dialogShareCalendarTop{position:relative;padding:3vw;background:#F2F4F8;border-radius:8px 8px 0 0;border-bottom:1px solid #E4E7EB}
+.dialogShareCalendar{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:72vw;height:120vw;border-radius:2vw;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
+.dialogShareCalendarTop{position:relative;padding:3vw;background:#F2F4F8;border-radius:2vw 2vw 0 0;border-bottom:1px solid #E4E7EB}
 .dialogShareCalendarTop::after{content:"";display:table;clear:both}
 .dialogShareCalendarTop span{display:inline-block;padding-left:1vw;font-size:4vw;font-weight:bold;color:#2B2F3B}
 .dialogShareCalendarTop img{position:absolute;top:50%;right:4vw;transform:translateY(-50%);width: 4vw;}
@@ -2343,9 +2343,9 @@ diary 검색 드롭다운
 
 /*워크다이어리-회의실 선택 다이얼로그*/
 .dialogConferenceSelectBase{position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:5999}
-/*.dialogConferenceSelect{display:none;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:66.67vw;height:70.556vw;border-radius:8px;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}*/
-.dialogConferenceSelect{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:72vw;height:120vw;border-radius:8px;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
-.dialogConferenceSelectTop{position:relative;padding:3vw;background:#F2F4F8;border-radius:8px 8px 0 0;border-bottom:1px solid #E4E7EB}
+/*.dialogConferenceSelect{display:none;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:66.67vw;height:70.556vw;border-radius:2vw;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}*/
+.dialogConferenceSelect{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:72vw;height:120vw;border-radius:2vw;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
+.dialogConferenceSelectTop{position:relative;padding:3vw;background:#F2F4F8;border-radius:2vw 2vw 0 0;border-bottom:1px solid #E4E7EB}
 .dialogConferenceSelectTop::after{content:"";display:table;clear:both}
 .dialogConferenceSelectTop span{display:inline-block;padding-left:1vw;font-size:4vw;font-weight:bold;color:#2B2F3B}
 .dialogConferenceSelectTop img{position:absolute;top:50%;right:4vw;transform:translateY(-50%);width:4vw;}
@@ -2362,8 +2362,8 @@ diary 검색 드롭다운
 
 /*워크다이어리-일정보기 다이얼로그*/
 .dialogScheduleViewingBase {position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:5999}
-.dialogScheduleViewing{/*display:none;*/position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:72vw;height:120vw;border-radius:8px;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
-.dialogScheduleViewingTop{position:relative;padding:3vw;background:#F2F4F8;border-radius:8px 8px 0 0;border-bottom:1px solid #E4E7EB}
+.dialogScheduleViewing{/*display:none;*/position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:72vw;height:120vw;border-radius:2vw;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
+.dialogScheduleViewingTop{position:relative;padding:3vw;background:#F2F4F8;border-radius:2vw 2vw 0 0;border-bottom:1px solid #E4E7EB}
 .dialogScheduleViewingTop .dialogScheduleAdd{display:inline-block;font-size:3.5vw;float:right;}
 .dialogScheduleViewingTop::after{content:"";display:table;clear:both}
 .dialogScheduleViewingTop span{display:inline-block;padding-left:1vw;font-size:4vw;font-weight:bold;color:#2B2F3B}
@@ -2385,8 +2385,8 @@ diary 검색 드롭다운
 .dialogScheduleViewingBtn .dialogScheduleViewingAction{display:inline-block;font-size:4vw;font-weight:bold;color:#4e86ff;}
 
 /*워크다이어리-템플릿 선택(내작업) 다이얼로그*/
-.dialogTemplateSelect{/* display:none; */position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:66.67vw;height:70.556vw;border-radius:8px;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
-.dialogTemplateSelectTop{position:relative;padding:3vw;background:#F2F4F8;border-radius:8px 8px 0 0;border-bottom:1px solid #E4E7EB}
+.dialogTemplateSelect{/* display:none; */position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:66.67vw;height:70.556vw;border-radius:2vw;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
+.dialogTemplateSelectTop{position:relative;padding:3vw;background:#F2F4F8;border-radius:2vw 2vw 0 0;border-bottom:1px solid #E4E7EB}
 .dialogTemplateSelectTop::after{content:"";display:table;clear:both}
 .dialogTemplateSelectTop span{display:inline-block;padding-left:1vw;font-size:4vw;font-weight:bold;color:#2B2F3B}
 .dialogTemplateSelectTop img{position:absolute;top:50%;right:4vw;transform:translateY(-50%);}
@@ -2402,8 +2402,8 @@ diary 검색 드롭다운
 .dialogTemplateBtn .dialogTemplateAction{display:inline-block;font-size:3.5vw;font-weight:bold;color:#4e86ff;line-height:10vw}
 
 /*워크다이어리-템플릿 선택(업무계획) 다이얼로그 : 2019.02.12 내작업 다이얼로그 css와 통합함.*/
-/* .dialogPlanTemplateSelect{display:none;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:66.67vw;height:70.556vw;border-radius:8px;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
-.dialogPlanTemplateSelectTop{position:relative;padding:3.06vw;background:#F2F4F8;border-radius:8px 8px 0 0;border-bottom:1px solid #E4E7EB}
+/* .dialogPlanTemplateSelect{display:none;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);background:#fff;width:66.67vw;height:70.556vw;border-radius:2vw;box-shadow:0px 2px 3px #00000016;font-size:0;z-index:6000;}
+.dialogPlanTemplateSelectTop{position:relative;padding:3.06vw;background:#F2F4F8;border-radius:2vw 2vw 0 0;border-bottom:1px solid #E4E7EB}
 .dialogPlanTemplateSelectTop::after{content:"";display:table;clear:both}
 .dialogPlanTemplateSelectTop span{display:inline-block;padding-left:1.39vw;font-size:4.45vw;font-weight:bold;color:#2B2F3B}
 .dialogPlanTemplateSelectTop img{position:absolute;top:50%;right:4vw;transform:translateY(-50%);}
@@ -2576,7 +2576,7 @@ diary 검색 드롭다운
 .login_renewal_wrapper .login_renewal_elem_box_loginlabel{font-size:3.3334vw;font-weight:bold;color:#717883;margin:0}
 .login_renewal_wrapper .login_renewal_elem_box_pwlabel{font-size:3.3334vw;font-weight:bold;color:#717883;margin:0}
 .login_renewal_wrapper .login_renewal_elem_box_write{position:relative;width:100%;border-bottom:1px solid #BCBEC1}
-.login_renewal_wrapper .login_renewal_elem_box_write .selectDomain{position: absolute;right: 0vw;background: #fff;z-index: 2000;border-radius: 8px;border: 1px solid #CFD3DA;display: inline-block;width: 55%;top: 12.5vw;padding: 0.834vw 0;}
+.login_renewal_wrapper .login_renewal_elem_box_write .selectDomain{position: absolute;right: 0vw;background: #fff;z-index: 2000;border-radius: 2vw;border: 1px solid #CFD3DA;display: inline-block;width: 55%;top: 12.5vw;padding: 0.834vw 0;}
 .login_renewal_elem_box_write .selectDomain .selectDomainList{position: relative;padding: 2.2vw 3.45vw;cursor: pointer;}
 .login_renewal_elem_box_write .selectDomain .selectDomainList .selectDomainListTxt{font-size: 4vw;color: #2B2F3B;}
 .login_renewal_elem_box_write .selectDomain .selectDomainList .selectDomainListTxt.selected{font-weight:bold;color: #4E86FF;}
