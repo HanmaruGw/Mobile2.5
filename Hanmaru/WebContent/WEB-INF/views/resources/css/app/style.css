@@ -2670,6 +2670,7 @@ diary 검색 드롭다운
 
 /* 수정테스트 수정 테스트 깃 테스트 */
 
+/* 워크다이어리 검색 날자 추가 2019-11-14 */
 .diarySearchDate{width:100%;padding:2.23vw 0;background:#E4E7EB;border-radius:2.23vw;text-align:center;font-size:0;margin-bottom:2vw}
 .diarySearchDate::after{content:"";display:table;clear:both}
 .diarySearchDate div{display:inline-block}
