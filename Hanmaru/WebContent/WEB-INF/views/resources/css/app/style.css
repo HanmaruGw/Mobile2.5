@@ -91,6 +91,10 @@ select option[value="? undefined:undefined ?"]{display:none}
 #pg_attendance_list.panel{z-index:2000;background-color:#FFF}
 #pg_attendance_goout.panel{z-index:4000;background-color:#FFF}
 
+/* 2019.11.19 추가 */
+#pg_list_page{z-index:2000;background-color:#FFF}
+#pg_detail_page{z-index:4000;background-color:#FFF}
+
 /*
 #pg_toast .toast_wrapper.show{animation:fadein 0.8s;-moz-animation:fadein 0.8s;-webkit-animation:fadein 0.8s;-o-animation:fadein 0.8s}
 #pg_toast .toast_wrapper.hide{animation:fadeout 0.8s;-moz-animation:fadeout 0.8s;-webkit-animation:fadeout 0.8s;-o-animation:fadeout 0.8s}
@@ -323,7 +327,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 /** mail start **/
 /* mail header */
 .btnMailOption{display:none;}
-.mailContainer{width:100%;height:100%;position:absolute}
+.mailContainer{width:100%;height:100%;background:#fff;position:absolute}
 .headerBar{width:100%;height:7%;position:relative}
 .headerBarMenu{width:12%;height:100%;position:relative;float:left}
 .headerBarMenu img{width:60%;top:50%;left:50%;transform:translate(-50%, -50%);position:absolute}
@@ -594,7 +598,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 
 
 /** approval start **/
-.approvalContainer{position:absolute;width:100%;height:100%}
+.approvalContainer{position:absolute;width:100%;height:100%;background:#fff;}
 /** approval end **/
 
 /*approval header*/
@@ -890,7 +894,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .orgSelectBtn span{color:#000;font-size:3.5vw;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}
 
 /**자원예약**/
-.reservationContainer{position:absolute;width:100%;height:100%}
+.reservationContainer{position:absolute;width:100%;height:100%;background:#fff;}
 .reservContentsList{background:#F2F4F8;width:100%;height:86%;font-size:0;overflow:scroll}
 .reservListWrap{padding:2vw 0vw}
 .reservList{background:#fff;width:100%;/* height:20%; box-shadow:0 -2px 0 #c1c1c1 */;margin-bottom:3vw;/* border-left:5px solid #4E86FF */}
@@ -1393,7 +1397,7 @@ diary 검색 드롭다운
 
 /* 달력제외css */
 /**workDiary start**/
-.workDiaryContainer{position:absolute;width:100%;height:100%}
+.workDiaryContainer{position:absolute;width:100%;height:100%;background:#fff;}
 .headerBarTitle.diaryDrop{left:50%;transform:translate(-50%, -50%);text-align:left}
 .headerBarTitle.diaryDrop img{display:inline-block;width:21%;vertical-align:middle}
 .headerBarTitle.diaryDrop span{display:inline-block;font-size:4.5vw;color:#4C5264;vertical-align:middle}
