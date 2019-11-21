@@ -112,13 +112,13 @@ appHanmaru.controller('loginController', ['$scope', '$http', '$rootScope', funct
 		
 		var pageName = angular.element('[class^="panel"][class*="current"]').attr('id');
 		pushPage(pageName, 'pg_login');
-		$rs.dialog_progress = true;
-		
-		setTimeout(function(){
-			$rs.$apply(function(){
-				$rs.dialog_progress = false;
-			});
-		}, 500);
+//		$rs.dialog_progress = true;
+//		
+//		setTimeout(function(){
+//			$rs.$apply(function(){
+//				$rs.dialog_progress = false;
+//			});
+//		}, 500);
 		
 		// 최초 로딩(editor load)
 		var autoLoginCheck = false;
