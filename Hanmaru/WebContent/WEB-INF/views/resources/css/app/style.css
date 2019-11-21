@@ -1419,7 +1419,7 @@ diary 검색 드롭다운
 .diaryCalenderTab .diaryCalendarList{text-align:center;margin:0 auto}
 .diaryCalenderTab .diaryCalendarList li{display:inline-block}
 /*.diaryCalendarList li a{display:block;font-size:3.5vw;padding:0 5.35vw;color:#717883}*/
-.diaryCalendarList li a{display:block;font-size:14px;padding:0 5.35vw;color:#717883}
+.diaryCalendarList li a{display:block;font-size:3.5vw;padding:0 5.35vw;color:#717883}
 /* .diaryCalendarList li .sunTextColor{color:#ff5200}
 .diaryCalendarList li .satTextColor{color:#448aff} */
 .diaryContentsWrap ul{display:block;border-bottom:1px solid #e2e2e2}
