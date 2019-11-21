@@ -40,7 +40,7 @@
 		
 		<!-- <script type="text/javascript" src="/resources/ext/dext5editor/dext5editor/js/dext5editor.js"></script> -->
 		
-		<script src="/resources/script/lib/calendar/fullcalendar.min.js"></script>
+		<script src="/resources/script/lib/calendar/fullcalendar.js"></script>
 		
 		<script src="/resources/script/app/common.js"></script>
 		<script src="/resources/script/app/api.js"></script>
@@ -52,7 +52,7 @@
 	<body id="pg_main" ng-controller="mainController">
 	
 		<!-- splash image -->
-		<div ng-include="'/html/app/_include/splash.html'" class="panel login current" id="pg_splash" ></div>
+		<!-- <div ng-include="'/html/app/_include/splash.html'" class="panel login current" id="pg_splash" ></div> -->
 	
 		<!-- progress include -->
 		<div ng-include="'/html/app/_include/progress.html'" id="pg_progress" ng-show="dialog_progress == true"></div>
@@ -61,63 +61,68 @@
   		
 		<!-- snb include -->
 		<div ng-include="'/html/app/_include/snb.html'"></div>
-		<!-- 로그인 -->
-		<div ng-include="'/html/app/member/login.html'" id="pg_login" class="panel login container" ></div> <!-- ng-show="!isAutoLogin" -->
 		
-		<!-- 메인 -->
+		<!-- 로그인 -->
+		<div ng-include="'/html/app/'+currentPageId+'.html'" id="pg_list_page"></div>
+ 		<div ng-include="'/html/app/'+currentDetailPageId+'.html'" ng-show="isDetailPage" id="pg_detail_page"></div>
+ 		
+ 		<!-- 조직도 -->
+ 		<div ng-include="'/html/app/organization/organization_list.html'" id="pg_insa_list" class="panel insa container" ng-show="currMenuSlide" ng-class="{'ng-show': currMenuSlide == true}"></div>
+		<div ng-include="'/html/app/organization/organization_list_alt.html'" id="pg_insa_list_alt" class="panel insa container"></div>
+		<div ng-include="'/html/app/organization/organization_list_reserv.html'" id="pg_insa_list_reserv" class="panel insa container"></div>
+		
+		<!-- 
+		<div ng-include="'/html/app/member/login.html'" id="pg_login" class="panel login container" ></div> ng-show="!isAutoLogin"
+		
+		메인
 		<div ng-include="'/html/app/main.html'" id="pg_main_list" class="panel setting"></div>
 		
-		<!-- 게시판 -->
+		게시판
 		<div ng-include="'/html/app/board/board_list.html'" id="pg_board_list" class="panel board container" ng-show="currMenuSlide" ng-class="{'ng-show': currMenuSlide == true}"></div>
 		<div ng-include="'/html/app/board/board_view.html'" id="pg_board_view" class="panel board"></div>
 		
-		<!-- 메일 -->
+		메일
 		<div ng-include="'/html/app/mail/mail_list.html'" id="pg_mail_list" class="panel mail container" ng-show="currMenuSlide" ng-class="{'ng-show': currMenuSlide == true}"></div>
 		<div ng-include="'/html/app/mail/mail_view.html'" id="pg_mail_view" class="panel mail"></div>
 		<div ng-include="'/html/app/mail/mail_write.html'" id="pg_mail_write" class="panel mail"></div>
 		
-		<!-- 결재 -->
+		결재
 		<div ng-include="'/html/app/approval/approval_list.html'" id="pg_approval_list" class="panel approval container" ng-show="currMenuSlide" ng-class="{'ng-show': currMenuSlide == true}"></div>
 		<div ng-include="'/html/app/approval/approval_view.html'" id="pg_approval_view" class="panel approval"></div>
-		
-		<!-- 조직도 -->
-		<div ng-include="'/html/app/organization/organization_list.html'" id="pg_insa_list" class="panel insa container" ng-show="currMenuSlide" ng-class="{'ng-show': currMenuSlide == true}"></div>
-		<div ng-include="'/html/app/organization/organization_list_alt.html'" id="pg_insa_list_alt" class="panel insa container"></div>
-		<div ng-include="'/html/app/organization/organization_list_reserv.html'" id="pg_insa_list_reserv" class="panel insa container"></div>
-		
-		<!-- 워크다이어리 -->
-		<!-- 내일정 -->
+			
+		워크다이어리
+		내일정
 		<div ng-include="'/html/app/work_diary/schedule/diary_schedule.html'" id="pg_work_list" class="panel work_diary container" ng-show="currMenuSlide" ng-class="{'ng-show': currMenuSlide == true}"></div>
 		<div ng-include="'/html/app/work_diary/schedule/schedule_view.html'" id="pg_schedule_view" class="panel Schedule_view"></div>
 		<div ng-include="'/html/app/work_diary/schedule/schedule_write.html'" id="pg_schedule_write" class="panel work_diary"></div>
-		<!-- 내 작업  -->
-		<!-- <div ng-include="'/html/app/work_diary/work/work_list.html'" id="pg_task_list" class="panel work_diary container" ng-show="currMenuSlide" ng-class="{'ng-show': currMenuSlide == true}"></div>
+		내 작업
+		<div ng-include="'/html/app/work_diary/work/work_list.html'" id="pg_task_list" class="panel work_diary container" ng-show="currMenuSlide" ng-class="{'ng-show': currMenuSlide == true}"></div>
 		<div ng-include="'/html/app/work_diary/work/work_view.html'" id="pg_task_view" class="panel work_diary"></div>
 		<div ng-include="'/html/app/work_diary/work/work_write.html'" id="pg_task_write" class="panel work_diary"></div>
-		내 업무계획 
+		내 업무계획
 		<div ng-include="'/html/app/work_diary/plan/plan_list.html'" id="pg_plan_list" class="panel work_diary container" ng-show="currMenuSlide" ng-class="{'ng-show': currMenuSlide == true}"></div>
 		<div ng-include="'/html/app/work_diary/plan/plan_view.html'" id="pg_plan_view" class="panel work_diary"></div>
 		<div ng-include="'/html/app/work_diary/plan/plan_write.html'" id="pg_plan_write" class="panel work_diary"></div>
-		내보고서 
+		내보고서
 		<div ng-include="'/html/app/work_diary/report/report_list.html'" id="pg_report_list" class="panel work_diary container" ng-show="currMenuSlide" ng-class="{'ng-show': currMenuSlide == true}"></div>
 		<div ng-include="'/html/app/work_diary/report/report_view.html'" id="pg_report_view" class="panel work_diary"></div>
-		<div ng-include="'/html/app/work_diary/report/report_write.html'" id="pg_report_write" class="panel work_diary"></div> -->
+		<div ng-include="'/html/app/work_diary/report/report_write.html'" id="pg_report_write" class="panel work_diary"></div>
 		 
-		<!-- 자원예약 -->
+		자원예약
 		<div ng-include="'/html/app/reservation/reservation_list.html'" id="pg_reserv_list" class="panel reserv container" ng-show="currMenuSlide" ng-class="{'ng-show': currMenuSlide == true}"></div>
 		<div ng-include="'/html/app/reservation/reservation_view.html'" id="pg_reserv_view" class="panel reserv"></div>
 		<div ng-include="'/html/app/reservation/reservation_have.html'" id="pg_reserv_booking_list" class="panel reserv"></div>
 		<div ng-include="'/html/app/reservation/reservation_detail.html'" id="pg_reserv_booking_detail" class="panel reserv"></div>
 		<div ng-include="'/html/app/reservation/reservation_detailview.html'" id="pg_reserv_info" class="panel reserv"></div>
 		
-		<!-- 설정 -->
+		설정
 		<div ng-include="'/html/app/settings/settings.html'" id="pg_setting" class="panel setting"></div>
 		<div ng-include="'/html/app/settings/settings_company_detail.html'" id="pg_setting_company" class="panel setting"></div>
 		<div ng-include="'/html/app/settings/settings_language_detail.html'" id="pg_setting_language" class="panel setting"></div>
 		<div ng-include="'/html/app/settings/settings_mainpage_detail.html'" id="pg_setting_mainpage" class="panel setting"></div>
 		
-		<!-- 근태관리 -->
-		<div ng-include="'/html/app/attendance/attendance_management.html'" id="pg_attendance_list" class="panel attendance"></div>
+		근태관리
+		<div ng-include="'/html/app/attendance/attendance_management.html'" id="pg_attendance_list" class="panel attendance"></div> -->
 		
 	</body>
 </html>

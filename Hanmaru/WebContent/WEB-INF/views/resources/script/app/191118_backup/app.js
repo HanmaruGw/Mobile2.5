@@ -127,6 +127,8 @@ appHanmaru.controller('loginController', ['$scope', '$http', '$rootScope', funct
 			});
 		};
 		
+		
+		
 		// Login Domain Change
 		$s.applyDomainChange = function(domain) {
 			for(idx in $rs.siteList) {
