@@ -340,7 +340,7 @@ temporary rendered events).
   /* make the <a> tag block */
   font-size: .85em;
   line-height: 1.3;
-  border-radius: 3px;
+  border-radius: 1.2vw;
   border: 1px solid #3a87ad;
   /* default BORDER color */ }
 
@@ -860,7 +860,7 @@ NOTE: use percentage font sizes or else old IE chokes
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  font-size: 13px;
+  font-size: 3.5vw;
 /*   height:100%; */
   
    }
@@ -915,7 +915,7 @@ NOTE: use percentage font sizes or else old IE chokes
 .fc-ltr .fc-basic-view .fc-day-top .fc-day-number {
   /*float: right;*/
   margin: 38%;
-  font-size: 13px; }
+  font-size: 3vw; }
 
 .fc-rtl .fc-basic-view .fc-day-top .fc-day-number {
   float: left; }
