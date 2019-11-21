@@ -21,8 +21,8 @@ input{-webkit-appearance: none} /* mobile safari nature turn off */
 select option[value="? undefined:undefined ?"]{display:none}
 
 /* common layout configuration */
-.panel{overflow-y:auto;position:absolute;top:0;left:100vw;width:100vw;height:100vh;transition-delay:0.3s;transition:left 0.3s;touch-action:none}
-.panel.current{left:0;transition-delay:0.3s;transition:left 0.3s}
+.panel{overflow-y:auto;position:absolute;top:0;left:100vw;width:100vw;height:100vh;transition-delay:0.2s;transition:left 0.2s;touch-action:none}
+.panel.current{left:0;transition-delay:0.2s;transition:left 0.2s}
 .panel.current.container.ng-show{left:70%/* ;animation:0.3s currMenuOpenAnim linear */}
 .panel.current.container.ng-hide{display:inherit!important;left:0/* ;animation:0.3s currMenuCloseAnim */}
 
@@ -327,7 +327,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 /** mail start **/
 /* mail header */
 .btnMailOption{display:none;}
-.mailContainer{width:100%;height:100%;background:#fff;position:absolute}
+.mailContainer{width:100%;height:100%;background:#fff;position:absolute;background:#fff;}
 .headerBar{width:100%;height:7%;position:relative}
 .headerBarMenu{width:12%;height:100%;position:relative;float:left}
 .headerBarMenu img{width:60%;top:50%;left:50%;transform:translate(-50%, -50%);position:absolute}
@@ -1691,7 +1691,7 @@ diary 검색 드롭다운
 .fc-view-container{height:100%;}
 
 /*일정보기*/
-.scheduleViewDiv{position:relative;width:100%;height:85%;overflow-y:auto;font-size:0}
+.scheduleViewDiv{position:relative;width:100%;height:85%;overflow-y:auto;font-size:0;background:#fff}
 .scheduleViewDiv .scheduleViewTitle{position:relative;background:#F2F4F8;padding:3.334vw 4.45vw;font-size:3.5vw;overflow:hidden}
 .reportViewTitle::after{content:"";display:table;clear:both}
 .scheduleViewDiv .scheduleViewTitleLabel{width:90%;float:left;font-size:4.45vw;font-weight:bold;color:#2B2F3B}

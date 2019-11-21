@@ -225,7 +225,7 @@
 					<div>자세히</div>
 				</div>
 				<div colspan="3" class="scheduleEditorWrap">
-					<iframe id="scheduleContents" class="contents" src="/html/app/_include/ext/dext5editor.html" frameborder="0"></iframe>
+					<iframe ng-if="isEditorLoaded == true" id="scheduleContents" class="contents" src="/html/app/_include/ext/dext5editor.html" frameborder="0"></iframe>
 				</div><!-- 해당 영역에 에디터 툴 들어옵니다 -->
 			</div>
 		</div>
