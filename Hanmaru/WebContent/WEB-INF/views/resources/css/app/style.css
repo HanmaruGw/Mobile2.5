@@ -346,7 +346,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .wrapReplyMenu{position:absolute;bottom:1vw;left:55%;transform:translateX(-50%);z-index:2500;position: absolute;right: -1vw;background: #fff;z-index: 2000;border-radius: 2vw;border: 1px solid #E4E7EB;bottom: 12vw;width:20vw;box-shadow:1px 2px 2px #E4E7EB}
 .wrapReplyMenu .replyMenuContents{display:inline-block;width:20.556vw;height:25.452vw;padding:2vw 0;border:1px solid #CCC;border-radius:2.23vw;background-color:#FFF;box-shadow: #00000030 0 1px 2px 0;}
 .wrapReplyMenu span{display:inline-block;width:20vw;/* height:6vw;margin-top:1vw; */padding:2vw 0;font-size:3.5vw}
-
+ 
 /* header title menu */
 .headerBarTitleMenu{position:absolute;background:#ffffff;z-index:1;width:30%;top:6%;left:50%;transform:translateX(-50%);box-shadow:1px 1px 1px #c3c3c3}
 .noneReadMail, .setFlagMail, .todayMail{padding:3px 5px}
