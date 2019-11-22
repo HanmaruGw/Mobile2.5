@@ -18,21 +18,54 @@
 		<div id="pg_login">
 			<div class="login_wrapper">
 				<div class="wrap_login_area">
+				
 					<div class="subwrap_login_area">
-						<img class="ic_login_logo" src="/resources/image/bg/login/login_logo.png">
+						<!-- <img class="ic_login_logo" src="/resources/image/bg/login/login_logo.png"> -->
 					
-						<div class="wrap_login_elem input_idpw">
-							<c:if test="${isAndroid }">
-								<a class="btn_download android">
-									<img src="/resources/image/download/btn_android.png">
-								</a>
-							</c:if>
-							<c:if test="${isIPhone }">
-								<a class="btn_download ios">
-									<img src="/resources/image/download/btn_ios.png">
-								</a>
-							</c:if>
+						<div id="div_download_area" >
+							<div class="wrap_login_elem input_idpw">
+								<c:if test="${isAndroid }">
+									<a class="btn_download android">
+										<img src="/resources/image/download/btn_android.png">
+									</a>
+								</c:if>
+								<c:if test="${isIPhone }">
+									<a class="btn_download ios">
+										<img src="/resources/image/download/btn_ios.png">
+									</a>
+								</c:if>
+							</div>
 						</div>
+	
+						<div id="div_login_area">
+							<div class="wrap_login_renewal_elem" >
+								<div class="wrap_login_renewal_elem_box">
+									<p class="login_renewal_elem_box_loginlabel">Login ID</p>
+				 					<div class="login_renewal_elem_box_write">
+					 					<input id="input_user_id" type="text" placeholder="아이디를 입력하세요." class="login_renewal_box_write">
+					 					<span id="user_domain" class="login_renewal_elem_email" >@halla.com</span>
+					 					<ul id="ul_domain_list" class="selectDomain" >
+											<!-- <li class="selectDomainList" >
+												<span class="selectDomainListTxt" ng-class="{'selected' : curDomainIdx == $index}">halla.com</span>
+												<img src="/resources/image/ic_check_select.png" ng-show="curDomainIdx == $index">
+											</li> -->
+										</ul>
+					 					
+				 					</div>
+								</div>
+								<div class="wrap_login_renewal_elem_box pw_box">
+									<p class="login_renewal_elem_box_pwlabel">Password</p>
+				 					<div class="login_renewal_elem_box_pw_write">
+					 					<input type="password" ng-model="general_pw" placeholder="비밀번호를 입력하세요." class="login_renewal_box_pw_write">
+				 					</div>
+								</div>
+							</div> 
+						</div>						
+						
+					</div> 
+					
+					<div class="btn_generaLogin_wrapper">
+						<button type="button" class="btn_generalLogin" id="btn_login" ng-click="performGeneralLogin()">Login</button>
 					</div>
 					
 					<span class="wrap_copyright">
