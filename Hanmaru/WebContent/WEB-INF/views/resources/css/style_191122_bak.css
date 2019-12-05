@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+/* global tag configuration */
+*{-webkit-tap-highlight-color:transparent}
+*:focus{outline:none}
+@font-face {font-family:'spoqa';font-weight:400;src:url(/resources/fonts/spoqa/Spoqa-Regular.woff) format('woff'),url(/resources/fonts/spoqa/Spoqa-Regular.ttf) format('truetype');}
+
+html, body{position:relative;width:100vw;height:100vh;margin:0;padding:0;font-family:'spoqa';-webkit-overflow-scrolling:touch;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+
+#pg_login{margin:0 auto;background:url('/resources/image/bg/login/login_bg_halla.jpg') no-repeat;background-size:100%}
+.login_wrapper{position:relative;width:100vw;height:100vh}
+.wrap_login_logo{width:60%;margin:30% auto 10% auto}
+.wrap_login_logo img.logo{width:80%}
+.wrap_login_logo span.description{display:block;font-size:4vw;color:#FFF}
+.wrap_login_area{position:absolute;top:56%;left:50%;width:80vw;margin-left:-44vw;padding:4vw;transform:translateY(-50%);-ms-transform:translateY(-50%);-webkit-transform:translateY(-50%);-o-transform:translateY(-50%);-moz-transform:translateY(-50%)}
+.wrap_login_area .wrap_copyright{display:block;margin-top:3vw;color:#706f6f;font-size:3vw;text-align:center}
+.wrap_login_area .wrap_copyright a{color:#706f6f;font-size:3vw;text-decoration:none}
+.subwrap_login_area img.ic_login_logo{height:8vw}
+.subwrap_login_area{padding:4vw;border-radius:1vw;background-color:#FFF;-webkit-box-shadow:0px 0px 20px 5px rgba(197,197,197,1);-moz-box-shadow:0px 0px 20px 5px rgba(197,197,197,1);box-shadow:0px 0px 20px 5px rgba(197,197,197,1)}
+
+.btn_download{display:inline-block;width:94%;padding:3%}
+.btn_download img{width:100%}
