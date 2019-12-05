@@ -19,6 +19,10 @@
 			<div class="login_wrapper">
 				<div class="wrap_login_area">
 				
+					<!-- <div>
+						<span class="wrap_title_area">모바일 다운로드 센터</span>
+					</div> -->
+					
 					<div class="subwrap_login_area">
 						<!-- <img class="ic_login_logo" src="/resources/image/bg/login/login_logo.png"> -->
 					
@@ -43,20 +47,16 @@
 									<p class="login_renewal_elem_box_loginlabel">Login ID</p>
 				 					<div class="login_renewal_elem_box_write">
 					 					<input id="input_user_id" type="text" placeholder="아이디를 입력하세요." class="login_renewal_box_write">
-					 					<span id="user_domain" class="login_renewal_elem_email" >@halla.com</span>
-					 					<ul id="ul_domain_list" class="selectDomain" >
-											<!-- <li class="selectDomainList" >
-												<span class="selectDomainListTxt" ng-class="{'selected' : curDomainIdx == $index}">halla.com</span>
-												<img src="/resources/image/ic_check_select.png" ng-show="curDomainIdx == $index">
-											</li> -->
-										</ul>
+					 						<span id="user_domain" class="login_renewal_elem_email" >@ Halla.com</span>
+						 					<ul id="ul_domain_list" class="selectDomain" >
+											</ul>
 					 					
 				 					</div>
 								</div>
 								<div class="wrap_login_renewal_elem_box pw_box">
 									<p class="login_renewal_elem_box_pwlabel">Password</p>
 				 					<div class="login_renewal_elem_box_pw_write">
-					 					<input type="password" ng-model="general_pw" placeholder="비밀번호를 입력하세요." class="login_renewal_box_pw_write">
+					 					<input id="input_user_pass" type="password" ng-model="general_pw" placeholder="비밀번호를 입력하세요." class="login_renewal_box_pw_write">
 				 					</div>
 								</div>
 							</div> 
@@ -65,7 +65,7 @@
 					</div> 
 					
 					<div class="btn_generaLogin_wrapper">
-						<button type="button" class="btn_generalLogin" id="btn_login" ng-click="performGeneralLogin()">Login</button>
+						<button type="button" class="btn_generalLogin" id="btn_login" >회원확인</button>
 					</div>
 					
 					<span class="wrap_copyright">

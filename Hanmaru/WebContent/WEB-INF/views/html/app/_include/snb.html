@@ -69,6 +69,24 @@
 				<img src="/resources/image/icon/ic_attendance_selected.png" ng-if="subMenuType == 'attendance'">
 				<span ng-class="{'selected' : subMenuType == 'attendance'}">{{translateLanguage('attendance')}}</span>
 			</div>
+			
+			<!-- 2019.12.02 추가 -->
+			<div class="slideMenuBox" ng-click="loadMenu('gqms')" ng-show="userInfo.CompCode == 00005">
+				<img src="/resources/image/icon/ic_qms_normal.png" ng-if="subMenuType != 'gqms'">
+				<img src="/resources/image/icon/ic_qms_selected.png" ng-if="subMenuType == 'gqms'">
+				<span ng-class="{'selected' : subMenuType == 'gqms'}">G-QMS</span>
+			</div>
+			<div class="slideMenuBox" ng-click="loadMenu('hallaIn')" ng-show="userInfo.CompCode == 00001"><!--  && isMenuHallaIn == true -->
+				<img src="/resources/image/icon/ic_hallaIn_normal.png" ng-if="subMenuType != 'hallaIn'">
+				<img src="/resources/image/icon/ic_hallaIn_selected.png" ng-if="subMenuType == 'hallaIn'">
+				<span ng-class="{'selected' : subMenuType == 'hallaIn'}">한라지식인</span>
+			</div>
+			<div class="slideMenuBox" ng-click="loadMenu('midashelp')" ng-show="isMidasHelpMenu == 'true'">
+				<img src="/resources/image/icon/ic_midashelp_normal.png" ng-if="subMenuType != 'midashelp'">
+				<img src="/resources/image/icon/ic_midashelp_selected.png" ng-if="subMenuType == 'midashelp'">
+				<span ng-class="{'selected' : subMenuType == 'midashelp'}">그룹실적보고</span>
+			</div>
+			
 		</div>
 		
 			<div class="slideMenuProButtonfile" ng-click="sideMenuHideClick()">

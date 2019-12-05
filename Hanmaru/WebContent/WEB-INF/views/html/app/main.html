@@ -49,14 +49,14 @@
 		</div>
 		<div class="mainNoticeDiv">
 			<div class="mainNoticeWrap">
-				<span>사우소식</span>
+				<span>공지사항</span>
 				<a><img src="/resources/image/main/ic_more_normal.png" ng-click="btnPartnerMore()"></a>
 			</div>
 			<div class="mainNoticeList">
 				<div class="noticeListWrap">
 					<ul>
 						<li ng-repeat="notice in noticeList">
-							<a ng-click="boardDetail($event, notice, notice.BoardType, '사우소식')">{{notice.Subject}}</a>
+							<a ng-click="boardDetail($event, notice, notice.BoardType, '공지사항')">{{notice.Subject}}</a>
 						</li>
 					</ul>
 				</div>
@@ -64,14 +64,14 @@
 		</div>
 		<div class="mainHallaRoadDiv">
 			<div class="mainHallaRoadWrap">
-				<span>인사별령</span>
+				<span>Funla</span>
 				<a><img src="/resources/image/main/ic_more_normal.png" ng-click="btnOrganMore()"></a>
 			</div>
 			<div class="mainHallaRoadList">
 				<div class="hallaRoadListWrap">
 					<ul>
 						<li ng-repeat="press in pressList">
-							<a ng-click="boardDetail($event, press, press.BoardType, '인사발령')">{{press.Subject}}</a>
+							<a ng-click="boardDetail($event, press, press.BoardType, 'Funla')">{{press.Subject}}</a>
 						</li>
 					</ul>
 				</div>

@@ -10,6 +10,11 @@
 		<div class="headerBarMove approval_sort">
 			<img class="ic_sort" src="/resources/image/approval/ic_sort_normal.png">
 		</div>
+		
+		<div class="headerBarSearch approval_Reload" ng-click="btnSearchApproval('type')">
+			<img src="/resources/image/approval/ic_Approval_Reload.png">
+		</div>
+
 		<div class="headerBarSearch approval_search" ng-click="toggleApprovalSearchDD()">
 			<img src="/resources/image/approval/ic_menu_search_normal.png">
 		</div>
@@ -25,7 +30,7 @@
 		</span>
 	</div>
 	<div class="approvalSearchBack" ng-show="isApprovalSearchDDShow == true" ng-click="toggleApprovalSearchDD()"></div>
-	<div class="approvalDataVoid" ng-show="approvalList.length == 0">
+	<div class="approvalDataVoid" ng-show="approvalList.length == 0" >
 		<span class="approvalSearchResult">검색된 데이터가 없습니다.</span>
 		<span class="searchResultBlank"></span>
 	</div>
@@ -94,7 +99,7 @@
 		
 	</div>
 	<!-- 2019-09-11 김현석 자원예약 리스트 스타일로 변경 -->
-		<div class="reservContentsList" style="height:93%" exec-on-scroll-to-bottom="readApprovalNextPage" approval-xpull="">
+		<div class="reservContentsList" style="height:93%" >
 				<!-- Markup for xpull plugin -->
 		        <div class="xpull">
 		            <div class="xpull__start-msg">

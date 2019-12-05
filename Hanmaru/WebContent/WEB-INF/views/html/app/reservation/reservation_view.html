@@ -7,9 +7,9 @@
 		<div class="headerBarTitle">
 			<span>{{translateLanguage('resource_view')}}</span>
 		</div>
-		<!-- <div class="headerBarMove approval_attach">
-			<img src="/resources/image/ic_menu_attach_pressed.png">
-		</div> -->
+		<div class="headerBarMove approval_attach">
+			<img src="/resources/image/approval/ic_menu_attach_pressed.png" ng-if="reservDetailData.Files.length > 0"  ng-click="toggleReservAttach()">
+		</div>
 		<div class="headerBarSearch approval_search">
 			
 		</div>
@@ -40,6 +40,26 @@
 			이 영역에 html 문서를 불러온다
 		</div> -->
 	</div>
+	
+	
+	<!-- 첨부파일 -->
+	<div class="approvalAttachBg" ng-show="isReservAttachBg == true" ng-click="toggleReservAttach()"></div>
+	<div class="approvalAttachDialog" ng-show="isReservAttachBg == true">
+		<ul>
+			<li ng-repeat="file in reservDetailData.Files">
+				<div class="file_ext">
+					<!-- <img ng-src="/resources/image/extension/ic_file_{{file.FileName.split('.').pop().toLowerCase()}}.png"> -->
+					<img ng-src="{{determineExtension(file)}}">
+				</div>
+				
+				<div class="file_info">
+					<a ng-click="btnDownloadAttachFile(file.FileURL, file.FileName)">{{file.FileName}}</a>
+					<span class="txt_fileSize">{{getFileSizeUnit(file.FileSize)}}</span>
+				</div>
+			</li>
+		</ul>
+	</div>
+	
 	<div class="reservStartBtn" ng-show="reservDetailData.ViewStartBt == '1'">
 		<span>{{translateLanguage('resource_meeting_start')}}</span>
 	</div>

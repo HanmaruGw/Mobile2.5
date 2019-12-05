@@ -44,7 +44,20 @@ var objApiURL = {
 			autoLogin : {
 				name : '자동로그인',
 				url : objApiURL.apiDomain+'/nmobile/login/AutoLoginCheck'
-			}
+			},
+			LoginLock : {
+				name : '로그인잠금/해제',
+				url : objApiURL.apiDomain+'/nmobile/login/LoginLock'
+			},
+			//2019.12.02 추가
+			hallasearch : {
+				name : '한라 지식인',
+				url : objApiURL.apiDomain+'/nmobile/login/hallasearch'
+			},
+			heisso : {
+				name : 'HEISSO',
+				url : objApiURL.apiDomain+'/nmobile/login/heissso'
+			},
 		};
 		
 		objApiURL.mail = {

@@ -13,8 +13,9 @@
 		</div>
 		-->
 		
-		<div class="headerBarTitle diaryDrop" ng-click="chooseSearchDate('end')" style="cursor: pointer;">
-			<span>{{currentYear}}. {{currentMonth}}</span>
+		<div class="headerBarTitle diaryDrop" ng-click="chooseSearchDate('end')">
+			<span style="cursor: pointer">{{currentYear}}. {{currentMonth}}</span>
+			<!-- <input type="text" readonly="readonly" class="txtDateSearch" ng-model="txtCurrentDate" ng-trim="true" /> -->
 			<img src="/resources/image/work_diary/drop_option_black.png">
 		</div>
 		
@@ -101,9 +102,11 @@
 				<!-- ng-model="SearchValue" ng-trim="true"
 				ng-click="btnSearchMail()" -->
 			</div>
-			
+		</div>	
+		
+		<div class="calender_search_base">
 			<div id="calendarSearchResult" class="calendar_search_result" ng-show="isCalendarSearch == true">
-				<div class="wrapSearchElem" ng-repeat="elem in arrSearchResult">
+				<div class="wrapSearchElem" ng-repeat="elem in arrSearchResult" ng-click="Btn_Schedule_View(elem)">
 					<div class="btnColorBullet">
 						<span style="background-color:#{{elem.Color}}"></span>
 					</div>
@@ -115,7 +118,8 @@
 					</div>
 				</div>
 			</div>
-		</div>	
+		</div>
+		
 	</div>	
 	<!-- 검색 끝 -->
 	
