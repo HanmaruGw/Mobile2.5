@@ -92,7 +92,7 @@
 				
 			</div>
 				<div class="scheduleDetailContents" ng-show="isDetail == true">
-					<div class="scheduleWorkDiv">
+					<div class="scheduleWorkDiv" style="display:none;">
 						<p>작업</p>
 						<div class="scheduleWorkSelect" ng-click="btnShowScheduleWork()">
 							<span ng-show="SelectScheduleWork != undefined">{{SelectScheduleWork.Title}}</span>
@@ -188,7 +188,7 @@
 							</div>
 						</div> -->					
 					</div>
-					<div class="scheduleReservationDiv">
+					<div class="scheduleReservationDiv" style="display:none">
 						<p>자원예약</p>
 						<div class="scheduleReservationContents" ng-click="btnShowMettingReserv()">
 							<span ng-show="selectWithMetting != undefined">{{selectWithMetting.Resource_name}}</span>

@@ -85,12 +85,15 @@
 					<li class="diarySelectFirst">
 						<!-- <span class="selectFirstName">전체</span> -->
 						<img src="/resources/image/mail/ic-select-arrow-bottom.png">
-						<select name="selectSearchSelect" class="selectSearchSelect" ng-model="selectSearchSelect" style="width: 80%;height: 100%;background-color: #E4E7EB;margin-left: 10px;border-width: 0px;">
-							<option value=''>전체</option>
-							<option value=''>제목</option>
-							<option value=''>본문</option>
-							<option value=''>발신자</option>
-							<option value=''>제목+본문</option>
+						
+						<select name="selectSearchSelect" class="selectSearchSelect" ng-model="searchType" ng-change="applySearchType(searchType)" 
+							style="width: 80%;height: 100%;background-color: #E4E7EB;margin-left: 10px;border-width: 0px;">
+							<!-- <option value='All'>전체</option>
+							<option value='Title'>제목</option>
+							<option value='Body'>본문</option>
+							<option value='Sender'>발신자</option>
+							<option value='TitleBody'>제목+본문</option> -->
+							<option ng-repeat="type in SearchTypeOptions" value="{{type.name}}">{{type.value}}</option>
 						</select>
 					</li>
 				</ul>

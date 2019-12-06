@@ -2704,3 +2704,9 @@ diary 검색 드롭다운
 .calender_search_base{background: #fff; position: absolute; margin-top: 29vw; width:100%}
 .calendar_search_result{overflow: scroll; max-height: 95vw;}
 
+.scheduleInfoSharerWrap .file_ext {float:left}
+.scheduleInfoSharerWrap .file_ext img {width: 8vw;float: left;}
+.scheduleInfoSharerWrap .file_info {float: left;width: 57vw;}
+.scheduleInfoSharerWrap .file_info .attach_file {font-size: 3.5vw;float: left;overflow: hidden;width: 64vw; text-overflow: ellipsis; white-space: nowrap; margin-left: 2vw;}
+.scheduleInfoSharerWrap .file_info .txt_fileSize {font-size: 3.5vw; margin-left: 2vw;}
+

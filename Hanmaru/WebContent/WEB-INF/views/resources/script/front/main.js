@@ -53,8 +53,11 @@ $(function(){
 });
 
 function sendToDownloadLog(userLoginKey){
-	//여기서 로그 남기는 API 추가할것.
-	console.log(userLoginKey);
+	$.post('https://ep.halla.com/nmobile/login/AppDownload',
+			{LoginKey:userLoginKey},
+			function(data){
+			}
+	);
 }
 
 function checkUserInfo(checkCallback){

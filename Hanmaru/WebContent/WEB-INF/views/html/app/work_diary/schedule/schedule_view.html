@@ -42,6 +42,23 @@
 					 -->
 				</div>
 			</div>
+			<div class="scheduleInfoContentsSharer">
+				<span class="scheduleInfoSharerLabel">첨부파일</span>
+				<div class="scheduleInfoSharerWrap">
+					<ul>
+						<li ng-repeat="file in ScheduleViewData.Attachments">
+							<div class="file_ext">
+								<img ng-src="{{determineExtension(file)}}">
+							</div>
+							
+							<div class="file_info">
+								<a class="attach_file" ng-click="btnDownloadAttachFile($index, file.FileURL, file.FileName)">{{file.FileName}}</a>
+								<span class="txt_fileSize">{{getFileSizeUnit(file.FileSize)}}</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 		<div class="scheduleViewContentsDiv">
 			<!-- <div class="scheduleViewContents"> -->
@@ -52,6 +69,8 @@
 				 ng-src="{{bodyUrl}}"></iframe>
 			<!-- </div> -->
 		</div>
+		
+		
 	</div>
 	<div class="scheduleViewFooterDiv">
 		<div class="scheduleViewModify" ng-click="ScheduleSetting()">

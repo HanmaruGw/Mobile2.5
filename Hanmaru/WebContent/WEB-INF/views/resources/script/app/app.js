@@ -510,7 +510,6 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 	};
 	
 	$rs.apiURL = "https://ep.halla.com";
-//	$rs.apiURL = "https://eptest.halla.com";
 	
 	objApiURL.setApiDomain($rs.apiURL);
 	objApiURL.initApiDomain();
@@ -608,6 +607,7 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 				var userData = accessInfoData.isPinLogin ? $rs.appUserId : accessInfoData.userID;
 				var param2 = callApiObjectGET('https://eptest.halla.com/mail/ApiPage.aspx',{param : userData}); //추후 변경해야됨(ep.halla)
 				$http(param2).success(function(data) {
+					console.log('success data : ',data);
 					var domainArray = data.split('//') ;
 					var domain = domainArray[1].split('.');
 					var result = domain[0];
@@ -617,6 +617,11 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 						objApiURL.setApiDomain($rs.apiURL);
 						objApiURL.initApiDomain();
 					}
+				}).error(function (data) {
+					console.log('fail data : ',data);
+					$rs.apiURL = "https://ep.halla.com";
+					objApiURL.setApiDomain($rs.apiURL);
+					objApiURL.initApiDomain();
 				});
 				
 				if($rs.userInfo.MainView.toUpperCase() === 'NEWS'){
@@ -5515,6 +5520,7 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 // }
 // }
 	
+	
 	// CID 내용이 있으면 파싱, 없으면 일반내용 표시
 	function parseCIDAttachMailData(mail) {
 		var mailBodyObj = angular.element(mail.Body);
@@ -5540,6 +5546,15 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 								} 
 							}
 						}
+						
+						//2019.11.27 추가
+						//첨부파일 이름 체크하여 Attachments 배열에서 제거.
+						$.each(mail.Attachments,function(index,item){
+							if(item.FileName.indexOf(fileName)>-1){
+								mail.Attachments.splice(index,1);
+								return false;
+							}
+						})
 					}
 					
 				}
@@ -5547,7 +5562,7 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 			
 			mail.Body = toParseMailBody;
 			mail.tmpAttachMap = tmpAttachMap;
-			mail.Attachments = new Array();
+//			mail.Attachments = new Array(); //2019.11.27 수정 - 첨부파일리스트 초기화 주석처리.
 			
 		} else {
 			var mailBody = angular.element(mail.Body);
@@ -5702,15 +5717,15 @@ appHanmaru.controller('hallaMailWriteCtrl', ['$scope', '$http', '$rootScope', fu
 		popPage(currPageName);
 	}
 	
+	$s.showHide = false;
+	$s.toggleShowHide = function(){
+		$s.showHide = !$s.showHide;
+	};
+	
 	$rs.$on('initReplyForwardMailData', function(event, mail, data, list, mailType){
 		$s.replyForwardMail = mail;
 		$s.hasMailData = data;
 		$s.mailType = mailType;
-		
-//		console.log(mail);
-//		console.log(data);
-//		console.log($rs.mailData);
-//		console.log($rs.mailData.Body);
 		
 		if(mailType == 2 || mailType == 3) {
 			$s.mailSubject = 'RE : ' + $rs.mailData.Subject;
@@ -5722,6 +5737,9 @@ appHanmaru.controller('hallaMailWriteCtrl', ['$scope', '$http', '$rootScope', fu
 			var ccList = mail.CcRecipients;
 			if(list.length > 0) {
 				$s.cc_user_list = ccList;
+				$s.showHide = true;
+			}else{
+				$s.showHide = false;
 			}
 			
 			for(idx in ccList) {
@@ -7845,6 +7863,9 @@ appHanmaru.controller('diaryScheduelController', ['$scope', '$http', '$rootScope
 	$s.selectDate ='';
 	
 	$rs.$on('initWorkBox',function(){
+		//2019.12.05 추가
+		$s.searchType = $s.SearchTypeOptions[0].name;
+		$s.searchValue = '';
 		
 		var loginData = {
 			LoginKey:$rs.userInfo.LoginKey,
@@ -7903,17 +7924,18 @@ appHanmaru.controller('diaryScheduelController', ['$scope', '$http', '$rootScope
 			EndDate:$s.endDate,
 			// SearchType: "All",
 			PageNumber : 1,
-			PageSize : 9999
+			PageSize : 999
 		}
 		
+		//2019.12.05 주석처리
 		// 검색 할때만 parameter로 던질것!!
-		if($s.searchType != '') {
-			reqWorkTaskListData.SearchType = $s.searchType;
-		}
-		
-		if($s.searchValue != '') {
-			reqWorkTaskListData.SearchValue = $s.searchValue;
-		}
+//		if($s.searchType != '') {
+//			reqWorkTaskListData.SearchType = $s.searchType;
+//		}
+//		
+//		if($s.searchValue != '') {
+//			reqWorkTaskListData.SearchValue = $s.searchValue;
+//		}
 
 		$rs.dialog_progress = true; 
 		var param = callApiObject('work', 'workList', reqWorkTaskListData);
@@ -8093,25 +8115,28 @@ appHanmaru.controller('diaryScheduelController', ['$scope', '$http', '$rootScope
 			StartDate:$s.startDate,	
 			EndDate:$s.endDate,
 			PageNumber : 1,
-			PageSize : 9999
+			PageSize : 999
 		}
 		
+		//2019.12.05 주석처리
 		// 검색 할때만 parameter로 던질것!!
-		if($s.searchType != '') {
-			reqWorkTaskListData.SearchType = $s.searchType;
-		}
-		
-		if($s.searchValue != '') {
-			reqWorkTaskListData.SearchValue = $s.searchValue;
-		}
+//		if($s.searchType != '') {
+//			reqWorkTaskListData.SearchType = $s.searchType;
+//		}
+//		if($s.searchValue != '') {
+//			reqWorkTaskListData.SearchValue = $s.searchValue;
+//		}
 
 		$rs.dialog_progress = true;
 		var param = callApiObject('work', 'workList', reqWorkTaskListData);
+		
 		$http(param).success(function(data) {
 			var workListData = JSON.parse(data.value);
 			$s.scheduleListData = workListData;
 
 			$rs.dialog_progress = false;
+			
+			console.log(workListData);
 		}).then(function(){
 			// API에서 끌어온 필드를
 			// FULLCALENDAR events 필드 목록에 맞게
@@ -8133,7 +8158,6 @@ appHanmaru.controller('diaryScheduelController', ['$scope', '$http', '$rootScope
 					obj.title = elem.Title;
 	//					obj.start = elem.WorkType=="T"?elem.EndDate:elem.StartDate;
 					obj.start = elem.StartDate;
-					// obj.end = elem.EndDate;
 					obj.end = mnt2.format('YYYY-MM-DD');
 					obj.color = '#'+elem.Color;
 					obj.allDay = elem.AllDayEvent;
@@ -8146,6 +8170,11 @@ appHanmaru.controller('diaryScheduelController', ['$scope', '$http', '$rootScope
 				$s.cal.fullCalendar('removeEvents'); 
 				$s.cal.fullCalendar('addEventSource', parseCalData);
 				$s.cal.fullCalendar('gotoDate', mnt.format('YYYY-MM'));
+			}
+			
+			if(!$s.isCalendarSearch) {
+				$s.searchType = $s.SearchTypeOptions[0].name;			
+				$s.searchValue = '';
 			}
 		});
 	});
@@ -8234,6 +8263,8 @@ appHanmaru.controller('diaryScheduelController', ['$scope', '$http', '$rootScope
 		}
 		
 		var param = callApiObject('work', 'workList', reqWorkTaskListData);
+		console.log(param);
+		
 		$http(param).success(function(data) {
 			var workListData = JSON.parse(data.value);
 			$s.arrSearchResult = workListData.Items;
@@ -8244,6 +8275,7 @@ appHanmaru.controller('diaryScheduelController', ['$scope', '$http', '$rootScope
 	}
 	
 	$s.applySearchType = function(value) {
+		console.log(value);
 		$s.searchType = value;
 	}
 	
@@ -8569,6 +8601,22 @@ appHanmaru.controller('scheduleViewController', ['$scope', '$http', '$rootScope'
 		});
 	});
 
+	// (공통)첨부파일 다운로드
+	$s.btnDownloadAttachFile = function(index, fileURL, fileName) {
+		// 여기에 하이브리드 기능 기술
+		if($rs.agent == 'android') {
+			if(androidWebView != undefined) {
+				androidWebView.downloadAttachFile(fileURL, fileName);
+			}
+			
+		} else if($rs.agent == 'ios') {
+			webkit.messageHandlers.iosDownloadAttachFile.postMessage({fileURL:fileURL,fileName:fileName});
+		}
+	}
+	$s.getFileSizeUnit = function(value){
+		return getFileSizeUnit(value);
+	}
+	
 	// 2019-02-15 PK 뒤로가기 버튼
 	$s.BtnBack = function() {
 		$s.popPage("pg_schedule_view");
@@ -8992,28 +9040,36 @@ appHanmaru.controller('scheduleWriteController', ['$scope', '$http', '$rootScope
 	
 	$s.changeAttachFile = function(e){
 		var files = e.target.files; // FileList 객체
+		console.log(files);
 		
 		$s.$apply(function(){
+			files[0].FileName = files[0].name;
+			files[0].FileSize = files[0].size;
 			$s.attach_list.push(files[0]);
+			
 			$s.chooser_attach_file = undefined;
-
+			
 			var fd = new FormData();
 			fd.append('LoginKey', $rs.userInfo.LoginKey);
 			fd.append('GUID',$s.scheduleOpenData.GUID);
 			fd.append('Type',$s.fileType);
 			fd.append('file', files[0]);
+			console.log(fd);
 						
 			var param = callApiObjectNoData('work', 'workFileUpload');
+			console.log('파일업로드 param :',param);
+			
 			$http.post(param.url, fd, {
 				transformRequest: angular.identity,
 				headers: {'Content-Type': undefined}
 			}).success(function(data) {
 				var code = parseInt(data.Code, 10);
-				
+				console.log('파일업로드 data :',data);
 				if(code === 1) {
 					$s.uploadFileList.push(files[0].name);
 				}
 			}).error(function(data){
+				console.log('data upload error :',data);
 			});
 		});
 //console.log($s.attach_list);
