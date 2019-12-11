@@ -5,7 +5,7 @@
 			<img src="/resources/image/ic-arrow-left.png">
 		</div>
 		<div class="headerBarTitle diaryDrop">
-			<span>일정작성</span>
+			<span>{{translateLanguage('work_schedule_write')}}</span>
 		</div>
 		<div class="headerBarSend workDiaryWrite" ng-click="btnWriteSchedule()">
 			<img src="/resources/image/work_diary/ic-send.png">
@@ -20,26 +20,26 @@
 	<div class="diaryWriteDiv">
 		<div class="diaryWriteContents">
 			<div class="writeContentsCalendar">
-				<p>캘린더</p>
+				<p>{{translateLanguage('work_calendar')}}</p>
 				<div class="calendarOptionSelect" ng-click="btnShowShareCalendar()" >
 					<div ng-show="selectWithCalendar != undefined" style="display:inline-block;padding-top: 0.5vw;">
 						<span ng-show="selectWithCalendar.Name != ''">{{selectWithCalendar.Name}}</span>
-						<span ng-show="selectWithCalendar.Name == ''">내일정</span>
+						<span ng-show="selectWithCalendar.Name == ''">{{translateLanguage('work_schedule_my')}}</span>
 					</div>
 					<div ng-show="selectWithCalendar == undefined" style="display:inline-block">
-						<span>내일정</span>
+						<span>{{translateLanguage('work_schedule_my')}}</span>
 					</div>
 					<img src="/resources/image/work_diary/ic-arrow-right-b.png">
 				</div>
 			</div>
 			<div class="writeScheduleTitle">
-				<p>제목</p>
+				<p>{{translateLanguage('subject')}}</p>
 				<div class="scheduleTitleEdit">
-					<input type="text" ng-model="txtScheduleTitle" placeholder="제목을 입력해 주세요.">
+					<input type="text" ng-model="txtScheduleTitle" placeholder="{{translateLanguage('subject_hint')}}">
 				</div>
 			</div>
 			<div class="scheduleContentsDiv">
-				<p>일정</p>
+				<p>{{translateLanguage('work_period')}}</p>
 				<div class="scheduleDateDiv">
 					<div class="scheduleDateWrap">
 						<div class="scheduleFirstDate" ng-click="chooseSearchDate('start')">
@@ -84,7 +84,7 @@
 							<div class="allDateWrap" ng-click="timeAllDayCheck()">
 								<img src="/resources/image/selectbox-square-on.png" ng-show="isTimeAllDayCheck == true">
 								<img src="/resources/image/selectbox-square-off.png" ng-show="isTimeAllDayCheck == false">
-								<span>종일</span>
+								<span>{{translateLanguage('work_period_allday')}}</span>
 							</div>
 						</div>
 					</div>
@@ -93,16 +93,16 @@
 			</div>
 				<div class="scheduleDetailContents" ng-show="isDetail == true">
 					<div class="scheduleWorkDiv" style="display:none;">
-						<p>작업</p>
+						<p>{{translateLanguage('work_task')}}</p>
 						<div class="scheduleWorkSelect" ng-click="btnShowScheduleWork()">
 							<span ng-show="SelectScheduleWork != undefined">{{SelectScheduleWork.Title}}</span>
-							<span ng-show="SelectScheduleWork == undefined">작업선택</span>
+							<span ng-show="SelectScheduleWork == undefined">{{translateLanguage('work_task_select')}}</span>
 							<img src="/resources/image/work_diary/ic-arrow-right-b.png">
 						</div>
 					</div>
 					<div class="scheduleAttendeeDiv">
 						<div class="scheduleAttendeeContents">
-							<p>참석자</p>
+							<p>{{translateLanguage('work_attendance_users')}}</p>
 							<div class="scheduleAttendeeUserList">
 								<input type="search" class="txt_attendee_name" ng-model="txt_attendee_name" ng-trim="true" ng-keyup="btnDetectSearch('attendee', $event)" ng-click="btnDetectSearch('attendee', $event)">
 								
@@ -140,7 +140,7 @@
 					</div>
 					<div class="scheduleSharerDiv">
 						<div class="scheduleSharerContents">
-							<p>공유자</p>
+							<p>{{translateLanguage('work_share_users')}}</p>
 							<div class="scheduleSharerUserList">
 							<input type="search" class="txt_jointowner_name" ng-model="txt_jointowner_name" ng-trim="true" ng-keyup="btnDetectSearch('jointowner', $event)" ng-click="btnDetectSearch('jointowner', $event)">
 								
@@ -189,16 +189,16 @@
 						</div> -->					
 					</div>
 					<div class="scheduleReservationDiv" style="display:none">
-						<p>자원예약</p>
+						<p>{{translateLanguage('resource')}}</p>
 						<div class="scheduleReservationContents" ng-click="btnShowMettingReserv()">
 							<span ng-show="selectWithMetting != undefined">{{selectWithMetting.Resource_name}}</span>
-							<span ng-show="selectWithMetting == undefined">회의실 예약</span>
+							<span ng-show="selectWithMetting == undefined">{{translateLanguage('resource')}}</span>
 							<img src="/resources/image/work_diary/ic-arrow-right-b.png">
 							<!-- <img src="/resources/image/ic-cir-delete.png">  회의실이 선택되면 생기는 이미지--> 
 						</div>
 					</div>
 					<div class="scheduleOptionDiv">
-						<p>옵션</p>
+						<p>{{translateLanguage('option')}}</p>
 						<div class="colorOptionDiv">						
 							<ul ng-repeat="color in arr_Color_List">
 								<li class="colorPickerOption" ng-show="color.isCheck == false" ng-click="OptionColorSelect(color)" style="background:#{{color.Value}}" >
@@ -207,7 +207,7 @@
 						</div>
 					</div>
 					<div class="schedulelAttachDiv">
-						<p class="scheduleAttachTitle">첨부파일</p>
+						<p class="scheduleAttachTitle">{{translateLanguage('attach_files')}}</p>
 						<div class="scheduleFileNoList">
 							<label ng-click="initAttachFile()">
 								<img src="/resources/image/ic-attach-file.png" ng-click="initAttachFile()">
@@ -222,7 +222,7 @@
 					</div>
 				</div>
 				<div class="scheduleDetailBtn" ng-show="isDetail == false" ng-click="btnDetail()">
-					<div>자세히</div>
+					<div>{{translateLanguage('to_detail')}}</div>
 				</div>
 				<div colspan="3" class="scheduleEditorWrap">
 					<iframe ng-if="isEditorLoaded == true" id="scheduleContents" class="contents" src="/html/app/_include/ext/dext5editor.html" frameborder="0"></iframe>
@@ -234,7 +234,7 @@
 	<div class="dialogShareCalendarBase" ng-show="isDlgShareCalendar == true">
 		<div class="dialogShareCalendar">
 			<div class="dialogShareCalendarTop">
-				<span>공유 캘린더</span>
+				<span>{{translateLanguage('share_calendar')}}</span>
 				<img src="/resources/image/ic-delete.png" ng-click="dismissDlgShareCalendar($event)">
 			</div>
 			<div class="dialogShareCalendarWrap">
@@ -248,7 +248,7 @@
 			</div>
 			<div class="dialogShareCalendarCheck">
 				<div class="dialogShareCalendarBtn">
-					<a><span class="dialogShareCalendarAction" ng-click="applyShareCalendar($event)">확인</span></a>
+					<a><span class="dialogShareCalendarAction" ng-click="applyShareCalendar($event)">{{translateLanguage('ok')}}</span></a>
 				</div>
 			</div>
 		</div>
@@ -259,7 +259,7 @@
 	<div class="dialogShareCalendarBase" ng-show="isDlgScheduleWork == true">
 		<div class="dialogShareCalendar">
 			<div class="dialogShareCalendarTop">
-				<span>작업 선택</span>
+				<span>{{translateLanguage('work_task_select')}}</span>
 				<img src="/resources/image/ic-delete.png" ng-click="dismissDlgScheduleWork($event)">
 			</div>
 			<div class="dialogShareCalendarWrap">
@@ -273,7 +273,7 @@
 			</div>
 			<div class="dialogShareCalendarCheck">
 				<div class="dialogShareCalendarBtn">
-					<a><span class="dialogShareCalendarAction" ng-click="applyScheduleWork($event)">확인</span></a>
+					<a><span class="dialogShareCalendarAction" ng-click="applyScheduleWork($event)">{{translateLanguage('ok')}}</span></a>
 				</div>
 			</div>
 		</div>
@@ -284,7 +284,7 @@
 	<div class="dialogConferenceSelectBase" ng-show="isMeetingReserv == true">
 		<div class="dialogConferenceSelect">
 			<div class="dialogConferenceSelectTop">
-				<span>회의실 선택</span>
+				<span>{{translateLanguage('resource_select')}}</span>
 				<img src="/resources/image/ic-delete.png" ng-click="dismissMettingReserv()">
 			</div>
 			<div class="dialogConferenceSelectWrap">
@@ -298,7 +298,7 @@
 			</div>
 			<div class="dialogConferenceCheck">
 				<div class="dialogConferenceBtn" ng-click="applyMettingReserv()">
-					<a><span class="dialogConferenceAction">적용</span></a>
+					<a><span class="dialogConferenceAction">{{translateLanguage('apply')}}</span></a>
 				</div>
 			</div>
 		</div>

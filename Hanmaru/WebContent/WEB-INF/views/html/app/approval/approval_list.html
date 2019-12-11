@@ -22,16 +22,16 @@
 	</div>
 	<div class="approvalSortMenu" ng-show="isApprovalSortDDShow == true" >
 		<span class="approvalSortDraft" ng-click="btnSortApproval($event, 'R')" ng-class="{'selected' : chkSortOrder == 'R', 'not_selected' : chkSortOrder == 'C'}">
-			<img src="/resources/image/approval/ic_item_selected.png" ng-show="chkSortOrder == 'R'">기안일
+			<img src="/resources/image/approval/ic_item_selected.png" ng-show="chkSortOrder == 'R'">{{translateLanguage('approval_create_date')}}
 		</span>
 		
 		<span class="approvalSortComplete" ng-click="btnSortApproval($event, 'C')" ng-class="{'selected' : chkSortOrder == 'C', 'not_selected' : chkSortOrder == 'R'}">
-			<img src="/resources/image/approval/ic_item_selected.png" ng-show="chkSortOrder == 'C'">전결일 
+			<img src="/resources/image/approval/ic_item_selected.png" ng-show="chkSortOrder == 'C'">{{translateLanguage('approval_complete_all_date')}} 
 		</span>
 	</div>
 	<div class="approvalSearchBack" ng-show="isApprovalSearchDDShow == true" ng-click="toggleApprovalSearchDD()"></div>
 	<div class="approvalDataVoid" ng-show="approvalList.length == 0" >
-		<span class="approvalSearchResult">검색된 데이터가 없습니다.</span>
+		<span class="approvalSearchResult">{{translateLanguage('warn_empty_message')}}</span>
 		<span class="searchResultBlank"></span>
 	</div>
 	
@@ -94,7 +94,7 @@
 			</div>		
 		</div>
 		<div class="wrapApprovalSearchOptionBtn">
-				<button ng-click="btnSearchApproval('type')">검색</button>
+				<button ng-click="btnSearchApproval('type')">{{translateLanguage('search')}}</button>
 		</div>
 		
 	</div>
@@ -103,7 +103,7 @@
 				<!-- Markup for xpull plugin -->
 		        <div class="xpull">
 		            <div class="xpull__start-msg">
-		                <div class="xpull__start-msg-text">당겨서 놓으면 새로고침됩니다.</div>
+		                <div class="xpull__start-msg-text">{{translateLanguage('pull_to_refresh')}}</div>
 		                <div class="xpull__arrow"></div>
 		            </div>
 		            <div class="xpull__spinner">
@@ -137,12 +137,12 @@
 	
 						<p class="approvalListState">
 							<span class="viewContents">
-								<span class="dataDecision">전결 : {{approval.CreateDate | date:'yyyy.MM.dd HH:mm:ss'}}</span>
-								<span class="dataApproval">결재 : {{approval.CompleteDate | date:'yyyy.MM.dd HH:mm:ss'}}</span>
+								<span class="dataDecision">{{translateLanguage('approval_complete_all')}} : {{approval.CreateDate | date:'yyyy.MM.dd HH:mm:ss'}}</span>
+								<span class="dataApproval">{{translateLanguage('approval_complete')}} : {{approval.CompleteDate | date:'yyyy.MM.dd HH:mm:ss'}}</span>
 							</span>
 						</p>
 					</div>
-					<div class="reservCancel" ng-show="reservItem.State == 1" ng-click="reservCancel(reservItem.SEQ)"><span>예약 취소</span></div>
+					<div class="reservCancel" ng-show="reservItem.State == 1" ng-click="reservCancel(reservItem.SEQ)"><span>{{translateLanguage('resource_cancel')}}</span></div>
 				</div>
 			</div>
 		    <!-- <div class="xpull__spinner-circle-bottom"></div> -->

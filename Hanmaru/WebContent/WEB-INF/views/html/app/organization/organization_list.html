@@ -27,9 +27,9 @@
 
 	<div class="orgListTab">
 		<ul class="orgList">
-			<li><a ng-class="{'selected' : tab_index == 0}" ng-click="selectOrgTab(0)">주소록 검색결과({{addrCnt}})</a></li>
-			<li><a ng-class="{'selected' : tab_index == 1}" ng-click="selectOrgTab(1)">임직원 검색결과({{organCnt}})</a></li>
-			<li><a ng-class="{'selected' : tab_index == 2}" ng-click="selectOrgTab(2)">조직도</a></li>
+			<li><a ng-class="{'selected' : tab_index == 0}" ng-click="selectOrgTab(0)">{{translateLanguage('address_result')}}({{addrCnt}})</a></li>
+			<li><a ng-class="{'selected' : tab_index == 1}" ng-click="selectOrgTab(1)">{{translateLanguage('employee_result')}}({{organCnt}})</a></li>
+			<li><a ng-class="{'selected' : tab_index == 2}" ng-click="selectOrgTab(2)">{{translateLanguage('organ')}}</a></li>
 		</ul>
 		
 		<div class="headerUnderBar organizationList"></div>
@@ -37,11 +37,11 @@
 
 	<div class="orgDataVoid" ng-show="tab_index == 0">
 		<div class="searchResultBlank" ng-if="tab_index == 0 && (orgSearchKeyword == '' || orgSearchKeyword == undefined)">
-			<span class="orgSearchResult">검색어를 입력해 주세요.</span>
+			<span class="orgSearchResult">{{translateLanguage('search_hint')}}</span>
 		</div>
 		
 		<div class="searchResultBlank" ng-if="tab_index == 0 && (orgSearchKeyword != '' || orgSearchKeyword != undefined) && search_org_addr_list.length == 0">
-			<span class="orgSearchResult">검색 결과가 없습니다.</span>
+			<span class="orgSearchResult">{{translateLanguage('warn_empty_message')}}</span>
 		</div>
 		
 		<div ng-if="tab_index == 0 && search_org_addr_list.length > 0">
@@ -55,11 +55,11 @@
 	
 	<div class="orgDataVoid" ng-show="tab_index == 1">
 		<div class="searchResultBlank" ng-if="tab_index == 1 && (orgSearchKeyword == '' || orgSearchKeyword == undefined)">
-			<span class="orgSearchResult">검색어를 입력해 주세요.</span>
+			<span class="orgSearchResult">{{translateLanguage('search_hint')}}</span>
 		</div>
 		
 		<div class="searchResultBlank" ng-if="tab_index == 1 && (orgSearchKeyword != '' && orgSearchKeyword != undefined) && search_org_user_list.length == 0">
-			<span class="orgSearchResult">검색 결과가 없습니다.</span>
+			<span class="orgSearchResult">{{translateLanguage('warn_empty_message')}}</span>
 		</div>
 		
 		<div ng-if="tab_index == 1 && search_org_user_list.length > 0">
@@ -99,21 +99,21 @@
 			<div class="wrap_memberInfo">
 				<div class="wrap_memberInfo">
 					<div class="memberInfo_name">
-					<span class="memberInfoSubject">이름</span><span>{{selectedOrganUser.UserName}}</span>
+					<span class="memberInfoSubject">{{translateLanguage('user_name_')}}</span><span>{{selectedOrganUser.UserName}}</span>
 				</div>
 				<div class="memberInfo_company">
-					<span class="memberInfoSubject">회사</span><span>{{selectedOrganUser.CompName}}</span>
+					<span class="memberInfoSubject">{{translateLanguage('comp_dept_name_')}}</span><span>{{selectedOrganUser.CompName}}</span>
 				</div>
 				<div class="memberInfo_department">
-					<span class="memberInfoSubject">부서</span><span>{{selectedOrganUser.DeptName}}</span>
+					<span class="memberInfoSubject">{{translateLanguage('dept_name_')}}</span><span>{{selectedOrganUser.DeptName}}</span>
 				</div>
 				<div class="memberInfo_office">
-					<span class="memberInfoSubject">직위/직책</span><span> {{selectedOrganUser.LevelName}} / {{selectedOrganUser.PositionName}}</span>
+					<span class="memberInfoSubject">{{translateLanguage('level_position_name_')}} </span><span> {{selectedOrganUser.LevelName}} / {{selectedOrganUser.PositionName}}</span>
 				</div>
 				
 				<div class="memberInfo_phone memberInfo_img">
-					<span class="memberInfoSubject">유선전화</span> 
-						<a ng-if="selectedOrganUser.LocationPhone == ''"> 내용없음</a>
+					<span class="memberInfoSubject">{{translateLanguage('location_phone_')}} </span> 
+						<a ng-if="selectedOrganUser.LocationPhone == ''"> {{translateLanguage('unknown')}} </a>
 						<!-- <a ng-if="selectedOrganUser.LocationPhone != ''" ng-click="doExecCallPhone(selectedOrganUser.LocationPhone)">{{selectedOrganUser.LocationPhone}}</a> -->
 						<a href="tel:{{selectedOrganUser.LocationPhone}}" ng-if="selectedOrganUser.LocationPhone != ''">{{selectedOrganUser.LocationPhone}}</a>
 						
@@ -122,8 +122,8 @@
 						</a>
 					</div>
 					<div class="memberInfo_mobile memberInfo_img">
-						<span class="memberInfoSubject">휴대전화</span>
-						<a ng-if="selectedOrganUser.MobilePhone == ''"> 내용없음</a>
+						<span class="memberInfoSubject">{{translateLanguage('mobile_phone_')}}</span>
+						<a ng-if="selectedOrganUser.MobilePhone == ''"> {{translateLanguage('unknown')}}</a>
 						<!-- <a ng-if="selectedOrganUser.MobilePhone != ''" ng-click="doExecCallPhone(selectedOrganUser.MobilePhone)">{{selectedOrganUser.MobilePhone}}</a> -->
 						<a href="tel:{{selectedOrganUser.MobilePhone}}" ng-if="selectedOrganUser.MobilePhone != ''">
 							{{selectedOrganUser.MobilePhone}}
@@ -134,7 +134,7 @@
 					</div>
 					<div class="memberInfo_sms memberInfo_img">
 						<span class="memberInfoSubject">SMS</span>
-						<a ng-if="selectedOrganUser.MobilePhone == ''">	내용없음</a>
+						<a ng-if="selectedOrganUser.MobilePhone == ''">	{{translateLanguage('unknown')}} 내용없음</a>
 						<!-- <a ng-if="selectedOrganUser.MobilePhone != ''" ng-click="doExecSMSPhone(selectedOrganUser.MobilePhone)">{{selectedOrganUser.MobilePhone}}</a> -->
 						<a href="sms:{{selectedOrganUser.MobilePhone}}" ng-if="selectedOrganUser.MobilePhone != ''">{{selectedOrganUser.MobilePhone}}</a>
 						<a href="sms:{{selectedOrganUser.MobilePhone}}" class="btn_img" ng-if="selectedOrganUser.MobilePhone != ''">
@@ -143,18 +143,18 @@
 					</div>
 					<div class="memberInfo_email memberInfo_img">
 						<span class="memberInfoSubject">eMail</span>
-						<a ng-if="selectedOrganUser.EmailAddress == ''">내용없음</a>
+						<a ng-if="selectedOrganUser.EmailAddress == ''">{{translateLanguage('unknown')}} 내용없음</a>
 						<a ng-if="selectedOrganUser.EmailAddress != ''" ng-click="doExecEmail(selectedOrganUser)">{{selectedOrganUser.EmailAddress}}</a>
 						<a class="btn_img" ng-click="doExecEmail(selectedOrganUser)">
 							<img src="/resources/image/organization/ic_email_address_normal.png">
 						</a>
 					</div>
 					<div class="memberInfo_place">
-						<span class="memberInfoSubject">근무지</span><span>{{selectedOrganUser.CompName}}</span>
+						<span class="memberInfoSubject">{{translateLanguage('work_address_')}}</span><span>{{selectedOrganUser.CompName}}</span>
 					</div>
 				</div>
 			</div>
-			<div class="profileDetailCheck" ng-click="closeOrganUserDialog()">확인</div>
+			<div class="profileDetailCheck" ng-click="closeOrganUserDialog()">{{translateLanguage('ok')}}</div>
 		</div>
 	</div>
 </div>

@@ -90,9 +90,11 @@ function loadDomainUrl(){
 	var userAgent = navigator.userAgent.toLowerCase();
 	var agent = '';
 	var domain = '';
+	console.log(userAgent);
 	if (userAgent.match('android') != null) { 
 		agent = 'android'
-	} else if (userAgent.indexOf("iphone")>-1||userAgent.indexOf("ipad")>-1||userAgent.indexOf("ipod")>-1) { 
+	} 
+	else if (userAgent.indexOf("iphone")>-1||userAgent.indexOf("ipad")>-1||userAgent.indexOf("ipod")>-1) { 
 		agent = 'ios'
 	};
 	$.post('https://ep.halla.com/nmobile/login/Apptype',

@@ -5,7 +5,7 @@
 			<img src="/resources/image/back_arrow.png">
 		</div>
 		<div class="headerBarTitle">
-			<span>메일 보기</span>
+			<span>{{translateLanguage('view_mail')}}</span>
 		</div>
 		<div class="headerBarMove" ng-click="btnMailNavigation('next')">
 			<img src="/resources/image/move_down_arrow.png">
@@ -36,11 +36,11 @@
 			
 			<div class="wrapMailUserInfo">
 				<div class="mailDetailSenderName">
-					<span>보낸 사람 : </span>
+					<span>{{translateLanguage('from_address_')}} : </span>
 					<span class="senderName" ng-click="selectOrganUser(mailData.FromEmailAddress)">{{mailData.FromName}}</span>
 				</div>
 				<div class="mailDetailReceiveName" ng-show="isRecipientShow">
-					<span>받는 사람 : </span>
+					<span>{{translateLanguage('to_address_')}} : </span>
 					<div class="receiveNameList">
 						<span class="receiveName" ng-repeat="recipient in mailData.ToRecipients" ng-click="selectOrganUser(recipient.EMailAddress)">
 							{{recipient.DisplayName}}
@@ -49,7 +49,7 @@
 				</div>
 				
 				<div class="mailDetailCCName" ng-show="isRecipientShow" ng-if="mailData.CcRecipients.length > 0">
-					<span>참조 : </span>
+					<span>{{translateLanguage('cc_address')}} : </span>
 					<div class="ccNameList">
 						<span class="ccName" ng-repeat="cc in mailData.CcRecipients" ng-click="selectOrganUser(cc.EMailAddress)">
 							{{cc.DisplayName}}
@@ -69,8 +69,8 @@
 					<span ng-if="userInfo.Lang == 'ETC'">{{mailData.ReceivedDateTime | date:'EEEE, MMMM dd, yyyy a h:mm'}}</span>
 				</div>
 				<div class="mailDetailSenderDetail" ng-click="btnToggleRecipientShow($event)">
-					<span ng-if="!isRecipientShow">자세히 보기</span>
-					<span ng-if="isRecipientShow">간단히 보기</span>
+					<span ng-if="!isRecipientShow">{{translateLanguage('view_detail')}}</span>
+					<span ng-if="isRecipientShow">{{translateLanguage('view_summary')}}</span>
 				</div>
 			</div>
 		</div>
@@ -107,23 +107,23 @@
 		<!-- 2019-09-17 김현석 [메일보기 버튼 변경(플래그 위치이동, 회신기능 이동, 메일작성 삭제)] -->
 		<a class="btnFooterMenu" ng-click="btnReply($event)">
 			<img src="/resources/image/mail/ic_reply_normal.png">
-			<span class="btnFooterText">회신</span>
+			<span class="btnFooterText">{{translateLanguage('reply')}}</span>
 		</a>
 		<a class="btnFooterMenu" ng-click="btnReplyAll($event)">
 			<img src="/resources/image/mail/ic_reply_all_normal.png">
-			<span class="btnFooterText">전체회신</span>
+			<span class="btnFooterText">{{translateLanguage('reply_all')}}</span>
 		</a>
 		<a class="btnFooterMenu" ng-click="btnForward($event)">
 			<img src="/resources/image/mail/ic_forward_normal.png">
-			<span class="btnFooterText">전달</span>
+			<span class="btnFooterText">{{translateLanguage('forward')}}</span>
 		</a>
  		<a class="btnFooterMenu" ng-click="btnDlgMailMove($event)">
 			<img src="/resources/image/mail/ic_move_normal.png">
-			<span class="btnFooterText">이동</span>
+			<span class="btnFooterText">{{translateLanguage('move_message_abbr')}}</span>
 		</a>
 		<a class="btnFooterMenu" ng-click="btnDlgMailDelete($event)">
 			<img src="/resources/image/mail/ic_trash_normal.png">
-			<span class="btnFooterText">삭제</span>
+			<span class="btnFooterText">{{translateLanguage('remove')}}</span>
 		</a>
 		<!-- <a class="btnFooterMenu reply" ng-click="btnShowReplyForwardMenu($event)">
 			<img src="/resources/image/mail/ic_reply_normal.png">
@@ -149,7 +149,7 @@
 	
 	<div class="dlgMailMove" ng-show="isDlgMailMove == true" ng-click="dismissDlgMailMove($event)">
 		<div class="wrapDlgMailMove">
-			<div class="dlgMailMoveHeader">이동할 메일함 선택</div>
+			<div class="dlgMailMoveHeader">{{translateLanguage('move_mail_box_select')}}</div>
 			<div class="dlgMailMoveBody">
 				<ul>
 					<li ng-repeat="mailBox in moveMailBoxList"
@@ -170,7 +170,6 @@
 								<img class="ic_mail" ng-src="/resources/image/icon/ic_mail_box_etc_selected.png"
 									 ng-if="mailBox.FolderType != 'INBOX' && mailBox.FolderType != 'SENTITEMS' && mailBox.FolderType != 'DELETEDITEMS'"> -->
 							</span>
-							
 							{{mailBox.DisplayName}}
 							<!-- <span class="unreadCount" ng-show="mailBox.UnreadCount > 0">{{mailBox.UnreadCount | number}}</span> -->
 						</a>
@@ -178,20 +177,20 @@
 				</ul>
 			</div>
 			<div class="dlgMailMoveFooter">
-				<a ng-click="btnConfirmMoveMail()">확인</a>
+				<a ng-click="btnConfirmMoveMail()">{{translateLanguage('ok')}}</a>
 			</div>
 		</div>
 	</div>
 	
 	<div class="dlgMailDelete" ng-show="isDlgMailDelete == true" ng-click="dismissDlgMailDelete($event)">
 		<div class="wrapDlgMailDelete">
-			<div class="dlgMailDeleteHeader">메일 삭제</div>
+			<div class="dlgMailDeleteHeader">{{translateLanguage('mail_remove')}}</div>
 			<div class="dlgMailDeleteBody">
-				삭제하시겠습니까?
+				{{translateLanguage('remove_message')}}
 			</div>
 			<div class="dlgMailDeleteFooter">
-				<a ng-click="btnCancelDeleteMail()">취소</a>
-				<a ng-click="btnConfirmDeleteMail()">확인</a>
+				<a ng-click="btnCancelDeleteMail()">{{translateLanguage('cancel')}} 취소</a>
+				<a ng-click="btnConfirmDeleteMail()">{{translateLanguage('ok')}}</a>
 			</div>
 		</div>
 	</div>
@@ -209,17 +208,17 @@
 			</div>
 			<div class="wrap_memberInfo">
 				<div class="memberInfo_name">
-					<span>이름 : {{selectedOrganUser.UserName}}</span>
+					<span>{{translateLanguage('user_name_')}} : {{selectedOrganUser.UserName}}</span>
 				</div>
 				<div class="memberInfo_company">
-					<span>회사/부서 : {{selectedOrganUser.CompName}} / {{selectedOrganUser.DeptName}}</span>
+					<span>{{translateLanguage('comp_dept_name_')}} : {{selectedOrganUser.CompName}} / {{selectedOrganUser.DeptName}}</span>
 				</div>
 				<div class="memberInfo_office">
-					<span>직위/직책 : {{selectedOrganUser.LevelName}} / {{selectedOrganUser.PositionName}}</span>
+					<span>{{translateLanguage('level_position_name_')}} : {{selectedOrganUser.LevelName}} / {{selectedOrganUser.PositionName}}</span>
 				</div>
 				<div class="memberInfo_phone memberInfo_img">
-					<span>유선전화 : </span>
-					<a ng-if="selectedOrganUser.LocationPhone == ''">내용없음</a>
+					<span>{{translateLanguage('location_phone_')}} : </span>
+					<a ng-if="selectedOrganUser.LocationPhone == ''">{{translateLanguage('unknown')}}</a>
 					<!-- <a ng-if="selectedOrganUser.LocationPhone != ''" ng-click="doExecCallPhone(selectedOrganUser.LocationPhone)">{{selectedOrganUser.LocationPhone}}</a> -->
 					<a href="tel:{{selectedOrganUser.LocationPhone}}" ng-if="selectedOrganUser.LocationPhone != ''">{{selectedOrganUser.LocationPhone}}</a>
 					
@@ -228,8 +227,8 @@
 					</a>
 				</div>
 				<div class="memberInfo_mobile memberInfo_img">
-					<span>휴대전화 : </span>
-					<a ng-if="selectedOrganUser.MobilePhone == ''">내용없음</a>
+					<span>{{translateLanguage('mobile_phone_')}} : </span>
+					<a ng-if="selectedOrganUser.MobilePhone == ''">{{translateLanguage('unknown')}}</a>
 					<!-- <a ng-if="selectedOrganUser.MobilePhone != ''" ng-click="doExecCallPhone(selectedOrganUser.MobilePhone)">{{selectedOrganUser.MobilePhone}}</a> -->
 					<a href="tel:{{selectedOrganUser.MobilePhone}}" ng-if="selectedOrganUser.MobilePhone != ''">
 						{{selectedOrganUser.MobilePhone}}
@@ -240,7 +239,7 @@
 				</div>
 				<div class="memberInfo_sms memberInfo_img">
 					<span>SMS : </span>
-					<a ng-if="selectedOrganUser.MobilePhone == ''">내용없음</a>
+					<a ng-if="selectedOrganUser.MobilePhone == ''">{{translateLanguage('unknown')}}</a>
 					<!-- <a ng-if="selectedOrganUser.MobilePhone != ''" ng-click="doExecSMSPhone(selectedOrganUser.MobilePhone)">{{selectedOrganUser.MobilePhone}}</a> -->
 					<a href="sms:{{selectedOrganUser.MobilePhone}}" ng-if="selectedOrganUser.MobilePhone != ''">{{selectedOrganUser.MobilePhone}}</a>
 					<a href="sms:{{selectedOrganUser.MobilePhone}}" class="btn_img" ng-if="selectedOrganUser.MobilePhone != ''">
@@ -249,18 +248,18 @@
 				</div>
 				<div class="memberInfo_email memberInfo_img">
 					<span>eMail : </span>
-					<a ng-if="selectedOrganUser.EmailAddress == ''">내용없음</a>
+					<a ng-if="selectedOrganUser.EmailAddress == ''">{{translateLanguage('unknown')}}</a>
 					<a ng-if="selectedOrganUser.EmailAddress != ''" ng-click="doExecEmail(selectedOrganUser)">{{selectedOrganUser.EmailAddress}}</a>
 					<a class="btn_img" ng-click="doExecEmail(selectedOrganUser)">
 						<img src="/resources/image/organization/ic_email_address_normal.png">
 					</a>
 				</div>
 				<div class="memberInfo_place">
-					<span>근무지 : </span>
+					<span>{{translateLanguage('work_address_')}} : </span>
 					{{selectedOrganUser.CompName}}
 				</div>
 			</div>
-			<div class="profileDetailCheck" ng-click="closeOrganUserDialog()">확인</div>
+			<div class="profileDetailCheck" ng-click="closeOrganUserDialog()">{{translateLanguage('ok')}}</div>
 		</div>
 	</div>
 </div>

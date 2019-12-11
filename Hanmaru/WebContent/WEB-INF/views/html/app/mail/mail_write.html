@@ -5,7 +5,7 @@
 			<img src="/resources/image/back_arrow.png">
 		</div>
 		<div class="headerBarTitle">
-			<span>메일 작성</span>
+			<span>{{translateLanguage('mail_write')}}</span>
 		</div>
 		<div class="headerBarMove write" ng-click="btnSendEmail()">
 			<img src="/resources/image/mail/ic_menu_send_normal.png">
@@ -14,7 +14,7 @@
 		<label class="flag_write_mail_me" ng-click="btnToggleMailMe($event)">
 			<!-- <img class="flag_write_mail_me" src="/resources/image/icon/ic_circle_check_selected.png" ng-show="isFlagMailMe == true">
 			<img class="flag_write_mail_me" src="/resources/image/icon/ic_circle_check_normal.png" ng-show="isFlagMailMe == false"> -->
-			내게 쓰기
+			{{translateLanguage('me_address')}}
 		</label>
 		
 		<!-- <label class="headerBarMove write" ng-click="initAttachFile()">
@@ -28,7 +28,7 @@
 		<div>
 			<table id="tblMailWrite">
 				<tr class="line">
-					<th>받는 사람 
+					<th>{{translateLanguage('to_address_count')}} 
 							<a ng-click="toggleShowHide()"><!-- ng-click="showHide=!showHide" -->
 						        <img src="/resources/image/icon/mail_hide_icon_down.png" ng-show="showHide" class="id_hide_ref">
 						        <img src="/resources/image/icon/mail_show_icon_up.png" ng-hide="showHide" class="id_hide_ref">
@@ -101,7 +101,7 @@
 					<td>&nbsp;</td>
 				</tr> -->
 				<tr class="line" ng-show="showHide">
-					<th>참조</th>
+					<th>{{translateLanguage('cc_address')}}</th>
 					<td class="wrap_input">
 						<div>
 							<div class="wrap_selected_user" ng-if="mailType == 1" ng-repeat="user in cc_user_list">
@@ -156,7 +156,7 @@
 					</td>
 				</tr>
 				<tr class="line" ng-show="showHide">
-					<th>숨은 참조</th>
+					<th>{{translateLanguage('bcc_address')}}</th>
 					<td class="wrap_input">
 						<div>
 							<div class="wrap_selected_user" ng-if="mailType == 1" ng-repeat="user in hcc_user_list">
@@ -212,7 +212,7 @@
 				
 				<tr class="line">
 					<td class="wrap_input" colspan="2">
-						<textarea class="subject" ng-model="mailSubject" ng-trim="true" placeholder="제목을 입력해주세요"></textarea>
+						<textarea class="subject" ng-model="mailSubject" ng-trim="true" placeholder="{{translateLanguage('subject_hint')}}"></textarea>
 					</td>
 					<td class="wrap_address">
 						<label ng-click="initAttachFile()">
@@ -222,7 +222,7 @@
 					</td>
 				</tr>
 				<tr class="line" ng-if="attach_list.length>0"><!-- ng-show="attach_list.length > 0" -->
-					<th class="va_top">첨부파일</th>
+					<th class="va_top">{{translateLanguage('attach_files')}}</th>
 					<td class="wrap_attach_list" colspan="2">
 						<div class="wrap_attach_file_list" ng-repeat="attach in attach_list"  ng-if="mailType == 1">
 							<div class="file_ext">

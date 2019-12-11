@@ -147,19 +147,19 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .slideMenuTop{background-image: linear-gradient(to right, #5574f7, #3c8bff, #319fff, #42b2ff, #60c3ff);background-size:100%;padding:0 5%}
 .slideMenuProfileImg{width:100%;height:50%;position:relative;position:relative;padding-top:6%;padding-bottom:6%}
 .slideProfileImg{display:inline-block;width:13vw;height:13vw;border-radius:50%;background-size:13vw!important;background-position:center!important;background-repeat:no-repeat!important}
-.slideProfileName{/* display: inline-block;position: absolute;top: 0;margin-left: 3%;padding-top: 7%; */color: #FFF;font-size: 4vw;font-weight:bold;display:inline-block;}
-.slideProfilePosition{/* display: inline-block;position: absolute;margin-left: 3%;padding-top: 11%; */color: #FFF;font-size: 3.5vw;}
-.slideProfileWrapper{display: inline-block;position: absolute;left:16vw;}
+.slideProfileName{text-overflow: ellipsis;white-space: nowrap;overflow: hidden;color: #FFF;font-size: 4vw;font-weight:bold;/* display:inline-block; */}
+.slideProfilePosition{color: #FFF;font-size: 2.8vw;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
+.slideProfileWrapper{display: inline-block;position: absolute;left:16vw;max-width: 60%;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
 .slideMenuProfileNameDept{color:#f0f0f0;font-size:3.5vw;padding:1% 0};
 .slideMenuProfile{width:100%;height:50%;position:relative;margin-top: 8px;}
 .slideMenuSettings{position:absolute;right:0;width:12%}
 /* .slideMenuProfile div{color:#f0f0f0;font-size:3.5vw;padding:2% 0;margin-bottom: 2%;} */
 .profileTeam{font-size:3.5vw;color:#f0f0f0;margin-left:3%;}
-.profileTeam.slideMenuTopControl{margin-top: -6vw;margin-left: 16vw;display: block;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
+.profileTeam.slideMenuTopControl{margin-top: -5vw;margin-left: 16vw;display: block;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
 .profileTopFold{/* position:absolute; top:50%;right:0*/width:3vw;display:block;margin:0 auto;padding:1vw}
 .slideFoldImgRotate{transform:translateY(0%) rotate(180deg)}
 .slideMenuTopBack{background-image: linear-gradient(to right, #5574f7, #3c8bff, #319fff, #42b2ff, #60c3ff);}
-.slideMenuTopControl{display: inline-block;}
+.slideMenuTopControl{/* display: inline-block; */}
 .btnLogout{position:absolute;top:0;right:0;padding-top:6%;color:#FFF;font-size:3.5vw}
 
 .slideMenuList{width:100%;/* margin:0 5%; */padding:2vw 0;overflow:hidden;background:#ffffff}
@@ -393,7 +393,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .mailSearchKeyword button{float:right;border:none;width:26%;background:#4C5264;font-size:4.2vw;color:#fff;padding:2.365vw 1.9vw;border-radius:0 2.23vw 2.23vw 0}
  
 /*mailBehavior*/
-.mailContentsBehaviorDiv{font-size:0;text-align:center;display:none}
+.mailContentsBehaviorDiv{font-size:0;text-align:center;display:none;bottom: 0;position: absolute;width: 100%;z-index: 1000;}
 .mailContentsBehavior{background:#4C5264;}
 .mailContentsBehavior .mailBehaviorList{padding:0 0 2.31vw 0}
 .mailContentsBehavior .mailBehaviorList li{display:inline-block;width:24%}
@@ -420,14 +420,14 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .mailListState{width:6vw;height:30%;float:left;position:relative}
 .mailStatePin, .mailStateUnread{margin:2vw 1.6vw;background-color:red;width:40%;height:0;padding:20% 0;border-radius:50%/*;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)*/}
 .mailStateUnread{/*margin-top:60%;*/background-color:#39abff}
-.mailListSender{float:left;width:55vw;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;font-size:3.5vw;color:#2B2F3B;margin-left:2vw}
+.mailListSender{float:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;font-size:3.5vw;color:#2B2F3B;margin-left:3vw}
 .mailListSender.unread{font-weight:bold}
 .mailListDate{float:right;font-size:3.5vw;color:#BCBEC1;/*position: absolute*/;right: 0;bottom: 3vw;margin-right: 4vw;}
-.mailListTitle{position:relative;width:76vw;margin-left:2vw;color:#717883;font-size:3.5vw;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
+.mailListTitle{position:relative;width:83vw;margin-left:0vw;color:#717883;font-size:3.5vw;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;padding-left: 3vw;}
 /*.ic_mail_has_attach{position:absolute;width:4vw;top:7.5vw;right:0;bottom:3vw}*/
 /* .mailListTitle.unread{font-weight:bold} */
 .mailListTitle img{display:inline-block;width:4vw;vertical-align:text-bottom}
-.icMailContents{position:absolute;/*top:3.5vw*/;right:2vw;bottom:3vw;font-size:0}
+.icMailContents{position:absolute;/*top:3.5vw*/;right:2vw;bottom:3vw;font-size:0;float: right;}
 .icMailContents span{margin:0 1.6vw 0 0;display: inline-block;width: 5vw;height: 5vw;}
 .icMailContents img{width:5vw;}
 .ic_mail_has_attach{display:inline-block;right:2vw;bottom:3vw;font-size:0;width:4vw}
@@ -564,7 +564,7 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 .mail_profile_img{width:10vw;height:10vw;border-radius:100%;object-fit:cover}
 
 /* mail write */
-.headerBar .flag_write_mail_me{width:17%;float: right;position: relative;text-align: center;border: 1px solid #BCBEC1;border-radius: 20px;font-size: 13px;top:50%;transform: translateY(-50%);color: #717883;}
+.headerBar .flag_write_mail_me{width:19%;float: right;position: relative;text-align: center;border: 1px solid #BCBEC1;border-radius: 20px;font-size: 13px;top:50%;transform: translateY(-50%);color: #717883;padding:1vw;}
 .wrapMailWrite{overflow-y:auto;height:calc(93% - 4vw);padding:2vw}
 .wrapMailWrite #tblMailWrite{border-collapse:collapse}
 .wrapMailWrite #tblMailWrite tr.hidden td{height:0;padding:0}
@@ -974,21 +974,22 @@ input[type="search"]::-webkit-search-results-decoration{display:none}
 /*자원예약 검색 dropdown*/
 .reservSearchDrop{/* display:none; */width:100%;font-size:0;z-index:2000}
 .reservSearchDrop .reservDropContents{/* display:none; */background:#fff;padding:1.5vw 1.5vw 0 1.5vw;border-bottom:1px solid #e2e2e2}
-.reservDropContents .reservDropSubs{width:100%}
+.reservDropContents .reservDropSubs{width:100%;margin-top: 2vw;}
 .reservDropContents .reservDropSubs p{font-size:3.5vw;display:inline-block;width:20%}
 .reservDropSubs .reservSubs{position:relative;display:inline-block;width:76%;height:4%;border-bottom:1px solid #aeaeae}
 .reservSubs::after{content:"";display:table;clear:both}
-.reservSelectOption{width:100%;height:100%;border:none;background:#fff;font-size:3.5vw}
-.reservDropKeyword p{width:20%;display:inline-block}
-.reservDropKeyword .reservKeyword{display:inline-block;width:76%;height:4%;border:none;margin-top:2vw;border-bottom:1px solid #aeaeae}
-.reservKeyword input{width:100%;height:100%;border:none;font-size:3.5vw;}
+.reservSelectOption{width:100%;height:100%;border:none;background:#fff;font-size:3.5vw;padding-left:2vw;}
+.reservDropKeyword p{width:22%;display:inline-block}
+.reservDropKeyword .reservKeyword{display:inline-block;width:76%;height:4%;border:none;margin-top:3vw;border-bottom:1px solid #aeaeae}
+.reservKeyword input{width:100%;height:100%;border:none;font-size:3.5vw;padding-left: 2vw}
+.reservDropTime{margin-top: 3vw;}
 .reservDropTime::after{content:"";display:table;clear:both}
-.reservDropTime p{width:20%;display:inline-block;font-size:3.5vw}
-.reservDropTime .reservFirstTime{position:relative;display:inline-block;width:30%;height:8%;margin-top:2vw;padding:0 2vw;border-bottom:1px solid #aeaeae;}
+.reservDropTime p{width:30%;display:inline-block;font-size:3.5vw}
+.reservDropTime .reservFirstTime{position:relative;display:inline-block;width:26%;height:8%;/* margin-top:2vw */;padding:0 2vw;border-bottom:1px solid #aeaeae;}
 .reservDropTime .reservFirstTime input{display:inline-block;font-size:3.5vw;line-height:160%;width:100%;height:100%;border:none;cursor:pointer;}
 .reservDropTime .reservFirstTime input::placeholder{color:#000}
 .reservDropTime .reservFirstTime img{position:absolute;top:50%;right:2vw;transform:translateY(-50%);display:inline-block;width:6vw;padding-left:2vw}
-.reservDropTime .reservSecondTime{position:relative;display:inline-block;width:30%;height:8%;margin-top:4vw;padding:0 2vw;margin-left:8%;border-bottom:1px solid #aeaeae}
+.reservDropTime .reservSecondTime{position:relative;display:inline-block;width:26%;height:8%;/* margin-top:4vw; */padding:0 2vw;margin-left:5%;border-bottom:1px solid #aeaeae}
 .reservDropTime .reservSecondTime input{display:inline-block;font-size:3.5vw;;line-height:160%;width:100%;height:100%;border:none;cursor:pointer;}
 .reservDropTime .reservSecondTime input::placeholder{color:#000}
 .reservDropTime .reservSecondTime img{position:absolute;top:50%;right:2vw;transform:translateY(-50%);display:inline-block;width:6vw;padding-left:2vw}
@@ -2209,7 +2210,7 @@ diary 검색 드롭다운
 
 /*설정페이지 - 회사 설정*/
 .headerBarClose{width:12%;height:100%;float:right;position:relative;display:table;}
-.headerBarClose span{display: table-cell;vertical-align: middle;}
+.headerBarClose span{display: table-cell;vertical-align: middle;padding-rigth:2vw;}
 .headerBarClose img{position:absolute;width:54%;top:50%;left:50%;transform:translate(-50%, -50%)}
 .settingsCompanyWrap{width:100%;height:100%;background:#F2F4F8;font-size:0}
 .settingsCompanyWrap .concurrentCompany{display:block;padding:4.45vw 0 2.78vw 4.45vw;font-size:3.89vw;font-weight:bold;color:#717883;border-bottom:2px solid #e7e9ee}
@@ -2524,7 +2525,7 @@ diary 검색 드롭다운
 .attendanceManagementDiv{width: 100%;height: 85%;overflow-y: auto;}
 .attendanceManagementDiv .attendanceManagementContents{margin:0 auto;padding-bottom:9.4vw;text-align:center;background: #FFF;}
 .attendanceManagementDiv .attendanceManagementDate{position:relative;display:inline-block;width:41.112vw;height:4%;margin-top:6.67vw;padding:0.78vw 0;border-bottom:1px solid #4E86FF;text-align:center}
-.attendanceManagementDiv .attendanceManagementDate input{display:inline-block;font-size:3.5vw;;line-height:160%;width:100%;height:100%;background:url('/resources/image/ic-calendar_blue.png') no-repeat right 6vw center;background-size:13%;border:none;/* text-align:center */text-indent:7vw;color:#4E86FF}
+.attendanceManagementDiv .attendanceManagementDate input{display:inline-block;font-size:4vw;;line-height:160%;width:100%;height:100%;background:url('/resources/image/ic-calendar_blue.png') no-repeat right 6vw center;background-size:13%;border:none;/* text-align:center */text-indent:7vw;color:#4E86FF}
 .attendanceManagementDiv .attendanceManagementDate input::placeholder{color:#4E86FF}
 .attendanceManagementDiv .officeAttendanceTime{margin-top:6.67vw}
 .attendanceManagementDiv .officeAttendanceTime p{font-size:4.445vw;font-weight:bold;color:#2B2F3B}
@@ -2666,7 +2667,7 @@ diary 검색 드롭다운
 .approvaldfWork {font-size: 3.5vw;color:#0d7aff;float:right;}
 .approvalContentMidLeft{float:left;margin:0 0.3em; width: 54%;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;font-size: 4vw;}
 .approvalContentMidRight{float: right;text-align: right;margin:0 0.3em;width: 40%;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;font-size: 4vw;}
-.mailListInter {width: 90vw;float: right;}
+.mailListInter {width: 100vw;/*float: right;*/}
 .mailCount{color: white;font-size: 2vw;text-align: left;position: relative;}
 .mailCount .mailCheckCloseImg{width: 3vw;margin: 2vw 1vw 0 2vw;}
 .mailCount span {position:absolute;padding-top:1.5vw}
@@ -2706,7 +2707,14 @@ diary 검색 드롭다운
 
 .scheduleInfoSharerWrap .file_ext {float:left}
 .scheduleInfoSharerWrap .file_ext img {width: 8vw;float: left;}
-.scheduleInfoSharerWrap .file_info {float: left;width: 57vw;}
+.scheduleInfoSharerWrap .file_info {float: left;width: 58vw;}
 .scheduleInfoSharerWrap .file_info .attach_file {font-size: 3.5vw;float: left;overflow: hidden;width: 64vw; text-overflow: ellipsis; white-space: nowrap; margin-left: 2vw;}
 .scheduleInfoSharerWrap .file_info .txt_fileSize {font-size: 3.5vw; margin-left: 2vw;}
+
+.SenderWidthNow {width:71vw}
+.SenderWidth {width:63vw}
+
+.SenderWidthNowCheck {width:63vw}
+.SenderWidthCheck {width:55vw}
+.mailListDivCheck {height: 81% !important;}
 

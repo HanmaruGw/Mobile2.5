@@ -78,7 +78,7 @@
 
 /* 2019.10.21 추가 - jh.j*/
 .xpull_bottom{
-    height: 45px;
+   height: 0px;
     margin: 0 auto;
     position: relative;
     text-align: center;

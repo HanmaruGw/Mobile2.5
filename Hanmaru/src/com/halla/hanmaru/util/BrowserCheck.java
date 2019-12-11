@@ -19,7 +19,7 @@ public class BrowserCheck {
 	
 	public static boolean isIphone(HttpServletRequest request) {
 		String ua = request.getHeader("User-Agent").toLowerCase();
-		return (ua.matches(".*(ip(hone|od)).*"));
+		return (ua.matches(".*(ip(hone|od|ad)).*"));
 	}
 	
 	

@@ -54,8 +54,8 @@
 			</div>
 		</div>
 		<div class="diaryBtnDiv">
-			<div class="diaryCancelBtn">취소</div>
-			<div class="diarySearchBtn">검색</div>
+			<div class="diaryCancelBtn">{{translateLanguage('cancel')}}</div>
+			<div class="diarySearchBtn">{{translateLanguage('search')}}</div>
 		</div>
 	</div>	
 	<!-- 날짜 선택창 끝 -->
@@ -63,7 +63,7 @@
 	<!-- 검색 -->
 	<div class="workDiarySearchBack"></div>
 	<div class="workDiaryDataVoid">
-		<span class="workDiarySearchResult">검색된 데이터가 없습니다.</span>
+		<span class="workDiarySearchResult">{{translateLanguage('warn_empty_message')}}</span>
 		<span class="searchResultBlank"></span>
 	</div>
 	
@@ -101,7 +101,7 @@
 			
 			<div class="diarySearchKeyword">
 				<input type="text" ng-model="searchValue" placeholder="검색어 입력">
-				<button ng-click="btnSearchSchedule()">검색</button>
+				<button ng-click="btnSearchSchedule()">{{translateLanguage('search')}}</button>
 				<!-- ng-model="SearchValue" ng-trim="true"
 				ng-click="btnSearchMail()" -->
 			</div>
@@ -146,9 +146,9 @@
 	
 	<div class="workDiaryBottomWrap">
 		<div class="diaryRightBtn">
-			<span class="diaryTodayBtn" ng-click="btnScheduleToday()"><a>오늘</a></span>
-			<span class="diaryCalendarBtn" ng-click="btnShowShareCalendar()"><a>공유캘린더</a></span>
-			<span class="diaryShareUser" ng-click="btnShowShareUser()"><a>일정참고자</a></span>
+			<span class="diaryTodayBtn" ng-click="btnScheduleToday()"><a>{{translateLanguage('today')}}</a></span>
+			<span class="diaryCalendarBtn" ng-click="btnShowShareCalendar()"><a>{{translateLanguage('share_calendar')}}</a></span>
+			<span class="diaryShareUser" ng-click="btnShowShareUser()"><a>{{translateLanguage('work_schedule_cc')}}</a></span>
 		</div>
 	</div>
 	
@@ -156,8 +156,8 @@
 	<div class="dialogScheduleViewingBase" ng-show="isDlgScheduleDetail == true">
 		<div class="dialogScheduleViewing">
 			<div class="dialogScheduleViewingTop">
-				<span>일정보기</span>
-				<div class="dialogScheduleAdd" ng-click="btnShowScheduleWrite_Time()">일정추가</div>
+				<span>{{translateLanguage('work_schedule_view')}}</span>
+				<div class="dialogScheduleAdd" ng-click="btnShowScheduleWrite_Time()">{{translateLanguage('work_schedule_add')}}</div>
 			</div>
 			<div class="dialogScheduleDate">
 				<!-- <span>2018.12.26 (수)</span> -->
@@ -176,7 +176,7 @@
 			</div>
 			<div class="dialogScheduleViewingCheck">
 				<div class="dialogScheduleViewingBtn">
-					<a><span class="dialogScheduleViewingAction" ng-click="dismissDlgScheduleDetail($event)">확인</span></a>
+					<a><span class="dialogScheduleViewingAction" ng-click="dismissDlgScheduleDetail($event)">{{translateLanguage('ok')}}</span></a>
 				</div>
 			</div>
 		</div>
@@ -187,7 +187,7 @@
 	<div class="dialogShareCalendarBase" ng-show="isDlgShareCalendar == true">
 		<div class="dialogShareCalendar">
 			<div class="dialogShareCalendarTop">
-				<span>공유 캘린더</span>
+				<span>{{translateLanguage('share_calendar')}}</span>
 				<img src="/resources/image/ic-delete.png" ng-click="dismissDlgShareCalendar($event)">
 			</div>
 			<div class="dialogShareCalendarWrap">
@@ -201,7 +201,7 @@
 			</div>
 			<div class="dialogShareCalendarCheck">
 				<div class="dialogShareCalendarBtn">
-					<a><span class="dialogShareCalendarAction" ng-click="applyShareCalendar($event)">확인</span></a>
+					<a><span class="dialogShareCalendarAction" ng-click="applyShareCalendar($event)">{{translateLanguage('ok')}}</span></a>
 				</div>
 			</div>
 		</div>
@@ -212,7 +212,7 @@
 	<div class="dialogShareCalendarBase" ng-show="isDlgShareUser == true">
 		<div class="dialogShareCalendar">
 			<div class="dialogShareCalendarTop">
-				<span>일정참고자</span>
+				<span>{{translateLanguage('work_schedule_cc')}}</span>
 				<img src="/resources/image/ic-delete.png" ng-click="dismissDlgShareUser($event)">
 			</div>
 			<div class="dialogShareCalendarWrap">
@@ -236,10 +236,10 @@
  			</div>
 			<div class="dialogShareCalendarCheckDb">
 				<div class="dialogShareCalendarBtn">
-					<a><span ng-click="addShareUser($event, 'ShareUser')" class="dialogShareCalendarAction">추가</span></a>
+					<a><span ng-click="addShareUser($event, 'ShareUser')" class="dialogShareCalendarAction">{{translateLanguage('add')}}</span></a>
 				</div>
 				<div class="dialogShareCalendarBtn">
-					<a><span ng-click="applyShareUser($event)" class="dialogShareCalendarAction">적용</span></a>
+					<a><span ng-click="applyShareUser($event)" class="dialogShareCalendarAction">{{translateLanguage('apply')}}</span></a>
 				</div>
 			</div>
 		</div>

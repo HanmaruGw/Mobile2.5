@@ -56,7 +56,7 @@
 							</li>
 						</ul>
 					</div>
-					<span class="firstSelectTime">부터</span>
+					<span class="firstSelectTime">{{translateLanguage('from')}}</span>
 				</div>
 				<div class="reservSelectSecond">
 					<div class="reservSelectMinute">
@@ -70,7 +70,7 @@
 							</li>
 						</ul>
 					</div>
-					<span class="lastSelectTime">동안</span>
+					<span class="lastSelectTime">{{translateLanguage('during')}}</span>
 				</div>
 			</div>
 			<div class="reservCheckBtn" ng-click="reservFindPossible()"><span>{{translateLanguage('find')}}</span></div>
@@ -80,9 +80,9 @@
 			<div class="reservCheckList"  ng-repeat="reservPossibleItem in reservPossibleList" ng-show="isPossibleReserv == true">
 				<div class="reservCheckContents">
 					<span>{{reservPossibleItem.Resource_name}}</span>
-					<p>{{reservPossibleItem.Attender_limit}}명 / {{reservPossibleItem.resource_kind_name}}</p>
+					<p>{{reservPossibleItem.Attender_limit}}{{translateLanguage('person_unit')}} / {{reservPossibleItem.resource_kind_name}}</p>
 				</div>
-				<div class="reservSelectBtn" ng-click="reservChoiceBtn(reservPossibleItem)">선택</div>
+				<div class="reservSelectBtn" ng-click="reservChoiceBtn(reservPossibleItem)">{{translateLanguage('choice')}}</div>
 			</div>
 			<div class="reservNoResult" ng-show="isPossibleReserv == false">
 				<span class="reservNoResultBlank"></span>

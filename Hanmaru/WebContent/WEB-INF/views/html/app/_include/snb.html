@@ -74,17 +74,17 @@
 			<div class="slideMenuBox" ng-click="loadMenu('gqms')" ng-show="userInfo.CompCode == 00005">
 				<img src="/resources/image/icon/ic_qms_normal.png" ng-if="subMenuType != 'gqms'">
 				<img src="/resources/image/icon/ic_qms_selected.png" ng-if="subMenuType == 'gqms'">
-				<span ng-class="{'selected' : subMenuType == 'gqms'}">G-QMS</span>
+				<span ng-class="{'selected' : subMenuType == 'gqms'}">{{translateLanguage('gqms')}}</span>
 			</div>
 			<div class="slideMenuBox" ng-click="loadMenu('hallaIn')" ng-show="userInfo.CompCode == 00001"><!--  && isMenuHallaIn == true -->
 				<img src="/resources/image/icon/ic_hallaIn_normal.png" ng-if="subMenuType != 'hallaIn'">
 				<img src="/resources/image/icon/ic_hallaIn_selected.png" ng-if="subMenuType == 'hallaIn'">
-				<span ng-class="{'selected' : subMenuType == 'hallaIn'}">한라지식인</span>
+				<span ng-class="{'selected' : subMenuType == 'hallaIn'}">{{translateLanguage('hallaIn')}}</span>
 			</div>
 			<div class="slideMenuBox" ng-click="loadMenu('midashelp')" ng-show="isMidasHelpMenu == 'true'">
 				<img src="/resources/image/icon/ic_midashelp_normal.png" ng-if="subMenuType != 'midashelp'">
 				<img src="/resources/image/icon/ic_midashelp_selected.png" ng-if="subMenuType == 'midashelp'">
-				<span ng-class="{'selected' : subMenuType == 'midashelp'}">그룹실적보고</span>
+				<span ng-class="{'selected' : subMenuType == 'midashelp'}">{{translateLanguage('midasHelp')}}</span>
 			</div>
 			
 		</div>
@@ -106,30 +106,37 @@
 					<li class="mailSubSearchRead mailSearch" ng-click="loadSubMenuButtonList('mailUnRead')">
 						<ul>
 							<li><img src="/resources/image/mail/ic-menu-mail.png" class="SubMenuSearchImg"></li>
-							<li><span>안읽음</span></li>
+							<li><span>{{translateLanguage('noRead')}}</span></li>
 						</ul>
 					</li>
 					<li class="mailSubImportantRead mailSearch" ng-click="loadSubMenuButtonList('mailImportance')">
 						<ul>
 							<li><img src="/resources/image/mail/ic-menu-important.png" class="SubMenuSearchImg"></li>
-							<li><span style="margin-left:1vw">중요</span></li>
+							<li><span style="margin-left:1vw">{{translateLanguage('important')}}</span></li>
 						</ul>
 					</li>
 					<li class="mailSubFlagRead mailSearch" ng-click="loadSubMenuButtonList('mailFlag')">
 						<ul>
 							<li><img src="/resources/image/mail/ic-menu-flag.png" class="SubMenuSearchImg"></li>
-							<li><span>플래그</span></li>
+							<li><span>{{translateLanguage('flag')}}</span></li>
 						</ul>
 					</li>
 					<li class="mailSubFileRead mailSearch" ng-click="loadSubMenuButtonList('mailFile')">
 						<ul>
 							<li><img src="/resources/image/mail/ic-menu-attach-file.png" class="SubMenuSearchImg"></li>
-							<li><span style="margin-left:1vw">첨부</span></li>
+							<li><span style="margin-left:1vw">{{translateLanguage('attach')}}</span></li>
 						</ul>
 					</li>
+					<!-- <li class="mailSubFileRead mailSearch" ng-click="syncMailBoxButton()" >
+						<ul>
+							<li style="margin-bottom: 1vw;"><img src="/resources/image/approval/ic_Approval_Reload.png" class="SubMenuSearchImg" 
+								style="max-width: 50%;height: auto;"></li>
+							<li><span style="margin-left:1vw">동기화</span></li>
+						</ul>
+					</li> -->
 				</ul>
 			</div>
-		
+			
 		<!-- 하부메뉴 리스트 -->
 		<div class="slideMenuMailList">
 			<!-- 2019-09-11 김현석 숨김버튼 추가 -->
@@ -138,7 +145,7 @@
 			<div ng-if="subMenuType == 'mail'">
 				<div class="slideMenuMailItem"
 					ng-class="{'child' : subMenuElem.Depth == 1 && subMenuElem.hasParent == true}" 
-					ng-repeat="subMenuElem in subMenuList"
+					ng-repeat="subMenuElem in subMenuMailList"
 					ng-click="loadSubMenuList(subMenuType, subMenuElem)">
 					
 					<span class="slideMenuMailOnSelected" ng-if="subMenuElem.FolderId == currSubMenu"></span>
@@ -150,6 +157,13 @@
 					<img src="/resources/image/icon/ic_menu_arrow_unselected.png" ng-if="subMenuElem.FolderId != currSubMenu">
 					<img src="/resources/image/icon/ic_menu_arrow_selected.png" ng-if="subMenuElem.FolderId == currSubMenu">
 				</div>
+				
+				<div ng-if="subMenuType == 'mail'" class="mailSubMenuGroup" style="text-align:center;margin-top: 2.5vw;background-color: #F2F4F8;" ng-click="syncMailBoxButton()">
+					<span style="font-weight:bold">{{translateLanguage('mailSync')}}</span>
+					<img src="/resources/image/approval/ic_Approval_Reload.png" class="SubMenuSearchImg" 
+							style="height: auto;width: 7%;vertical-align: sub;">
+				</div>
+				
 			</div>
 			<div ng-if="subMenuType == 'approval'">
 				<div class="slideMenuMailItem"
@@ -309,5 +323,6 @@
 			</div>
 			
 		</div>
+		
 	</div>
 </div>

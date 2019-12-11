@@ -7,13 +7,15 @@
 	<div class="wrap_login_renewal_area">
 		<div class="subwrap_login_renewal_area">
 			<div class="subwrap_login_renewal_btn">
-				<a class="subwrap_login_renewal_btn_simple " ng-class="{'check_btn' : isPinLogin == true}" ng-click="selectPinLoginBtn(true)">간편 로그인</a>
-				<a class="subwrap_login_renewal_btn_basic " ng-class="{'check_btn' : isPinLogin == false}" ng-click="selectPinLoginBtn(false);autoLoginCheck=false;AutoLoginCheckChange(false)">일반 로그인</a>
+				<a class="subwrap_login_renewal_btn_simple " ng-class="{'check_btn' : isPinLogin == true}" 
+				ng-click="selectPinLoginBtn(true)"><!-- {{translateLanguage('simple_login')}} -->간편 로그인</a>
+				<a class="subwrap_login_renewal_btn_basic " ng-class="{'check_btn' : isPinLogin == false}" 
+				ng-click="selectPinLoginBtn(false);autoLoginCheck=false;AutoLoginCheckChange(false)"><!-- {{translateLanguage('general_login')}} -->일반 로그인</a>
 			</div>
 			
 			<div class="wrap_simple_login_renewal_elem" ng-show="isPinLogin == true">
 				<div class="simple_login_contents_elem">
-					<p class="simple_passwd_write_label">간편 비밀번호 6자리를 입력해주세요.</p>
+					<p class="simple_passwd_write_label"><!-- {{translateLanguage('setting_pin_password')}} -->간편 비밀번호 6자리를 입력해 주세요</p>
 					<div class="simple_passwd_write_box" ng-click="performClickPinLogin($event)">
 						<input type="number" class="passwd_input_box_write" id="login_pin_number" maxlength="6" 
 							ng-focus="doFocusLayout()" ng-blur="doBlurLayout()" 
@@ -63,10 +65,10 @@
 					<img src="/resources/image/mail/selectbox-square-off.png" ng-show="autoLoginCheck != true" class=""> 
 					<img src="/resources/image/mail/selectbox-square-on.png" ng-show="autoLoginCheck == true" class="ng-hide">
 				</div>
-				<span>자동로그인</span>
+				<span><!-- {{translateLanguage('auto_login')}} -->자동 로그인</span>
 			</div>
 			
-			<a class="wrap_simple_login" ng-click="togglePinLoginPopup()">간편 비밀번호 설정</a>
+			<a class="wrap_simple_login" ng-click="togglePinLoginPopup()"><!-- {{translateLanguage('hallam_reset_lock_password')}} -->간편 비밀번호 설정</a>
 		</div>
 		<div class="wrap_simple_login_btn" ng-show="isPinLogin!=true">
 			<span>&nbsp</span>
@@ -77,8 +79,9 @@
 	<div class="simple_login_settings_popup_div" ng-show="isShowLoginPopup == true"><!--  -->
 		<div class="simple_login_settings_popup">
 			<div class="simple_login_settings_popup_top">
-				<span class="simple_login_settings_top_label">간편 비밀번호 설정</span>
-				<p class="simple_login_settings_top_notice">간편 비밀번호 설정을 위해 <br/>한마루 ID와 Password를 입력해주세요.</p>
+				<span class="simple_login_settings_top_label"><!-- {{translateLanguage('hallam_reset_lock_password')}} -->간편 비밀번호 설정</span>
+				<p class="simple_login_settings_top_notice"><!-- {{translateLanguage('setting_pin_password_text1')}} -->
+				간편 비밀번호 설정을 위해<br/><!-- {{translateLanguage('setting_pin_password_text2')}} -->한마루 ID와 PASSWORD를 입력해주세요</p>
 			</div>
 			<div class="simple_login_settings_contents_wrapper">
 				<div class="settings_contents_identify_box">
@@ -91,16 +94,16 @@
 				</div>
 			</div>
 			<div class="simple_login_settings_behavior_btn">
-				<a class="settings_behavior_btn_cancel" ng-click="togglePinLoginPopup()">취소</a>
-				<a class="settings_behavior_btn_check" ng-click="checkPinLoginValidate()">확인</a>
+				<a class="settings_behavior_btn_cancel" ng-click="togglePinLoginPopup()"><!-- {{translateLanguage('cancel')}} -->취소</a>
+				<a class="settings_behavior_btn_check" ng-click="checkPinLoginValidate()"><!-- {{translateLanguage('ok')}} -->확인</a>
 			</div>
 		</div>
 	</div>
 	<div class="simple_passwd_settings_popup_div" ng-show="isShowPinInputPopup == true"><!--  -->
 		<div class="simple_passwd_settings_popup">
 			<div class="simple_passwd_settings_popup_top">
-				<span class="simple_passwd_settings_top_label">간편 비밀번호 설정</span>
-				<p class="simple_passwd_settings_top_notice">사용할 숫자 6자리 비밀번호를 입력해주세요.</p>
+				<span class="simple_passwd_settings_top_label"><!-- {{translateLanguage('hallam_reset_lock_password')}} -->간편 비밀번호 설정</span>
+				<p class="simple_passwd_settings_top_notice"><!-- {{translateLanguage('input_user_pin_number_text')}} -->사용할 숫자 6자리 비밀번호를 입력해주세요</p>
 			</div>
 			<div class="simple_passwd_settings_contents_wrapper">
 				<div class="passwd_settings_box" ng-click="performClickPinInput()">
@@ -118,8 +121,8 @@
 				</div>
 			</div>
 			<div class="simple_passwd_settings_behavior_btn">
-				<a class="passwd_settings_behavior_btn_cancel" ng-click="togglePinInputPopup()">취소</a>
-				<a class="passwd_settings_behavior_btn_check" ng-click="setPinNumber()">확인</a>
+				<a class="passwd_settings_behavior_btn_cancel" ng-click="togglePinInputPopup()"><!-- {{translateLanguage('cancel')}} -->취소</a>
+				<a class="passwd_settings_behavior_btn_check" ng-click="setPinNumber()"><!-- {{translateLanguage('ok')}} -->확인</a>
 			</div>
 		</div>
 	</div>

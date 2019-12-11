@@ -5,7 +5,7 @@
 			<img src="/resources/image/ic-arrow-left.png">
 		</div>
 		<div class="headerBarTitle diaryDrop">
-			<span>일정보기</span>
+			<span>{{translateLanguage('work_schedule_view')}}</span>
 		</div>
 		<div class="headerUnderBar"></div>
 	</div>
@@ -17,16 +17,16 @@
 		</div>
 		<div class="scheduleViewInfo">
 			<div class="scheduleInfoContentsManager">
-				<span class="scheduleInfoManagerLabel">캘린더</span>
+				<span class="scheduleInfoManagerLabel">{{translateLanguage('work_calendar')}}</span>
 				<!-- <span class="scheduleInfoManagerName">IT Planning팀</span> -->
 				<span class="scheduleInfoManagerName">{{ScheduleViewData.Calencars[ 0 ].DisplayName || '내일정'}}</span>
 			</div>
 			<div class="scheduleInfoContentsManager">
-				<span class="scheduleInfoManagerLabel">일정</span>
+				<span class="scheduleInfoManagerLabel">{{translateLanguage('work_period')}}</span>
 				<span class="scheduleInfoManagerName">{{ScheduleStartDate}} ~ {{ScheduleEndDate}}</span>
 			</div>
 			<div class="scheduleInfoContentsAttend">
-				<span class="scheduleInfoSharerLabel">참석자</span>
+				<span class="scheduleInfoSharerLabel">{{translateLanguage('resource_user')}}</span>
 				<div class="scheduleInfoSharerWrap">
 					<span class="scheduleInfoSharerName" ng-repeat="data in ScheduleViewData.AttendanceUser">{{data.DisplayName}}</span>
 				</div>
@@ -34,7 +34,7 @@
 				<!-- <ul ng-repeat="color in arr_Color_List"> -->
 			</div>
 			<div class="scheduleInfoContentsSharer">
-				<span class="scheduleInfoSharerLabel">공유자</span>
+				<span class="scheduleInfoSharerLabel">{{translateLanguage('work_share_users')}}</span>
 				<div class="scheduleInfoSharerWrap">
 					<span class="scheduleInfoSharerName" ng-repeat="data in ScheduleViewData.ShareUser">{{data.DisplayName}}</span>
 					<!--
@@ -43,7 +43,7 @@
 				</div>
 			</div>
 			<div class="scheduleInfoContentsSharer">
-				<span class="scheduleInfoSharerLabel">첨부파일</span>
+				<span class="scheduleInfoSharerLabel">{{translateLanguage('attach_files')}}</span>
 				<div class="scheduleInfoSharerWrap">
 					<ul>
 						<li ng-repeat="file in ScheduleViewData.Attachments">
@@ -74,10 +74,10 @@
 	</div>
 	<div class="scheduleViewFooterDiv">
 		<div class="scheduleViewModify" ng-click="ScheduleSetting()">
-			<span>수정</span>
+			<span>{{translateLanguage('modify')}}</span>
 		</div>
 		<div class="scheduleViewDelete" ng-click="ScheduleDelete()">
-			<span>삭제</span>
+			<span>{{translateLanguage('remove')}}</span>
 		</div>
 	</div>
 </div>

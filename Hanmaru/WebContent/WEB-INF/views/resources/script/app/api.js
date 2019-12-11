@@ -62,9 +62,17 @@ var objApiURL = {
 		
 		objApiURL.mail = {
 			mailBoxs:{
-				name:'메일 박스 목록',
-				url:objApiURL.apiDomain+'/nmobile/Mail/MailBoxs'
+				name:'메일 박스 목록 2.5',
+				url:objApiURL.apiDomain+'/nmobile/Mail/NewMailBoxs'
 			},
+			mailBoxsCount:{
+				name:'메일 박스 안읽은 메일 카운트',
+				url:objApiURL.apiDomain+'/nmobile/Mail/MailBoxsCount'
+			},
+//			mailBoxs:{
+//				name:'메일 박스 목록',
+//				url:objApiURL.apiDomain+'/nmobile/Mail/MailBoxs'
+//			},
 			mailList:{
 				name:'메일 리스트',
 				url:objApiURL.apiDomain+'/nmobile/Mail/MailList'

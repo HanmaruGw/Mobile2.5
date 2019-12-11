@@ -19,13 +19,8 @@
 			<div class="login_wrapper">
 				<div class="wrap_login_area">
 				
-					<!-- <div>
-						<span class="wrap_title_area">모바일 다운로드 센터</span>
-					</div> -->
-					
 					<div class="subwrap_login_area">
 						<!-- <img class="ic_login_logo" src="/resources/image/bg/login/login_logo.png"> -->
-					
 						<div id="div_download_area" >
 							<div class="wrap_login_elem input_idpw">
 								<c:if test="${isAndroid }">
