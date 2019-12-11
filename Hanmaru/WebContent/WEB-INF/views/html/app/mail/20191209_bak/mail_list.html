@@ -1,0 +1,304 @@
+<div class="mailContainer" id="mailController" ng-controller="mailController"
+	ng-click="hideMailVisibleOption($event)">
+	<!-- 헤더바 -->
+	<div class="headerBar">
+		<div class="headerBarMenu" ng-hide="mailEditHide"
+			ng-click="slideMenuClick()">
+			<img src="/resources/image/menu_img.png">
+		</div>
+		<div class="headerBarTitle">
+			<span>{{displayName}}</span> <img class="btnMailOption"
+				src="/resources/image/mail_option.png"
+				ng-click="expandMailDDOption()">
+		</div>
+		<!-- <div class="headerBarTitle" ng-show="mailEditHide">
+			<span>{{mailEditList.length}}개 선택됨</span>
+		</div> -->
+		
+		<!-- 2019-09-11 김현석 편집버튼 제거 -->
+		<!--<div class="headerBarEdit" ng-click="mailEdit($event)">
+			<span>{{ editTxt }}</span>
+		</div> -->
+		
+		<div class="headerBarSearch" ng-click="mailSearch()"
+			ng-hide="mailEditHide">
+			<img class="btnMailSearch"
+				src="/resources/image/mail_search_gray.png">
+		</div>
+		<div class="headerUnderBar"></div>
+	</div>
+	<!-- 메일 리스트 옵션 -->
+	<div class="headerBarTitleMenu" ng-show="mailOptionShow">
+		<div class="noneReadMail" ng-click="noneReadMailClick()">
+			<img src="/resources/image/checked.png"
+				ng-class="{'noneReadMailImg': noneRead == true}">
+				 <span>읽지않음</span>
+		</div>
+		<div class="setFlagMail" ng-click="FlagMailClick()">
+			<img src="/resources/image/checked.png"
+				ng-class="{'setFlagMailImg': flagMail == true}">
+				 <span>플래그 지정됨</span>
+		</div>
+		<div class="todayMail" ng-click="todayMailClick()">
+			<img src="/resources/image/checked.png"
+				ng-class="{'todayMailImg': todayMail == true}"> 
+				<span>오늘 메일</span>
+		</div>
+		<div class="mailOptionCheck" ng-click="mailOption()">
+			<span>확인</span>
+		</div>
+	</div>
+	<!-- 메일 서치 -->
+	<div class="mailSearchBack" ng-show="mailSearchnShow"
+		ng-click="mailSearch()"></div>
+	<div class="mailSearchDiv" ng-show="mailSearchnShow">
+
+		<div class="mailSearchDate">
+			<div class="mailSearchStart" ng-click="chooseSearchDate('start')">
+				<img src="/resources/image/mail/ic-calendar.png"> <input
+					type="text" readonly="readonly" class="txtDateSearch"
+					ng-model="txtSearchStart" ng-trim="true">
+			</div>
+			<div class="mailSwungDash">~</div>
+			<div class="mailSearchEnd" ng-click="chooseSearchDate('end')">
+				<img src="/resources/image/mail/ic-calendar.png"> 
+				<input type="text" readonly="readonly" class="txtDateSearch"
+					ng-model="txtSearchEnd" ng-trim="true">
+			</div>
+		</div>
+		<div>
+			<div class="mailSearchOption" ng-click="searchOption()">
+				<ul class="mailSearchSelect">
+					<li class="mailSelectFirst"><span class="selectFirstName">{{SearchName}}</span>
+						<img src="/resources/image/mail/ic-select-arrow-bottom.png">
+	
+						<ul class="selectSearch" ng-show="searchOptionShow == true">
+							<li class="selectSearchList"
+								ng-repeat="SearchTypeOption in SearchTypeOptions"
+								ng-click="applySearchType($index)"><span
+								class="selectListTxt"
+								ng-class="{'selected' : curSearchType == $index}">{{SearchTypeOption.name}}</span>
+								<img src="/resources/image/ic_check_select.png"
+								ng-show="curSearchType == $index"></li>
+						</ul></li>
+				</ul>
+			</div>
+		</div>
+			<div class="mailSearchKeyword">
+				<input type="text" ng-model="SearchValue" ng-trim="true"
+					placeholder="검색어를 입력하세요.">
+				<!-- <button ng-click="btnSearchMail()">검색</button> -->
+			</div>
+		
+		
+		<div class="wrapMailSearchOptionBtn">
+				<button ng-click="btnSearchMail()">검색</button>
+		</div>
+	</div>
+
+	<!-- 메일 리스트에서 편집 누를시 등장 -->
+	<div class="mailContentsBehaviorDiv"><!--  ng-show="mailEditShow"> -->
+		<div class="mailContentsBehavior">
+			<div class="mailCount">
+				<img src="/resources/image/icon/ic-close-white.png" class="mailCheckCloseImg" ng-click="btnToggleUnCheckAll($event)">
+				<span>{{mailEditList.length}}/{{mailList.length}}</span>
+				<span></span>
+			</div>
+			<ul class="mailBehaviorList">
+				<li class="mailBehaviorUnread" ng-click="btnToggleNotRead($event)">
+					<img src="/resources/image/mail/ic-edit-mail.png"> <span>읽지않음</span>
+				</li>
+				<li class="mailBehaviorAllCheck" ng-click="btnToggleAllCheck($event)" ng-if="mailEditList.length < mailList.length">
+					<img src="/resources/image/mail/ic-check-all.png"> <span>전체체크</span>
+				</li>
+				<li class="mailBehaviorUnCheckAll" ng-click="btnToggleUnCheckAll($event)" ng-if="mailEditList.length >= mailList.length">
+					<img src="/resources/image/mail/ic-check-all.png"> <span>전체해제</span>
+				</li>
+				<li class="mailBehaviorMove" ng-click="btnDlgMailMove($event)">
+					<img src="/resources/image/mail/ic-edit-move.png"> <span>이동</span>
+				</li>
+				<li class="mailBehaviorDelete" ng-click="btnDlgMailDelete($event)">
+					<img src="/resources/image/mail/ic-edit-delete.png"> <span>삭제</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- 리스트 행동 드롭다운 끝 -->
+
+	<!-- 메일 리스트 -->
+	<div class="mailListDiv" ng-class="{'full' : mailBtnShow == false, 'scroll-disabled' : (isDlgMailPopupMenu == true || isDlgMailMove == true)}" 
+				exec-on-scroll-to-bottom="readMailNextPage" mail-xpull="">
+				<!-- Markup for xpull plugin -->
+		        <div class="xpull">
+		            <div class="xpull__start-msg">
+		            	<!-- <img src="/resources/image/sample_img.png"> -->
+		                <div class="xpull__start-msg-text">당겨서 놓으면 새로고침됩니다.</div>
+		                <div class="xpull__arrow"></div>
+		            </div>
+		            <div class="xpull__spinner">
+		                <div class="xpull__spinner-circle"></div>
+		            </div>
+		        </div>
+		        <!-- End Markup for xpull plugin -->
+
+		<div>
+			<div ng-repeat="mail in mailList">
+				<div class="mailListDayDiv"
+					ng-if="($first || mailList[$index-1].ReceivedDateTime.split('T')[0] != mailList[$index].ReceivedDateTime.split('T')[0]) && diffDateFromToday($index, mailList[$index].ReceivedDateTime) <= 7">
+					<span ng-if="diffDateFromToday($index, mail.ReceivedDateTime) == 1">오늘</span>
+					<span ng-if="diffDateFromToday($index, mail.ReceivedDateTime) == 2">어제</span>
+					<span ng-if="diffDateFromToday($index, mail.ReceivedDateTime) > 2">{{mail.ReceivedDateTime
+						| date:'EEEE'}}</span>
+				</div>
+
+				<div class="mailListDayDiv"
+					ng-if="diffDateFromToday($index, mail.ReceivedDateTime) > 7 && $index == isPreviousDateShowIndex">
+					오래전</div>
+
+				<div class="mailListBox" on-long-press="itemOnLongPress(mail)" on-touch-end="itemOnTouchEnd(mail)">
+					<!-- 2019-09-11 김현석 편집모드로 나오도록 숨김처리 제거 -->
+					<div class="mailListEdit"> <!-- ng-show="mailListEditShow"> -->
+						<img src="/resources/image/mail/selectbox-square-off.png" ng-show="mail.EditSelected != true" ng-click="mailListBoxSelect($event, $index, mail)"> 
+						<img src="/resources/image/mail/selectbox-square-on.png" ng-show="mail.EditSelected == true" ng-click="mailListBoxSelect($event, $index, mail)">
+						<!-- <div ng-class="{'selected' : mail.EditSelected == true}"></div>
+						<img src="/resources/image/checked_white.png"> -->
+					</div>
+					<div class="mailListInter" ng-click="mailListSelect($event, $index, mail)">
+						<!-- <div class="mailListState">
+							<span ng-show="mail.IsRead">&nbsp;</span>
+							<div class="mailStateUnread" ng-show="!mail.IsRead"></div>
+							<div class="mailStatePin" ng-show="mail.FlagStatus"></div>
+						</div> -->
+						<div class="mailListSender"
+							ng-class="{'mailListEditSender': mailListEditShow == true, 'unread' : mail.IsRead != true}">
+							<span ng-if="displayName == '보낸 편지함'">{{mail.DisplayTo}}</span> <span
+								ng-if="displayName != '보낸 편지함'">{{mail.Sender}}</span>
+						</div>
+						<div class="mailListDate"
+							ng-if="diffDateFromToday($index, mail.ReceivedDateTime) == 1">
+							<span> <img class="ic_mail_has_attach"
+								src="/resources/image/mail/ic-attach-file.png"
+								ng-show="mail.IsHasAttach == true">
+							</span> <span> <img class="ic_mail_has_important"
+								src="/resources/image/mail/ic-important.png"
+								ng-show="mail.Importance == 'High'">
+							</span> <span
+								ng-if="diffDateFromToday($index, mail.ReceivedDateTime) == 1">
+								{{mail.ReceivedDateTime | date:'HH:mm'}} </span>
+						</div>
+	
+						<div class="mailListDate"
+							ng-if="diffDateFromToday($index, mail.ReceivedDateTime) > 1">
+							<span> <img class="ic_mail_has_attach"
+								src="/resources/image/mail/ic-attach-file.png"
+								ng-show="mail.IsHasAttach == true">
+							</span> <span> <img class="ic_mail_has_important"
+								src="/resources/image/mail/ic-important.png"
+								ng-show="mail.Importance == 'High'">
+							</span> <span
+								ng-if="diffDateFromToday($index, mail.ReceivedDateTime) > 1">
+								{{mail.ReceivedDateTime | date:'yyyy.MM.dd'}} </span>
+						</div>
+	
+						<div class="mailListTitle"
+							ng-class="{'mailListEditTitle': mailListEditShow == true}">
+							{{mail.Subject}}</div>
+	
+						
+					</div>
+					<div class="icMailContents" ng-click="btnToggleFlagList(mail)">
+							<span> 
+								<img src="/resources/image/mail_flag_icon.png" class="mailDetailFlagIcon" ng-show="mail.FlagStatus == true">
+								<img src="/resources/image/mail/ic_flag_normal.png" class="mailDetailFlagIcon" ng-show="mail.FlagStatus == false">
+							</span>
+						</div>
+					
+					<!-- <img class="ic_mail_has_attach" src="/resources/image/mail/ic_attach_pressed.png" ng-if="mail.IsHasAttach == true"> -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 2019.10.21 추가 -->
+	<!-- 하단 로딩바 -->
+	<div class="xpull_bottom" ng-show="isMailBottomLoading == true">
+       <div class="xpull__spinner_bottom">
+            <div class="xpull__spinner-circle"></div>
+        </div>
+    </div>
+    <!-- 2019.10.21 추가끝 -->
+    
+	<!-- 메일 작성 버튼 -->
+	<div class="mailWriteBtn" ng-show="mailBtnShow"
+		ng-click="btnShowMailWrite()">
+		<span>메일 작성하기</span>
+	</div>
+
+	<div class="dlgMailDelete" ng-show="isDlgMailDelete == true"
+		ng-click="dismissDlgMailDelete($event)">
+		<div class="wrapDlgMailDelete">
+			<div class="dlgMailDeleteHeader">메일 삭제</div>
+			<div class="dlgMailDeleteBody">삭제하시겠습니까?</div>
+			<div class="dlgMailDeleteFooter">
+				<a ng-click="btnCancelDeleteMail()">취소</a> <a
+					ng-click="btnConfirmDeleteMail()">확인</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="dlgMailMove" ng-show="isDlgMailMove == true"
+		ng-click="dismissDlgMailMove($event)">
+		<div class="wrapDlgMailMove">
+			<div class="dlgMailMoveHeader">메일 이동</div>
+			<div class="dlgMailMoveBody">
+				<ul>
+					<li ng-repeat="mailBox in moveMailBoxList"
+						ng-class="{'child' : mailBox.Depth == 1 && mailBox.hasParent == true}">
+						<a
+						ng-class="{'disabled' : currSubMenu == mailBox.FolderId, 'selected' : mailBox.FolderId == targetFolderId}"
+						ng-click="btnSelectMoveMailFolder($event, mailBox.FolderId)">
+							<span ng-if="mailBox.FolderId != currSubMenu"> <!-- <img class="ic_mail" ng-src="/resources/image/icon/ic_mail_box_{{mailBox.FolderType | lowercase}}_normal.png" ng-if="mailBox.FolderType == 'INBOX'">
+								<img class="ic_mail" ng-src="/resources/image/icon/ic_mail_box_{{mailBox.FolderType | lowercase}}_normal.png" ng-if="mailBox.FolderType == 'SENTITEMS'">
+								<img class="ic_mail" ng-src="/resources/image/icon/ic_mail_box_{{mailBox.FolderType | lowercase}}_normal.png" ng-if="mailBox.FolderType == 'DELETEDITEMS'">
+								<img class="ic_mail" ng-src="/resources/image/icon/ic_mail_box_etc_normal.png"
+									 ng-if="mailBox.FolderType != 'INBOX' && mailBox.FolderType != 'SENTITEMS' && mailBox.FolderType != 'DELETEDITEMS'"> -->
+						</span> <span ng-if="mailBox.FolderId == currSubMenu"> <!-- <img class="ic_mail" ng-src="/resources/image/icon/ic_mail_box_{{mailBox.FolderType | lowercase}}_selected.png" ng-if="mailBox.FolderType == 'INBOX'">
+								<img class="ic_mail" ng-src="/resources/image/icon/ic_mail_box_{{mailBox.FolderType | lowercase}}_selected.png" ng-if="mailBox.FolderType == 'SENTITEMS'">
+								<img class="ic_mail" ng-src="/resources/image/icon/ic_mail_box_{{mailBox.FolderType | lowercase}}_selected.png" ng-if="mailBox.FolderType == 'DELETEDITEMS'">
+								<img class="ic_mail" ng-src="/resources/image/icon/ic_mail_box_etc_selected.png"
+									 ng-if="mailBox.FolderType != 'INBOX' && mailBox.FolderType != 'SENTITEMS' && mailBox.FolderType != 'DELETEDITEMS'"> -->
+						</span> {{mailBox.DisplayName}}
+					</a>
+					</li>
+
+					<!-- 
+					<li ng-repeat="mailBox in moveMailBoxList ">
+						<a ng-class="{'disabled' : currSubMenu == mailBox.FolderId, 'selected' : mailBox.FolderId == targetFolderId}" ng-click="btnSelectMoveMailFolder($event, mailBox.FolderId)">
+							{{mailBox.DisplayName}}
+							<span class="unreadCount" ng-show="mailBox.UnreadCount > 0">{{mailBox.UnreadCount | number}}</span>
+						</a>
+					</li>
+					-->
+				</ul>
+			</div>
+			<div class="dlgMailMoveFooter">
+				<a ng-click="btnConfirmMoveMail()">확인</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="dlgMailPopupMenu" ng-show="isDlgMailPopupMenu == true"
+		ng-click="dismissDlgMailPopupMenu($event)">
+		<div class="wrapDlgMailPopupMenu">
+			<div class="dlgMailPopupMenuBody">
+				<ul>
+					<li><a ng-click="btnMailPopupReply()">답장</a></li>
+					<li><a ng-click="btnMailPopupForward()">전달</a></li>
+					<li><a ng-click="btnMailPopupMove()">메일 이동</a></li>
+					<li><a ng-click="btnMailPopupFlag()">깃발 표시</a></li>
+					<li><a ng-click="btnMailPopupUnRead()">읽지않음으로 표시</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

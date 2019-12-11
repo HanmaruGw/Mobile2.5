@@ -1,0 +1,313 @@
+<div class="slideMenuDiv" ng-show="slideMenuShow">
+	<div class="slideMenuBack" ng-show="slideMenuShow" ng-click="slideMenuClick()"></div>
+	<div class="slideMenu" ng-show="slideMenuShow" ><!-- ng-class="{'ng-show': slideMenuShow == true}" -->
+		<div class="slideMenuTop"> <!-- ng-class="{'slideMenuTopBack': slideProfileImgShow == false}" -->
+			<div class="slideMenuProfileImg">
+				<div class="slideProfileImg" style="background:url('/resources/image/user/bg_user_info_no_photo.png')" ng-if="userInfo.MyPhotoUrl == ''"></div>
+				<div class="slideProfileImg" style="background:url('{{userInfo.MyPhotoUrl}}')" ng-if="userInfo.MyPhotoUrl != ''"></div>
+				
+				<!-- <a class="btnLogout" ng-click="btnDoLogout()">Logout</a> -->
+				<img class="slideMenuSettings" src="/resources/image/settings.png"  ng-click="btnSetting()">
+				<div class="slideProfileWrapper">
+					<div class="slideProfileName" ng-class="{'slideMenuTopControl' : slideProfileImgShow==false}">{{userInfo.UserName}}</div>
+					<div class="slideProfilePosition" ng-class="{'slideMenuTopControl' : slideProfileImgShow==false}">{{userInfo.PositionName}}</div>
+				</div>
+				
+				<div class="profileTeam" ng-if="userInfo != undefined" ng-class="{'slideMenuTopControl' : slideProfileImgShow==false}">{{userInfo.DeptName}} / {{userInfo.CompName}}</div> 
+			</div>
+<!-- 			<div class="slideMenuProfile">
+				<img class="profileTopFold" src="/resources/image/up_arrow_round.png" 
+				ng-class="{'slideFoldImgRotate': slideProfileImgShow == false}" ng-click="slideProfileTopFold()">
+			</div> -->
+		</div>
+		<!-- 2019-09-11 김현석 숨김처리 위해 ng-Hide추가 -->
+		<div class="slideMenuList" ng-Hide="menuListHide">
+			<div class="slideMenuBox" ng-click="loadMenu('main')">
+				<img src="/resources/image/icon/ic_menu_news_normal.png" ng-if="subMenuType != 'main'">
+				<img src="/resources/image/icon/ic_menu_news_selected.png" ng-if="subMenuType == 'main'">
+				<span ng-class="{'selected' : subMenuType == 'main'}">{{translateLanguage('news')}}</span>
+			</div>
+			
+			<div class="slideMenuBox" ng-click="loadMenu('work')">
+				<img src="/resources/image/icon/ic_menu_work_normal.png" ng-if="subMenuType != 'work'">
+				<img src="/resources/image/icon/ic_menu_work_selected.png" ng-if="subMenuType == 'work'">
+				<span ng-class="{'selected' : subMenuType == 'work'}">{{translateLanguage('work')}}</span>
+			</div>
+			
+			<div class="slideMenuBox" ng-click="loadMenu('mail')">
+				<img src="/resources/image/icon/ic_menu_mail_normal.png" ng-if="subMenuType != 'mail'">
+				<img src="/resources/image/icon/ic_menu_mail_selected.png" ng-if="subMenuType == 'mail'">
+				<span ng-class="{'selected' : subMenuType == 'mail'}">{{translateLanguage('mail')}}</span>
+			</div>
+			
+			<div class="slideMenuBox" ng-click="loadMenu('approval')">
+				<img src="/resources/image/icon/ic_menu_approval_normal.png" ng-if="subMenuType != 'approval'">
+				<img src="/resources/image/icon/ic_menu_approval_selected.png" ng-if="subMenuType == 'approval'">
+				<span ng-class="{'selected' : subMenuType == 'approval'}">{{translateLanguage('approval')}}</span>
+			</div>
+			
+			<div class="slideMenuBox" ng-click="loadMenu('board')">
+				<img src="/resources/image/icon/ic_menu_board_normal.png" ng-if="subMenuType != 'board'">
+				<img src="/resources/image/icon/ic_menu_board_selected.png" ng-if="subMenuType == 'board'">
+				<span ng-class="{'selected' : subMenuType == 'board'}">{{translateLanguage('board')}}</span>
+			</div>
+			
+			<div class="slideMenuBox" ng-click="loadMenu('insa')">
+				<img src="/resources/image/icon/ic_menu_organ_normal.png" ng-if="subMenuType != 'insa'">
+				<img src="/resources/image/icon/ic_menu_organ_selected.png" ng-if="subMenuType == 'insa'">
+				<span ng-class="{'selected' : subMenuType == 'insa'}">{{translateLanguage('organ')}}</span>
+			</div>
+			
+			<div class="slideMenuBox" ng-click="loadMenu('reserv')">
+				<img src="/resources/image/icon/ic_menu_reserv_normal.png" ng-if="subMenuType != 'reserv'">
+				<img src="/resources/image/icon/ic_menu_reserv_selected.png" ng-if="subMenuType == 'reserv'">
+				<span ng-class="{'selected' : subMenuType == 'reserv'}">{{translateLanguage('resource')}}</span>
+			</div>
+			
+			<div class="slideMenuBox" ng-click="loadMenu('attendance')" ng-show="userInfo.CompCode == 00002">
+				<img src="/resources/image/icon/ic_attendance_normal.png" ng-if="subMenuType != 'attendance'">
+				<img src="/resources/image/icon/ic_attendance_selected.png" ng-if="subMenuType == 'attendance'">
+				<span ng-class="{'selected' : subMenuType == 'attendance'}">{{translateLanguage('attendance')}}</span>
+			</div>
+			
+			<!-- 2019.12.02 추가 -->
+			<div class="slideMenuBox" ng-click="loadMenu('gqms')" ng-show="userInfo.CompCode == 00005">
+				<img src="/resources/image/icon/ic_qms_normal.png" ng-if="subMenuType != 'gqms'">
+				<img src="/resources/image/icon/ic_qms_selected.png" ng-if="subMenuType == 'gqms'">
+				<span ng-class="{'selected' : subMenuType == 'gqms'}">G-QMS</span>
+			</div>
+			<div class="slideMenuBox" ng-click="loadMenu('hallaIn')" ng-show="userInfo.CompCode == 00001"><!--  && isMenuHallaIn == true -->
+				<img src="/resources/image/icon/ic_hallaIn_normal.png" ng-if="subMenuType != 'hallaIn'">
+				<img src="/resources/image/icon/ic_hallaIn_selected.png" ng-if="subMenuType == 'hallaIn'">
+				<span ng-class="{'selected' : subMenuType == 'hallaIn'}">한라지식인</span>
+			</div>
+			<div class="slideMenuBox" ng-click="loadMenu('midashelp')" ng-show="isMidasHelpMenu == 'true'">
+				<img src="/resources/image/icon/ic_midashelp_normal.png" ng-if="subMenuType != 'midashelp'">
+				<img src="/resources/image/icon/ic_midashelp_selected.png" ng-if="subMenuType == 'midashelp'">
+				<span ng-class="{'selected' : subMenuType == 'midashelp'}">그룹실적보고</span>
+			</div>
+			
+		</div>
+		
+			<div class="slideMenuProButtonfile" ng-click="sideMenuHideClick()">
+				<a ng-click="menuListHide=!menuListHide;"  ng-show="subMenuType == 'mail'">
+					<img class="profileTopFold" src="/resources/image/icon/ic-arrow-bottom-gray@2x.png" ng-show="menuListHide">
+					<img class="profileTopFold" src="/resources/image/icon/ic-arrow-top-gray@2x.png" ng-Hide="menuListHide">
+				</a>
+			</div>
+			<div class="slideMenuProMailfile" ng-click="sideMenuHideClick()">
+				<a ng-click="menuListHide=!menuListHide; sideMenuHideClick()"  ng-show="subMenuType != 'mail'">
+					<img class="profileTopFold" src="/resources/image/icon/ic-arrow-bottom-gray@2x.png" ng-show="menuListHide">
+					<img class="profileTopFold" src="/resources/image/icon/ic-arrow-top-gray@2x.png" ng-Hide="menuListHide">
+				</a>
+			</div>
+			<div ng-if="subMenuType == 'mail'" class="mailSubMenuGroup">
+				<ul class="mailSubSearch">
+					<li class="mailSubSearchRead mailSearch" ng-click="loadSubMenuButtonList('mailUnRead')">
+						<ul>
+							<li><img src="/resources/image/mail/ic-menu-mail.png" class="SubMenuSearchImg"></li>
+							<li><span>안읽음</span></li>
+						</ul>
+					</li>
+					<li class="mailSubImportantRead mailSearch" ng-click="loadSubMenuButtonList('mailImportance')">
+						<ul>
+							<li><img src="/resources/image/mail/ic-menu-important.png" class="SubMenuSearchImg"></li>
+							<li><span style="margin-left:1vw">중요</span></li>
+						</ul>
+					</li>
+					<li class="mailSubFlagRead mailSearch" ng-click="loadSubMenuButtonList('mailFlag')">
+						<ul>
+							<li><img src="/resources/image/mail/ic-menu-flag.png" class="SubMenuSearchImg"></li>
+							<li><span>플래그</span></li>
+						</ul>
+					</li>
+					<li class="mailSubFileRead mailSearch" ng-click="loadSubMenuButtonList('mailFile')">
+						<ul>
+							<li><img src="/resources/image/mail/ic-menu-attach-file.png" class="SubMenuSearchImg"></li>
+							<li><span style="margin-left:1vw">첨부</span></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		
+		<!-- 하부메뉴 리스트 -->
+		<div class="slideMenuMailList">
+			<!-- 2019-09-11 김현석 숨김버튼 추가 -->
+			
+			<div></div>
+			<div ng-if="subMenuType == 'mail'">
+				<div class="slideMenuMailItem"
+					ng-class="{'child' : subMenuElem.Depth == 1 && subMenuElem.hasParent == true}" 
+					ng-repeat="subMenuElem in subMenuList"
+					ng-click="loadSubMenuList(subMenuType, subMenuElem)">
+					
+					<span class="slideMenuMailOnSelected" ng-if="subMenuElem.FolderId == currSubMenu"></span>
+					<span class="slideMenuMailUnSelected" ng-if="subMenuElem.FolderId != currSubMenu"></span>
+					
+					<span class="slideMenuName" ng-class="{'selected' : subMenuElem.FolderId == currSubMenu}">{{subMenuElem.DisplayName}}</span>
+					<span class="slideMenuMailCnt" ng-show="subMenuElem.UnreadCount > 0">{{subMenuElem.UnreadCount | number}}</span>
+					
+					<img src="/resources/image/icon/ic_menu_arrow_unselected.png" ng-if="subMenuElem.FolderId != currSubMenu">
+					<img src="/resources/image/icon/ic_menu_arrow_selected.png" ng-if="subMenuElem.FolderId == currSubMenu">
+				</div>
+			</div>
+			<div ng-if="subMenuType == 'approval'">
+				<div class="slideMenuMailItem"
+					ng-class="{'child' : subMenuElem.Depth == 1 && subMenuElem.hasParent == true}"
+					ng-repeat="subMenuElem in subMenuList"
+					ng-click="loadSubMenuList(subMenuType, subMenuElem)">
+					<span ng-if="subMenuElem.FolderId != currSubMenu">
+						<span class="slideMenuCircleUnSelected"></span>
+					</span>
+					
+					<span ng-if="subMenuElem.FolderId == currSubMenu">
+						<span class="slideMenuCircleOnSelected"></span>
+					</span>
+					
+					<span class="slideMenuMailOnSelected" ng-if="subMenuElem.FolderId == currSubMenu"></span>
+					<span class="slideMenuMailUnSelected" ng-if="subMenuElem.FolderId != currSubMenu"></span>
+					
+					<span class="slideMenuName" ng-class="{'selected' : subMenuElem.FolderId == currSubMenu}">{{subMenuElem.DisplayName}}</span>
+					<span class="slideMenuMailCnt" ng-show="subMenuElem.UnreadCount > 0">{{subMenuElem.UnreadCount | number}}</span>
+					
+					<img src="/resources/image/icon/ic_menu_arrow_unselected.png" ng-if="subMenuElem.FolderId != currSubMenu">
+					<img src="/resources/image/icon/ic_menu_arrow_selected.png" ng-if="subMenuElem.FolderId == currSubMenu">
+				</div>
+			</div>
+			<div ng-if="subMenuType == 'insa'">
+				<div class="orgSideNavi">
+					<div>
+						<ul class="sideNaviWrapper">
+							<li class="deptCodeTop">
+								<a id="{{topDeptCode.DeptCode}}" class="orgGroupTitle" ng-click="findChildDept(topDeptCode, 0)" ng-class="{'selected' : snbCurrSelectedDeptCode == topDeptCode.DeptCode}">
+									<!-- <img ng-src="/resources/image/icon/ic_organ_{{topDeptCode.DeptCode}}.png"> -->
+									<span class="slideMenuInsaUnSelected"></span>
+									{{topDeptCode.DeptName}}
+									<img src="/resources/image/icon/ic-organ_menu_minus.png" ng-if="topDeptCode.isExpand" ng-click="btnCollapseTree(topDeptCode)">
+									<img src="/resources/image/icon/ic-organ_menu_plus.png" ng-if="topDeptCode.isExpand == false || topDeptCode.isExpand == undefined" ng-click="btnCollapseTree(topDeptCode)">
+								</a>
+									
+								<ul ng-show="topDeptCode.isExpand == undefined || topDeptCode.isExpand">
+									<li class="orgGroupSub" ng-repeat="first_depth in first_depth_list" ng-if="first_depth.Count != '0'" >
+										<a id="{{first_depth.DeptCode}}" ng-click="findChildDept(first_depth, 1)" ng-class="{'selected' : snbCurrSelectedDeptCode == first_depth.DeptCode}">
+											<!-- <img ng-src="/resources/image/organization/ic_organ_dept_group.png"> -->
+											<span class="slideMenuInsaUnSelected"></span>
+											{{first_depth.DeptName}}
+											<img src="/resources/image/icon/ic-organ_menu_minus.png" ng-if="first_depth.isExpand" ng-click="btnCollapseTree(first_depth)">
+											<img src="/resources/image/icon/ic-organ_menu_plus.png" ng-if="first_depth.isExpand == false || first_depth.isExpand == undefined" ng-click="btnCollapseTree(first_depth)">
+										</a>
+										<ul class="groupSubHoldings" ng-if="selected_firstDepth_code == first_depth.DeptCode" ng-show="first_depth.isExpand == undefined || first_depth.isExpand">
+											<li ng-repeat="second_depth in second_depth_list" ng-if="second_depth.DeptName.indexOf('(구)') == -1">
+												<a id="{{second_depth.DeptCode}}" ng-click="findChildDept(second_depth, 2)" ng-class="{'selected' : snbCurrSelectedDeptCode == second_depth.DeptCode}">
+													<!-- <img src="/resources/image/organization/ic_organ_dept_group.png"> -->
+													<span class="slideMenuInsaUnSelected"></span>
+													{{second_depth.DeptName}}
+												</a>
+												<ul class="groupSubHoldings third" ng-if="selected_secondDepth_code == second_depth.DeptCode">
+													<li ng-repeat="third_depth in third_depth_list">
+														<a id="{{third_depth.DeptCode}}" ng-click="findChildDept(third_depth, 3)" ng-class="{'selected' : snbCurrSelectedDeptCode == third_depth.DeptCode}">
+															<span class="slideMenuInsaUnSelected"></span>
+															{{third_depth.DeptName}}
+														</a>
+														<ul class="groupSubHoldings" ng-if="selected_thirdDepth_code == third_depth.DeptCode">
+															<li ng-repeat="fourth_depth in fourth_depth_list">
+																<a id="{{fourth_depth.DeptCode}}" ng-click="findChildDept(fourth_depth, 4)" ng-class="{'selected' : snbCurrSelectedDeptCode == fourth_depth.DeptCode}">
+																	<span class="slideMenuInsaUnSelected"></span>
+																	{{fourth_depth.DeptName}}
+																</a>
+																<ul class="groupSubHoldings" ng-if="selected_fourthDepth_code == fourth_depth.DeptCode">
+																	<li ng-repeat="fifth_depth in fifth_depth_list">
+																		<a id="{{fifth_depth.DeptCode}}" ng-click="findChildDept(fifth_depth, 5)" ng-class="{'selected' : snbCurrSelectedDeptCode == fifth_depth.DeptCode}">
+																			<span class="slideMenuInsaUnSelected"></span>
+																			{{fifth_depth.DeptName}}
+																		</a>
+																	</li>
+																</ul>
+															</li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<div ng-if="subMenuType == 'work'">
+				<div class="slideMenuMailItem" ng-click="loadSubMenuList(subMenuType, subMenuList[0])">
+				 	<span ng-if="subMenuList[0].MenuKey != currSubMenu">
+						<img ng-src="/resources/image/icon/ic_menu_arrow_unselected.png" ng-if="subMenuList[0].MenuKey == 'Schedule'">
+					</span>
+					
+					<span ng-if="subMenuList[0].MenuKey == currSubMenu">
+						<img ng-src="/resources/image/icon/ic_menu_arrow_selected.png" ng-if="subMenuList[0].MenuKey == 'Schedule'">
+					</span>
+					
+					<span class="slideMenuMailOnSelected" ng-if="subMenuList[0].MenuKey == currSubMenu"></span>
+					<span class="slideMenuMailUnSelected" ng-if="subMenuList[0].MenuKey != currSubMenu"></span>
+					
+					<span class="slideMenuName" ng-class="{'selected' : subMenuList[0].MenuKey == currSubMenu}">{{subMenuList[0].MenuName}}</span>
+					<span class="slideMenuMailCnt" ng-show="subMenuList[0].MenuCount > 0">{{subMenuList[0].MenuCount | number}}</span>
+				</div>
+			</div>
+			
+<!-- 			<div ng-if="subMenuType == 'work'">
+				<div class="slideMenuMailItem" ng-repeat="subMenuElem in subMenuList" ng-click="loadSubMenuList(subMenuType, subMenuElem)">
+				 	<span ng-if="subMenuElem.MenuKey != currSubMenu">
+						<img ng-src="/resources/image/icon/ic_menu_arrow_unselected.png" ng-if="subMenuElem.MenuKey == 'Schedule'">
+						<img ng-src="/resources/image/icon/ic_menu_arrow_unselected.png" ng-if="subMenuElem.MenuKey == 'Task'">
+						<img ng-src="/resources/image/icon/ic_menu_arrow_unselected.png" ng-if="subMenuElem.MenuKey == 'Report'">
+						<img ng-src="/resources/image/icon/ic_menu_arrow_unselected.png" ng-if="subMenuElem.MenuKey == 'Plan'">
+					</span>
+					
+					<span ng-if="subMenuElem.MenuKey == currSubMenu">
+						<img ng-src="/resources/image/icon/ic_menu_arrow_selected.png" ng-if="subMenuElem.MenuKey == 'Schedule'">
+						<img ng-src="/resources/image/icon/ic_menu_arrow_selected.png" ng-if="subMenuElem.MenuKey == 'Task'">
+						<img ng-src="/resources/image/icon/ic_menu_arrow_selected.png" ng-if="subMenuElem.MenuKey == 'Report'">
+						<img ng-src="/resources/image/icon/ic_menu_arrow_selected.png" ng-if="subMenuElem.MenuKey == 'Plan'">
+					</span>
+					
+					<span class="slideMenuMailOnSelected" ng-if="subMenuElem.MenuKey == currSubMenu"></span>
+					<span class="slideMenuMailUnSelected" ng-if="subMenuElem.MenuKey != currSubMenu"></span>
+					
+					<span class="slideMenuName" ng-class="{'selected' : subMenuElem.MenuKey == currSubMenu}">{{subMenuElem.MenuName}}</span>
+					<span class="slideMenuMailCnt" ng-show="subMenuElem.MenuCount > 0">{{subMenuElem.MenuCount | number}}</span>
+				</div>
+			</div> -->
+			
+			<div ng-if="subMenuType == 'main'">
+				<div class="slideMenuMailItem" ng-repeat="subMenuElem in subMenuList" ng-click="loadSubMenuList(subMenuType, subMenuElem)">
+					<span class="slideMenuMailOnSelected" ng-if="subMenuElem.MasterID == currSubMenu"></span>
+					<span class="slideMenuMailUnSelected" ng-if="subMenuElem.MasterID != currSubMenu"></span>
+					
+					<span class="slideMenuName" ng-class="{'selected' : subMenuElem.MasterID == currSubMenu}">{{subMenuElem.Name}}</span>
+				</div>
+			</div>
+			
+			<div ng-if="subMenuType == 'board'">
+				<div class="slideMenuMailItem" ng-repeat="subMenuElem in subMenuList" ng-click="loadSubMenuList(subMenuType, subMenuElem)">
+					<span class="slideMenuMailOnSelected" ng-if="subMenuElem.MasterID == currSubMenu"></span>
+					<span class="slideMenuMailUnSelected" ng-if="subMenuElem.MasterID != currSubMenu"></span>
+					
+					<span class="slideMenuName" ng-class="{'selected' : subMenuElem.MasterID == currSubMenu}">{{subMenuElem.Name}}</span>
+				</div>
+			</div>
+			
+			<div ng-if="subMenuType == 'reserv'">
+				<div class="slideMenuMailItem" ng-repeat="subMenuElem in subMenuList" ng-click="loadSubMenuList(subMenuType, subMenuElem)">
+					<span class="slideMenuMailOnSelected" ng-if="subMenuElem.MenuKey == currSubMenu"></span>
+					<span class="slideMenuMailUnSelected" ng-if="subMenuElem.MenuKey != currSubMenu"></span>
+					
+					<span class="slideMenuName" ng-class="{'selected' : subMenuElem.MenuKey == currSubMenu}">{{subMenuElem.MenuName}}</span>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>
