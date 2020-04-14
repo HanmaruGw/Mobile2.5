@@ -31,8 +31,8 @@
 	<div class="mainContentsDiv">
 		<div class="contentsSlideDiv">
 			<div class="contentsTitleWrap">
-				<span>한라뉴스</span>
-				<img class="contentsTitleImg" src="/resources/image/main/ic_right_arrow.png" >
+				<span ng-click="selectHallaNews()">한라뉴스</span>
+				<img class="contentsTitleImg" src="/resources/image/main/ic_right_arrow.png" ng-click="selectHallaNews()">
 			</div>
 			<div class="contentsSlideWrap">
 				<div class="contentsSlideFixBox" ng-repeat="hallaIn in hallaInList" ng-click="boardDetail(hallaIn, hallaIn.BoardType, hallaIn.BoardTitle)" sideMenuswipe="cancel"> <!-- ng-swipe-right="cancelSwipeSideMenu($event)" ng-swipe-left="cancelSwipeSideMenu($event)"  -->
@@ -45,27 +45,27 @@
 		</div>
 		<div class="mainContentsDivider"></div>
 		
-		<div class="mainNoticeDiv">
+		<div class="mainCompanyDiv">
 			<div class="contentsTitleWrap">
 				Mando News
 			</div>
 			<div class="mainHeaderUnderBar"></div>
-			<div class="mainNoticeWrap" sideMenuswipe="cancel">
+			<div class="mainCompanyWrap" sideMenuswipe="cancel">
 				<!-- <span>{{translateLanguage('notice')}}</span>
 				<a><img src="/resources/image/main/ic_more_normal.png" ng-click="btnPartnerMore()"></a> -->
 				<ul>
-					<li ><a>뉴스센터</a></li>
-					<li ><a>노경뉴스</a></li>
-					<li ><a>자동차뉴스</a></li>
-					<li ><a>Global R&D Info</a></li>
+					<li ng-click=selectCompanyNewsTab(0) ng-class="{'selected' : companyNewsTab == 0 }" ><a>뉴스센터</a></li>
+					<li ng-click=selectCompanyNewsTab(1) ng-class="{'selected' : companyNewsTab == 1 }" ><a>노경뉴스</a></li>
+					<li ng-click=selectCompanyNewsTab(2) ng-class="{'selected' : companyNewsTab == 2 }" ><a>자동차뉴스</a></li>
+					<li ng-click=selectCompanyNewsTab(3) ng-class="{'selected' : companyNewsTab == 3 }" ><a>Global R&D Info</a></li>
 				</ul>
 			</div>
 			<div class="mainHeaderUnderBar"></div>
-			<div class="mainNoticeList">
-				<div class="noticeListWrap">
+			<div class="mainCompanyBoardList">
+				<div class="mainCompanyBoardListWrap">
 					<ul>
-						<li ng-repeat="notice in noticeList">
-							<a ng-click="boardDetail(notice, notice.BoardType, '공지사항')">{{notice.Subject}}</a>
+						<li ng-repeat="news in newsBoardList">
+							<a ng-click="boardDetail(news, news.BoardType, '공지사항')">{{news.Subject}}</a>
 						</li>
 					</ul>
 				</div>
@@ -85,8 +85,8 @@
 		
 		<div class="contentsVerticalSlideDiv">
 			<div class="contentsTitleWrap">
-				<span>인기콘텐츠</span>
-				<img class="contentsTitleImg" src="/resources/image/main/ic_right_arrow.png" >
+				<span ng-click="selectHallaTube()">인기콘텐츠</span>
+				<img class="contentsTitleImg" src="/resources/image/main/ic_right_arrow.png" ng-click="selectHallaTube()">
 			</div>
 			<div class="contentsSlideWrap">
 				<div class="contentsVerticalSlideFixBox" ng-repeat="hallaIn in hallaInList | limitTo : 3" ng-click="boardDetail(hallaIn, hallaIn.BoardType, hallaIn.BoardTitle)" sideMenuswipe="cancel"> <!-- ng-swipe-right="cancelSwipeSideMenu($event)" ng-swipe-left="cancelSwipeSideMenu($event)"  -->
@@ -96,60 +96,42 @@
 					<div class="contentsVerticalSlideFixBoxContents">
 						<p>{{hallaIn.Subject}}</p>
 						<div class="hitCountText">
-							<img class="contentsIcon" src="/resources/image/main/ic_hit_view.png"> 3290
-							<img class="contentsIcon" src="/resources/image/main/ic_bubble.png"> 6 
+							<img class="contentsHitIcon" src="/resources/image/board/ic_board_view.png"><span>3290</span> 
+							<img class="contentsCommentIcon" src="/resources/image/main/ic_bubble.png"><span>6</span> 
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		
-		
-		<!-- <div class="mainHallaRoadDiv">
-			<div class="mainHallaRoadWrap">
-				<span>Funla</span>
-				<a><img src="/resources/image/main/ic_more_normal.png" ng-click="btnOrganMore()"></a>
-			</div>
-			<div class="mainHallaRoadList">
-				<div class="hallaRoadListWrap">
-					<ul>
-						<li ng-repeat="press in pressList">
-							<a ng-click="boardDetail(press, press.BoardType, 'Funla')">{{press.Subject}}</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div> -->
-		
 		<div class="mainContentsDivider"></div>
 		
+		<!-- 식단, 배차정보(만도) -->
 		<div class="mainCompanyZoneWrapper">
 			<div class="companyzone" ng-include="'/html/app/news/mando_company_zone.html'"></div>
 		</div>
 		
 		<div class="mainContentsDivider"></div>
 		
-		<div class="mainNoticeDiv">
+		<div class="mainCompanyDiv">
 			<div class="contentsTitleWrap">
 				Communication
 			</div>
 			<div class="mainHeaderUnderBar"></div>
-			<div class="mainNoticeWrap" sideMenuswipe="cancel">
-				<!-- <span>{{translateLanguage('notice')}}</span>
-				<a><img src="/resources/image/main/ic_more_normal.png" ng-click="btnPartnerMore()"></a> -->
+			<div class="mainCompanyWrap" sideMenuswipe="cancel">
 				<ul>
-					<li ><a>경조사</a></li>
-					<li ><a>복지게시판</a></li>
-					<li ><a>감사합니데이</a></li>
-					<li ><a>소통채널 만통</a></li>
+					<li ng-click=selectCompanyBoardTab(0) ng-class="{'selected' : companyBoardTab == 0 }" ><a>경조사</a></li>
+					<li ng-click=selectCompanyBoardTab(1) ng-class="{'selected' : companyBoardTab == 1 }" ><a>복지게시판</a></li>
+					<li ng-click=selectCompanyBoardTab(2) ng-class="{'selected' : companyBoardTab == 2 }" ><a>감사합니데이</a></li>
+					<li ng-click=selectCompanyBoardTab(3) ng-class="{'selected' : companyBoardTab == 3 }" ><a>소통채널 만통</a></li>
 				</ul>
 			</div>
 			<div class="mainHeaderUnderBar"></div>
-			<div class="mainNoticeList">
-				<div class="noticeListWrap">
+			<div class="mainCompanyBoardList">
+				<div class="mainCompanyBoardListWrap">
 					<ul>
-						<li ng-repeat="notice in noticeList">
-							<a ng-click="boardDetail(notice, notice.BoardType, '공지사항')">{{notice.Subject}}</a>
+						<li ng-repeat="board in companyBoardList">
+							<a ng-click="boardDetail(board, board.BoardType, '공지사항')">{{board.Subject}}</a>
 						</li>
 					</ul>
 				</div>

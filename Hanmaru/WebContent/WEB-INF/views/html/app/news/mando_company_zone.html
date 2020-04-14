@@ -1,18 +1,20 @@
-<!-- <div class="dialog_topper_tab" ng-click="selectApprovalTab(0)" ng-class="{'selected' : tabIdx == 0}">
-		<p ng-class="{'selected' : tabIdx == 0}">{{translateLanguage('approval_user_line')}}</p>
-</div>
-<div class="dialog_topper_tab" ng-click="selectApprovalTab(1)" ng-class="{'selected' : tabIdx == 1}">
-	<p ng-class="{'selected' : tabIdx == 1}">{{translateLanguage('approval_user_cc')}}</p>
-</div> -->
 <div class="companyTabWrapper">
 	<div class="topTab">
-		<div class="topTabButtonFood" ng-class="{'selected'}" >식단정보</div>
-		<div class="topTabButtonCar" ng-class="{'selected'}" >버스배차</div>
+		<div class="topTabButtonFood" ng-click=toggleMandoCompanyTab(1) ng-class="{'selected' : mandoCompanyTabId == 1 }" >
+			<img src="/resources/image/main/ic_food_on.png" ng-show="mandoCompanyTabId == 1">
+			<img src="/resources/image/main/ic_food_off.png" ng-show="mandoCompanyTabId != 1">
+			<span>식단정보</span>
+		</div>
+		<div class="topTabButtonCar" ng-click=toggleMandoCompanyTab(2) ng-class="{'selected' : mandoCompanyTabId == 2 }" >
+			<img src="/resources/image/main/ic_car_on.png" ng-show="mandoCompanyTabId == 2">
+			<img src="/resources/image/main/ic_car_off.png" ng-show="mandoCompanyTabId != 2">
+			<span>버스배차</span>
+		</div>
 	</div>
-	<div class="bottomTab">
-		<span>평택</span>
-		<span>원주</span>
-		<span>익산</span>
-		<span>Globak R&D</span>
+	<div class="bottomTab" >
+		<span ng-click="selectBottomArea('PyeongTaek')">평택</span>
+		<span ng-click="selectBottomArea('Wonju')">원주</span>
+		<span ng-click="selectBottomArea('Iksan')" ng-show="mandoCompanyTabId == 1">익산</span>
+		<span ng-click="selectBottomArea('Global')">Globak R&D</span>
 	</div>
 </div>

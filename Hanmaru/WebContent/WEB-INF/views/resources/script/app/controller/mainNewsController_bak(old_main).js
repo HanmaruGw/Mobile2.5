@@ -19,6 +19,7 @@ appHanmaru.controller('mainListController', ['$scope', '$http', '$rootScope', '$
 			var boardData = JSON.parse(data.value);
 			
 			//2020.03.24 추가 - Funla 게시판 제거
+			let a = [ {f1: 1, f2: 2}, {f1: 3, f2: 4} ] 
 			const itemToFind = boardData.find(function(item) {return item.MasterID == '4678'})
 			const idx = boardData.indexOf(itemToFind) 
 			if (idx > -1) boardData.splice(idx, 1);
@@ -34,7 +35,7 @@ appHanmaru.controller('mainListController', ['$scope', '$http', '$rootScope', '$
 	});
 	
 	$rs.$on('initMainList',function(event,boardData){
-		$('.mainContentsDiv').scrollTop(0);
+		
 		
 		$rs.dialog_progress = true;
 		var param = callApiObject('main', 'mainBoxs', {LoginKey:$rs.userInfo.LoginKey});
@@ -42,7 +43,6 @@ appHanmaru.controller('mainListController', ['$scope', '$http', '$rootScope', '$
 			var mainData = JSON.parse(data.value);
 			$s.mainData = mainData;
 //			console.log('main data  :',mainData);
-			
 			$s.headSubject = mainData.Head.Subject;
 			$s.headImage = mainData.Head.Image;
 
@@ -69,13 +69,8 @@ appHanmaru.controller('mainListController', ['$scope', '$http', '$rootScope', '$
 					$s.bannerImageList = mainData.Banner;
 				}
 			}
+			
 			$rs.dialog_progress = false;
-			
-			
-			//만도 게시판 추가 테스트 데이터
-			$s.companyBoardList = $s.noticeList;
-			$s.newsBoardList = $s.noticeList;
-			
 		}).then(function(){
 			$rs.dialog_progress = false;
 		});
@@ -151,90 +146,4 @@ appHanmaru.controller('mainListController', ['$scope', '$http', '$rootScope', '$
 //		pushPage(pageName, 'pg_board_list');
 //		$rs.$broadcast('initBoardList',$s.boardType,$s.masterID,$s.displayName);
 //	};
-	
-	$s.mandoCompanyTabId = 1;
-	//만도 메인
-	$s.toggleMandoCompanyTab = function(tabIdx){
-		$s.mandoCompanyTabId = tabIdx;
-	}
-	$s.selectBottomArea = function(area){
-		switch(area){
-			case 'PyeongTaek' :
-				console.log('탭 번호 : ',$s.mandoCompanyTabId);
-				alert('평택');
-				break;
-			case 'Wonju' :
-				console.log('탭 번호 : ',$s.mandoCompanyTabId);
-				alert('원주');
-				break;
-			case 'Iksan' :
-				console.log('탭 번호 : ',$s.mandoCompanyTabId);
-				alert('익산');
-				break;
-			case 'Global' :
-				console.log('탭 번호 : ',$s.mandoCompanyTabId);
-				alert('글로벌');
-				break;
-		}
-	}
-	//community zone
-	$s.companyBoardTab = 0;
-	$s.selectCompanyBoardTab = function(idx){
-		$s.companyBoardTab = idx;	
-		//테스트 데이터
-		switch(idx){
-			case 0 : //경조사
-				$s.companyBoardList = $s.noticeList;		
-				break;
-			case 1 : //복지게시판
-				$s.companyBoardList = $s.pressList;		
-				break;
-			case 2 : //감사합니데이
-				$s.companyBoardList = $s.coronaList;		
-				break;
-			case 3 : //소통채널 만통
-				$s.companyBoardList = $s.noticeList;		
-				break;
-		}
-	}
-	//Mando News
-	$s.companyNewsTab = 0;
-	$s.selectCompanyNewsTab = function(idx){
-		$s.companyNewsTab = idx;	
-		//테스트 데이터
-		switch(idx){
-			case 0 : //경조사
-				$s.newsBoardList = $s.noticeList;		
-				break;
-			case 1 : //복지게시판
-				$s.newsBoardList = $s.pressList;		
-				break;
-			case 2 : //감사합니데이
-				$s.newsBoardList = $s.coronaList;		
-				break;
-			case 3 : //소통채널 만통
-				$s.newsBoardList = $s.noticeList;		
-				break;
-		}
-	}
-	
-	//한라뉴스 전체보기 - 테스트 데이터
-	$s.selectHallaNews = function(){
-		$s.boardType = $s.hallaInList[0].BoardType;
-		$s.masterID = $s.hallaInList[0].MasterID;
-		var pageName = angular.element('[class^="panel"][class*="current"]').attr('id');
-		$s.displayName = '한라뉴스';
-		pushPage(pageName, 'pg_board_list');
-		$rs.$broadcast('initBoardList',$s.boardType,$s.masterID,$s.displayName);
-	}
-	
-	//인기콘텐츠 전체보기 - 테스트 데이터
-	$s.selectHallaTube = function(){
-		$s.boardType = $s.hallaInList[0].BoardType;
-		$s.masterID = $s.hallaInList[0].MasterID;
-		var pageName = angular.element('[class^="panel"][class*="current"]').attr('id');
-		$s.displayName = '인기콘텐츠';
-		pushPage(pageName, 'pg_board_list');
-		$rs.$broadcast('initBoardList',$s.boardType,$s.masterID,$s.displayName);
-	}
 }]);
