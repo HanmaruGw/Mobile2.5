@@ -10,8 +10,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 		<link rel="stylesheet" href="/resources/css/style.css"/>
 		
+		<script src="/resources/script/app/common.js"></script>
 		<script type="text/javascript" src="/resources/script/lib/jq/jquery-2.1.3.min.js"></script>
 		<script src="/resources/script/front/main.js"></script>
+		
 	</head>
 	
 	<body>
@@ -23,7 +25,7 @@
 						<!-- <img class="ic_login_logo" src="/resources/image/bg/login/login_logo.png"> -->
 						<div id="div_download_area" >
 							<div class="wrap_login_elem input_idpw">
-								<c:if test="${isAndroid }">
+								<%-- <c:if test="${isAndroid }">
 									<a class="btn_download android">
 										<img src="/resources/image/download/btn_android.png">
 									</a>
@@ -32,7 +34,10 @@
 									<a class="btn_download ios">
 										<img src="/resources/image/download/btn_ios.png">
 									</a>
-								</c:if>
+								</c:if> --%>
+								<a class="btn_download">
+									<img id="download_btn_img" src="/resources/image/download/btn_android.png">
+								</a>
 							</div>
 						</div>
 	

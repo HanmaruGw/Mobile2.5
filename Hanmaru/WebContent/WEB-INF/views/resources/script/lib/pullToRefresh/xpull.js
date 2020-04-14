@@ -49,7 +49,8 @@
             onPullEnd: function() {},
             onPullThreshold: function() {},
             onPullThresholdReverse: function() {},
-            callback: function() {}
+            callback: function() {},
+            vibration : function(){},//2019.12.13 추가
         };
 
     function Plugin (element, options) {
@@ -75,7 +76,7 @@
             that.spinner = that.indicator.find('.xpull__spinner:eq(0)');
             that.startBlock = that.indicator.find('.xpull__start-msg:eq(0)');
             that.indicatorHeight = that.indicator.outerHeight();
-
+            
             that._changeStyle(-that.indicatorHeight, true);
             that.$element.css({
                 '-webkit-overflow-scrolling': 'touch',
@@ -83,106 +84,134 @@
             });
 
             ofstop = that.$element.offset().top;
-
+            
             that.elast = true;
             that.startBlock.css('visibility', 'hidden');
             that.indicatorHidden = true;
             elm.unbind('touchstart.' + pluginName);
             elm.on('touchstart.' + pluginName, function (ev) {
                 if (that.options.paused) {
-                    return false;
+//                    return false;
                 }
-
-                that.options.onPullStart.call(this);
-                fingerOffset = ev.originalEvent.touches[0].pageY - ofstop;
+                if (!that.options.paused) {
+                	that.options.onPullStart.call(this);
+                    fingerOffset = (ev.originalEvent.touches[0].pageY - ofstop)+40;//아래 top 값 조정하기 위한 변수.+값이 클수록 더 많이 당겨야함.
+                }
+                
             });
             elm.unbind('touchmove.' + pluginName);
             elm.on('touchmove.' + pluginName, function(ev) {
 
                 if (that.options.paused) {
-                    return false;
+//                    return false;
                 }
-
-                if (elm.position().top < 0 || (that.options.scrollingDom || that.$element).scrollTop() > 0 || document.body.scrollTop > 0) { // trigger callback only if pulled from the top of the list
-                    return true;
-                }
-
-                if (that.indicatorHidden) {
-                    that.startBlock.css('visibility', 'visible');
-                    that.indicatorHidden = false;
-                }
-                top = (ev.originalEvent.touches[0].pageY - ofstop - fingerOffset);
-
-                if (top > 1) {
-
-                    if (that.elast) {
-                        $(document.body).on('touchmove.' + pluginName, function(e) {
-                            e.preventDefault();
-                        });
-                        that.elast = false;
+                if(!that.options.paused){
+                	//scroll up
+                	if (elm.position().top < 0 || (that.options.scrollingDom || that.$element).scrollTop() > 0 || document.body.scrollTop > 0) { // trigger callback only if pulled from the top of the list
+                        return true;
                     }
 
-                    if (top <= (parseInt(that.options.pullThreshold) + that.options.maxPullThreshold)) {
-                        that._changeStyle((top - that.indicatorHeight), false);
+                    if (that.indicatorHidden) {
+                    	//2019.12.13 추가(haptic)
+                    	that.options.vibration.call(this);
+                    	
+                        that.startBlock.css('visibility', 'visible');
+                        that.indicatorHidden = false;
                     }
+                    top = (ev.originalEvent.touches[0].pageY - ofstop - fingerOffset); //스크롤 height,,클수록 더 많이 당겨야 refresh 가능한 변수. +값부터 당겨짐.
+                    if (top > 1) {
+                        if (that.elast) {
+                            $(document.body).on('touchmove.' + pluginName, function(e) {
+//                                e.preventDefault();
+                            });
+                            that.elast = false;
+                        }
+                        
+                        //2019.12.13 추가
+                        //reverse scrolling 할때 20 이하면 snap 효과주기 위함.
+                        if(top < 20){ 
+                        	top = 0;
+                        }
 
-                    if (top > that.options.pullThreshold && !hasc) {
-                        that.indicator.addClass('xpull_pulled');
-                        that.options.onPullThreshold.call(this);
-                    } else if (top <= that.options.pullThreshold && hasc) {
-                        that.indicator.removeClass('xpull_pulled');
-                        that.options.onPullThresholdReverse.call(this);                        
+                        if (top <= (parseInt(that.options.pullThreshold) + that.options.maxPullThreshold)) {
+//                        	console.log('indicatorHeight',that.indicatorHeight);
+//                        	console.log('top',top);
+                        	//2019.12.13 추가
+                        	//상단 loading 화면 효과는 60px로 유지하되 pull height는 높게 하기위함.
+                        	if(top > 60){
+                        		top = 60;
+                        	}
+                            that._changeStyle((top - that.indicatorHeight), false);
+                        }
+
+                        
+                        if (top > that.options.pullThreshold && !hasc) {
+                            that.indicator.addClass('xpull_pulled');
+                            that.options.onPullThreshold.call(this);
+                        } else if (top <= that.options.pullThreshold && hasc) {
+                            that.indicator.removeClass('xpull_pulled');
+                            that.options.onPullThresholdReverse.call(this);
+                            
+//                            setTimeout(function() {
+//                            	if(top > 20){
+//                            		console.log('스크롤 끝',top);
+//                            	}
+//                            }, 500);
+                        }
+                        //추가
+                    } else {
+                        $(document.body).unbind('touchmove.' + pluginName);
+                        that.elast = true;
                     }
-
-                } else {
-                    $(document.body).unbind('touchmove.' + pluginName);
-                    that.elast = true;
+                    hasc = that.indicator.hasClass('xpull_pulled');
                 }
-                hasc = that.indicator.hasClass('xpull_pulled');
 
             });
             elm.unbind('touchend.' + pluginName);
             elm.on('touchend.' + pluginName, function () {
 
                 if (that.options.paused) {
-                    return false;
+//                    return false;
                 }
+                
+                if(!that.options.paused){
+                	that.options.onPullEnd.call(this);
+                    if (top > 0) {
+                        if (top > that.options.pullThreshold) {
+                            that.options.callback.call(this);
+                            that.startBlock.hide();
+                            that.spinner.show();
+                            that.options.paused = true;
 
-                that.options.onPullEnd.call(this);
-                if (top > 0) {
-                    if (top > that.options.pullThreshold) {
-                        that.options.callback.call(this);
-                        that.startBlock.hide();
-                        that.spinner.show();
-                        that.options.paused = true;
+                            that._changeStyle(0, true);
 
-                        that._changeStyle(0, true);
+                            if (that.options.spinnerTimeout) {
+                                setTimeout(function () {
+                                    that.reset();
+                                }, that.options.spinnerTimeout);
+                            }
 
-                        if (that.options.spinnerTimeout) {
-                            setTimeout(function () {
-                                that.reset();
-                            }, that.options.spinnerTimeout);
+                        } else {
+                            that._changeStyle(-that.indicatorHeight, true);
                         }
-
-                    } else {
-                        that._changeStyle(-that.indicatorHeight, true);
+                        top = 0;
                     }
-                    top = 0;
+                    if (!that.indicatorHidden) {
+                        that.startBlock.css('visibility', 'hidden');
+                        that.indicatorHidden = true;
+                    }
+                    setTimeout(function() {
+                        elm.css({
+                            'transition': ''
+                        });
+                        that.indicator.css({
+                            'transition': ''
+                        });
+                        $(document.body).unbind('touchmove.' + pluginName);
+                        that.elast = true;
+                    }, 50);
                 }
-                if (!that.indicatorHidden) {
-                    that.startBlock.css('visibility', 'hidden');
-                    that.indicatorHidden = true;
-                }
-                setTimeout(function() {
-                    elm.css({
-                        'transition': ''
-                    });
-                    that.indicator.css({
-                        'transition': ''
-                    });
-                    $(document.body).unbind('touchmove.' + pluginName);
-                    that.elast = true;
-                }, 50);
+                
             });
         },
 

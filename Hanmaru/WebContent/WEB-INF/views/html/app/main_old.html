@@ -1,0 +1,113 @@
+<div class="mainContainer" id="mainListController" ng-controller="mainListController">
+	<!-- 헤더바 -->
+	<div class="headerBar headTopBg">
+		<div class="headerBarMenu" ng-click="slideMenuClick($event,true)">
+			<img src="/resources/image/main/menu_img.png">
+		</div>
+		<div class="headerBarTitle">
+			<img class="mainLogo" src="/resources/image/main/hanmaru.png" >	
+		</div>
+		<div class="headerBarMove approval_attach">
+
+		</div>
+		<div class="headerBarSearch approval_search">
+			
+		</div>
+		<!-- <div class="headerUnderBar"></div> -->
+		
+	</div>
+	<div class="mainNaviBar">
+		<ul>
+			<li ng-click="btnMainPage()"><a>{{translateLanguage('home_news')}}</a></li>
+			<li ng-click="btnWorkDiaryPage()"><a>{{translateLanguage('home_work')}}</a></li>
+			<li ng-click="btnMailPage()"><a>{{translateLanguage('home_mail')}}</a></li>
+			<li ng-click="btnApprovalPage()"><a>{{translateLanguage('home_approval')}}</a></li>
+			<li ng-click="btnBoardPage()"><a>{{translateLanguage('home_board')}}</a></li>
+			<li ng-click="btnOrganPage()"><a>{{translateLanguage('home_organ')}}</a></li>
+			<li ng-click="btnResourcePage()"><a>{{translateLanguage('home_resource')}}</a></li>
+		</ul>
+	</div>
+	<div class="mainContentsDiv">
+		<div class="mainVisualWrap" ng-click="boardDetail(mainData.Head, mainData.Head.BoardType, mainData.Head.BoardTitle)">
+			<img class="mainVisualImage" ng-src="{{headImage}}">
+			<span  class="mainVisualTitle">
+				<span>{{headSubject}}</span>
+			</span>
+		</div>
+		<div class="contentsSlideDiv">
+			<div class="contentsSlideWrap">
+				<div class="contentsSlideFixBox" ng-repeat="hallaIn in hallaInList" ng-click="boardDetail(hallaIn, hallaIn.BoardType, hallaIn.BoardTitle)" sideMenuswipe="cancel"> <!-- ng-swipe-right="cancelSwipeSideMenu($event)" ng-swipe-left="cancelSwipeSideMenu($event)"  -->
+					<div class="contentsSlideFixImgDiv" >
+						<img ng-src="{{hallaIn.Image}}" ng-if="hallaIn.Image != undefined || hallaIn.Image != ''">	
+					</div>
+					<p>{{hallaIn.Subject}}</p>
+				</div>
+			</div>
+		</div>
+		<!-- 배너 영역 -->
+		<!-- div >
+			<img class="mainBannerImage" ng-src="{{bannerImage}}" ng-click="btnMainBanner($event)">
+		</div> -->
+		
+		<!-- 이미지 슬라이드 -->
+		<div class="mainBannerWrapper" sideMenuswipe="cancel"> <!-- 해당 영역은 스와이프 메뉴 작동안하도록 처리 -->
+			<ul rn-carousel class="mainBannerSlide" rn-carousel-index="carouselIndex" rn-carousel-auto-slide rn-carousel-pause-on-hover rn-carousel-transition="slide">
+			  <li ng-repeat="banner in bannerImageList">
+			    <img class="mainBannerImage" ng-src="{{banner.Image}}" ng-click="btnMainBanner(banner)">
+			   
+			  </li>
+			</ul>
+			<div class="mainBannerIndicator" ng-if="bannerImageList.length > 1" rn-carousel-indicators slides="bannerImageList" rn-carousel-index="carouselIndex"></div><!--  ng-if="bannerImageList" -->
+		</div>
+		
+		<!-- 2020.03.24 추가 - 코로나 게시판 추가 및 위치 변경 -->
+		<div class="mainHallaRoadDiv">
+			<div class="mainHallaRoadWrap">
+				<span>코로나 대응 상황 데일리 리포트</span>
+				<a><img src="/resources/image/main/ic_more_normal.png" ng-click="btnCoronaMore()"></a>
+			</div>
+			<div class="mainHallaRoadList">
+				<div class="hallaRoadListWrap">
+					<ul>
+						<li ng-repeat="corona in coronaList">
+							<a ng-click="boardDetail(corona, corona.BoardType, '코로나 대응 상황 데일리 리포트')">{{corona.Subject}}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="mainNoticeDiv">
+			<div class="mainNoticeWrap">
+				<span>{{translateLanguage('notice')}}</span>
+				<a><img src="/resources/image/main/ic_more_normal.png" ng-click="btnPartnerMore()"></a>
+			</div>
+			<div class="mainNoticeList">
+				<div class="noticeListWrap">
+					<ul>
+						<li ng-repeat="notice in noticeList">
+							<a ng-click="boardDetail(notice, notice.BoardType, '공지사항')">{{notice.Subject}}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+<!-- 		<div class="mainHallaRoadDiv">
+			<div class="mainHallaRoadWrap">
+				<span>Funla</span>
+				<a><img src="/resources/image/main/ic_more_normal.png" ng-click="btnOrganMore()"></a>
+			</div>
+			<div class="mainHallaRoadList">
+				<div class="hallaRoadListWrap">
+					<ul>
+						<li ng-repeat="press in pressList">
+							<a ng-click="boardDetail(press, press.BoardType, 'Funla')">{{press.Subject}}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div> -->
+		
+	</div>
+</div>

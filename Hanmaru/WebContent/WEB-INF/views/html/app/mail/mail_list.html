@@ -1,9 +1,9 @@
 <div class="mailContainer" id="mailController" ng-controller="mailController"
-	ng-click="hideMailVisibleOption($event)">
+	ng-click="hideMailVisibleOption($event)" >
 	<!-- 헤더바 -->
 	<div class="headerBar">
 		<div class="headerBarMenu" ng-hide="mailEditHide"
-			ng-click="slideMenuClick()">
+			ng-click="slideMenuClick($event,true)">
 			<img src="/resources/image/menu_img.png">
 		</div>
 		<div class="headerBarTitle">
@@ -100,36 +100,39 @@
 	<!-- 리스트 행동 드롭다운 끝 -->
 
 	<!-- 메일 리스트 -->
-	<div class="mailListDiv" ng-class="{'full' : mailBtnShow == false, 'scroll-disabled' : (isDlgMailPopupMenu == true || isDlgMailMove == true)}" 
-				exec-on-scroll-to-bottom="readMailNextPage" mail-xpull="">
-				<!-- Markup for xpull plugin -->
-		        <div class="xpull">
-		            <div class="xpull__start-msg">
-		            	<!-- <img src="/resources/image/sample_img.png"> -->
-		                <div class="xpull__start-msg-text">{{translateLanguage('pull_to_refresh')}}</div>
-		                <div class="xpull__arrow"></div>
-		            </div>
-		            <div class="xpull__spinner">
-		                <div class="xpull__spinner-circle"></div>
-		            </div>
-		        </div>
-		        <!-- End Markup for xpull plugin -->
+	<div class="mailListDiv"  ng-class="{'full' : mailBtnShow == false, 'scroll-disabled' : (isDlgMailPopupMenu == true || isDlgMailMove == true)}" 
+		exec-on-scroll-to-bottom="readMailNextPage"  mail-xpull="">
+		<!-- Markup for xpull plugin -->
+        <div class="xpull" id="xpull_wrapper" >
+            <div class="xpull__start-msg">
+            	<!-- <img src="/resources/image/sample_img.png"> -->
+                <div class="xpull__start-msg-text">{{translateLanguage('pull_to_refresh')}}</div>
+                <div class="xpull__arrow"></div>
+            </div>
+            <div class="xpull__spinner">
+                <div class="xpull__spinner-circle"></div>
+            </div>
+        </div>
+        <!-- End Markup for xpull plugin -->
 
-		<div>
-			<div ng-repeat="mail in mailList">
+		<div >
+		<div ng-repeat="mail in mailList" >
 				<div class="mailListDayDiv"
 					ng-if="($first || mailList[$index-1].ReceivedDateTime.split('T')[0] != mailList[$index].ReceivedDateTime.split('T')[0]) && diffDateFromToday($index, mailList[$index].ReceivedDateTime) <= 7">
 					<span ng-if="diffDateFromToday($index, mail.ReceivedDateTime) == 1">{{translateLanguage('today')}}</span>
 					<span ng-if="diffDateFromToday($index, mail.ReceivedDateTime) == 2">{{translateLanguage('yesterday')}}</span>
-					<span ng-if="diffDateFromToday($index, mail.ReceivedDateTime) > 2">{{mail.ReceivedDateTime
-						| date:'EEEE'}}</span>
+					<span ng-if="diffDateFromToday($index, mail.ReceivedDateTime) > 2">{{mail.ReceivedDateTime | date:'EEEE'}}</span>
 				</div>
 
 				<div class="mailListDayDiv"
 					ng-if="diffDateFromToday($index, mail.ReceivedDateTime) > 7 && $index == isPreviousDateShowIndex">
 					{{translateLanguage('long_ago')}}</div>
 
-				<div class="mailListBox" on-long-press="mailListBoxSelect($event, $index, mail)" on-touch-end="itemOnTouchEnd(mail)"> <!-- itemOnLongPress(mail)" -->
+				<div class="mailListBox" 
+					 on-touch-end="itemOnTouchEnd(mail)"  on-long-press="mailListBoxSelect($event, $index, mail)"
+					slip-list slip-after-swipe="afterSwipe($event, $index)" slip-before-reorder="cancelReOrder($event)" > <!-- sideMenuswipe="cancel" -->
+					  
+					<!-- itemOnLongPress(mail)" --><!--  -->
 					<!-- 2019-09-11 김현석 편집모드로 나오도록 숨김처리 제거 -->
 					<div class="mailListEdit"  ng-show="mailEditList.length*1 != 0"> 
 						<img src="/resources/image/mail/selectbox-square-off.png" ng-show="mail.EditSelected != true" ng-click="mailListBoxSelect($event, $index, mail)"> 
@@ -137,7 +140,8 @@
 						<!-- <div ng-class="{'selected' : mail.EditSelected == true}"></div>
 						<img src="/resources/image/checked_white.png"> -->
 					</div>
-					<div class="mailListInter" ng-click="mailEditList.length*1 != 0?mailListBoxSelect($event, $index, mail):mailListSelect($event, $index, mail)">
+					<div class="mailListInter" ng-click="mailEditList.length*1 != 0?mailListBoxSelect($event, $index, mail):mailListSelect($event, $index, mail)"
+					>
 						<!-- <div class="mailListState">
 							<span ng-show="mail.IsRead">&nbsp;</span>
 							<div class="mailStateUnread" ng-show="!mail.IsRead"></div>
@@ -210,7 +214,7 @@
 	<div class="mailContentsBehaviorDiv"><!--  ng-show="mailEditShow"> -->
 		<div class="mailContentsBehavior">
 			<div class="mailCount">
-				<img src="/resources/image/icon/ic-close-white.png" class="mailCheckCloseImg" ng-click="btnToggleUnCheckAll($event)">
+				<img src="/resources/image/icon/ic-close-white.png" class="mailCheckCloseImg" ng-click="btnToggleUnCheckAll()">
 				<span>{{mailEditList.length}}/{{mailList.length}}</span>
 				<span></span>
 			</div>
@@ -221,7 +225,7 @@
 				<li class="mailBehaviorAllCheck" ng-click="btnToggleAllCheck($event)" ng-if="mailEditList.length < mailList.length">
 					<img src="/resources/image/mail/ic-check-all.png"> <span>{{translateLanguage('check_all')}}</span>
 				</li>
-				<li class="mailBehaviorUnCheckAll" ng-click="btnToggleUnCheckAll($event)" ng-if="mailEditList.length >= mailList.length">
+				<li class="mailBehaviorUnCheckAll" ng-click="btnToggleUnCheckAll()" ng-if="mailEditList.length >= mailList.length">
 					<img src="/resources/image/mail/ic-check-all.png"> <span>{{translateLanguage('un_check_all')}}</span>
 				</li>
 				<li class="mailBehaviorMove" ng-click="btnDlgMailMove($event)">
@@ -288,6 +292,19 @@
 			</div>
 			<div class="dlgMailMoveFooter">
 				<a ng-click="btnConfirmMoveMail()">{{translateLanguage('ok')}}</a>
+			</div>
+		</div>
+	</div>
+	
+	<div class="dlgMailDelete" ng-show="isDlgMailDelete == true" ng-click="dismissDlgMailDelete($event)">
+		<div class="wrapDlgMailDelete">
+			<div class="dlgMailDeleteHeader">{{translateLanguage('mail_remove')}}</div>
+			<div class="dlgMailDeleteBody">
+				{{translateLanguage('remove_message')}}
+			</div>
+			<div class="dlgMailDeleteFooter">
+				<a ng-click="btnCancelDeleteMail()">{{translateLanguage('cancel')}}</a>
+				<a ng-click="btnConfirmDeleteMail()">{{translateLanguage('ok')}}</a>
 			</div>
 		</div>
 	</div>

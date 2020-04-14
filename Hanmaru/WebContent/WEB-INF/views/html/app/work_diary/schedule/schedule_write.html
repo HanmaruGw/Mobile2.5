@@ -44,14 +44,16 @@
 					<div class="scheduleDateWrap">
 						<div class="scheduleFirstDate" ng-click="chooseSearchDate('start')">
 							<img src="/resources/image/ic-calendar.png" >
-							<p ng-if=" txtSearchStart == '' ">2019-02-12</p>
-							<p ng-if=" txtSearchStart != '' ">{{txtSearchStart}}</p>
+							<input type="text" readonly="readonly" class="txtDateSearch ng-pristine ng-valid" ng-model="txtSearchStart" ng-trim="true">
+							<!-- <p ng-if=" txtSearchStart == '' ">2019-02-12</p>
+							<p ng-if=" txtSearchStart != '' ">{{txtSearchStart}}</p> -->
 						</div>
 						<div class="scheduleSwungDash">~</div>
 						<div class="scheduleSecondDate" ng-click="chooseSearchDate('end')" >
 							<img src="/resources/image/ic-calendar.png" >
-							<p ng-if=" txtSearchEnd == '' ">2019-02-12</p>
-							<p ng-if=" txtSearchEnd != '' ">{{txtSearchEnd}}</p>
+							<input type="text" readonly="readonly" class="txtDateSearch ng-pristine ng-valid" ng-model="txtSearchEnd" ng-trim="true">
+							<!-- <p ng-if=" txtSearchEnd == '' ">2019-02-12</p>
+							<p ng-if=" txtSearchEnd != '' ">{{txtSearchEnd}}</p> -->
 						</div>
 					</div>
 				</div>
@@ -108,7 +110,8 @@
 								
 								<!-- 2019-02-05 PK 참석자 리스트 -->
 								<div class="wrap_selected_user" ng-repeat="user in arr_Attendee_list">
-									<span>{{user.DisplayName}}</span>
+									<span ng-if="user.UserName != undefined && user.Type == undefined">{{user.DisplayName}}</span>
+									<span ng-if="user.UserName == undefined && user.Type == undefined">{{user.DeptName}}</span>
 								<!-- 
 									<span ng-if="user.UserName != undefined && user.Type == undefined"> 
 										{{user.UserName}}/{{user.PositionName}}/{{user.DeptName}}/{{user.CompName}}
@@ -146,7 +149,8 @@
 								
 								<!-- 2019-02-05 PK 공유자 리스트 -->
 								<div class="wrap_selected_user" ng-repeat="user in arr_Jointowner_list">
-									<span>{{user.DisplayName}}</span>
+									<span ng-if="user.UserName != undefined && user.Type == undefined">{{user.DisplayName}}</span>
+									<span ng-if="user.UserName == undefined && user.Type == undefined">{{user.DeptName}}</span>
 									
 									<!--
 									<span ng-if="user.UserName != undefined && user.Type == undefined"> 
@@ -225,8 +229,10 @@
 					<div>{{translateLanguage('to_detail')}}</div>
 				</div>
 				<div colspan="3" class="scheduleEditorWrap">
-					<iframe ng-if="isEditorLoaded == true" id="scheduleContents" class="contents" src="/html/app/_include/ext/dext5editor.html" frameborder="0"></iframe>
+					<iframe ng-if="isEditorLoaded == true" id="scheduleContents" class="contents" src="/html/app/_include/ext/dext5editor.html" 
+					frameborder="0" border="none"></iframe>
 				</div><!-- 해당 영역에 에디터 툴 들어옵니다 -->
+				
 			</div>
 		</div>
 		

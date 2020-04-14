@@ -59,7 +59,9 @@
 		
 		<div class="viewContentsDetail">
 			<img src="{{approval.BodyUrl}}" id="tmpApprovalBodyContents" style="display:none">
-			<div class="wrapBodyContents"></div>
+			<div class="wrapBodyContents" >
+				<!-- <img src="{{approval.BodyUrl}}" id="approvalBodyContents1" style="display:none"> -->
+			</div>
 		</div>
 	</div>
 	
@@ -84,11 +86,30 @@
 	<div class="approvalDialogBg" ng-show="isApprovalStatusDDShow == true" ng-click="toggleApprovalStatusDD()"></div>
 	<div class="approvalDialog modalView" ng-show="isApprovalStatusDDShow == true">
 		<div class="dialog_topper">
-			<p>{{translateLanguage('approval_status')}}</p>
+			<!-- <div class="dialog_topper_tab" ng-class="{'selected' : tabIdx == 0}">
+				<p ng-class="{'selected' : tabIdx == 0}">{{translateLanguage('approval_user_line')}}</p>
+			</div> -->
+			
+			<!-- 2020.01.30 결재 고도화 --> 
+			<div class="dialog_topper_tab" ng-click="selectApprovalTab(0)" ng-class="{'selected' : tabIdx == 0}">
+				<p ng-class="{'selected' : tabIdx == 0}">{{translateLanguage('approval_user_line')}}</p>
+			</div>
+			<div class="dialog_topper_tab" ng-click="selectApprovalTab(1)" ng-class="{'selected' : tabIdx == 1}">
+				<p ng-class="{'selected' : tabIdx == 1}">{{translateLanguage('approval_user_cc')}}</p>
+			</div>
+			
+			<div class="dialog_topper_tab" ng-click="selectApprovalTab(2)" ng-class="{'selected' : tabIdx == 2}">
+				<p ng-class="{'selected' : tabIdx == 2}">{{translateLanguage('approval_viewer')}}</p>
+			</div>
+			
+			<div class="dialog_topper_tab" ng-click="selectApprovalTab(3)" ng-class="{'selected' : tabIdx == 3}">
+				<p ng-class="{'selected' : tabIdx == 3}">{{translateLanguage('approval_document_info')}}</p>
+			</div>
 			<img src="/resources/image/approval/ic_close_normal.png" ng-click="toggleApprovalStatusDD()">
 		</div>
 		
-		<div class="wrap_dialog_contents">
+		<!-- 결재선 -->
+		<div class="wrap_dialog_contents" ng-show="tabIdx == 0">
 			<div class="dialog_group">
 				<ul class="group_top">
 					<li>{{translateLanguage('approval_process_name')}}</li>
@@ -103,12 +124,14 @@
 						<li>{{obj.Name}}</li>
 						<li>{{obj.Process}}</li>
 						<li>
+							<span ng-show="obj.CreateDate == '' || obj.CreateDate == undefined">-</span>
 							<span ng-show="obj.CompleteDate.split('-')[0].length == 4">
 								{{obj.CompleteDate | date:'yyyy-MM-dd'}}
 								<span>{{obj.CompleteDate | date:'HH:mm:ss'}}</span>
 							</span>
 						</li>
 						<li>
+							<span ng-show="obj.CreateDate == '' || obj.CreateDate == undefined">-</span>
 							<span ng-show="obj.CreateDate.split('-')[0].length == 4">
 								{{obj.CreateDate | date:'yyyy-MM-dd'}}
 								<span>{{obj.CreateDate | date:'HH:mm:ss'}}</span>
@@ -118,6 +141,97 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- 수신/참조 -->
+		<div class="wrap_dialog_contents_cc" ng-show="tabIdx == 1">
+			<div class="dialog_group_cc">
+				<ul class="group_top">
+					<li>{{translateLanguage('approval_user_name')}}</li>
+					<li>{{translateLanguage('approval_cc_text')}}</li>
+					<li>{{translateLanguage('approval_process_complete_date')}}</li>
+				</ul>
+			</div>
+			<div class="approvalDialogContents">
+				<div class="dialog_contents_cc" ng-repeat="obj in approval.ProcessRecipient">
+					<ul class="group_contents">
+						<li>{{obj.Name}}</li>
+						<li>{{obj.Process}}</li>
+						<li>
+							<span ng-show="obj.CreateDate == '' || obj.CreateDate == undefined">-</span>
+							<span ng-show="obj.CreateDate.split('-')[0].length == 4">
+								{{obj.CreateDate | date:'yyyy-MM-dd' }}
+								<span>{{obj.CreateDate | date:'HH:mm:ss' }}</span>
+							</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 회람목록 -->
+		<div class="wrap_dialog_contents_viewer" ng-show="tabIdx == 2">
+			<div class="dialog_group_viewer">
+				<ul class="group_top">
+					<li>{{translateLanguage('sender')}}</li>
+					<li>{{translateLanguage('receive')}}</li>
+					<li>{{translateLanguage('approval_viewer_date')}}</li>
+					<li>{{translateLanguage('approval_process_complete_date')}}</li>
+				</ul>
+			</div>
+			<div class="approvalDialogContents">
+				<div class="dialog_contents_viewer" ng-repeat="obj in approval.ProcessShared">
+					<ul class="group_contents">
+						<li>{{obj.ShareName}}</li>
+						<li>{{obj.ReceiveName}}</li>
+						<li>
+							<span ng-show="obj.ReceiveDate == '' || obj.ReceiveDate == undefined">-</span>
+							<span ng-show="obj.ReceiveDate.split('-')[0].length == 4">
+								{{obj.ReceiveDate | date:'yyyy-MM-dd'}}
+								<span>{{obj.ReceiveDate | date:'HH:mm:ss'}}</span>
+							</span>
+						</li>
+						<li>
+							<span ng-show="obj.ReadDate == '' || obj.ReadDate == undefined">-</span>
+							<span ng-show="obj.ReadDate.split('-')[0].length == 4">
+								{{obj.ReadDate | date:'yyyy-MM-dd'}}
+								<span>{{obj.ReadDate | date:'HH:mm:ss'}}</span>
+							</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 문서정보 -->
+		<div class="wrap_dialog_contents_doc_info" ng-show="tabIdx == 3">
+			<div class="dialog_group_doc_info">
+				<div class="group_contents">
+					<p class="group_contents_subject">제목</p>
+					<p class="group_contents_contents">{{approval.Title}}</p>
+				</div>
+				<div class="group_contents">
+					<p class="group_contents_subject">문서번호</p>
+					<p class="group_contents_contents">{{approval.DocKey}}</p>
+				</div>
+				<div class="group_contents">
+					<p class="group_contents_subject">보존기간</p>
+					<p class="group_contents_contents">{{approval.Period | convertPeriodDate}}</p>
+				</div>
+				<div class="group_contents">
+					<p class="group_contents_subject">보존등급</p>
+					<p class="group_contents_contents">{{approval.Security}}</p>
+				</div>
+				<div class="group_contents">
+					<p class="group_contents_subject">작성자</p>
+					<p class="group_contents_contents">{{approval.DisplayName}}</p>
+				</div>
+				<div class="group_contents">
+					<p class="group_contents_subject">문서분류</p>
+					<p class="group_contents_contents">{{approval.DocClassName}}</p>
+				</div>
+			</div>
+		</div>
+		
 	</div>
 	
 	

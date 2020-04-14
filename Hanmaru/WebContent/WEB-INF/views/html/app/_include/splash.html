@@ -1,7 +1,34 @@
 <div id="splashController" ng-controller="splashController">
+
+
+	<div style="position:absolute;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:5999"
+		 ng-show="isVersionUpdate == true" ng-click="toggleApprovalStatusDD()"></div>
+		 
 	<div style="margin-left: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px;">
 		<div style="position:absolute;top:45%;/* left:3vw; */overflow:hidden;text-align: center;" >
 			<img src="/resources/image/main/ic_app_logo_1.png" style="width: 60%; height: auto;" />
 		</div>
 	</div>
+	
+	<div ng-show="isVersionUpdate" style="position: absolute;top: 30%;left: 13.5%;width: 75%;height: 35%;overflow: hidden;background-color: white;z-index: 6000;border-radius: 3vw;">
+		<div style="height:17%;background:#4E86FF;text-align: center;">
+			<span style="color: #fff;font-size: 4.5vw;position: absolute;width: 100%;top: 3%;margin-left: -50%;font-weight:bold">Hanmaru M Update</span>
+		</div>
+		
+		<div style="height:60%;background: #fff;overflow: scroll;text-align: center;padding:1vw;">
+			<div style="padding: 2vw;font-weight: bold;color: black;font-size: 3.5vw;">
+				{{updateHeaderMessage}}
+			</div>
+			<div style="margin-top:7%">[업데이트 내역]</div>
+			<div style="font-size: 4vw;padding:2vw;">
+				<div style="text-align:left" ng-repeat="updateMessage in updateMessageList track by $index"><!-- margin-top:2vw;" -->
+					<!-- $s.updateMessageList -->
+					{{updateMessage}}
+				</div>
+				
+			</div>
+		</div>
+		<div style="color: #4E86FF;position: absolute;right: 5vw;font-size: 4vw;bottom: 5%;font-weight: bold;" ><a ng-click="appDownloadBtn()">다운로드</a></div>
+	</div>
+	
 </div>

@@ -81,6 +81,10 @@ var objApiURL = {
 				name:'메일 본문보기',
 				url:objApiURL.apiDomain+'/nmobile/Mail/Mail'
 			},
+			
+			//메일 임시저장 및 본문의 송,수신자 태그값 불러오는 API
+			//paramater로 mailId만 넣으면 송,수신자 태그값 리턴되고 임시저장 안됨.
+			//paramater로 mail의 본문내용을 넣으면 메일 임시저장.
 			mailSendBody:{
 				name:'메일 반환 본문정보',
 				url:objApiURL.apiDomain+'/nmobile/Mail/MailSendBody'

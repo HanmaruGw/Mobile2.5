@@ -1,7 +1,7 @@
 <div class="reservationContainer" id="reservListController" ng-controller="reservListController">
 	<!-- 헤더바 -->
 	<div class="headerBar">
-		<div class="headerBarMenu" ng-click="slideMenuClick()">
+		<div class="headerBarMenu" ng-click="slideMenuClick($event,true)">
 			<img src="/resources/image/menu_img.png">
 		</div>
 		<div class="headerBarTitle">
@@ -26,7 +26,7 @@
 			<div class="reservDropKeyword">
 				<p></p>
 				<div class="reservKeyword">
-					<input type="text" placeholder="검색어를 입력하세요." ng-model="searchText">
+					<input type="text" placeholder="{{translateLanguage('search_hint')}}" ng-model="searchText">
 				</div>
 			</div>
 			<div class="reservDropTime">

@@ -1,7 +1,7 @@
 <div class="approvalContainer" id="approvalController" ng-controller="approvalController" ng-click="chkSortVisible($event)"> 
 	<!-- 헤더바 --> 
 	<div class="headerBar">
-		<div class="headerBarMenu" ng-hide="mailEditHide" ng-click="slideMenuClick()">
+		<div class="headerBarMenu" ng-hide="mailEditHide" ng-click="slideMenuClick($event,true)">
 			<img src="/resources/image/menu_img.png">
 		</div>
 		<div class="headerBarTitle" ng-click="mailOption()" ng-hide="mailEditHide">
@@ -98,55 +98,56 @@
 		</div>
 		
 	</div>
+	
 	<!-- 2019-09-11 김현석 자원예약 리스트 스타일로 변경 -->
-		<div class="reservContentsList" style="height:93%" >
-				<!-- Markup for xpull plugin -->
-		        <div class="xpull">
-		            <div class="xpull__start-msg">
-		                <div class="xpull__start-msg-text">{{translateLanguage('pull_to_refresh')}}</div>
-		                <div class="xpull__arrow"></div>
-		            </div>
-		            <div class="xpull__spinner">
-		                <div class="xpull__spinner-circle"></div>
-		            </div>
-		        </div>
-		        <!-- End Markup for xpull plugin -->
-			<div class="reservListWrap">
-				<div class="reservList" ng-repeat="approval in approvalList" ng-click="approvalDetail($event, approval, displayName)">
-					<div class="reservListDetailWrap" ng-style="{'border-left': getApprovalReadState(approval.ReadDate)}">
-						<div class="reservListTop">
-							<p class="reservListTitle approvalListTitle">{{approval.Title}}</p>
+	<div class="reservContentsList" style="height:93%" exec-on-scroll-to-bottom="readApprovalNextPage">
+			<!-- Markup for xpull plugin -->
+	        <div class="xpull">
+	            <div class="xpull__start-msg">
+	                <div class="xpull__start-msg-text">{{translateLanguage('pull_to_refresh')}}</div>
+	                <div class="xpull__arrow"></div>
+	            </div>
+	            <div class="xpull__spinner">
+	                <div class="xpull__spinner-circle"></div>
+	            </div>
+	        </div>
+	        <!-- End Markup for xpull plugin -->
+		<div class="reservListWrap">
+			<div class="reservList" ng-repeat="approval in approvalList" ng-click="approvalDetail($event, approval, displayName)">
+				<div class="reservListDetailWrap" ng-style="{'border-left': getApprovalReadState(approval.ReadDate)}">
+					<div class="reservListTop">
+						<p class="reservListTitle approvalListTitle">{{approval.Title}}</p>
+						<div class="viewContentsRight">
+							<div class="approvalImgWrap">
+								<img src="/resources/image/approval/ic_attach_pressed.png" ng-show="approval.IsFiles == '1'">
+								<span ng-show="approval.IsFiles != '1'">&nbsp;</span>
+							</div>
+						</div>
+					</div>
+						
+						<div class="approvalStateWrapper">
 							<div class="viewContentsRight">
-								<div class="approvalImgWrap">
-									<img src="/resources/image/approval/ic_attach_pressed.png" ng-show="approval.IsFiles == '1'">
-									<span ng-show="approval.IsFiles != '1'">&nbsp;</span>
+								<div class="approvalContentMidLeft">
+									<span style="float:none" class="approvalName">{{approval.DisplayName}}</span>
+								</div>
+								<div class="approvalContentMidRight">
+									<span style="float:none" class="approvaldfWork">[{{approval.FormName}}]</span>
 								</div>
 							</div>
 						</div>
-							
-							<div class="approvalStateWrapper">
-								<div class="viewContentsRight">
-									<div class="approvalContentMidLeft">
-										<span style="float:none" class="approvalName">{{approval.DisplayName}}</span>
-									</div>
-									<div class="approvalContentMidRight">
-										<span style="float:none" class="approvaldfWork">[{{approval.FormName}}]</span>
-									</div>
-								</div>
-							</div>
-	
-						<p class="approvalListState">
-							<span class="viewContents">
-								<span class="dataDecision">{{translateLanguage('approval_complete_all')}} : {{approval.CreateDate | date:'yyyy.MM.dd HH:mm:ss'}}</span>
-								<span class="dataApproval">{{translateLanguage('approval_complete')}} : {{approval.CompleteDate | date:'yyyy.MM.dd HH:mm:ss'}}</span>
-							</span>
-						</p>
-					</div>
-					<div class="reservCancel" ng-show="reservItem.State == 1" ng-click="reservCancel(reservItem.SEQ)"><span>{{translateLanguage('resource_cancel')}}</span></div>
+
+					<p class="approvalListState">
+						<span class="viewContents">
+							<span class="dataDecision">{{translateLanguage('approval_complete_all')}} : {{approval.CompleteDate | date:'yyyy.MM.dd HH:mm:ss'}}</span>
+							<span class="dataApproval">{{translateLanguage('approval_complete')}} : {{approval.CreateDate | date:'yyyy.MM.dd HH:mm:ss'}}</span>
+						</span>
+					</p>
 				</div>
+				<div class="reservCancel" ng-show="reservItem.State == 1" ng-click="reservCancel(reservItem.SEQ)"><span>{{translateLanguage('resource_cancel')}}</span></div>
 			</div>
-		    <!-- <div class="xpull__spinner-circle-bottom"></div> -->
 		</div>
+	    <!-- <div class="xpull__spinner-circle-bottom"></div> -->
+	</div>
 		
 		
 		<!-- 2019.10.23 추가 -->

@@ -1,7 +1,7 @@
 <div class="attendanceContainer" id="attendanceController" ng-controller="attendanceController">
 	<!-- 헤더바 -->
 	<div class="headerBar">
-		<div class="headerBarMenu" ng-click="slideMenuClick()">
+		<div class="headerBarMenu" ng-click="slideMenuClick($event,true)">
 			<img src="/resources/image/ic-menu.png">
 		</div>
 		<div class="headerBarTitle">
@@ -15,7 +15,8 @@
 		</div>
 		<div class="headerUnderBar "></div>
 	</div>
-	<div class="attendanceManagementDiv">
+	<div class="attendanceManagementBack" ng-click="toggleTimeSelectPopup($event)" ng-show="isStartTimeShow || isEndTimeShow"></div>
+	<div class="attendanceManagementDiv" >
 		<div class="attendanceManagementContents">
 			<div class="attendanceManagementDate" ng-click="chooseSearchDate('start')">
 				<input type="text" readonly="readonly" class="txtDateSearch" ng-model="txtNowDate" ng-trim="true">
@@ -26,7 +27,7 @@
 					<ul>
 						<li class="attendanceTimeBase">
 							<a class="attendanceSelectTime">{{txtStartTimeName}}</a>
-							<ul class="attendanceTimeList" ng-show="isStartTimeShow == true">
+							<ul id="attendanceTimeList" class="attendanceTimeList" ng-show="isStartTimeShow == true">
 								<li ng-repeat="time in timeList" ng-click="applyStartTime($index,time)">
 									<a ng-class="{'selected' : selectedStartTimeIdx == $index}">{{time.name}}</a>
 									<img src="/resources/image/ic_check_select.png" ng-show="selectedStartTimeIdx == $index">
@@ -38,11 +39,11 @@
 			</div>
 			<div class="officeQuittingTime">
 				<p>{{translateLanguage('time_end_time')}}</p>
-				<div class="quittingTimeLabel" ng-click="selectEndTime()">
+				<div class="quittingTimeLabel" ng-click="selectEndTime($event)">
 					<ul>
 						<li class="quittingTimeBase" >
 							<a class="quittingSelectTime">{{txtEndTimeName}}</a>
-							<ul class="quittingTimeList" ng-show="isEndTimeShow == true">
+							<ul id="quittingTimeList" class="quittingTimeList" ng-show="isEndTimeShow == true">
 								<li ng-repeat="time in timeList" ng-click="applyEndTime($index,time)">
 									<a ng-class="{'selected' : selectedEndTimeIdx == $index}">{{time.name}}</a>
 									<img src="/resources/image/ic_check_select.png" ng-show="selectedEndTimeIdx == $index">

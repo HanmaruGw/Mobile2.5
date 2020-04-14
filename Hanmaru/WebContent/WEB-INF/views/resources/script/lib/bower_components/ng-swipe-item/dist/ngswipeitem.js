@@ -114,6 +114,8 @@ angular.module('ngSwipeItem',['ngTouch'])
          */
         function removeFromList(finalDistance) {
           var elementWidth = element.width();
+          console.log('elementWidth',elementWidth);
+          console.log('finalDistance',finalDistance);
           swiperContent.css('opacity', 0);
           swiperContent.css(applyTransition(true));
           if(finalDistance > 0) {

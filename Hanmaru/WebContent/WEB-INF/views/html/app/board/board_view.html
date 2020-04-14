@@ -44,7 +44,11 @@
 			
 		<div class="boardContentsWrap">
 			<div id="boardDetailContents" class="boardDetailContents">
-				<div id="boardDetailHTMLContents" ng-bind-html="boardDetailData.Contents" data-elem="pinchzoomer"></div>
+				<div >
+					<div id="boardDetailHTMLContents" ng-bind-html="boardContents" data-elem="pinchzoomer"></div>
+					<!-- <iframe ng-if="isIOS" type="text/html" width="740" height="480" ng-src="{{iosVideoSrc}}" /> -->
+				</div>
+<!-- 				<div id="boardDetailHTMLContents" ng-bind-html="boardDetailData.Contents" data-elem="pinchzoomer"></div> -->
 			</div>
 		</div>
 		<div class="wrap_magnify">

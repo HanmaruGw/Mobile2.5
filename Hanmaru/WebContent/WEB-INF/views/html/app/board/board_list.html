@@ -1,7 +1,7 @@
 <div class="boardContainer" id="boardListController" ng-controller="boardListController">
 	<!-- 헤더바 -->
 	<div class="headerBar">
-		<div class="headerBarMenu" ng-click="slideMenuClick()">
+		<div class="headerBarMenu" ng-click="slideMenuClick($event,true)">
 			<img src="/resources/image/menu_img.png">
 		</div>
 		<div class="headerBarTitle">
@@ -41,14 +41,14 @@
 			</ul>
 		</div>
 		<div class="boardSearchKeyword">
-			<input type="text" ng-model="searchKeyword" ng-trim="true" placeholder="검색어를 입력하세요.">
+			<input type="text" ng-model="searchKeyword" ng-trim="true" placeholder="{{translateLanguage('search_hint')}}">
 			<button ng-click="btnSearchBoard($event)">{{translateLanguage('search')}}</button>
 		</div>
 	</div>
 	
 	<!--리스트-->
 	<div class="boardContentsDiv" exec-on-scroll-to-bottom="readBoardNextPage"><!-- board-on-scroll-to-bottom -->
-		<div class="boardContentsList" ng-repeat="boardData in boardList" ng-click="boardDetail($event, boardData, '', displayName)">
+		<div class="boardContentsList" ng-repeat="boardData in boardList" ng-click="boardDetail(boardData, '', displayName)">
 			<div class="boardContentsTitle" ><!-- , 'boardListMaxWidth' : boardData.ImageUrl == undefiend || boardData.ImageUrl == ''}" -->
 				<div class="boardListImg" ng-if="boardData.ImageUrl != ''">
 					<img ng-src="{{boardData.ImageUrl}}" >

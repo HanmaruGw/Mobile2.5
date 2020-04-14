@@ -1,5 +1,5 @@
-<div class="slideMenuDiv" ng-show="slideMenuShow">
-	<div class="slideMenuBack" ng-show="slideMenuShow" ng-click="slideMenuClick()"></div>
+<div class="slideMenuDiv" ng-show="slideMenuShow" ng-swipe-left="slideMenuClick($event,false)">
+	<div class="slideMenuBack" ng-show="slideMenuShow" ng-click="slideMenuClick($event,false)"></div>
 	<div class="slideMenu" ng-show="slideMenuShow" ><!-- ng-class="{'ng-show': slideMenuShow == true}" -->
 		<div class="slideMenuTop"> <!-- ng-class="{'slideMenuTopBack': slideProfileImgShow == false}" -->
 			<div class="slideMenuProfileImg">
@@ -10,7 +10,8 @@
 				<img class="slideMenuSettings" src="/resources/image/settings.png"  ng-click="btnSetting()">
 				<div class="slideProfileWrapper">
 					<div class="slideProfileName" ng-class="{'slideMenuTopControl' : slideProfileImgShow==false}">{{userInfo.UserName}}</div>
-					<div class="slideProfilePosition" ng-class="{'slideMenuTopControl' : slideProfileImgShow==false}">{{userInfo.PositionName}}</div>
+					<div class="slideProfilePosition" ng-class="{'slideMenuTopControl' : slideProfileImgShow==false}">{{userInfo.PositionName}} / {{userInfo.LevelName}}</div>
+					
 				</div>
 				
 				<div class="profileTeam" ng-if="userInfo != undefined" ng-class="{'slideMenuTopControl' : slideProfileImgShow==false}">{{userInfo.DeptName}} / {{userInfo.CompName}}</div> 
@@ -87,6 +88,13 @@
 				<span ng-class="{'selected' : subMenuType == 'midashelp'}">{{translateLanguage('midasHelp')}}</span>
 			</div>
 			
+			<!-- 2020.03.31 추가 - eac -->
+			<!-- <div class="slideMenuBox" ng-click="loadMenu('mando_eac')" ng-show="userInfo.CompCode == 00005">
+				<img src="/resources/image/icon/ic_midashelp_normal.png" ng-if="subMenuType != 'mando_eac'">
+				<img src="/resources/image/icon/ic_midashelp_selected.png" ng-if="subMenuType == 'mando_eac'">
+				<span ng-class="{'selected' : subMenuType == 'mando_eac'}">EAC</span>
+			</div> -->
+			
 		</div>
 		
 			<div class="slideMenuProButtonfile" ng-click="sideMenuHideClick()">
@@ -95,7 +103,7 @@
 					<img class="profileTopFold" src="/resources/image/icon/ic-arrow-top-gray@2x.png" ng-Hide="menuListHide">
 				</a>
 			</div>
-			<div class="slideMenuProMailfile" ng-click="sideMenuHideClick()">
+			<div class="slideMenuProMailfile" ng-click="sideMenuHideClick()" >
 				<a ng-click="menuListHide=!menuListHide; sideMenuHideClick()"  ng-show="subMenuType != 'mail'">
 					<img class="profileTopFold" src="/resources/image/icon/ic-arrow-bottom-gray@2x.png" ng-show="menuListHide">
 					<img class="profileTopFold" src="/resources/image/icon/ic-arrow-top-gray@2x.png" ng-Hide="menuListHide">

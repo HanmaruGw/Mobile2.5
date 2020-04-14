@@ -1,8 +1,7 @@
-
-<div class="workDiaryContainer" id="diaryScheduelController" ng-controller="diaryScheduelController">
+<div class="workDiaryContainer" id="diaryScheduelController" ng-controller="diaryScheduelController" >
 	<!-- 헤더바 -->
 	<div class="headerBar">
-		<div class="headerBarMenu" ng-click="slideMenuClick()">
+		<div class="headerBarMenu" ng-click="slideMenuClick($event,true)">
 			<img src="/resources/image/ic-menu.png">
 		</div>
 		
@@ -80,27 +79,36 @@
 					</div>
 			</div>
 			
-			<div class="diarySearchOption" ><!-- ng-click="searchOption()" -->
+			<div class="diarySearchOption" ng-click="searchOption()"><!-- ng-click="searchOption()" -->
 				<ul class="diarySearchSelect">
-					<li class="diarySelectFirst">
-						<!-- <span class="selectFirstName">전체</span> -->
+					<li class="diarySelectFirst"><span class="selectFirstName">{{searchName}}</span>
 						<img src="/resources/image/mail/ic-select-arrow-bottom.png">
 						
-						<select name="selectSearchSelect" class="selectSearchSelect" ng-model="searchType" ng-change="applySearchType(searchType)" 
+						<ul class="selectSearch" ng-show="searchOptionShow == true">
+							<li class="selectSearchList"
+								ng-repeat="SearchTypeOption in SearchTypeOptions"
+								ng-click="applySearchType($index)"><span
+								class="selectListTxt"
+								ng-class="{'selected' : curSearchType == $index}">{{SearchTypeOption.name}}</span>
+								<img src="/resources/image/ic_check_select.png"
+								ng-show="curSearchType == $index"></li>
+						</ul>
+						
+						<!-- <select name="selectSearchSelect" class="selectSearchSelect" ng-model="searchType" ng-change="applySearchType(searchType)" 
 							style="width: 80%;height: 100%;background-color: #E4E7EB;margin-left: 10px;border-width: 0px;">
-							<!-- <option value='All'>전체</option>
+							<option value='All'>전체</option>
 							<option value='Title'>제목</option>
 							<option value='Body'>본문</option>
 							<option value='Sender'>발신자</option>
-							<option value='TitleBody'>제목+본문</option> -->
+							<option value='TitleBody'>제목+본문</option>
 							<option ng-repeat="type in SearchTypeOptions" value="{{type.name}}">{{type.value}}</option>
-						</select>
+						</select> -->
 					</li>
 				</ul>
 			</div>
 			
 			<div class="diarySearchKeyword">
-				<input type="text" ng-model="searchValue" placeholder="검색어 입력">
+				<input type="text" ng-model="searchValue" placeholder="{{translateLanguage('search_hint')}}">
 				<button ng-click="btnSearchSchedule()">{{translateLanguage('search')}}</button>
 				<!-- ng-model="SearchValue" ng-trim="true"
 				ng-click="btnSearchMail()" -->
@@ -127,15 +135,22 @@
 	<!-- 검색 끝 -->
 	
 	<div class="workDiaryContents" >
-		<div class="diaryCalenderTab" style="height:100%">
+		<div class="diaryCalenderTab" style="height:100%" >
 			<ul class="diaryCalendarList">
-				<li><a class="sunTextColor">일</a></li>
-				<li><a>월</a></li>
-				<li><a>화</a></li>
-				<li><a>수</a></li>
-				<li><a>목</a></li>
-				<li><a>금</a></li>
-				<li><a class="satTextColor">토</a></li>
+				<li><a class="sunTextColor">{{dayOfWeekArr[0]}}</a></li>
+				<li><a>{{dayOfWeekArr[1]}}</a></li>
+				<li><a>{{dayOfWeekArr[2]}}</a></li>
+				<li><a>{{dayOfWeekArr[3]}}</a></li>
+				<li><a>{{dayOfWeekArr[4]}}</a></li>
+				<li><a>{{dayOfWeekArr[5]}}</a></li>
+				<li><a class="satTextColor">{{dayOfWeekArr[6]}}</a></li>
+<!-- 				<li><a class="sunTextColor">{{translateLanguage('week_sun')}}</a></li>
+				<li><a>{{translateLanguage('week_mon')}}</a></li>
+				<li><a>{{translateLanguage('week_tues')}}</a></li>
+				<li><a>{{translateLanguage('week_wednes')}}</a></li>
+				<li><a>{{translateLanguage('week_thurs')}}</a></li>
+				<li><a>{{translateLanguage('week_fri')}}</a></li>
+				<li><a class="satTextColor">{{translateLanguage('week_satur')}}</a></li> -->
 			</ul>
 
 			<div id="calendar" ng-show="isCalendarSearch == false" style="height:97%"></div>

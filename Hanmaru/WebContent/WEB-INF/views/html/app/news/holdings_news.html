@@ -1,7 +1,6 @@
-<div class="mainContainer" id="mainListController" ng-controller="mainListController">
 	<!-- 헤더바 -->
 	<div class="headerBar headTopBg">
-		<div class="headerBarMenu" ng-click="slideMenuClick()">
+		<div class="headerBarMenu" ng-click="slideMenuClick($event,true)">
 			<img src="/resources/image/main/menu_img.png">
 		</div>
 		<div class="headerBarTitle">
@@ -16,6 +15,7 @@
 		<!-- <div class="headerUnderBar"></div> -->
 		
 	</div>
+	<div>한라 홀딩스</div>
 	<div class="mainNaviBar">
 		<ul>
 			<li ng-click="btnMainPage()"><a>{{translateLanguage('home_news')}}</a></li>
@@ -28,7 +28,7 @@
 		</ul>
 	</div>
 	<div class="mainContentsDiv">
-		<div class="mainVisualWrap" ng-click="boardDetail($event, mainData.Head, mainData.Head.BoardType, mainData.Head.BoardTitle)">
+		<div class="mainVisualWrap" ng-click="boardDetail(mainData.Head, mainData.Head.BoardType, mainData.Head.BoardTitle)">
 			<img class="mainVisualImage" ng-src="{{headImage}}">
 			<span  class="mainVisualTitle">
 				<span>{{headSubject}}</span>
@@ -36,8 +36,8 @@
 		</div>
 		<div class="contentsSlideDiv">
 			<div class="contentsSlideWrap">
-				<div class="contentsSlideFixBox" ng-repeat="hallaIn in hallaInList" ng-click="boardDetail($event, hallaIn, hallaIn.BoardType, hallaIn.BoardTitle)">
-					<div class="contentsSlideFixImgDiv">
+				<div class="contentsSlideFixBox" ng-repeat="hallaIn in hallaInList" ng-click="boardDetail(hallaIn, hallaIn.BoardType, hallaIn.BoardTitle)" sideMenuswipe="cancel"> <!-- ng-swipe-right="cancelSwipeSideMenu($event)" ng-swipe-left="cancelSwipeSideMenu($event)"  -->
+					<div class="contentsSlideFixImgDiv" >
 						<img ng-src="{{hallaIn.Image}}" ng-if="hallaIn.Image != undefined || hallaIn.Image != ''">	
 					</div>
 					<p>{{hallaIn.Subject}}</p>
@@ -56,7 +56,7 @@
 				<div class="noticeListWrap">
 					<ul>
 						<li ng-repeat="notice in noticeList">
-							<a ng-click="boardDetail($event, notice, notice.BoardType, '공지사항')">{{notice.Subject}}</a>
+							<a ng-click="boardDetail(notice, notice.BoardType, '공지사항')">{{notice.Subject}}</a>
 						</li>
 					</ul>
 				</div>
@@ -71,7 +71,7 @@
 				<div class="hallaRoadListWrap">
 					<ul>
 						<li ng-repeat="press in pressList">
-							<a ng-click="boardDetail($event, press, press.BoardType, 'Funla')">{{press.Subject}}</a>
+							<a ng-click="boardDetail(press, press.BoardType, 'Funla')">{{press.Subject}}</a>
 						</li>
 					</ul>
 				</div>
@@ -79,4 +79,3 @@
 		</div>
 		
 	</div>
-</div>
