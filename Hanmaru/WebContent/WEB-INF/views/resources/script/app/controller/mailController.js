@@ -2320,15 +2320,22 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 	
 	// (공통)첨부파일 다운로드
 	$s.btnDownloadAttachFile = function(index, fileURL, fileName) {
+		console.log($rs.agent);
 		// 여기에 하이브리드 기능 기술
 		if($rs.agent == 'android') {
 			if(androidWebView != undefined) {
 				androidWebView.downloadAttachFile(fileURL, fileName);
 			}
 			
-		} else if($rs.agent == 'ios') {
+		}
+		//2020.04.16 수정 - ipad 프로 9.7 대응하기 위함.
+		else{ 
 			webkit.messageHandlers.iosDownloadAttachFile.postMessage({fileURL:fileURL,fileName:fileName});
 		}
+		
+//		else if($rs.agent == 'ios') {
+//			webkit.messageHandlers.iosDownloadAttachFile.postMessage({fileURL:fileURL,fileName:fileName});
+//		}
 	}
 	
 	// ios file download success return

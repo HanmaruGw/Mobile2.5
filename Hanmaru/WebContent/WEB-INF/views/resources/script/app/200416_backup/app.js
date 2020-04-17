@@ -676,9 +676,45 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 		$rs.pmSabun2 = pmSabun2;
 	};
 	
+	var checkUserMainView = function(userType){
+		//계열사별 메인화면 개편
+		if(userType === '00001'){
+			$rs.userCompMainView = 'halla';
+		}
+		else if('00002'){
+			$rs.userCompMainView = 'holdings';
+		}
+		else if('00005'){
+			$rs.userCompMainView = 'mando';
+		}
+		else{
+			$rs.userCompMainView = 'mando';
+		}
+	}
+	
+
+//	var loadController = function(){
+//		//lazy load
+//		$ocLazyLoad.load([
+//		  '/resources/script/app/controller/mailController.js',
+//		  '/resources/script/app/controller/mainNewsController.js',
+//		  '/resources/script/app/controller/attendanceController.js',
+//		  '/resources/script/app/controller/reservController.js',
+//		  '/resources/script/app/controller/boardController.js',
+//		  '/resources/script/app/controller/settingController.js',
+//		  '/resources/script/app/controller/approvalController.js',
+//		  '/resources/script/app/controller/organController.js',
+//		  '/resources/script/app/controller/workDiaryController.js',
+//		  '/resources/script/app/controller/mandoMainController.js'
+//		]).then(function(){
+//			$rs.isTamplateLoad = true;
+//		});
+//	}	
+	
 	$rs.accessUser = function(accessInfoData){
 //		lazy loading
 		$rs.isTamplateLoad = true;
+//		loadController();
 		
 		if(accessInfoData.isPinLogin){//$s.isPinLogin //변경
 			var loginData = {
@@ -720,10 +756,11 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 //				lazy loading
 				$rs.isEditorLoaded = true;
 				$rs.userInfo = JSON.parse(data.value);
+				
 //				console.log('유저정보 : ',$rs.userInfo );
 				
 				//계열사별 메인화면 변경
-//				checkUserMainView($rs.userInfo.CompCode);
+				checkUserMainView($rs.userInfo.CompCode);
 				
 				var userData = accessInfoData.isPinLogin ? $rs.appUserId : accessInfoData.userID;
 //				var param2 = callApiObjectGET('https://eptest.halla.com/mail/ApiPage.aspx',{param : userData}); //추후 변경해야됨(ep.halla)
@@ -748,24 +785,6 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 				});
 				
 				if($rs.userInfo.MainView.toUpperCase() === 'NEWS'){
-//					//계열사별 메인화면
-//					if($rs.userInfo.CompCode === '00001'){
-//						$rs.userCompMainView = 'halla';
-////						$rs.$broadcast('initHallaMain');
-//					}
-//					else if($rs.userInfo.CompCode === '00002'){
-//						$rs.userCompMainView = 'holdings';
-////						$rs.$broadcast('initHoldingsMain');
-//					}
-//					else if($rs.userInfo.CompCode === '00005'){
-//						$rs.userCompMainView = 'mando';
-////						$rs.$broadcast('initMandoMain');
-//					}
-//					else{
-//						$rs.userCompMainView = 'mando';
-////						$rs.$broadcast('initMandoMain');
-//					}
-					
 					$rs.$broadcast('initMainBox');
 				}else if($rs.userInfo.MainView.toUpperCase() === 'MAIL'){
 					$rs.$broadcast('initMailBox');

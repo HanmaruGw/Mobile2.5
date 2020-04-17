@@ -1,5 +1,5 @@
 // mainController
-appHanmaru.controller('mainListController', ['$scope', '$http', '$rootScope', '$timeout', function($s, $http, $rs, $timeout){
+appHanmaru.controller('mandoMainController', ['$scope', '$http', '$rootScope', '$timeout', function($s, $http, $rs, $timeout){
 	$s.headSubject = '';
 	$s.headImage = '';
 	$s.bannerImage = '';
@@ -13,7 +13,7 @@ appHanmaru.controller('mainListController', ['$scope', '$http', '$rootScope', '$
 	
 	$s.bannerImageList = new Array();
 	
-	$rs.$on('initMainBox', function(event) {
+	$rs.$on('initMandoMain', function(event) {
 		var param = callApiObject('board', 'boardBoxs', {LoginKey:$rs.userInfo.LoginKey,CompanyCode:''});
 		$http(param).success(function(data) {
 			var boardData = JSON.parse(data.value);
@@ -29,35 +29,19 @@ appHanmaru.controller('mainListController', ['$scope', '$http', '$rootScope', '$
 			console.log('user 계열사  :', $rs.userCompMainView);
 			
 			//여기서 계열사별 구분 예정.
-//			$rs.$broadcast('initMainList',boardData);
-//			var pageName = angular.element('[class^="panel"][class*="current"]').attr('id');
-////			pushPage(pageName, 'pg_main_list');
-//			console.log('현재 페이지 : ',pageName);
-			
-			$rs.$broadcast('initMainList',boardData);
+			$rs.$broadcast('initMandoMainList',boardData);
+//			$rs.$broadcast('initMandoMain',boardData);
+//			
 			var pageName = angular.element('[class^="panel"][class*="current"]').attr('id');
-			//계열사별 메인화면
-			if($rs.userInfo.CompCode === '00001'){
-//				$rs.$broadcast('initHallaMain');
-				pushPage(pageName, 'pg_main_list');
-			}
-			else if($rs.userInfo.CompCode === '00002'){
-//				$rs.$broadcast('initHoldingsMain');
-				pushPage(pageName, 'pg_main_list');
-			}
-			else if($rs.userInfo.CompCode === '00005'){
-//				$rs.$broadcast('initMandoMain');
-				pushPage(pageName, 'pg_main_list');
-			}
-			else{
-//				$rs.$broadcast('initMandoMain');
-				pushPage(pageName, 'pg_main_list');
-			}
+//			pushPage(pageName, 'pg_main_list');
 			
+			console.log('현재 페이지 : ',pageName);
+			pushPage(pageName, 'pg_main_mando_view');
 		});
 	});
 	
-	$rs.$on('initMainList',function(event,boardData){
+	
+	$rs.$on('initMandoMainList',function(event,boardData){
 		$('.mainContentsDiv').scrollTop(0);
 		
 		$rs.dialog_progress = true;
@@ -261,4 +245,5 @@ appHanmaru.controller('mainListController', ['$scope', '$http', '$rootScope', '$
 		pushPage(pageName, 'pg_board_list');
 		$rs.$broadcast('initBoardList',$s.boardType,$s.masterID,$s.displayName);
 	}
+	
 }]);

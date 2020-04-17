@@ -49,6 +49,12 @@ select option[value="? undefined:undefined ?"]{display:none}
 }
 
 #pg_main.panel{z-index:1000/* --> TEST;background-color:#FF0*/}
+
+/* 계열사별 메인 추가 */
+#pg_main_halla_view.panel{z-index:1500;background-color:#FFF}
+#pg_main_holdings_view.panel{z-index:1500;background-color:#FFF}
+#pg_main_mando_view.panel{z-index:1500;background-color:#FFF}
+
 #pg_board_list.panel{z-index:2000;background-color:#FFF}
 #pg_board_view.panel{z-index:3000;background-color:#FFF}
 
