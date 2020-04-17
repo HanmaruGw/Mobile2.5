@@ -5,8 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="iE-edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 		<title>Hanmaru 모바일 그룹웨어</title>
-		<link rel="stylesheet" href="/resources/css/app/style_old_main.css"/>
-		<!-- <link rel="stylesheet" href="/resources/css/app/style.css"/> -->
+		<link rel="stylesheet" href="/resources/css/app/style.css"/>
 		<link rel="stylesheet" href="/resources/css/lib/angular-third/angular-pull-to-refresh.css"/>
 		<link rel="stylesheet" href="/resources/css/lib/pullToRefresh/xpull.css"/>
 		<link rel="stylesheet" href="/resources/script/lib/calendar/fullcalendar.css"/>
@@ -55,8 +54,7 @@
 		
 		<!-- Controllers -->
 		<script src="/resources/script/app/controller/mailController.js"></script> <!-- 메일 -->
-		<script src="/resources/script/app/controller/mainNewsController_bak(old_main).js"></script> <!-- 메인뉴스 old -->
-		<!-- <script src="/resources/script/app/controller/mainNewsController.js"></script> 메인뉴스 new-->
+		<script src="/resources/script/app/controller/mainNewsController.js"></script> <!-- 메인뉴스 new -->
 		<script src="/resources/script/app/controller/attendanceController.js"></script> <!-- 근태관리 -->
 		<script src="/resources/script/app/controller/reservController.js"></script> <!-- 자원예약 -->
 		<script src="/resources/script/app/controller/boardController.js"></script> <!-- 게시판 -->
@@ -64,11 +62,6 @@
 		<script src="/resources/script/app/controller/approvalController.js"></script> <!-- 결재 -->
 		<script src="/resources/script/app/controller/organController.js"></script> <!-- 조직도 -->
 		<script src="/resources/script/app/controller/workDiaryController.js"></script> <!-- 워크다이어리 -->
-		
-		<!-- 메인 계열사 개편 -->
-		<script src="/resources/script/app/controller/mainViews/holdingsMainController.js"></script> <!-- 만도 -->
-		<script src="/resources/script/app/controller/mainViews/hallaMainController.js"></script> <!-- 만도 -->
-		<script src="/resources/script/app/controller/mainViews/mandoMainController.js"></script> <!-- 만도 -->
 		
 	</head>
 	
@@ -88,13 +81,8 @@
 		<div ng-include="'/html/app/member/login.html'" id="pg_login" class="panel login container" ></div> <!-- ng-show="!isAutoLogin" -->
 		
 		<!-- 메인 계열사 개편-->
-		<div ng-if="isTamplateLoad" ng-include="'/html/app/main_old.html'" id="pg_main_list" class="panel setting" ></div>
-		<!-- <div ng-if="isTamplateLoad" ng-include="'/html/app/main_new.html'" id="pg_main_list" class="panel main container" ></div> -->
-		
-		<!-- 계열사별 화면 상세 -->
-		<!-- <div ng-if="isTamplateLoad" ng-include="'/html/app/news/halla_news.html'" id="pg_main_halla_view" class="panel main container" ></div>
-		<div ng-if="isTamplateLoad" ng-include="'/html/app/news/holdings_news.html'" id="pg_main_holdings_view" class="panel main container" ></div>
-		<div ng-if="isTamplateLoad" ng-include="'/html/app/news/mando_news.html'" id="pg_main_mando_view" class="panel main container" ></div> -->
+		<!-- <div ng-if="isTamplateLoad" ng-include="'/html/app/main_old.html'" id="pg_main_list" class="panel setting" ></div> -->
+		<div ng-if="isTamplateLoad" ng-include="'/html/app/main_new.html'" id="pg_main_list" class="panel main container" ></div>
 		
 		<!-- 게시판 -->
 		<div ng-if="isTamplateLoad" ng-include="'/html/app/board/board_list.html'" id="pg_board_list" class="panel board container" ng-show="currMenuSlide" ng-class="{'ng-show': currMenuSlide == true}"></div>

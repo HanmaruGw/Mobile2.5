@@ -676,9 +676,45 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 		$rs.pmSabun2 = pmSabun2;
 	};
 	
+	var checkUserMainView = function(userType){
+		//계열사별 메인화면 개편
+		if(userType === '00001'){
+			$rs.userCompMainView = 'halla';
+		}
+		else if('00002'){
+			$rs.userCompMainView = 'holdings';
+		}
+		else if('00005'){
+			$rs.userCompMainView = 'mando';
+		}
+		else{
+			$rs.userCompMainView = 'mando';
+		}
+	}
+	
+
+//	var loadController = function(){
+//		//lazy load
+//		$ocLazyLoad.load([
+//		  '/resources/script/app/controller/mailController.js',
+//		  '/resources/script/app/controller/mainNewsController.js',
+//		  '/resources/script/app/controller/attendanceController.js',
+//		  '/resources/script/app/controller/reservController.js',
+//		  '/resources/script/app/controller/boardController.js',
+//		  '/resources/script/app/controller/settingController.js',
+//		  '/resources/script/app/controller/approvalController.js',
+//		  '/resources/script/app/controller/organController.js',
+//		  '/resources/script/app/controller/workDiaryController.js',
+//		  '/resources/script/app/controller/mandoMainController.js'
+//		]).then(function(){
+//			$rs.isTamplateLoad = true;
+//		});
+//	}	
+	
 	$rs.accessUser = function(accessInfoData){
 //		lazy loading
 		$rs.isTamplateLoad = true;
+//		loadController();
 		
 		if(accessInfoData.isPinLogin){//$s.isPinLogin //변경
 			var loginData = {
@@ -720,21 +756,11 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 //				lazy loading
 				$rs.isEditorLoaded = true;
 				$rs.userInfo = JSON.parse(data.value);
+				
 //				console.log('유저정보 : ',$rs.userInfo );
 				
 				//계열사별 메인화면 변경
-				if($rs.userInfo.CompCode === '00001'){
-					$rs.userCompMainView = 'halla';
-				}
-				else if($rs.userInfo.CompCode === '00002'){
-					$rs.userCompMainView = 'holdings';
-				}
-				else if($rs.userInfo.CompCode === '00005'){
-					$rs.userCompMainView = 'mando';
-				}
-				else{
-					$rs.userCompMainView = 'mando';
-				}
+				checkUserMainView($rs.userInfo.CompCode);
 				
 				var userData = accessInfoData.isPinLogin ? $rs.appUserId : accessInfoData.userID;
 //				var param2 = callApiObjectGET('https://eptest.halla.com/mail/ApiPage.aspx',{param : userData}); //추후 변경해야됨(ep.halla)
@@ -1223,8 +1249,23 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 							$rs.currSubMenu = boxList.Menus[0].MenuKey; 
 							$rs.$broadcast('init'+capitalMenuName+'List',boxList.Menus[0].MenuName);
 						}else if(menuName === 'main'){
-							
-							$rs.$broadcast('initMainBox');
+							var param = callApiObject('board', 'boardBoxs', {LoginKey:$rs.userInfo.LoginKey,CompanyCode:''});
+							$http(param).success(function(data) {
+								var boardData = JSON.parse(data.value);
+								
+//								console.log('메인 box : ', boardData);
+								
+								//2020.03.24 추가 - Funla 게시판 제거
+								let a = [ {f1: 1, f2: 2}, {f1: 3, f2: 4} ] 
+								const itemToFind = boardData.find(function(item) {return item.MasterID == '4678'})
+								const idx = boardData.indexOf(itemToFind) 
+								if (idx > -1) boardData.splice(idx, 1);
+
+								$rs.subMenuType = 'main';
+								$rs.subMenuList = boardData;
+								
+								$rs.$broadcast('init'+capitalMenuName+'List',boardData);
+							});
 						}else if(menuName === 'board'){
 							$rs.loading();
 							$rs.subMenuType = 'board';
@@ -1502,7 +1543,22 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 		$s.doBlurLayout();
 	};
 	
+// $s.btnDoLogout = function(){
+// var chkDoLogout = confirm("로그아웃 하시겠습니까?");
+//		
+// if(chkDoLogout) {
+// $rs.userInfo = undefined;
+// $rs.slideMenuShow = false;
+// $rs.currMenuSlide = false;
+//			
+// var currPage = angular.element('[class^="panel"][class*="current"]');
+// var pageName = currPage.eq(currPage.length-1).attr('id'); // 가장 위에 출력된 화면
+// pushPage(pageName, 'pg_login');
+// }
+// }
+	
 }]);
+
 
 
 function callApiObject(apiType, apiName, data) {
