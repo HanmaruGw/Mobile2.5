@@ -33,10 +33,21 @@ appHanmaru.controller('settingController', ['$scope', '$http', '$rootScope', '$t
 			{'code':'BOARD','name':$rs.translateLanguage('board')},
 		];
 		
+		//폰트크기
+		$s.fontsizeList = [
+			{'code':'BIG','name':'크게'},
+			{'code':'DEFAULT','name':'보통'},
+			{'code':'SMALL','name':'작게'},
+			];
+		
 		$s.myLanguageCode = $s.languageList[0].code;
 		$s.myLanguageName = $s.languageList[0].name;
 		$s.myMainpageCode = $s.mainPageList[0].code;
 		$s.myMainpageName = $s.mainPageList[0].name;
+		
+		//폰트크기
+		$s.myFontSizeCode = $s.fontsizeList[0].code;
+		$s.myFontSizeName = $s.fontsizeList[0].name;
 		
 		var param = callApiObject('setting', 'getSetting', {LoginKey:$rs.userInfo.LoginKey});
 		$http(param).success(function(data) {
@@ -106,6 +117,13 @@ appHanmaru.controller('settingController', ['$scope', '$http', '$rootScope', '$t
 		$rs.pushOnePage('pg_setting_mainpage');
 		$rs.$broadcast('initMainpageList',$s.myMainpageCode,$s.mainPageList);
 	}
+	
+	//폰트 사이즈 설정 이동
+	$s.btnFontsSetting = function(event){
+		$rs.pushOnePage('pg_setting_fonts');
+		$rs.$broadcast('initFontList',$s.myFontSizeCode,$s.fontsizeList);
+	}
+	
 	// 결재처리 알림
 	$s.btnApprovalPush = function(event){
 		
@@ -228,8 +246,16 @@ appHanmaru.controller('settingController', ['$scope', '$http', '$rootScope', '$t
 		requestSettings();
 	});
 	
+	// 글자크기 설정
+	$rs.$on('setFonts',function(event,fontsizeCode,fontsizeName){
+		$s.myFontSizeCode = fontsizeCode;
+		$s.myFontSizeName = fontsizeName;
+		
+		
+	});
+	
 	// 로그아웃
-	$s.btnDoLogout = function(){
+	$rs.btnDoLogout = function(){
 		var chkDoLogout = confirm($rs.translateLanguage('logout_question_text'));
 		if(chkDoLogout) {
 			logout();
@@ -315,6 +341,34 @@ appHanmaru.controller('settingLanguageController', ['$scope', '$http', '$rootSco
 		
 		$rs.$broadcast('setLanguage',$s.languageCode,$s.languageName);
 		$rs.popPage('pg_setting_language');
+	};
+	
+}]);
+appHanmaru.controller('settingFontsController', ['$scope', '$http', '$rootScope', '$timeout', function($s, $http, $rs, $timeout){
+	$s.fontsizeList;
+	$s.fontSizeCode;
+	$s.fontSizeName;
+	$s.curIdx;
+	
+	$rs.$on('initFontList',function(event, myLanguage, fontsizeList){
+		$s.fontsizeList = fontsizeList;
+		for(idx in fontsizeList){
+			if(fontSizeList[idx].code === myLanguage){
+				$s.curIdx = idx;
+			}
+		};
+	});
+	
+	$s.btnSelectFont = function(idx){
+		$s.curIdx = idx;
+	};
+	
+	$s.setFonts= function(){
+		$s.fontSizeCode = $s.fontsizeList[$s.curIdx].code;
+		$s.fontSizeName = $s.fontsizeList[$s.curIdx].name;
+		
+		$rs.$broadcast('setFonts',$s.fontSizeCode,$s.fontSizeName);
+		$rs.popPage('pg_setting_fonts');
 	};
 	
 }]);

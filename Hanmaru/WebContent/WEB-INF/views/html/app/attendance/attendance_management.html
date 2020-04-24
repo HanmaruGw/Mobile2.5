@@ -15,47 +15,86 @@
 		</div>
 		<div class="headerUnderBar "></div>
 	</div>
-	<div class="attendanceManagementBack" ng-click="toggleTimeSelectPopup($event)" ng-show="isStartTimeShow || isEndTimeShow"></div>
+	<div class="attendanceManagementBack" ng-click="toggleTimeSelectPopup($event)" ng-show="isStartTimeShow || isEndTimeShow || isLunchTimeShow || isMinusTimeShow"></div>
 	<div class="attendanceManagementDiv" >
 		<div class="attendanceManagementContents">
 			<div class="attendanceManagementDate" ng-click="chooseSearchDate('start')">
 				<input type="text" readonly="readonly" class="txtDateSearch" ng-model="txtNowDate" ng-trim="true">
 			</div>
-			<div class="officeAttendanceTime">
-				<p>{{translateLanguage('time_start_time')}}</p>
-				<div class="attendanceTimeLabel"  ng-click="selectStartTime()">
-					<ul>
-						<li class="attendanceTimeBase">
-							<a class="attendanceSelectTime">{{txtStartTimeName}}</a>
-							<ul id="attendanceTimeList" class="attendanceTimeList" ng-show="isStartTimeShow == true">
-								<li ng-repeat="time in timeList" ng-click="applyStartTime($index,time)">
-									<a ng-class="{'selected' : selectedStartTimeIdx == $index}">{{time.name}}</a>
-									<img src="/resources/image/ic_check_select.png" ng-show="selectedStartTimeIdx == $index">
-								</li>
-							</ul>
-						</li>
-					</ul>
+			
+			<div class="officeAttendanceTimeWrapper">
+				<div class="officeAttendanceTime">
+					<p>{{translateLanguage('time_start_time')}}</p>
+					<div class="attendanceTimeLabel"  ng-click="selectStartTime()">
+						<ul>
+							<li class="attendanceTimeBase">
+								<a class="attendanceSelectTime">{{txtStartTimeName}}</a>
+								<ul id="attendanceTimeList" class="attendanceTimeList" ng-show="isStartTimeShow == true">
+									<li ng-repeat="time in timeList" ng-click="applyStartTime($index,time)">
+										<a ng-class="{'selected' : selectedStartTimeIdx == $index}">{{time.name}}</a>
+										<img src="/resources/image/ic_check_select.png" ng-show="selectedStartTimeIdx == $index">
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="officeQuittingTime">
+					<p>{{translateLanguage('time_end_time')}}</p>
+					<div class="quittingTimeLabel" ng-click="selectEndTime($event)">
+						<ul>
+							<li class="quittingTimeBase" >
+								<a class="quittingSelectTime">{{txtEndTimeName}}</a>
+								<ul id="quittingTimeList" class="quittingTimeList" ng-show="isEndTimeShow == true">
+									<li ng-repeat="time in timeList" ng-click="applyEndTime($index,time)">
+										<a ng-class="{'selected' : selectedEndTimeIdx == $index}">{{time.name}}</a>
+										<img src="/resources/image/ic_check_select.png" ng-show="selectedEndTimeIdx == $index">
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
-			<div class="officeQuittingTime">
-				<p>{{translateLanguage('time_end_time')}}</p>
-				<div class="quittingTimeLabel" ng-click="selectEndTime($event)">
-					<ul>
-						<li class="quittingTimeBase" >
-							<a class="quittingSelectTime">{{txtEndTimeName}}</a>
-							<ul id="quittingTimeList" class="quittingTimeList" ng-show="isEndTimeShow == true">
-								<li ng-repeat="time in timeList" ng-click="applyEndTime($index,time)">
-									<a ng-class="{'selected' : selectedEndTimeIdx == $index}">{{time.name}}</a>
-									<img src="/resources/image/ic_check_select.png" ng-show="selectedEndTimeIdx == $index">
-								</li>
-							</ul>
-						</li>
-					</ul>
+			
+			<div class="officeLunchMinusTimeWrapper">
+				<div class="officeLunchTime">
+					<p>중식시간</p>
+					<div class="attendanceTimeLabel"  ng-click="selectLunchTime($event)">
+						<ul>
+							<li class="LunchTimeBase">
+								<a class="LunchSelectTime">{{txtLunchTimeName}}</a>
+								<ul id="LunchTimeList" class="LunchTimeList" ng-show="isLunchTimeShow == true">
+									<li ng-repeat="time in lunchTimeList" ng-click="applyLunchTime($index,time)">
+										<a ng-class="{'selected' : selectedLunchTimeIdx == $index}">{{time.name}}</a>
+										<img src="/resources/image/ic_check_select.png" ng-show="selectedLunchTimeIdx == $index">
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="officeMinusTime">
+					<p>공제시간</p>
+					<div class="quittingTimeLabel" ng-click="selectMinusTime($event)">
+						<ul>
+							<li class="minusTimeBase" >
+								<a class="minusSelectTime">{{txtMinusTimeName}}</a>
+								<ul id="minusTimeList" class="minusTimeList" ng-show="isMinusTimeShow == true">
+									<li ng-repeat="time in minusTimeList" ng-click="applyMinusTime($index,time)">
+										<a ng-class="{'selected' : selectedMinusTimeIdx == $index}">{{time.name}}</a>
+										<img src="/resources/image/ic_check_select.png" ng-show="selectedMinusTimeIdx == $index">
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
+			
 		</div>
 		<div class="attendanceCumulativeTime">
-			<span class="otCumulativeLabel">{{translateLanguage('time_ot_time')}}</span>
+			<span class="otCumulativeLabel">{{translateLanguage('time_ot_time')}} <span> ( {{txtCurrentMonth}} 월 기준시간 : {{txtWorkingDay}} )</span></span>
 			<div class="attendanceCumulativeWrap">
 				<div class="attendanceWeeklyTime">
 					<div class="weeklyTimeLabel">

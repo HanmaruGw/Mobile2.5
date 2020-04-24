@@ -144,13 +144,11 @@ appHanmaru.controller('approvalController', ['$scope', '$http', '$rootScope', '$
 		var param = callApiObject('approval', 'approval', reqApprovalData);
 		$http(param).success(function(data) {
 			var approvalData = JSON.parse(data.value);
+//			console.log('결재 : ', approvalData);
 			
 			//2020.01.29 추가
 			//메일에서 결재 상세 페이지 열때 상단 헤더에 제목 변경하기 위함.
 			//미결,반려 결재문서는 기본 온라인 문서고 리스트에 표기되지 않음.
-			
-//			console.log('메일에서 넘어온 결재 : ',approvalData);
-			
 			if(displayName=="온라인 문서고"){
 			    if(approvalData.State =="Process"){
 			        displayName="미결함";
@@ -540,7 +538,6 @@ appHanmaru.controller('approvalDetailController', ['$scope', '$http', '$rootScop
 				elemFirstDiv.css({'user-select':'','-webkit-user-drag':'','touch-action':''});
 				elemThirdDiv.css({'overflow':'','user-select':'','-webkit-user-drag':'','touch-action':''});
 				elemDivImg.css({'user-select':'','-webkit-user-drag':'','touch-action':'auto'});
-				
 			}
 		};
 		

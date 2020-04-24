@@ -1,7 +1,8 @@
-<!-- <div ng-show="userCompMainView === 'holdings'" class="mainContainer" id="mainListController" ng-controller="holdingsMainController"> -->
+<!-- <div class="mainContainer" id="mainListController" ng-controller="mandoMainController"> -->
+<!-- Holdings Main -->
 	<!-- 헤더바 -->
 	<div class="headerBar headTopBg">
-		<div class="headerBarMenu" ng-click="slideMenuClick($event,true)">
+		<div class="headerBarMenu"  ng-click="slideMenuClick($event,true)" ><!-- -->
 			<img src="/resources/image/main/menu_img.png">
 		</div>
 		<div class="headerBarTitle">
@@ -16,8 +17,7 @@
 		<!-- <div class="headerUnderBar"></div> -->
 		
 	</div>
-	<div>한라 홀딩스</div>
-	<div class="mainNaviBar">
+	<div class="mainNaviBar" sideMenuswipe="cancel">
 		<ul>
 			<li ng-click="btnMainPage()"><a>{{translateLanguage('home_news')}}</a></li>
 			<li ng-click="btnWorkDiaryPage()"><a>{{translateLanguage('home_work')}}</a></li>
@@ -28,55 +28,120 @@
 			<li ng-click="btnResourcePage()"><a>{{translateLanguage('home_resource')}}</a></li>
 		</ul>
 	</div>
+	<div class="mainHeaderUnderBar">
+	</div>
 	<div class="mainContentsDiv">
-		<div class="mainVisualWrap" ng-click="boardDetail(mainData.Head, mainData.Head.BoardType, mainData.Head.BoardTitle)">
-			<img class="mainVisualImage" ng-src="{{headImage}}">
-			<span  class="mainVisualTitle">
-				<span>{{headSubject}}</span>
-			</span>
-		</div>
 		<div class="contentsSlideDiv">
+			<div class="contentsTitleWrap">
+				<span ng-click="selectHallaNews()">Meister News</span>
+				<img class="contentsTitleImg" src="/resources/image/main/ic_right_arrow.png" ng-click="selectHallaNews()">
+			</div>
 			<div class="contentsSlideWrap">
 				<div class="contentsSlideFixBox" ng-repeat="hallaIn in hallaInList" ng-click="boardDetail(hallaIn, hallaIn.BoardType, hallaIn.BoardTitle)" sideMenuswipe="cancel"> <!-- ng-swipe-right="cancelSwipeSideMenu($event)" ng-swipe-left="cancelSwipeSideMenu($event)"  -->
 					<div class="contentsSlideFixImgDiv" >
-						<img ng-src="{{hallaIn.Image}}" ng-if="hallaIn.Image != undefined || hallaIn.Image != ''">	
+						<img  ng-src="{{hallaIn.Image}}"  ng-if="hallaIn.Image != undefined || hallaIn.Image != ''">	<!-- -->
 					</div>
 					<p>{{hallaIn.Subject}}</p>
 				</div>
 			</div>
 		</div>
-		<div>
-			<img class="mainBannerImage" ng-src="{{bannerImage}}" ng-click="btnMainBanner($event)">
-		</div>
-		<div class="mainNoticeDiv">
-			<div class="mainNoticeWrap">
-				<span>{{translateLanguage('notice')}}</span>
-				<a><img src="/resources/image/main/ic_more_normal.png" ng-click="btnPartnerMore()"></a>
+		<div class="mainContentsDivider"></div>
+		
+		<div class="mainCompanyDiv">
+			<div class="contentsTitleWrap">
+				Mando News
 			</div>
-			<div class="mainNoticeList">
-				<div class="noticeListWrap">
+			<div class="mainHeaderUnderBar"></div>
+			<div class="mainCompanyWrap" sideMenuswipe="cancel">
+				<!-- <span>{{translateLanguage('notice')}}</span>
+				<a><img src="/resources/image/main/ic_more_normal.png" ng-click="btnPartnerMore()"></a> -->
+				<ul>
+					<li ng-click=selectCompanyNewsTab(0) ng-class="{'selected' : companyNewsTab == 0 }" ><a>뉴스센터</a></li>
+					<li ng-click=selectCompanyNewsTab(1) ng-class="{'selected' : companyNewsTab == 1 }" ><a>노경뉴스</a></li>
+					<li ng-click=selectCompanyNewsTab(2) ng-class="{'selected' : companyNewsTab == 2 }" ><a>자동차뉴스</a></li>
+					<li ng-click=selectCompanyNewsTab(3) ng-class="{'selected' : companyNewsTab == 3 }" ><a>Global R&D Info</a></li>
+				</ul>
+			</div>
+			<div class="mainHeaderUnderBar"></div>
+			<div class="mainCompanyBoardList">
+				<div class="mainCompanyBoardListWrap">
 					<ul>
-						<li ng-repeat="notice in noticeList">
-							<a ng-click="boardDetail(notice, notice.BoardType, '공지사항')">{{notice.Subject}}</a>
+						<li ng-repeat="news in newsBoardList">
+							<a ng-click="boardDetail(news, news.BoardType, '공지사항')">{{news.Subject}}</a>
 						</li>
 					</ul>
 				</div>
 			</div>
 		</div>
-		<div class="mainHallaRoadDiv">
-			<div class="mainHallaRoadWrap">
-				<span>Funla</span>
-				<a><img src="/resources/image/main/ic_more_normal.png" ng-click="btnOrganMore()"></a>
+		
+		<!-- 이미지 슬라이드 -->
+		<div class="mainBannerWrapper" sideMenuswipe="cancel"> <!-- 해당 영역은 스와이프 메뉴 작동안하도록 처리 -->
+			<ul rn-carousel class="mainBannerSlide" rn-carousel-index="carouselIndex" rn-carousel-auto-slide rn-carousel-pause-on-hover rn-carousel-transition="slide">
+			  <li ng-repeat="banner in bannerImageList">
+			    <img class="mainBannerImage" ng-src="{{banner.Image}}" ng-click="btnMainBanner(banner)">
+			   
+			  </li>
+			</ul>
+			<div class="mainBannerIndicator" ng-if="bannerImageList.length > 0" rn-carousel-indicators slides="bannerImageList" rn-carousel-index="carouselIndex"></div><!--  ng-if="bannerImageList" -->
+		</div>
+		
+		<div class="contentsVerticalSlideDiv">
+			<div class="contentsTitleWrap">
+				<span ng-click="selectHallaTube()">인기콘텐츠</span>
+				<img class="contentsTitleImg" src="/resources/image/main/ic_right_arrow.png" ng-click="selectHallaTube()">
 			</div>
-			<div class="mainHallaRoadList">
-				<div class="hallaRoadListWrap">
+			<div class="contentsSlideWrap">
+				<div class="contentsVerticalSlideFixBox" ng-repeat="hallaIn in hallaInList | limitTo : 3" ng-click="boardDetail(hallaIn, hallaIn.BoardType, hallaIn.BoardTitle)" sideMenuswipe="cancel"> <!-- ng-swipe-right="cancelSwipeSideMenu($event)" ng-swipe-left="cancelSwipeSideMenu($event)"  -->
+					<div class="contentsVerticalSlideFixImgDiv" >
+						<img class="contentsImg"  ng-src="{{hallaIn.Image}}" ng-if="hallaIn.Image != undefined || hallaIn.Image != ''">	<!--  -->
+					</div>
+					<div class="contentsVerticalSlideFixBoxContents">
+						<p>{{hallaIn.Subject}}</p>
+						<div class="hitCountText">
+							<img class="contentsHitIcon" src="/resources/image/board/ic_board_view.png"><span>3290</span> 
+							<img class="contentsCommentIcon" src="/resources/image/main/ic_bubble.png"><span>6</span> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="mainContentsDivider"></div>
+		
+		
+		<div class="mainCompanyDiv">
+			<div class="contentsTitleWrap">
+				Communication
+			</div>
+			<div class="mainHeaderUnderBar"></div>
+			<div class="mainCompanyWrap" sideMenuswipe="cancel">
+				<ul>
+					<li ng-click=selectCompanyBoardTab(0) ng-class="{'selected' : companyBoardTab == 0 }" ><a>경조사</a></li>
+					<li ng-click=selectCompanyBoardTab(1) ng-class="{'selected' : companyBoardTab == 1 }" ><a>복지게시판</a></li>
+					<li ng-click=selectCompanyBoardTab(2) ng-class="{'selected' : companyBoardTab == 2 }" ><a>감사합니데이</a></li>
+					<li ng-click=selectCompanyBoardTab(3) ng-class="{'selected' : companyBoardTab == 3 }" ><a>소통채널 만통</a></li>
+				</ul>
+			</div>
+			<div class="mainHeaderUnderBar"></div>
+			<div class="mainCompanyBoardList">
+				<div class="mainCompanyBoardListWrap">
 					<ul>
-						<li ng-repeat="press in pressList">
-							<a ng-click="boardDetail(press, press.BoardType, 'Funla')">{{press.Subject}}</a>
+						<li ng-repeat="board in companyBoardList">
+							<a ng-click="boardDetail(board, board.BoardType, '공지사항')">{{board.Subject}}</a>
 						</li>
 					</ul>
 				</div>
 			</div>
+		</div>
+		
+		<!-- 하단 footer -->
+		<div class="mainNewsFooterWrapper">
+			<div class="footerButtonWrapper">
+				<div class="footerButton" ng-click="btnDoLogout()">로그아웃</div>
+				<div class="footerButton" ng-click="openWebHanmaru()">PC 버전</div>
+			</div>
+			<div class="footerCopyright">&copy;Halla Group.All Rights Reserved</div>
+			
 		</div>
 	</div>
 <!-- </div> -->

@@ -62,6 +62,7 @@ select option[value="? undefined:undefined ?"]{display:none}
 #pg_setting_company.panel{z-index:4000;background-color:#FFF}
 #pg_setting_language.panel{z-index:4000;background-color:#FFF}
 #pg_setting_mainpage.panel{z-index:4000;background-color:#FFF}
+#pg_setting_fonts.panel{z-index:4000;background-color:#FFF}
 
 #pg_mail_list.panel{z-index:2000;background-color:#FFF}
 #pg_mail_view.panel{z-index:3000;background-color:#FFF}
@@ -2276,7 +2277,9 @@ diary 검색 드롭다운
 .settingsLang::after{content:"";display:table;clear:both}
 .settingsCompany::after{content:"";display:table;clear:both}
 .settingsView::after{content:"";display:table;clear:both}
-.settingsSelectLang, .settingsSelectCompany, .settingsSelectView, .simplePasswordContents{width:100%;padding:2vw 0}
+.settingsFonts::after{content:"";display:table;clear:both}
+
+.settingsSelectLang, .settingsSelectCompany, .settingsSelectView, .simplePasswordContents, .settingsSelectFont{width:100%;padding:2vw 0}
 .settingsSelectLang .settingsTypeWrap{display:inline-block;width:50%}
 .settingsSelectLang .settingsTypeWrap span{font-size:4vw;display:inline-block;padding-left:2vw;vertical-align:middle}
 .settingsSelectLang .settingsTypeWrap img{display:inline-block;width:6.67vw;vertical-align:middle}
@@ -2289,8 +2292,13 @@ diary 검색 드롭다운
 .simplePasswordContents .settingsTypeWrap{display:inline-block;width:55%}
 .simplePasswordContents .settingsTypeWrap span{font-size:4vw;display:inline-block;padding-left:2vw;vertical-align:middle}
 .simplePasswordContents .settingsTypeWrap img{display:inline-block;width:6.67vw;vertical-align:middle}
+
+.settingsSelectFont .settingsTypeWrap{display:inline-block;width:50%}
+.settingsSelectFont .settingsTypeWrap span{font-size:4vw;display:inline-block;padding-left:3vw;vertical-align:middle}
+.settingsSelectFont .settingsTypeWrap img{display:inline-block;width:6vw;vertical-align:middle}
+
 .simplePasswordContents::after{content:"";display:table;clear:both}
-.settingsLang, .settingsCompany, .settingsView{display:inline-block;width:50%}
+.settingsLang, .settingsCompany, .settingsView, .settingsFonts{display:inline-block;width:50%}
 .settingsLang .settingsLangLabel{display:block;text-align:right}
 .settingsLang .settingsLangLabel span{display:inline-block;font-size:4vw;color:#717883;padding-right:2vw;vertical-align:middle}
 .settingsLang .settingsLangLabel .detailSettingsContents{display:inline-block;width:4.445vw;vertical-align:middle}
@@ -2300,6 +2308,11 @@ diary 검색 드롭다운
 .settingsView .settingsViewLabel{display:block;text-align:right}
 .settingsView .settingsViewLabel span{display:inline-block;font-size:4vw;color:#717883;padding-right:2vw;vertical-align:middle}
 .settingsView .settingsViewLabel .detailSettingsContents{display:inline-block;width:4.445vw;vertical-align:middle}
+
+.settingsFonts .settingFontsLabel{display:block;text-align:right}
+.settingsFonts .settingFontsLabel span{display:inline-block;font-size:4vw;color:#717883;padding-right:2vw;vertical-align:middle}
+.settingsFonts .settingFontsLabel .detailSettingsContents{display:inline-block;width:4.445vw;vertical-align:middle}
+
 .simplePasswordModify{display:inline-block;width:45%}
 .simplePasswordModify .passwordModifyLabel{display:block;text-align:right}
 .simplePasswordModify .passwordModifyLabel span{display:inline-block;font-size:4.5vw;color:#717883;padding-right:2vw;vertical-align:middle}
@@ -2661,37 +2674,64 @@ diary 검색 드롭다운
 .attendanceContainer .headerBar{background: #FFF;}
 .attendanceManagementBack{background: rgba(0,0,0,0);width: 100%;height: 93%;position: absolute;-webkit-transform: translateZ(0);-webkit-backface-visibility:hidden;}
 .attendanceManagementDiv{width: 100%;height: 85%;overflow-y: auto;}
-.attendanceManagementDiv .attendanceManagementContents{margin:0 auto;padding-bottom:9.4vw;text-align:center;background: #FFF;}
+.attendanceManagementDiv .attendanceManagementContents{margin:0 auto;padding-bottom:12vw;text-align:center;background: #FFF;}
 .attendanceManagementDiv .attendanceManagementDate{position:relative;display:inline-block;width:41.112vw;height:4%;margin-top:6.67vw;padding:0.78vw 0;border-bottom:1px solid #4E86FF;text-align:center}
 .attendanceManagementDiv .attendanceManagementDate input{display:inline-block;font-size:4vw;;line-height:160%;width:100%;height:100%;background:url('/resources/image/ic-calendar_blue.png') no-repeat right 6vw center;background-size:13%;border:none;/* text-align:center */text-indent:7vw;color:#4E86FF}
 .attendanceManagementDiv .attendanceManagementDate input::placeholder{color:#4E86FF}
-.attendanceManagementDiv .officeAttendanceTime{margin-top:6.67vw}
+.attendanceManagementDiv .officeAttendanceTime{margin-top:6.67vw;display:inline-block;}
 .attendanceManagementDiv .officeAttendanceTime p{font-size:4.445vw;font-weight:bold;color:#2B2F3B}
+.attendanceManagementDiv .officeLunchTime{margin-top:6.67vw;display:inline-block;}
+.attendanceManagementDiv .officeLunchTime p{font-size:4.445vw;font-weight:bold;color:#2B2F3B}
+
+.attendanceManagementDiv .officeAttendanceTimeWrapper{display:inline-block;margin-top:3vw;}
+.attendanceManagementDiv .officeLunchMinusTimeWrapper{display:inline-block;margin-top:3vw;}
 
 .officeAttendanceTime .attendanceTimeLabel{position:relative;display:inline-block;margin-top:2vw;padding:0 4vw}
 .attendanceTimeLabel ul .attendanceTimeBase{position:relative;text-align:center}
 .officeAttendanceTime .attendanceTimeLabel li a{font-size:3.88vw}
 .officeAttendanceTime .attendanceTimeLabel li a.selected{color:#4E86FF;font-weight:bold}
-.attendanceTimeBase .attendanceSelectTime{font-size:8.89vw !important;font-weight:lighter;color:#2B2F3B}
-.attendanceTimeBase .attendanceTimeList{width:36.57vw;position:absolute;top:12.5vw;left:50%;transform:translateX(-50%);background:#fff;border-radius:2.23vw;border:1px solid #E4E7EB;padding:1.834vw 2vw 4.834vw;box-shadow:#00000030 0 1px 2px 0;z-index:5000;text-align:left;height:51.25vh;overflow-y:scroll;}
+.attendanceTimeBase .attendanceSelectTime{font-size:7vw !important;font-weight:lighter;color:#2B2F3B}
+.attendanceTimeBase .attendanceTimeList{width:36.57vw;position:absolute;top:12.5vw;left:50%;transform:translateX(-50%);background:#fff;border-radius:2.23vw;border:1px solid #E4E7EB;padding:1.834vw 2vw 4.834vw;box-shadow:#00000030 0 1px 2px 0;z-index:5000;text-align:left;height:51vh;overflow-y:scroll;}
 .attendanceTimeBase .attendanceTimeList li{position:relative;padding:2vw 0}
 .attendanceTimeBase .attendanceTimeList li img{position:absolute;top:50%;right:10%;transform:translateY(-50%);width:3.1vw}
 .attendanceTimeBase .attendanceTimeList li .attendanceSelectColor{color:#4E86FF}
 
-.attendanceManagementDiv .officeQuittingTime{margin-top:6.67vw}
+.attendanceManagementDiv .officeQuittingTime{margin-top:6.67vw;display:inline-block;}
 .attendanceManagementDiv .officeQuittingTime p{font-size:4.445vw;font-weight:bold;color:#2B2F3B}
+.attendanceManagementDiv .officeMinusTime{margin-top:6.67vw;display:inline-block;}
+.attendanceManagementDiv .officeMinusTime p{font-size:4.445vw;font-weight:bold;color:#2B2F3B}
 .officeQuittingTime .quittingTimeLabel{position:relative;display:inline-block;margin-top:2vw;padding:0 4vw}
 .quittingTimeLabel ul .quittingTimeBase{position:relative;text-align:center}
 .officeQuittingTime .quittingTimeLabel li a{font-size:3.88vw}
 .officeQuittingTime .quittingTimeLabel li a.selected{color:#4E86FF;font-weight:bold}
-.quittingTimeBase .quittingSelectTime{font-size:8.89vw !important;font-weight:lighter;color:#2B2F3B}
-.quittingTimeBase .quittingTimeList{width:36.57vw;position:absolute;top:12.5vw;left:50%;transform:translateX(-50%);background:#fff;border-radius:2.23vw;border:1px solid #E4E7EB;padding:1.834vw 2vw 4.834vw;box-shadow:#00000030 0 1px 2px 0;z-index:5000;text-align:left;height:31.25vh;overflow-y:scroll;}
+.quittingTimeBase .quittingSelectTime{font-size:7vw !important;font-weight:lighter;color:#2B2F3B}
+.quittingTimeBase .quittingTimeList{width:36.57vw;position:absolute;top:12.5vw;left:50%;transform:translateX(-50%);background:#fff;border-radius:2.23vw;border:1px solid #E4E7EB;padding:1.834vw 2vw 4.834vw;box-shadow:#00000030 0 1px 2px 0;z-index:5000;text-align:left;height:51vh;overflow-y:scroll;}
 .quittingTimeBase .quittingTimeList li{position:relative;padding:2vw 0}
 .quittingTimeBase .quittingTimeList li img{position:absolute;top:50%;right:10%;transform:translateY(-50%);width:3.1vw}
 .quittingTimeBase .quittingTimeList li .quittingSelectColor{color:#4E86FF}
 
+.officeLunchTime .attendanceTimeLabel{position:relative;display:inline-block;margin-top:2vw;padding:0 10vw}
+.attendanceTimeLabel ul .LunchTimeBase{position:relative;text-align:center}
+.officeLunchTime .attendanceTimeLabel li a{font-size:3.88vw}
+.officeLunchTime .attendanceTimeLabel li a.selected{color:#4E86FF;font-weight:bold}
+.LunchTimeBase .LunchSelectTime{font-size:7vw !important;font-weight:lighter;color:#2B2F3B}
+.LunchTimeBase .LunchTimeList{width:36.57vw;position:absolute;top:12.5vw;left:50%;transform:translateX(-50%);background:#fff;border-radius:2.23vw;border:1px solid #E4E7EB;padding:1.834vw 2vw 4.834vw;box-shadow:#00000030 0 1px 2px 0;z-index:5000;text-align:left;height:13vh;overflow-y:scroll;}
+.LunchTimeBase .LunchTimeList li{position:relative;padding:2vw 0}
+.LunchTimeBase .LunchTimeList li img{position:absolute;top:50%;right:10%;transform:translateY(-50%);width:3.1vw}
+.LunchTimeBase .LunchTimeList li .attendanceSelectColor{color:#4E86FF}
+
+.officeMinusTime .quittingTimeLabel{position:relative;display:inline-block;margin-top:2vw;padding:0 10vw}
+.quittingTimeLabel ul .minusTimeBase{position:relative;text-align:center}
+.officeMinusTime .quittingTimeLabel li a{font-size:3.88vw}
+.officeMinusTime .quittingTimeLabel li a.selected{color:#4E86FF;font-weight:bold}
+.minusTimeBase .minusSelectTime{font-size:7vw !important;font-weight:lighter;color:#2B2F3B}
+.minusTimeBase .minusTimeList{width:36.57vw;position:absolute;top:12.5vw;left:50%;transform:translateX(-50%);background:#fff;border-radius:2.23vw;border:1px solid #E4E7EB;padding:1.834vw 2vw 4.834vw;box-shadow:#00000030 0 1px 2px 0;z-index:5000;text-align:left;height:32vh;overflow-y:scroll;}
+.minusTimeBase .minusTimeList li{position:relative;padding:2vw 0}
+.minusTimeBase .minusTimeList li img{position:absolute;top:50%;right:10%;transform:translateY(-50%);width:3.1vw}
+.minusTimeBase .minusTimeList li .quittingSelectColor{color:#4E86FF}
+
 .attendanceManagementDiv .attendanceCumulativeTime{height:calc(100% - 58.2%);background:#F2F4F8;font-size:0;overflow:hidden;text-align:center}
-.attendanceCumulativeTime .otCumulativeLabel{display:inline-block;padding-top:9vw;padding-bottom:4.445vw;font-size:4.445vw;font-weight:bold;color:#717883}
+.attendanceCumulativeTime .otCumulativeLabel{display:inline-block;padding-top:9vw;padding-bottom:4.5vw;font-size:4.445vw;font-weight:bold;color:#717883}
 .attendanceCumulativeTime .attendanceCumulativeWrap{padding:0 11.1112vw}
 .attendanceCumulativeWrap .attendanceWeeklyTime{display:inline-block;width:30vw;height:30vw;border:6px solid #DE5C0B;border-radius:50%;background:#fff;margin-right:3vw}
 .attendanceCumulativeWrap .weeklyTimeLabel span:first-child{font-size:3.78vw;display:inline-block;padding-top:6vw}
@@ -2701,7 +2741,6 @@ diary 검색 드롭다운
 .attendanceCumulativeWrap .monthlyTimeLabel span:last-child{display:block;font-size:8vw;font-weight:bold;color:#164193}
 .attendanceSaveBtn{position:absolute;bottom:0;width:100%;height:8%;background:linear-gradient(to right, #5574f7 0%, #60c3ff 100%);text-align:center}
 .attendanceSaveBtn span{display:inline-block;padding:3.75vw 0;font-size:4.45vw;color:#fff}
-
 /* CUSTOM STYLE FOR FULLCALENDAR.IO */
 /*
 .fc-day-grid-event{margin:0!important;height:2vw!important}

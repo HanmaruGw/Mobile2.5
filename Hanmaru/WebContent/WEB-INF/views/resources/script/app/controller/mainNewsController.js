@@ -155,6 +155,13 @@ appHanmaru.controller('mainListController', ['$scope', '$http', '$rootScope', '$
 //		$rs.$broadcast('initBoardList',$s.boardType,$s.masterID,$s.displayName);
 //	};
 	
+	
+	//--------------------- 메인화면 개편 ------------------------------
+	//PC 버전 연결
+	$s.openWebHanmaru = function(){
+		window.open('https://ep.halla.com','_blank');
+	}
+		
 	$s.mandoCompanyTabId = 1;
 	//만도 메인
 	$s.toggleMandoCompanyTab = function(tabIdx){

@@ -1,7 +1,8 @@
 <!-- <div class="mainContainer" id="mainListController" ng-controller="mandoMainController"> -->
+<!-- Mando Main -->
 	<!-- 헤더바 -->
 	<div class="headerBar headTopBg">
-		<div class="headerBarMenu" ng-click="slideMenuClick($event,true)">
+		<div class="headerBarMenu"  ng-click="slideMenuClick($event,true)" ><!-- -->
 			<img src="/resources/image/main/menu_img.png">
 		</div>
 		<div class="headerBarTitle">
@@ -38,7 +39,7 @@
 			<div class="contentsSlideWrap">
 				<div class="contentsSlideFixBox" ng-repeat="hallaIn in hallaInList" ng-click="boardDetail(hallaIn, hallaIn.BoardType, hallaIn.BoardTitle)" sideMenuswipe="cancel"> <!-- ng-swipe-right="cancelSwipeSideMenu($event)" ng-swipe-left="cancelSwipeSideMenu($event)"  -->
 					<div class="contentsSlideFixImgDiv" >
-						<img ng-src="{{hallaIn.Image}}" ng-if="hallaIn.Image != undefined || hallaIn.Image != ''">	
+						<img  ng-src="{{hallaIn.Image}}"  ng-if="hallaIn.Image != undefined || hallaIn.Image != ''">	<!-- -->
 					</div>
 					<p>{{hallaIn.Subject}}</p>
 				</div>
@@ -92,7 +93,7 @@
 			<div class="contentsSlideWrap">
 				<div class="contentsVerticalSlideFixBox" ng-repeat="hallaIn in hallaInList | limitTo : 3" ng-click="boardDetail(hallaIn, hallaIn.BoardType, hallaIn.BoardTitle)" sideMenuswipe="cancel"> <!-- ng-swipe-right="cancelSwipeSideMenu($event)" ng-swipe-left="cancelSwipeSideMenu($event)"  -->
 					<div class="contentsVerticalSlideFixImgDiv" >
-						<img class="contentsImg" ng-src="{{hallaIn.Image}}" ng-if="hallaIn.Image != undefined || hallaIn.Image != ''">	
+						<img class="contentsImg"  ng-src="{{hallaIn.Image}}" ng-if="hallaIn.Image != undefined || hallaIn.Image != ''">	<!--  -->
 					</div>
 					<div class="contentsVerticalSlideFixBoxContents">
 						<p>{{hallaIn.Subject}}</p>
@@ -142,8 +143,8 @@
 		<!-- 하단 footer -->
 		<div class="mainNewsFooterWrapper">
 			<div class="footerButtonWrapper">
-				<div class="footerButton" >로그아웃</div>
-				<div class="footerButton">PC 버전</div>
+				<div class="footerButton" ng-click="btnDoLogout()">로그아웃</div>
+				<div class="footerButton" ng-click="openWebHanmaru()">PC 버전</div>
 			</div>
 			<div class="footerCopyright">&copy;Halla Group.All Rights Reserved</div>
 			

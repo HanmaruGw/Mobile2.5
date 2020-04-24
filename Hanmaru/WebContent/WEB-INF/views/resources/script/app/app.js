@@ -1,7 +1,12 @@
 //$scope ==> $s
 //$rootScope ==> $rs
 var androidWebView = window.AndroidBridge;
-var appHanmaru = angular.module('appHanmaru', ['ngSanitize','ngRoute','ngAnimate','oc.lazyLoad','slip','angular-carousel'])/*'ngTouch',*//*,'hmTouchEvents',*/
+//모듈 구분 (순서대로)
+//'oc.lazyLoad' : 스크립트 로드 딜레이
+//'slip' : 메일 스와이프 삭제
+//'angular-carousel' : 배너이미지 슬라이더
+//'angularLazyImg' : 이미지 로딩 처리
+var appHanmaru = angular.module('appHanmaru', ['ngSanitize','ngRoute','ngAnimate','oc.lazyLoad','slip','angular-carousel'])//,'angularLazyImg'
 .config(function($sceDelegateProvider, $compileProvider) {
 	$sceDelegateProvider.resourceUrlWhitelist(['self','http://play.smartucc.kr','http://m.mvod.gabia.com']);
 	$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel|sms):/);
@@ -12,6 +17,7 @@ var mailBody='';
 var isTest = true; 
 var LoginCountID = '';
 var LoginLockCnt = 0;
+
 
 //2019.12.20 - 메인화면 가로 배너 스크롤시 스와이프 안되도록 체크하는 변수
 appHanmaru.value('shouldFire', function(element){
@@ -164,7 +170,7 @@ appHanmaru.controller('splashController', ['$scope', '$http', '$rootScope','$tim
 	$ocLazyLoad.load([
 	  '/resources/script/lib/calendar/moment.min.js',
 	  '/resources/script/lib/pinchZoom/jquery.pinchzoomer.min.js',
-	  '/resources/script/lib/pinchZoom/pinch-zoom.umd.js'
+	  '/resources/script/lib/pinchZoom/pinch-zoom.umd.js',
 	]).then(function(){
 		$timeout(function(){
 			if(isTest)$rs.checkAutoLogin();
@@ -612,8 +618,8 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 		pushPage(prevPageName, currPageName)
 	};
 	
-//	$rs.apiURL = "http://eptest.halla.com";
-	$rs.apiURL = "https://ep.halla.com";
+	$rs.apiURL = "http://eptest.halla.com";
+//	$rs.apiURL = "https://ep.halla.com";
 //	$rs.apiURL = "http://self.halla.com";
 	
 	objApiURL.setApiDomain($rs.apiURL);
@@ -811,7 +817,6 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 				//2019.12.02 추가
 				//그룹 실적보고 메뉴
 //				console.log($rs.userInfo);
-				
 				var param3 = callApiObject('login', 'heisso', {LoginKey:$rs.userInfo.LoginKey});
 				$http(param3).success(function(data) {
 					var code = data.Code;
@@ -1152,14 +1157,19 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 			}
 		}
 		//2020.03.31 추가 - EAC 테스트
+		//나중에 한마루 국가코드도 넘겨야할듯...
 		else if(menuName === 'mando_eac'){
 			if(isTest){
 				if($rs.agent == 'android'){
 					if(androidWebView != undefined) { 
-						androidWebView.deepLinkEACApp($rs.userInfo.Sabun);
+						androidWebView.deepLinkEACApp($rs.userInfo.Sabun, "");
 					}
 				}else if($rs.agent=='ios') {
-					webkit.messageHandlers.deepLinkIosEACApp.postMessage($rs.userInfo.Sabun);
+					var dic = {
+						"pmSabun": $rs.userInfo.Sabun,
+						"userAreaCode" : "",
+					};
+					webkit.messageHandlers.deepLinkIosEACApp.postMessage(dic);
 				}
 			}
 		}
