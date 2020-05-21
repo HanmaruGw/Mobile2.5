@@ -19,9 +19,9 @@ function getIosDownloadUrl(){
 function getVersionHistory(agent){
 	var message = '';
 	if(agent == 'android'){
-		message = '' 
+		message = '1) 전자결재 스크롤 및 뒤로가기 오류 개선' 
 	}else{
-		message = '1) 통화중 앱 크래시 현상 Fixed.'
+		message = ''
 	}
 	return message;
 }

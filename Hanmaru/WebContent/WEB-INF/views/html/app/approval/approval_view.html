@@ -31,36 +31,35 @@
 		<div class="dropDownTitle" ng-show="isApprovalDetailDDShow == true">
 			<div class="dropDownContents">
 				<p class="doc_number"><span class="subject">{{translateLanguage('approval_doc_key')}}</span>
-					<span>{{approval.DocKey}}</span>
+					<span>{{approvalDetail.DocKey}}</span>
 				</p>
 				<p class="security_level"><span class="subject">{{translateLanguage('approval_security')}}</span>
-					<span>{{approval.Security}}</span>
+					<span>{{approvalDetail.Security}}</span>
 				</p>
 				<p class="lifeTime">
 					<span class="subject">{{translateLanguage('approval_period')}}</span>
-					<span ng-if="approval.Period != 'Eternal'">{{(approval.Period | number) / 12}}{{translateLanguage('period_year')}}</span>
+					<span ng-if="approval.Period != 'Eternal'">{{(approvalDetail.Period | number) / 12}}{{translateLanguage('period_year')}}</span>
 				</p>
 				<p class="doc_category"><span class="subject">{{translateLanguage('approval_doc_class_name')}}</span>
-					<span>{{approval.DocClassName}}</span>
+					<span>{{approvalDetail.DocClassName}}</span>
 				</p>
 				<p class="doc_drafter"><span class="subject">{{translateLanguage('approval_display_name')}}</span>
-					<span class="peopleName">{{approval.DisplayName}}</span>
+					<span class="peopleName">{{approvalDetail.DisplayName}}</span>
 				</p>
 				<p class="doc_draft">
 					<span class="subject">{{translateLanguage('approval_create_date')}}</span>
-					<span ng-if="userInfo.Lang == 'KOR'">{{approval.CreateDate | date:'yyyy년 MM월 dd일 EEEE a h:mm'}}</span>
-					<span ng-if="userInfo.Lang == 'ENG'">{{approval.CreateDate | date:'EEEE, MMMM dd, yyyy a h:mm'}}</span>
-					<span ng-if="userInfo.Lang == 'JPN'">{{approval.CreateDate | date:'EEEE, MMMM dd, yyyy a h:mm'}}</span>
-					<span ng-if="userInfo.Lang == 'CHN'">{{approval.CreateDate | date:'yyyy年M月dd日EEEE a h:mm'}}</span>
-					<span ng-if="userInfo.Lang == 'ETC'">{{approval.CreateDate | date:'EEEE, MMMM dd, yyyy a h:mm'}}</span>
+					<span ng-if="userInfo.Lang == 'KOR'">{{approvalDetail.CreateDate | date:'yyyy년 MM월 dd일 EEEE a h:mm'}}</span>
+					<span ng-if="userInfo.Lang == 'ENG'">{{approvalDetail.CreateDate | date:'EEEE, MMMM dd, yyyy a h:mm'}}</span>
+					<span ng-if="userInfo.Lang == 'JPN'">{{approvalDetail.CreateDate | date:'EEEE, MMMM dd, yyyy a h:mm'}}</span>
+					<span ng-if="userInfo.Lang == 'CHN'">{{approvalDetail.CreateDate | date:'yyyy年M月dd日EEEE a h:mm'}}</span>
+					<span ng-if="userInfo.Lang == 'ETC'">{{approvalDetail.CreateDate | date:'EEEE, MMMM dd, yyyy a h:mm'}}</span>
 				</p>
 			</div>
 		</div>
 		
-		<div class="viewContentsDetail">
-			<img src="{{approval.BodyUrl}}" id="tmpApprovalBodyContents" style="display:none">
+		<div class="viewContentsDetail" >
+			<img ng-src="{{approvalImageSrc}}"  id="tmpApprovalImage" style="display:none" ><!-- style="width:100%" --><!-- approvalDetail.BodyUrl -->
 			<div class="wrapBodyContents" >
-				<!-- <img src="{{approval.BodyUrl}}" id="approvalBodyContents1" style="display:none"> -->
 			</div>
 		</div>
 	</div>
@@ -119,7 +118,7 @@
 				</ul>
 			</div>
 			<div class="approvalDialogContents">
-				<div class="dialog_contents" ng-repeat="obj in approval.Process">
+				<div class="dialog_contents" ng-repeat="obj in approvalDetail.Process">
 					<ul class="group_contents">
 						<li>{{obj.Name}}</li>
 						<li>{{obj.Process}}</li>
@@ -152,7 +151,7 @@
 				</ul>
 			</div>
 			<div class="approvalDialogContents">
-				<div class="dialog_contents_cc" ng-repeat="obj in approval.ProcessRecipient">
+				<div class="dialog_contents_cc" ng-repeat="obj in approvalDetail.ProcessRecipient">
 					<ul class="group_contents">
 						<li>{{obj.Name}}</li>
 						<li>{{obj.Process}}</li>
@@ -179,7 +178,7 @@
 				</ul>
 			</div>
 			<div class="approvalDialogContents">
-				<div class="dialog_contents_viewer" ng-repeat="obj in approval.ProcessShared">
+				<div class="dialog_contents_viewer" ng-repeat="obj in approvalDetail.ProcessShared">
 					<ul class="group_contents">
 						<li>{{obj.ShareName}}</li>
 						<li>{{obj.ReceiveName}}</li>
@@ -207,27 +206,27 @@
 			<div class="dialog_group_doc_info">
 				<div class="group_contents">
 					<p class="group_contents_subject">제목</p>
-					<p class="group_contents_contents">{{approval.Title}}</p>
+					<p class="group_contents_contents">{{approvalDetail.Title}}</p>
 				</div>
 				<div class="group_contents">
 					<p class="group_contents_subject">문서번호</p>
-					<p class="group_contents_contents">{{approval.DocKey}}</p>
+					<p class="group_contents_contents">{{approvalDetail.DocKey}}</p>
 				</div>
 				<div class="group_contents">
 					<p class="group_contents_subject">보존기간</p>
-					<p class="group_contents_contents">{{approval.Period | convertPeriodDate}}</p>
+					<p class="group_contents_contents">{{approvalDetail.Period | convertPeriodDate}}</p>
 				</div>
 				<div class="group_contents">
 					<p class="group_contents_subject">보존등급</p>
-					<p class="group_contents_contents">{{approval.Security}}</p>
+					<p class="group_contents_contents">{{approvalDetail.Security}}</p>
 				</div>
 				<div class="group_contents">
 					<p class="group_contents_subject">작성자</p>
-					<p class="group_contents_contents">{{approval.DisplayName}}</p>
+					<p class="group_contents_contents">{{approvalDetail.DisplayName}}</p>
 				</div>
 				<div class="group_contents">
 					<p class="group_contents_subject">문서분류</p>
-					<p class="group_contents_contents">{{approval.DocClassName}}</p>
+					<p class="group_contents_contents">{{approvalDetail.DocClassName}}</p>
 				</div>
 			</div>
 		</div>
@@ -251,6 +250,9 @@
 				<a ng-show="processApprovalData.btnApproval == '1'" ng-click="btnProcessApproval('Approval')">{{translateLanguage('approval_complete_btnApproval')}}</a>
 				<a ng-show="processApprovalData.btnBudgetControl == '1'" ng-click="btnProcessApproval('BudgetControl')">{{translateLanguage('approval_complete_btnBudgetControl')}}</a>
 				<a ng-show="processApprovalData.btnBudgetSupply == '1'" ng-click="btnProcessApproval('BudgetSupply')">{{translateLanguage('approval_complete_btnBudgetSupply')}}</a>
+				<!-- 2020.05.13 추가 - 예산승인 버튼 추가 -->
+				<a ng-show="processApprovalData.btnBudgetApproval == '1'" ng-click="btnProcessApproval('BudgetApproval')">{{translateLanguage('approval_complete_btnBudgetApproval')}}</a>
+				
 				<a ng-show="processApprovalData.btnAssess == '1'" ng-click="btnProcessApproval('Assess')">{{translateLanguage('approval_complete_btnAssess')}}</a>
 				<a ng-show="processApprovalData.btnAgree == '1'" ng-click="btnProcessApproval('Agree')">{{translateLanguage('approval_complete_btnAgree')}}</a>
 				<a ng-show="processApprovalData.btnAcceptDecide == '1'" ng-click="btnProcessApproval('AcceptDecide')">{{translateLanguage('approval_complete_btnAcceptDecide')}}</a>

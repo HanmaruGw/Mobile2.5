@@ -519,6 +519,8 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 			if(code == 1){
 				var mailData = JSON.parse(data.value);
 				
+				console.log(mailData);
+				
 				$rs.mailData = mailData;
 				parseCIDAttachMailData($rs.mailData);
 			}

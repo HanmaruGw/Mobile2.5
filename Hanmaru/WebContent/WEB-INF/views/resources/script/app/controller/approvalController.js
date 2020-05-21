@@ -290,12 +290,12 @@ appHanmaru.controller('approvalController', ['$scope', '$http', '$rootScope', '$
 		}
 		
 		var param = callApiObject('approval', 'approvalList', reqApprovalListData);
-		console.log(param);
+//		console.log(param);
 		
 		$http(param).success(function(data) {
 			var approvalList = JSON.parse(data.value);
 			$rs.approvalList = approvalList.Approvals;
-			 console.log($rs.approvalList);
+//			 console.log($rs.approvalList);
 			
 			var contents = angular.element('.viewContents');
 			contents.animate({scrollTop : 0}, 200);
@@ -430,13 +430,15 @@ appHanmaru.controller('approvalController', ['$scope', '$http', '$rootScope', '$
 	};
 });
 
+//결재 Flow
+//Android 결재 webview 생성 -> 결재상세 url(ApprovalProcessNew) 로드 -> 결재버튼 파싱 -> 결재상세 페이지 로드 완료.
 // approval view
 appHanmaru.controller('approvalDetailController', ['$scope', '$http', '$rootScope', '$timeout', '$sce', function($s, $http, $rs, $timeout, $sce) {
 	$s.processApprovalOpinion = '';
 	
 	$rs.$on('initApprovalDetail', function(event, approvalData, displayName) {
 		$s.displayName = displayName;
-		$s.approval = approvalData;
+		$s.approvalDetail = approvalData;
 		$s.isApprovalDetailDDShow = false;
 		$s.isApprovalProcessDDShow = false;
 		$s.isApprovalStatusDDShow = false;
@@ -447,88 +449,41 @@ appHanmaru.controller('approvalDetailController', ['$scope', '$http', '$rootScop
 		
 		$rs.dialog_progress = true;
 		
-		//화면 초기화
-//		angular.element(".wrapBodyContents").find('*').remove();
-
-		//결재문서 이미지
-//		$http.get(approvalData.BodyUrl).success(function(data) {
-//			$s.approvalBody = data;
-//			console.log(data);
-//		}).then(function(){ 
-//			$rs.dialog_progress = false;
-//		});
+		//2020.05.18 추가 - 결재본문 url은 같으나 이미지가 변경된 경우 angular에서 인식x. 아래 timestamp 값 추가하여 갱신가능하도록 수정.
+		var imageUrl = approvalData.BodyUrl;
+	    $s.approvalImageSrc = imageUrl + "?cb=" + new Date().getTime();
 		
-//		console.log('결재 data : ',approvalData);
-		
-//		var tmpContents = angular.element("#approvalBodyContents1").clone();
-//		tmpContents.pinchzoomer();
-		
-		//결재 문서 로드
-//		setTimeout(function(){
-//			var tmpContents = angular.element("#tmpApprovalBodyContents").clone();
-//			angular.element(".wrapBodyContents").find('*').remove();
-//			angular.element(".wrapBodyContents").append(tmpContents);
-//			tmpContents.pinchzoomer();
-//			
-//			// 결재 본문 높이 조절
-//			setTimeout(function(){
-//				
-//				var elem = angular.element(".wrapBodyContents");
-//				var elemFirstDiv = elem.find('div').eq(0);
-//				var elemSecondDiv = elemFirstDiv.find('div').eq(0);
-//				var elemThirdDiv = elemSecondDiv.find('div').eq(0);
-//				var elemDivImg = elemThirdDiv.find('img').eq(0);
-//				
-//				elemFirstDiv.css({'user-select':'','-webkit-user-drag':'','touch-action':''});
-//				elemThirdDiv.css({'overflow':'','user-select':'','-webkit-user-drag':'','touch-action':''});
-//				elemDivImg.css({'user-select':'','-webkit-user-drag':'','touch-action':'auto'});
-//				
-//				//모바일 디바이스가 아닌 일반 웹에서 확인시 progress 없애기 위함.
-//				$s.$apply(function() {
-//					$rs.dialog_progress = false;
-//				});
-//			},2000); //높이조절 delay. 문서로드 이후에 해야함.
-//			
-//			//결재 본문 이미지 높이값 설정.
-//			var viewContentsTitle = angular.element('.viewContentsTitle');
-//			var titleWrap = angular.element('.titleWrap');
-//			var viewContentsDetail = angular.element('.viewContentsDetail');
-//			viewContentsDetail.height(viewContentsTitle.height() - titleWrap.innerHeight());
-//		}, 10); //문서 로드 delay
-		
-//		console.log('결재 data : ',approvalData);
-		
+//	    console.log('결재문서 : ',approvalData);
+	    
 		setTimeout(function(){
+//			console.log($s.approvalDetail.BodyUrl);
 			setDocumentHeight(setDocumentScroll);
-		},10);
+		},1);
 		
 		function setDocumentHeight(callback){
-			var tmpContents = angular.element("#tmpApprovalBodyContents").clone();
+			var tmpContents = angular.element("#tmpApprovalImage").clone();
 			angular.element(".wrapBodyContents").find('*').remove();
 			angular.element(".wrapBodyContents").append(tmpContents);
 			
 			tmpContents.pinchzoomer();
 			
 			//결재 본문 이미지 높이값 설정.
-			var viewContentsTitle = angular.element('.viewContentsTitle');
-			var titleWrap = angular.element('.titleWrap');
-			var viewContentsDetail = angular.element('.viewContentsDetail');
-			viewContentsDetail.height(viewContentsTitle.height() - titleWrap.innerHeight());
-			
-			//모바일 디바이스가 아닌 일반 웹에서 확인시 progress 없애기 위함.
-			$s.$apply(function() {
-				$rs.dialog_progress = false;
-			});
+//			var viewContentsTitle = angular.element('.viewContentsTitle');
+//			var titleWrap = angular.element('.titleWrap');
+//			var viewContentsDetail = angular.element('.viewContentsDetail');
+//			viewContentsDetail.height(viewContentsTitle.height() - titleWrap.innerHeight());
 			
 			if(typeof callback == 'function'){
 				setTimeout(function(){
 					callback(true);
-				},2000);
+				},1200);
 			}
 		}
 		
 		function setDocumentScroll(result){
 			if(result){
+//				console.log(result);
+				
 				var elem = angular.element(".wrapBodyContents");
 				var elemFirstDiv = elem.find('div').eq(0);
 				var elemSecondDiv = elemFirstDiv.find('div').eq(0);
@@ -538,6 +493,10 @@ appHanmaru.controller('approvalDetailController', ['$scope', '$http', '$rootScop
 				elemFirstDiv.css({'user-select':'','-webkit-user-drag':'','touch-action':''});
 				elemThirdDiv.css({'overflow':'','user-select':'','-webkit-user-drag':'','touch-action':''});
 				elemDivImg.css({'user-select':'','-webkit-user-drag':'','touch-action':'auto'});
+				
+				$s.$apply(function() {
+					$rs.dialog_progress = false;
+				});
 			}
 		};
 		
@@ -570,18 +529,17 @@ appHanmaru.controller('approvalDetailController', ['$scope', '$http', '$rootScop
 		// 결재 하이브리드 기술
 		if($rs.agent == 'android') {
 			if(androidWebView != undefined) {
-				androidWebView.loadProcessURL(approvalData.ProcessUrl);//결재용 웹뷰 로드. 꼭 필요함.
+				androidWebView.loadProcessURL(approvalData.ProcessNewUrl);//결재용 웹뷰 로드. 꼭 필요함. 결재승인 스크립트 사용을 위해 필요. 안드로이드용 콜백만 정의.
 				
-				setTimeout(function(){
-					androidWebView.parseProcessUrl(approvalData.ProcessUrl);
-				}, 1000);
+				//2020.05.11 수정 - 위 loadProcess url 이후 android 네이티브 단에서 바로 파싱하는 것으로 수정함.
+//				setTimeout(function(){
+//					androidWebView.parseProcessUrl(approvalData.ProcessUrl);
+//				}, 10);
 				
 				// aos callback json object
 				window.applyProcessUrl = function(processResultJsonStr) {
-//					console.log(processResultJsonStr);
 					$s.processApprovalData = processResultJsonStr;
 					$s.chkApprovalBtnStatus($s.processApprovalData);
-					
 				}
 			}
 		} else if($rs.agent=='ios') { 
@@ -625,7 +583,7 @@ appHanmaru.controller('approvalDetailController', ['$scope', '$http', '$rootScop
 
 		// 승인,반려 등 버튼 이벤트
 		$s.btnProcessApproval = function(cmd) {
-			console.log('결재 cmd : ',cmd);
+//			console.log('결재 cmd : ',cmd);
 			if(cmd === 'Reject') {
 				if($s.processApprovalOpinion == '') {
 					alert($rs.translateLanguage('approval_opinion_hint'));
@@ -679,12 +637,11 @@ appHanmaru.controller('approvalDetailController', ['$scope', '$http', '$rootScop
 	}
 	
 	$s.popPage = function(pageName){
-		$s.approval = undefined;
+		$s.approvalDetail = undefined;
 		$s.processApprovalData = {};
 		angular.element('.btnApproval').addClass("hide");
 		angular.element('.approvalState').addClass("full");
 		
-//		angular.element(".wrapBodyContents").find('*').remove();
 		popPage(pageName);
 	}
 	
@@ -699,8 +656,16 @@ appHanmaru.controller('approvalDetailController', ['$scope', '$http', '$rootScop
 		}
 	}
 	
+	$s.isApprovalResultLoading = false;
+	function showApprovalLoading(isLoading){
+		if(isLoading)$rs.dialog_progress = true;
+		else $rs.dialog_progress = false;
+	}
+	
 	// 결재 처리부분 : 추가 iframe으로 띄운 결재쪽 웹뷰의 script 실행하기 위함.
 	function doApproval(action, opinion) {
+		showApprovalLoading(true);
+		
 		if($rs.agent == 'android') {
 			if(androidWebView != undefined) {
 				androidWebView.processApproval(action, opinion);
@@ -720,12 +685,15 @@ appHanmaru.controller('approvalDetailController', ['$scope', '$http', '$rootScop
 	 }
 	
 	function afterApprovalSuccess() {
-		alert($rs.translateLanguage('done_approval_text'));
+	   showApprovalLoading(false);
+		
+	   alert($rs.translateLanguage('done_approval_text'));
+	   
 	   var currPage = angular.element('[class^="panel"][class*="current"]');
 	   var pageName = currPage.eq(currPage.length-1).attr('id');
 	   popPage(pageName);
-	   
-	   $rs.$broadcast('applyDeleteApprovalList', $s.approval);
+
+	   $rs.$broadcast('applyDeleteApprovalList', $s.approvalDetail);
 	}
 	
 	// 결재 focused, 결재 입력에 용이하게 하단부 스크롤

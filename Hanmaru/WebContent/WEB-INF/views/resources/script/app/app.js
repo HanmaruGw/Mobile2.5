@@ -170,7 +170,7 @@ appHanmaru.controller('splashController', ['$scope', '$http', '$rootScope','$tim
 	$ocLazyLoad.load([
 	  '/resources/script/lib/calendar/moment.min.js',
 	  '/resources/script/lib/pinchZoom/jquery.pinchzoomer.min.js',
-	  '/resources/script/lib/pinchZoom/pinch-zoom.umd.js',
+//	  '/resources/script/lib/pinchZoom/pinch-zoom.umd.js', //2020.05.11 주석처리함. 
 	]).then(function(){
 		$timeout(function(){
 			if(isTest)$rs.checkAutoLogin();
@@ -618,8 +618,8 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 		pushPage(prevPageName, currPageName)
 	};
 	
-	$rs.apiURL = "http://eptest.halla.com";
-//	$rs.apiURL = "https://ep.halla.com";
+//	$rs.apiURL = "http://eptest.halla.com";
+	$rs.apiURL = "https://ep.halla.com";
 //	$rs.apiURL = "http://self.halla.com";
 	
 	objApiURL.setApiDomain($rs.apiURL);
@@ -726,7 +726,8 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 //				lazy loading
 				$rs.isEditorLoaded = true;
 				$rs.userInfo = JSON.parse(data.value);
-//				console.log('유저정보 : ',$rs.userInfo );
+				
+				console.log('유저정보 : ',$rs.userInfo );
 				
 				//계열사별 메인화면 변경
 				if($rs.userInfo.CompCode === '00001'){
@@ -1159,18 +1160,17 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 		//2020.03.31 추가 - EAC 테스트
 		//나중에 한마루 국가코드도 넘겨야할듯...
 		else if(menuName === 'mando_eac'){
-			if(isTest){
-				if($rs.agent == 'android'){
-					if(androidWebView != undefined) { 
-						androidWebView.deepLinkEACApp($rs.userInfo.Sabun, "");
-					}
-				}else if($rs.agent=='ios') {
-					var dic = {
-						"pmSabun": $rs.userInfo.Sabun,
-						"userAreaCode" : "",
-					};
-					webkit.messageHandlers.deepLinkIosEACApp.postMessage(dic);
+//			console.log('유저정보 : ',$rs.userInfo);
+			if($rs.agent == 'android'){
+				if(androidWebView != undefined) { 
+					androidWebView.deepLinkEACApp($rs.userInfo.Sabun, "KOR");
 				}
+			}else{
+				var dic = {
+					"pmSabun": $rs.userInfo.Sabun,
+					"userAreaCode" : "KOR",
+				};
+				webkit.messageHandlers.deepLinkIosEACApp.postMessage(dic);
 			}
 		}
 		else{

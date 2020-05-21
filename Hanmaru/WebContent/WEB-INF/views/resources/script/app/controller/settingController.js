@@ -53,6 +53,9 @@ appHanmaru.controller('settingController', ['$scope', '$http', '$rootScope', '$t
 		$http(param).success(function(data) {
 			var settingData = JSON.parse(data.value);
 			
+			console.log(settingData);
+			console.log($rs.userInfo);
+			
 			// 사이드 메뉴에서의 회사코드에 따른 '근태관리' 메뉴 보이기/숨김 처리
 			for(idx in settingData.companys){
 				if(settingData.companys[idx].code === settingData.SetCompcode){

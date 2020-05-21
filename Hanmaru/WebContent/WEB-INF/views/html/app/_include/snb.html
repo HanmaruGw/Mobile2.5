@@ -89,10 +89,24 @@
 			</div>
 			
 			<!-- 2020.03.31 추가 - eac -->
-			<!-- <div class="slideMenuBox" ng-click="loadMenu('mando_eac')" ng-show="userInfo.CompCode == 00005">
-				<img src="/resources/image/icon/ic_midashelp_normal.png" ng-if="subMenuType != 'mando_eac'">
-				<img src="/resources/image/icon/ic_midashelp_selected.png" ng-if="subMenuType == 'mando_eac'">
-				<span ng-class="{'selected' : subMenuType == 'mando_eac'}">EAC</span>
+			<div class="slideMenuBox" ng-click="loadMenu('mando_eac')" 
+				ng-show="userInfo.UserKey == 'H0000089028' || 
+				userInfo.UserKey == 'H0000005925' || 
+				userInfo.UserKey == 'H0000005952' || 
+				userInfo.UserKey == 'H0000005906' ||
+				userInfo.UserKey == 'X0000E02847' ||
+				userInfo.UserKey == 'H0000089236'
+				" ><!-- EAC 테스트 ID -->
+				<img src="/resources/image/icon/ic_geac_normal.png" ng-if="subMenuType != 'mando_eac'">
+				<img src="/resources/image/icon/ic_geac_select.png" ng-if="subMenuType == 'mando_eac'">
+				<span ng-class="{'selected' : subMenuType == 'mando_eac'}">G-EAC</span>
+			</div>
+			
+			<!-- 한라튜브 테스트 -->
+			<!-- <div class="slideMenuBox" ng-click="loadMenu('hallaVideo')" >
+				<img src="/resources/image/icon/ic_midashelp_normal.png" ng-if="subMenuType != 'midashelp'">
+				<img src="/resources/image/icon/ic_midashelp_selected.png" ng-if="subMenuType == 'midashelp'">
+				<span ng-class="{'selected' : subMenuType == 'midashelp'}">HallaOn</span>
 			</div> -->
 			
 		</div>

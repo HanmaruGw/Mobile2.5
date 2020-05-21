@@ -115,6 +115,8 @@ $(function(){
 	
 });
 
+
+
 function sendToDownloadLog(userLoginKey){
 	$.post('https://ep.halla.com/nmobile/login/AppDownload',
 			{LoginKey:userLoginKey},

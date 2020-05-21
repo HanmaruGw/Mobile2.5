@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<title>Document</title>
+	<link rel="stylesheet" href="../inc/css/common.css">
+	<link rel="stylesheet" href="../inc/css/contents.css">
+	<script type="text/javascript" src="../inc/js/lib/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="../inc/js/lib/TweenMax.min.js"></script>
+	<script type="text/javascript" src="../inc/js/lib/slick.min.js"></script>
+</head>
+<body>
+	<!-- wrap -->
+	<div id="wrap">
+		<!-- header -->
+		<div id="header">
+			<p class="tit"><a href="#none;">콘텐츠 제안</a></p>
+			<button type="button" class="btnNavOpen">메뉴 열기</button>
+			<button type="button" class="btnSearch">검색</button>
+		</div>
+		<!-- //header -->
+
+		<!-- nav -->
+		<div id="navWrap">
+			<div class="nav">
+				<div class="navTop">
+					<p class="logo">한라 튜브</p>
+					<ul class="util">
+						<li class="message on"><a href="#none;">메시지</a></li> <!-- // 메시지 있을 경우 on클래스 추가, 없을 경우 삭제 -->
+						<li class="option"><a href="#none;">설정</a></li>
+					</ul>
+					<div class="memberInfo">
+						<div class="profileImg">
+							<p class="img"><img src="../inc/images/common/img_profile_default.png" alt=""></p>
+						</div>
+						<div class="txtWrap">
+							<p class="name"><span>유현주</span> <em>프로</em></p>
+							<p class="department"><span>한마루 운영파트</span> / <span>한라홀딩스</span></p>
+						</div>
+					</div>
+				</div>
+				<div class="menuWrap">
+					<div class="menu">
+						<ul class="dep1">
+							<li class="menu01">
+								<a href="#none;">
+									<img src="../inc/images/common/icon_nav_menu01_off.png" alt="">
+									<span>메인</span>
+								</a>
+							</li>
+							<li class="menu02">
+								<a href="#none;">
+									<img src="../inc/images/common/icon_nav_menu02_on.png" alt="">
+									<span>뉴스 H</span>
+								</a>
+							</li>
+							<li class="menu03">
+								<a href="#none;">
+									<img src="../inc/images/common/icon_nav_menu03_off.png" alt="">
+									<span>스토리 H</span>
+								</a>
+							</li>
+							<li class="menu04">
+								<a href="#none;">
+									<img src="../inc/images/common/icon_nav_menu04_off.png" alt="">
+									<span>지식 H</span>
+								</a>
+							</li>
+							<li class="menu05">
+								<a href="#none;">
+									<img src="../inc/images/common/icon_nav_menu05_off.png" alt="">
+									<span>공감 H</span>
+								</a>
+							</li>
+							<li class="menu06">
+								<a href="#none;">
+									<img src="../inc/images/common/icon_nav_menu06_off.png" alt="">
+									<span>메뉴5</span>
+								</a>
+							</li>
+							<li class="menu07">
+								<a href="#none;">
+									<img src="../inc/images/common/icon_nav_menu07_off.png" alt="">
+									<span><img src="../inc/images/common/logo_hanmaru.png" alt=""></span>
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class="sub">
+						<ul class="dep2">
+							<li><a href="#none;">한라뉴스</a></li>
+							<li class="on"><a href="#none;">한라로</a></li>
+							<li><a href="#none;">현장소식</a></li>
+							<li><a href="#none;">업계동향</a></li>
+							<li><a href="#none;">뉴스 H-5</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="quickMenu">
+					<ul>
+						<li class="menu01">
+							<a href="#none;">
+								<img src="../inc/images/common/icon_nav_quick01.png" alt="">
+								<span>한라튜브 소개</span>
+							</a>
+						</li>
+						<li class="menu02">
+							<a href="#none;">
+								<img src="../inc/images/common/icon_nav_quick02.png" alt="">
+								<span>콘텐츠 편성표</span>
+							</a>
+						</li>
+						<li class="menu03">
+							<a href="#none;">
+								<img src="../inc/images/common/icon_nav_quick03.png" alt="">
+								<span>콘텐츠 제안</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- //nav -->
+
+		<!-- searchWrap -->
+		<div id="searchWrap">
+			<div class="inner">
+				<input type="text" placeholder="검색어를 입력하세요">
+				<button type="button" class="btnSrchClose"></button>
+			</div>
+		</div>
+		<!-- //searchWrap -->
+
+		<!-- container -->
+		<div id="container">
+			<div class="contents">
+				<div class="viewWrap">
+					<div class="viewHeader">
+						<div class="headline">
+							<h2 class="tit">한라그룹이 사내 커뮤니케이션을 확대,<br> 실시간으로 양방향 온라인 소통에 나선다</h2>
+						</div>
+						<div class="info">
+							<ul>
+								<li>김대호</li>
+								<li>2019-10-15</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="viewContainer">
+						<div class="txtWrap">
+							<p>
+								**2019년 제안제도 접수 마감공지**<br><br>
+
+								제안제도는 다양한 포상과 인사상 혜택이 있습니다.<br>
+								직원 여러분들의 많은 관심과 적극적인 참여 부탁드립니다.<br>
+								1. 접수마감<br>
+								▶  스피드제안, 지식공유, 우수제안적용개선사례공유<br>
+								 :12월 08일[일]<br>
+								  (우수: 문화상품권 2만원 / 보통,참가: 문화상품권 1만원)<br>
+								2. 직무논문 면제 (대리, 사원)<br>
+								 : 승진년한 內 ①항 ②항 둘중에 하나 충족시 면제<br>
+								① 고등급제안  1회 제출 (단, 소위원회[2차심의] 상정시 인정)<br>
+								② 스피드제안 우수등급 2건 or 보통등급 3건<br><br>
+								 
+								많은 참여 부탁드립니다 **
+							</p>
+						</div>
+						<div class="btnWrap">
+							<a href="#none;" class="btnFlatGray">목록보기</a>
+						</div>
+					</div>
+
+					<div class="commentWrap">
+						<div class="topInfoWrap">
+							<ul>
+								<li class="view">200</li>
+								<li class="like">200</li>
+								<li class="share">200</li>
+							</ul>
+						</div>
+
+						<div class="commentArea">
+							<div class="titWrap">
+								<p class="tit">댓글 (<span>17</span>개)</p>
+							</div>
+							<div class="commentBox">
+								<div class="boxHeader">
+									<div class="left">
+										<button type="button" class="btnEmoticon">이모티콘</button> <!-- //활성화시 on클래스 추가 -->
+										<button type="button" class="btnAttach">파일첨부</button> <!-- //활성화시 on클래스 추가 -->
+									</div>
+									<div class="right">
+										<ul class="btnList">
+											<li><button type="button">등록</button></li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="txtWrap">
+									<textarea name="" id="" placeholder="댓글을 입력하세요"></textarea>
+								</div>
+
+								<div class="emoticonWrap"> <!-- //활성화시 on클래스 추가 -->
+									<ul class="emoticonList">
+										<li><button type="button" class="emoticon emoticon01"></button></li>
+										<li><button type="button" class="emoticon emoticon02"></button></li>
+										<li><button type="button" class="emoticon emoticon03"></button></li>
+										<li><button type="button" class="emoticon emoticon04"></button></li>
+										<li><button type="button" class="emoticon emoticon05"></button></li>
+										<li><button type="button" class="emoticon emoticon06"></button></li>
+										<li><button type="button" class="emoticon emoticon07"></button></li>
+										<li><button type="button" class="emoticon emoticon08"></button></li>
+										<li><button type="button" class="emoticon emoticon09"></button></li>
+										<li><button type="button" class="emoticon emoticon10"></button></li>
+										<li><button type="button" class="emoticon emoticon11"></button></li>
+										<li><button type="button" class="emoticon emoticon12"></button></li>
+										<li><button type="button" class="emoticon emoticon13"></button></li>
+										<li><button type="button" class="emoticon emoticon14"></button></li>
+										<li><button type="button" class="emoticon emoticon15"></button></li>
+										<li><button type="button" class="emoticon emoticon16"></button></li>
+										<li><button type="button" class="emoticon emoticon17"></button></li>
+										<li><button type="button" class="emoticon emoticon18"></button></li>
+										<li><button type="button" class="emoticon emoticon19"></button></li>
+										<li><button type="button" class="emoticon emoticon20"></button></li>
+									</ul>
+								</div>
+
+								<div class="attachWrap"> <!-- //활성화시 on클래스 추가 -->
+									<div class="fileWrap">
+										<p class="img"><img src="../inc/images/temp/@img_attach_thumb.jpg" alt=""></p>
+										<button type="button" class="btnDel">첨부이미지 삭제</button>
+									</div>
+									<div class="fileWrap">
+										<p class="img"><img src="../inc/images/temp/@img_attach_thumb.jpg" alt=""></p>
+										<button type="button" class="btnDel">첨부이미지 삭제</button>
+									</div>
+									<div class="fileWrap">
+										<p class="img"><img src="../inc/images/temp/@img_attach_thumb.jpg" alt=""></p>
+										<button type="button" class="btnDel">첨부이미지 삭제</button>
+									</div>
+								</div>
+							</div>
+
+							<div class="commentListWrap">
+								<ul class="commentList">
+									<li>
+										<div class="commentArea">
+											<div class="userInfo">
+												<p class="name">김대호</p>
+												<p class="department">한라부서소속</p>
+												<p class="date">2019-10-15</p>
+											</div>
+											<div class="comment">
+												너무 좋습니다 <span class="emoticon emoticon01"></span>
+											</div>
+											<ul class="btnList">
+												<li><button type="button">답글</button></li>
+												<li><button type="button">수정</button></li>
+												<li><button type="button">삭제</button></li>
+											</ul>
+										</div>
+									</li>
+									<li>
+										<div class="commentArea">
+											<div class="userInfo">
+												<p class="name">김대호</p>
+												<p class="department">한라부서소속</p>
+												<p class="date">2019-10-15</p>
+											</div>
+											<div class="comment">
+												<span class="emoticon emoticon11"></span> 한라튜브 앞으로 자주 들어오겠습니다. 한라튜브 앞으로 자주 들어오겠습니다.
+											</div>
+											<ul class="btnList">
+												<li><button type="button">답글</button></li>
+												<li><button type="button" class="on">수정</button></li>
+												<li><button type="button">삭제</button></li>
+											</ul>
+										</div>
+									</li>
+								</ul>
+
+								<div class="paging">
+									<a href="#none;" class="first">처음</a>
+									<a href="#none;" class="prev">이전</a>
+									<a href="#none;" class="on">1</a>
+									<a href="#none;">2</a>
+									<a href="#none;">3</a>
+									<a href="#none;">4</a>
+									<a href="#none;">5</a>
+									<a href="#none;" class="next">다음</a>
+									<a href="#none;" class="last">마지막</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="viewList">
+						<div class="listWrap">
+							<span>이전글</span>
+							<p><a href="#none;" class="ellipsis">시그마타워 단전으로 인한 PC 전원 OFF 요청 (12/8, 일)</a></p>
+							<span class="date">2019-10-15</span>
+						</div>
+						<div class="listWrap">
+							<span>다음글</span>
+							<p><a href="#none;" class="ellipsis">[긴급패치] 회사 긴급 보안패치 안내입니다.</a></p>
+							<span class="date">2019-10-15</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="subSection">
+					<div class="thumbListWrap">
+						<h2 class="sectionTit">최신 콘텐츠</h2>
+						<ul class="thumbList">
+							<li>
+								<a href="#none;">
+									<div class="thumb">
+										<p class="img"><img src="../inc/images/temp/@img_thumb06.jpg" alt=""></p>
+									</div>
+									<div class="txtWrap">
+										<p class="tit">2020년도 상반기 한라그룹(만도) 신입사원 입사 환영회 현장</p>
+										<div class="info">
+											<p class="date">2020-01-20</p>
+											<p class="like"><span>200</span></p>
+										</div>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="#none;">
+									<div class="thumb">
+										<p class="img"><img src="../inc/images/temp/@img_thumb06.jpg" alt=""></p>
+									</div>
+									<div class="txtWrap">
+										<p class="tit">전문 프리젠터 채자영이 전하는 실전 프리젠테이션 노하우</p>
+										<div class="info">
+											<p class="date">2020-01-20</p>
+											<p class="like"><span>200</span></p>
+										</div>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="#none;">
+									<div class="thumb">
+										<p class="img"><img src="../inc/images/temp/@img_thumb06.jpg" alt=""></p>
+									</div>
+									<div class="txtWrap">
+										<p class="tit">회사 이름이 어렵다고요? 만도 헬라일렉트로닉스입니다.</p>
+										<div class="info">
+											<p class="date">2020-01-20</p>
+											<p class="like"><span>200</span></p>
+										</div>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="#none;">
+									<div class="thumb">
+										<p class="img"><img src="../inc/images/temp/@img_thumb06.jpg" alt=""></p>
+									</div>
+									<div class="txtWrap">
+										<p class="tit">한라의 찰나 - 한라건설 찾아가 한라인을 담는 이진환 포토그래퍼</p>
+										<div class="info">
+											<p class="date">2020-01-20</p>
+											<p class="like"><span>200</span></p>
+										</div>
+									</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<button type="button" class="btnTop">Top</button>
+		</div>
+		<!-- //container -->
+
+		<!-- footer -->
+		<div id="footer">
+			<div class="inner">
+				<p class="logo">한라</p>
+				<ul class="footerMenu">
+					<li><a href="#none;">한라튜브 소개</a></li>
+					<li><a href="#none;">콘텐츠 편성표</a></li>
+					<li><a href="#none;">콘텐츠 제안</a></li>
+				</ul>
+				<p class="copy">Copyright &copy; HALLA Corp. All rights reserved.</p>
+			</div>
+		</div>
+		<!-- //footer -->
+	</div>
+	<!-- //wrap -->
+
+	<!-- 검색 경고창 얼럿 -->
+	<div id="searchAlert" class="layerpop alert">
+		<div class="inner">
+			<div class="txtWrap">
+				<img src="../inc/images/common/logo.png" alt="Halla Tube">
+				<p class="txt">검색어를 입력하세요</p>
+			</div>
+			<div class="btnWrap">
+				<button type="button" class="btnConfirm">확인</button>
+			</div>
+			<button type="button" class="btnLayerClose">팝업 닫기</button>
+		</div>
+	</div>
+	<!-- //검색 경고창 얼럿 -->
+
+	<div class="dim"></div>
+
+	<script type="text/javascript" src="../inc/js/ui.js"></script>
+</body>
+</html>
