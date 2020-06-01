@@ -72,15 +72,16 @@ appHanmaru.controller('mainListController', ['$scope', '$http', '$rootScope', '$
 					$s.bannerImageList = mainData.Banner;
 				}
 			}
-			$rs.dialog_progress = false;
-			
+//			$rs.dialog_progress = false;
 			
 			//만도 게시판 추가 테스트 더미 데이터
 			$s.companyBoardList = $s.noticeList;
 			$s.newsBoardList = $s.noticeList;
 			
 		}).then(function(){
-			$rs.dialog_progress = false;
+			setTimeout(function(){
+				$rs.dialog_progress = false;
+			},800);
 		});
 	});
 	

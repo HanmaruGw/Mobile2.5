@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ko">
 <head>
 	<meta charset="utf-8">
@@ -9,13 +9,17 @@
 	<script type="text/javascript" src="../inc/js/lib/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="../inc/js/lib/TweenMax.min.js"></script>
 	<script type="text/javascript" src="../inc/js/lib/slick.min.js"></script>
+</head> -->
+<head>
+	<script type="text/javascript" src="/resources/video/js/ui.js"></script>
 </head>
-<body class="main">
+<body>
+	<div ng-controller="videoStoryController">
 	<!-- wrap -->
 	<div id="wrap">
 		<!-- header -->
 		<div id="header">
-			<h1 class="logo"><a href="main.html">한라튜브</a></h1>
+			<p class="tit"><a href="#none;">조직문화</a></p>
 			<button type="button" class="btnNavOpen">메뉴 열기</button>
 			<button type="button" class="btnSearch">검색</button>
 		</div>
@@ -135,115 +139,7 @@
 
 		<!-- container -->
 		<div id="container">
-			<div id="mainVisual">
-				<div class="slideContainer">
-					<div class="slideWrap">
-						<div class="slide">
-							<div class="contBox">
-								<a href="#none;">
-									<img src="../inc/images/temp/@img_con01.jpg" alt="">
-									<div class="txtWrap tyGradient">
-										<p class="txt">2020년 한라그룹 경영방침<br> '정몽원 회장에게 듣는다'</p>
-									</div>
-								</a>
-							</div>
-						</div>
-						<div class="slide">
-							<div class="contBox">
-								<a href="#none;">
-									<img src="../inc/images/temp/@img_con01.jpg" alt="">
-									<div class="txtWrap tyGradient">
-										<p class="txt">2020년 한라그룹 경영방침<br> '정몽원 회장에게 듣는다'</p>
-									</div>
-								</a>
-							</div>
-						</div>
-						<div class="slide">
-							<div class="contBox">
-								<a href="#none;">
-									<img src="../inc/images/temp/@img_con01.jpg" alt="">
-									<div class="txtWrap tyGradient">
-										<p class="txt">2020년 한라그룹 경영방침<br> '정몽원 회장에게 듣는다'</p>
-									</div>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div id="mainTopBanner">
-				<div class="slideContainer">
-					<div class="slideWrap">
-						<div class="slide"><a href="#none;"><img src="../inc/images/temp/@img_main_banner01.jpg" alt=""></a></div>
-						<div class="slide"><a href="#none;"><img src="../inc/images/temp/@img_main_banner01.jpg" alt=""></a></div>
-						<div class="slide"><a href="#none;"><img src="../inc/images/temp/@img_main_banner01.jpg" alt=""></a></div>
-					</div>
-				</div>
-			</div>
-			
-			<!-- 인기 콘텐츠 -->
-			<div class="section bgGray">
-				<h2 class="sectionTit">인기 콘텐츠</h2>
-				<ul class="popularList">
-					<li>
-						<a href="#none;">
-							<div class="contBox">
-								<p class="img"><img src="../inc/images/temp/@img_thumb01.jpg" alt=""></p>
-								<div class="txtWrap tyGradient">
-									<p class="tit">한라그룹  커뮤니케이션 채널 '한라튜브' 오픈</p>
-									<p class="txt">언제 어디서나 내가 필요한 정보를 얻고 나의 맞춤 성장에 도움이 되는 커뮤니케이션 공간에서 의미있는 소통과 협업을 경험할 수</p>
-								</div>
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="#none;">
-							<div class="contBox">
-								<p class="img"><img src="../inc/images/temp/@img_thumb02.jpg" alt=""></p>
-								<div class="txtWrap tyGradient">
-									<p class="txt">2020년 한라그룹 경영방침<br> '정몽원 회장에게 듣는다'</p>
-								</div>
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="#none;">
-							<div class="contBox">
-								<p class="img"><img src="../inc/images/temp/@img_thumb03.jpg" alt=""></p>
-								<div class="txtWrap tyGradient">
-									<p class="txt">2020년 한라그룹 경영방침<br> '정몽원 회장에게 듣는다'</p>
-								</div>
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="#none;">
-							<div class="contBox">
-								<p class="img"><img src="../inc/images/temp/@img_thumb04.jpg" alt=""></p>
-								<div class="txtWrap tyGradient">
-									<p class="txt">2020년 한라그룹 경영방침<br> '정몽원 회장에게 듣는다'</p>
-								</div>
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="#none;">
-							<div class="contBox">
-								<p class="img"><img src="../inc/images/temp/@img_thumb05.jpg" alt=""></p>
-								<div class="txtWrap tyGradient">
-									<p class="txt">2020년 한라그룹 경영방침<br> '정몽원 회장에게 듣는다'</p>
-								</div>
-							</div>
-						</a>
-					</li>
-				</ul>
-			</div>
-			<!-- //인기 콘텐츠 -->
-
-			<!-- 최신 콘텐츠 -->
-			<div class="section">
-				<h2 class="sectionTit">최신 콘텐츠</h2>
+			<div class="contents">
 				<div class="thumbListWrap">
 					<ul class="thumbList">
 						<li>
@@ -330,11 +226,77 @@
 								</div>
 							</a>
 						</li>
+						<li>
+							<a href="#none;">
+								<div class="thumb">
+									<p class="img"><img src="../inc/images/temp/@img_thumb06.jpg" alt=""></p>
+								</div>
+								<div class="txtWrap">
+									<p class="tit">2020년도 상반기 한라그룹(만도) 신입사원 입사 환영회 현장</p>
+									<div class="info">
+										<p class="date">2020-01-20</p>
+										<p class="like"><span>200</span></p>
+									</div>
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="#none;">
+								<div class="thumb">
+									<p class="img"><img src="../inc/images/temp/@img_thumb06.jpg" alt=""></p>
+								</div>
+								<div class="txtWrap">
+									<p class="tit">전문 프리젠터 채자영이 전하는 실전 프리젠테이션 노하우</p>
+									<div class="info">
+										<p class="date">2020-01-20</p>
+										<p class="like"><span>200</span></p>
+									</div>
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="#none;">
+								<div class="thumb">
+									<p class="img"><img src="../inc/images/temp/@img_thumb06.jpg" alt=""></p>
+								</div>
+								<div class="txtWrap">
+									<p class="tit">회사 이름이 어렵다고요? 만도 헬라일렉트로닉스입니다.</p>
+									<div class="info">
+										<p class="date">2020-01-20</p>
+										<p class="like"><span>200</span></p>
+									</div>
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="#none;">
+								<div class="thumb">
+									<p class="img"><img src="../inc/images/temp/@img_thumb06.jpg" alt=""></p>
+								</div>
+								<div class="txtWrap">
+									<p class="tit">한라의 찰나 - 한라건설 찾아가 한라인을 담는 이진환 포토그래퍼</p>
+									<div class="info">
+										<p class="date">2020-01-20</p>
+										<p class="like"><span>200</span></p>
+									</div>
+								</div>
+							</a>
+						</li>
 					</ul>
-					<button type="button" class="btnMore">더보기</button>
+
+					<div class="paging">
+						<a href="#none;" class="first">처음</a>
+						<a href="#none;" class="prev">이전</a>
+						<a href="#none;" class="on">1</a>
+						<a href="#none;">2</a>
+						<a href="#none;">3</a>
+						<a href="#none;">4</a>
+						<a href="#none;">5</a>
+						<a href="#none;" class="next">다음</a>
+						<a href="#none;" class="last">마지막</a>
+					</div>
 				</div>
 			</div>
-			<!-- //최신 콘텐츠 -->
 
 			<button type="button" class="btnTop">Top</button>
 		</div>
@@ -372,7 +334,6 @@
 	<!-- //검색 경고창 얼럿 -->
 
 	<div class="dim"></div>
-
-	<script type="text/javascript" src="../inc/js/ui.js"></script>
+	</div>
 </body>
 </html>

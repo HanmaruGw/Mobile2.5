@@ -287,6 +287,7 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 		}
 	};
 	
+	
 	$rs.loadMenu = function(menuName) {
 		var pageName = angular.element('[class^="panel"][class*="current"]').attr('id');
 		var capitalMenuName = toFirstCapitalLetter(menuName);

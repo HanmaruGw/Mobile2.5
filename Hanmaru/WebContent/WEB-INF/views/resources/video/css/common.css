@@ -66,7 +66,7 @@ address,caption,cite,code,dfn,em,var { font-style:normal; font-weight:normal; }
 /***************************
 	layout
 ***************************/
-body.freeze { overflow:hidden; }
+/* body.freeze { overflow:hidden; } */
 
 #wrap { position:relative; height:100vh; }
 #header { position:relative; z-index:1000; height:7.03vh; padding:2.5vh -0px; border-bottom:1px solid #ccc; background-color:#fff; box-sizing:border-box; }

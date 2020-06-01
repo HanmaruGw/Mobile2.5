@@ -14,6 +14,7 @@
 		$('#btnResetBodyValue').click(function(){
 			DEXT5.setBodyValueEx('', "mailContentsEditor");
 			$('#tmpMailContents').val('');
+			$(':focus').blur();
 			$(this).blur();
 		});
 		

@@ -19,9 +19,9 @@ function getIosDownloadUrl(){
 function getVersionHistory(agent){
 	var message = '';
 	if(agent == 'android'){
-		message = '1) 전자결재 스크롤 및 뒤로가기 오류 개선' 
+		message = '1) 결재문서 첨부파일 누락현상 수정 , 2) 메일리스트 검색조건 누락현상 수정 , 3) G-EAC 배포 사이트 링크 변경'
 	}else{
-		message = ''
+		message = '1) 결재문서 첨부파일 누락현상 수정 , 2) 메일리스트 검색조건 누락현상 수정 , 3) G-EAC 배포 사이트 링크 변경'
 	}
 	return message;
 }

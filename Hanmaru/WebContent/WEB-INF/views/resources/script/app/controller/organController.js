@@ -18,6 +18,8 @@ appHanmaru.controller('organController', ['$scope', '$http', '$rootScope', '$tim
 		$http(param).success(function(data) {
 			var boxList = JSON.parse(data.value);
 			
+			console.log(boxList);
+			
 			$rs.subMenuType = 'insa';
 			$rs.subMenuList = boxList;
 			
@@ -38,21 +40,133 @@ appHanmaru.controller('organController', ['$scope', '$http', '$rootScope', '$tim
 		$rs.topDeptCode = $rs.subMenuList.Depts[0];
 		var currUserDepts = $rs.subMenuList;
 		
-		console.log('topDeptCode : ' ,$rs.topDeptCode);
-		console.log('currUserDepts : ' ,currUserDepts);
-		
 		$rs.isExpandOrganList = false; //조직도 SNB에서 선택시 한번만 스크롤되기 위한 변수.
 		recursiveOrganTree(currUserDepts, currUserDepts.Depts.length, 0);
-//		console.log('currUserDepts : ',currUserDepts);
-//		console.log('currUserDepts.Depts.length : ',currUserDepts.Depts.length);
 	});
 	
 	$rs.findChildDept = function(dept, depth) {
+		
+//		console.log('findChildDept dept : ',dept)
 		$rs.snbCurrSelectedDeptCode = dept.DeptCode;
-//		console.log('side dept code : ',$rs.snbCurrSelectedDeptCode);
+		
+		//2020.06.01 - '만도' 사용자일때 '파트너' deptLevel이 3이어야 하는데 4로 들어옴. 추후 수정해야할수도.
 		var maxDepth = parseInt(dept.DeptLevel, 10);
 		searchDept(dept, depth, maxDepth);
 	}
+	
+	// 현재 로그인한 아이디가 속한 부서와 사용자 찾기
+	function recursiveOrganTree(dept, maxDepth, currDepth) {
+//		console.log('처음받아온 현재 뎁스 : ',currDepth);
+//		console.log('maxDepth : ',maxDepth);
+//		console.log('dept : ',dept);
+		
+		if(currDepth < maxDepth) {
+			setTimeout(function(){
+				searchDept(dept.Depts[currDepth], currDepth, maxDepth);
+				recursiveOrganTree(dept, maxDepth, ++currDepth);
+			}, 100);
+		} else {
+			var code = dept.Users[0].DeptCode;
+			switch(currDepth - 1) {
+				case 0 : break;
+				case 1 : $rs.selected_firstDepth_code = code; break;
+				case 2 : $rs.selected_secondDepth_code = code; break;
+				case 3 : $rs.selected_thirdDepth_code = code; break;
+				case 4 : $rs.selected_fourthDepth_code = code; break;
+				
+				//2020.05.25 추가 - 조직도 depthlevel 7까지 조정
+				case 5 : $rs.selected_fifthDepth_code = code; break;
+				case 6 : $rs.selected_sixthDepth_code = code; break;
+				case 7 : $rs.selected_seventhDepth_code = code; break;
+			}
+			setTimeout(function(){
+				searchDept(dept.Depts[currDepth-1], currDepth, maxDepth);
+			}, 100);
+		}
+	}
+	 
+	// 조직도 수동으로 눌러서 찾기
+	function searchDept(deptCode, depth, maxDepth) {
+		
+//		console.log('deptCode : ',deptCode);
+//		console.log('조직도 찾기 현재 뎁스 : ',depth);
+//		console.log('maxDepth',maxDepth);
+		
+		var reqInsaListData = {
+			LoginKey:$rs.userInfo.LoginKey,
+			DeptCode:deptCode.DeptCode,
+			FindType:0
+		};
+		
+		var param = callApiObject('insa', 'insaDeptChild', reqInsaListData);
+		$http(param).success(function(data) {
+			var result = JSON.parse(data.value);
+			var dept = result.Depts;
+			
+			if(depth == maxDepth) {
+				setTimeout(function(){
+					$s.$apply(function(){
+						$s.org_user_list = result.Users;
+					});
+					
+					//2020.01.10 추가
+					if(!$rs.isExpandOrganList){
+						setTimeout(function(){
+							$s.$apply(function(){
+								var scrollHeight = $('.slideMenuMailList').prop('scrollHeight');
+								$('.slideMenuMailList').scrollTop((scrollHeight/2) - 170); //조직도 스크롤 영역
+							},50);
+							$rs.isExpandOrganList = true;
+						});
+					}
+					
+				}, 200);
+				
+				$rs.snbCurrSelectedDeptCode = deptCode.DeptCode;
+			}
+			
+			switch(depth) {
+				case 0 :
+					$rs.first_depth_list = dept;
+					break;
+				case 1 :
+					$rs.second_depth_list = dept;
+					$rs.selected_firstDepth_code = deptCode.DeptCode;
+// //console.log($rs.selected_firstDepth_code);
+					break;
+				case 2 :
+					$rs.third_depth_list = dept;
+					$rs.selected_secondDepth_code = deptCode.DeptCode;
+// //console.log($rs.selected_secondDepth_code);
+					break;
+				case 3 :
+					$rs.fourth_depth_list = dept;
+					$rs.selected_thirdDepth_code = deptCode.DeptCode;
+// //console.log($rs.selected_thirdDepth_code);
+					break;
+				case 4 :
+					$rs.fifth_depth_list = dept;
+					$rs.selected_fourthDepth_code = deptCode.DeptCode;
+// //console.log($rs.selected_fourthDepth_code);
+					break;
+				case 5 :
+					$rs.sixth_depth_list = dept;
+					$rs.selected_fifthDepth_code = deptCode.DeptCode;
+					break;
+					
+				case 6 :
+					$rs.seventh_depth_list = dept;
+					$rs.selected_sixthDepth_code = deptCode.DeptCode;
+					break;
+					
+				case 7 :
+					$rs.eighth_depth_list = dept;
+					break;
+			} 
+		});
+	}
+	
+	
 	
 	$rs.userDeptBtn = function(userInfo){
 		
@@ -263,101 +377,6 @@ appHanmaru.controller('organController', ['$scope', '$http', '$rootScope', '$tim
 // }
 // }
 	
-	// 현재 로그인한 아이디가 속한 부서와 사용자 찾기
-	function recursiveOrganTree(dept, maxDepth, currDepth) {
-//		console.log('currDepth : ',currDepth);
-//		console.log('maxDepth : ',maxDepth);
-//		console.log('dept : ',dept);
-		
-		if(currDepth < maxDepth) {
-			setTimeout(function(){
-				searchDept(dept.Depts[currDepth], currDepth, maxDepth);
-				recursiveOrganTree(dept, maxDepth, ++currDepth);
-			}, 100);
-		} else {
-			var code = dept.Users[0].DeptCode;
-			switch(currDepth - 1) {
-				case 0 : break;
-				case 1 : $rs.selected_firstDepth_code = code; break;
-				case 2 : $rs.selected_secondDepth_code = code; break;
-				case 3 : $rs.selected_thirdDepth_code = code; break;
-				case 4 : $rs.selected_fourthDepth_code = code; break;
-			}
-			setTimeout(function(){
-				searchDept(dept.Depts[currDepth-1], currDepth, maxDepth);
-			}, 100);
-		}
-	}
-	
-	// 조직도 수동으로 눌러서 찾기
-	function searchDept(deptCode, depth, maxDepth) {
-		
-//		console.log('deptCode : ',deptCode);
-//		console.log('depth : ',depth);
-//		console.log('maxDepth',maxDepth);
-		
-		var reqInsaListData = {
-			LoginKey:$rs.userInfo.LoginKey,
-			DeptCode:deptCode.DeptCode,
-			FindType:0
-		};
-		var param = callApiObject('insa', 'insaDeptChild', reqInsaListData);
-		$http(param).success(function(data) {
-			var result = JSON.parse(data.value);
-			var dept = result.Depts;
-			
-			if(depth == maxDepth) {
-				setTimeout(function(){
-					$s.$apply(function(){
-						$s.org_user_list = result.Users;
-					});
-					
-					//2020.01.10 추가
-					if(!$rs.isExpandOrganList){
-						setTimeout(function(){
-							$s.$apply(function(){
-								var scrollHeight = $('.slideMenuMailList').prop('scrollHeight');
-								$('.slideMenuMailList').scrollTop((scrollHeight/2) - 170); //조직도 스크롤 영역
-							},50);
-							$rs.isExpandOrganList = true;
-						});
-					}
-					
-				}, 200);
-				
-				$rs.snbCurrSelectedDeptCode = deptCode.DeptCode;
-			}
-			
-			switch(depth) {
-				case 0 :
-					$rs.first_depth_list = dept;
-					break;
-				case 1 :
-					$rs.second_depth_list = dept;
-					$rs.selected_firstDepth_code = deptCode.DeptCode;
-// //console.log($rs.selected_firstDepth_code);
-					break;
-				case 2 :
-					$rs.third_depth_list = dept;
-					$rs.selected_secondDepth_code = deptCode.DeptCode;
-// //console.log($rs.selected_secondDepth_code);
-					break;
-				case 3 :
-					$rs.fourth_depth_list = dept;
-					$rs.selected_thirdDepth_code = deptCode.DeptCode;
-// //console.log($rs.selected_thirdDepth_code);
-					break;
-				case 4 :
-					$rs.fifth_depth_list = dept;
-					$rs.selected_fourthDepth_code = deptCode.DeptCode;
-// //console.log($rs.selected_fourthDepth_code);
-					break;
-				case 5 :
-					$rs.sixth_depth_list = dept;
-					break;
-			} 
-		});
-	}
 }]);
 
 appHanmaru.controller('organAltController', ['$scope', '$http', '$rootScope', '$timeout', function($s, $http, $rs, $timeout) {
@@ -396,14 +415,15 @@ appHanmaru.controller('organAltController', ['$scope', '$http', '$rootScope', '$
 			$s.topDeptCode = result.Depts[0];
 			//console.log(result);
 			
-			searchDept(result.Depts[0], 0);
+//			searchDept(result.Depts[0], 0); //2020.05.25 주석처리 - recursiveOrgan에서 해당함수 호출함.
 			recursiveOrganTree(result, 0, result.Depts.length);
 			$s.selected_deptCode = $rs.userInfo.DeptCode; 
 		});
+		
+		
 	});
 	
 	$s.findChildDept = function(dept, depth) {
-		
 		
 		$s.selected_deptCode = dept.DeptCode;
 		searchDept(dept, depth);
@@ -582,15 +602,21 @@ appHanmaru.controller('organAltController', ['$scope', '$http', '$rootScope', '$
 			var code = dept.Users[0].DeptCode;
 			switch(currDepth - 1) {
 				case 0 : break;
-				case 1 : $rs.selected_firstDepth_code = code; break;
-				case 2 : $rs.selected_secondDepth_code = code; break;
-				case 3 : $rs.selected_thirdDepth_code = code; break;
-				case 4 : $rs.selected_fourthDepth_code = code; break;
+				case 1 : $s.selected_firstDepth_code = code; break;
+				case 2 : $s.selected_secondDepth_code = code; break;
+				case 3 : $s.selected_thirdDepth_code = code; break;
+				case 4 : $s.selected_fourthDepth_code = code; break;
+				
+				//2020.05.25 추가 - 조직도 depthlevel 7까지 조정
+				case 5 : $s.selected_fifthDepth_code = code; break;
+				case 6 : $s.selected_sixthDepth_code = code; break;
+				case 7 : $s.selected_seventhDepth_code = code; break;
 			}
 			setTimeout(function(){
 				searchDept(dept.Depts[currDepth-1], currDepth, maxDepth);
 			}, 100);
 		}
+		
 	}
 	
 	// 조직도 수동으로 눌러서 찾기
@@ -606,8 +632,8 @@ appHanmaru.controller('organAltController', ['$scope', '$http', '$rootScope', '$
 			var result = JSON.parse(data.value);
 			var dept = result.Depts;
 			
-			console.log(result);
-			console.log(dept);
+//			console.log(result);
+//			console.log(dept);
 			
 			if(dept.length > 0) {
 				switch(currDepth) {
@@ -635,9 +661,23 @@ appHanmaru.controller('organAltController', ['$scope', '$http', '$rootScope', '$
 						$s.selected_fourthDepth_code = deptCode.DeptCode;
 	// //console.log($s.selected_fourthDepth_code);
 						break;
+
+					//2020.05.25 수정 - 조직도 depth level 7까지 지원
 					case 5 :
 						$s.sixth_depth_list = dept;
+						$s.selected_fifthDepth_code = deptCode.DeptCode;
 						break;
+						
+					case 6 :
+						$s.seventh_depth_list = dept;
+						$s.selected_sixthDepth_code = deptCode.DeptCode;
+						break;
+						
+					case 7 :
+						$s.eighth_depth_list = dept;
+						break;
+						
+						
 				}
 				
 				$s.org_alt_user_list = result.Users;

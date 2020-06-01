@@ -102,6 +102,9 @@ select option[value="? undefined:undefined ?"]{display:none}
 #pg_list_page{z-index:2000;background-color:#FFF}
 #pg_detail_page{z-index:4000;background-color:#FFF}
 
+
+
+
 /*
 #pg_toast .toast_wrapper.show{animation:fadein 0.8s;-moz-animation:fadein 0.8s;-webkit-animation:fadein 0.8s;-o-animation:fadein 0.8s}
 #pg_toast .toast_wrapper.hide{animation:fadeout 0.8s;-moz-animation:fadeout 0.8s;-webkit-animation:fadeout 0.8s;-o-animation:fadeout 0.8s}
@@ -2790,8 +2793,14 @@ diary 검색 드롭다운
 .login_renewal_wrapper .wrap_simple_login_btn{margin-top:4.4445vw;margin-right:2vw;text-align:right}
 .login_renewal_wrapper .wrap_simple_login{display:inline-block;padding:0.6vw 2.6vw;font-size:3.8889vw;font-weight:400;color:#2B2F3B;border:1px solid #CFD3DA;border-radius:3.4445vw;-webkit-border-radius:3.4445vw;background:#fff;text-align:center}
 
-
 /* 간편비밀번호설정 초기화면 */
+/* 2020.05.29 추가 - 간편로그인 도메인 추가 */
+.selectSimpleDomain{position: absolute;right: 5vw;background: #fff;z-index: 2000;border-radius: 2vw;border: 1px solid #CFD3DA;display: inline-block;width: 55%;top: 38vw;padding: 0.834vw 0;}
+.selectSimpleDomain .selectSimpleDomainList{position: relative;padding: 2.2vw 3.45vw;cursor: pointer;}
+.selectSimpleDomain .selectSimpleDomainList .selectSimpleDomainListTxt{font-size: 4vw;color: #2B2F3B;}
+.selectSimpleDomain .selectSimpleDomainList .selectSimpleDomainListTxt.selected{font-weight:bold;color: #4E86FF;}
+.selectSimpleDomain .selectSimpleDomainList img{position: absolute;top: 51%;right: 5%;transform: translateY(-50%);width: 3.1vw;}
+
 .login_renewal_wrapper .simple_login_settings_popup_div{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);-ms-transform:translate(-50%, -50%);-webkit-transform:translate(-50% , -50%);-o-transform:translate(-50% , -50%);-moz-transform:translate(-50%, -50%);z-index:6000}
 .login_renewal_wrapper .simple_login_settings_popup{width:68.89vw;padding:6.6667vw;border-radius:2.23vw;-webkit-border-radius:2.23vw;background:#fff;}
 .login_renewal_wrapper .simple_login_settings_popup_top{text-align:center}
@@ -2799,9 +2808,9 @@ diary 검색 드롭다운
 .login_renewal_wrapper .simple_login_settings_top_notice{display:block;margin:0;font-size:3.3334vw;font-weight:400;color:#c4c6c8}
 .login_renewal_wrapper .simple_login_settings_contents_wrapper{}
 .login_renewal_wrapper .settings_contents_identify_box{margin-top:4.4445vw}
-.login_renewal_wrapper .settings_contents_identify_write{display:inline-block;padding:2.64vw 2vw;border:none;border-radius:2.23vw;-webkit-border-radius:2.23vw;font-size:3.4vw;color:#2B2F3B;background:#E4E7EB;vertical-align:middle;/* text-indent:2.23vw */width:60%;}
+.login_renewal_wrapper .settings_contents_identify_write{display:inline-block;padding:2.64vw 2vw;border:none;border-radius:2.23vw;-webkit-border-radius:2.23vw;font-size:3.4vw;color:#2B2F3B;background:#E4E7EB;vertical-align:middle;/* text-indent:2.23vw */width:53%;}
 .login_renewal_wrapper .settings_contents_identify_write::placeholder{color:#BCBEC1}
-.login_renewal_wrapper .settings_contents_email{display:inline-block;margin-left:1.1112vw;font-size:3.4vw;color:#2B2F3B;vertical-align:middle}
+.login_renewal_wrapper .settings_contents_email{display:inline-block;margin-left:1.1112vw;font-size:3.4vw;color:#2B2F3B;vertical-align:middle;width: 35%;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
 .login_renewal_wrapper .settings_contents_pw_box{margin-top:4.4445vw}
 .login_renewal_wrapper .settings_contents_pw_write{display:inline-block;width:100%;padding:2.64vw 0vw;border:none;border-radius:2.23vw;-webkit-border-radius:2.23vw;font-size:3.4vw;color:#2B2F3B;background:#E4E7EB;vertical-align:middle;text-indent:2.23vw}
 .login_renewal_wrapper .settings_contents_pw_write::placeholder{color:#BCBEC1}

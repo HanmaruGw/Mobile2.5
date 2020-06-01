@@ -453,7 +453,7 @@ appHanmaru.controller('approvalDetailController', ['$scope', '$http', '$rootScop
 		var imageUrl = approvalData.BodyUrl;
 	    $s.approvalImageSrc = imageUrl + "?cb=" + new Date().getTime();
 		
-//	    console.log('결재문서 : ',approvalData);
+	    console.log('결재문서 : ',approvalData);
 	    
 		setTimeout(function(){
 //			console.log($s.approvalDetail.BodyUrl);
@@ -647,6 +647,7 @@ appHanmaru.controller('approvalDetailController', ['$scope', '$http', '$rootScop
 	
 	$s.btnDownloadAttachFile = function(fileURL, fileName) {
 		// 여기에 하이브리드 기능 기술
+		console.log('첨부 url : ',fileURL);
 		if($rs.agent == 'android') {
 			if(androidWebView != undefined) {
 				androidWebView.downloadAttachFile(fileURL, fileName);

@@ -1,17 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <dext5>
   <license>
-    <product_key>IBD8-GEB6-JWW1-M01T</product_key>
+   <!--  <product_key>IBD8-GEB6-JWW1-M01T</product_key> -->
 <!--     <product_key>IBD8-GEB6-JWW1-M01T</product_key> -->
-    <license_key>BJ8ynJrFsJ8wGJrxXAVOpHWXq3jYo3nZm2jZlYR4SuUlEg1ovzUZvS1jD86ZwudjDi1ovzUZvS1jD86ZwudWAi1ovzUZvS1jD86ZwudpDi1ovzUZvS1jD86ZwudnDi1ovzUZvS1jD86ZwudlFS1ovzUZvS1jD86ZvzwmvzlVEV1ovzUZvS1jD86ZwucrDzarwb5iEm5WwS1jD86Zw9ErDzarwb5owzUZvS1jD86ZDS1ovzUZvS1jD86ZwucrDzarwb5WAi1jD86ZwucrDzarwb5jDi1jD86ZFHyiwS1ovzUZvS1jD874QHt7QfctBelgRfGqR6ygIi7Oy7EUPx6tQyR4QfdayTQ7QjEZQfMUQSttBc==</license_key>
+         <product_key>IBD8-GEB6-JWW1-M01T</product_key><!-- 2020.05.28 변경 -->
 <!--     <license_key>BJ8ynJrFsJ8wGJrxXAVOpHWXq3jYo3nZm2jZlYR4SuUlEg1ovzUZvS1jD86ZwudjDi1ovzUZvS1jD86ZwudWAi1ovzUZvS1jD86ZwudpDi1ovzUZvS1jD86ZwudnDi1ovzUZvS1jD86ZwudlFS1ovzUZvS1jD86ZvzwmvzlVEV1ovzUZvS1jD86ZwucrDzarwb5iEm5WwS1jD86Zw9ErDzarwb5owzUZvS1jD86ZDS1ovzUZvS1jD874QHt7QfctBelgRfGqR6ygIi7Oy7EUPx6tQyR4QfdayTQ7QjEZQTeUQVttBc==</license_key> -->
+    <!-- <license_key>BJ8ynJrFsJ8wGJrxXAVOpHWXq3jYo3nZm2jZlYR4SuUlEg1ovzUZvS1jD86ZwudjDi1ovzUZvS1jD86ZwudWAi1ovzUZvS1jD86ZwudpDi1ovzUZvS1jD86ZwudnDi1ovzUZvS1jD86ZwudlFS1ovzUZvS1jD86ZvzwmvzlVEV1ovzUZvS1jD86ZwucrDzarwb5iEm5WwS1jD86Zw9ErDzarwb5owzUZvS1jD86ZDS1ovzUZvS1jD86ZwucrDzarwb5WAi1jD86ZwucrDzarwb5jDi1jD86ZFHyiwS1ovzUZvS1jD874QHt7QfctBelgRfGqR6ygIi7Oy7EUPx6tQyR4QfdayTQ7QjEZQfMUQSttBc==</license_key> -->
+	<license_key>BJ8ynJrFsJ8wGJrxXAVOpHWXq3jYo3nZm2jZlYR4SuUlEg1ovzUZvS1jD86ZwudjDi1ovzUZvS1jD86ZwudWAi1ovzUZvS1jD86ZwudpDi1ovzUZvS1jD86ZwudnDi1ovzUZvS1jD86ZwudlFS1ovzUZvS1jD86ZvzwmvzlVEV1ovzUZvS1jD86ZwucrDzarwb5iEm5WwS1jD86Zw9ErDzarwb5owzUZvS1jD86ZDS1ovzUZvS1jD86ZwucrDzarwb5WAi1jD86ZwucrDzarwb5jDi1jD86ZCbaZDb4rCbaZDberv85qBfd4ITctQHUNLkL0PxFaLjvqSlFuQS7IQfaxBfctRyxWITM9Pfc7QjEZQHt=</license_key><!-- 2020.05.28 변경 -->
     <mime_use mimeCharset="utf-8">0</mime_use>
     <print_preview></print_preview>
     <print_header>Header</print_header>
     <print_footer>Footer</print_footer>
     <trust_sites desc="도메인 앞에 '-'붙이면 신뢰사이트 삭제, 등록하려는 사이트가 여러개인 경우 콤마(,)로 구분하여 입력">
        <!-- ep.halla.com,epcn.halla.com,epsz.halla.com,epin.halla.com,epgn.halla.com,epeu.halla.com,affairs.halla.com,ep.mandobrose.com,gw.mandohella.com,m.halla.com -->
-   		ep.halla.com,epcn.halla.com,epsz.halla.com,epin.halla.com,epgn.halla.com,epeu.halla.com,affairs.halla.com,ep.mandobrose.com,gw.mandohella.com,m.halla.com,ep.mandosz.com,ep.mandocn.com,tube.halla.com
+   	   <!-- ep.halla.com,epcn.halla.com,epsz.halla.com,epin.halla.com,epgn.halla.com,epeu.halla.com,affairs.halla.com,ep.mandobrose.com,gw.mandohella.com,m.halla.com,ep.mandosz.com,ep.mandocn.com,tube.halla.com -->
+   		ep.halla.com,epcn.halla.com,epsz.halla.com,epin.halla.com,epgn.halla.com,epeu.halla.com,affairs.halla.com,ep.mandobrose.com,gw.mandohella.com,m.halla.com,ep.mandosz.com,ep.mandocn.com,hallo.halla.com <!-- 2020.05.28 변경 -->
     </trust_sites>
   </license>
   <xss_protection>

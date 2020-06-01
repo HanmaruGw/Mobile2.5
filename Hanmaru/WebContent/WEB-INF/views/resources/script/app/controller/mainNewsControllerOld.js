@@ -35,8 +35,6 @@ appHanmaru.controller('mainListController', ['$scope', '$http', '$rootScope', '$
 	});
 	
 	$rs.$on('initMainList',function(event,boardData){
-		
-		
 		$rs.dialog_progress = true;
 		var param = callApiObject('main', 'mainBoxs', {LoginKey:$rs.userInfo.LoginKey});
 		$http(param).success(function(data) {
@@ -70,9 +68,10 @@ appHanmaru.controller('mainListController', ['$scope', '$http', '$rootScope', '$
 				}
 			}
 			
-			$rs.dialog_progress = false;
 		}).then(function(){
-			$rs.dialog_progress = false;
+			setTimeout(function(){
+				$rs.dialog_progress = false;
+			},800);
 		});
 	});
 	

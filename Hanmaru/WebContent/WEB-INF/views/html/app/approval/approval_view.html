@@ -9,7 +9,7 @@
 			<span ng-show="displayName == undefined">{{translateLanguage('approval_box')}}</span>
 		</div>
 		<div class="headerBarMove approval_attach">
-			<img src="/resources/image/approval/ic_menu_attach_pressed.png" ng-if="approval.Files.length > 0" ng-click="toggleApprovalAttachDD()">
+			<img src="/resources/image/approval/ic_menu_attach_pressed.png" ng-if="approvalDetail.Files.length > 0" ng-click="toggleApprovalAttachDD()">
 		</div>
 		<div class="headerBarSearch approval_search">
 			
@@ -38,7 +38,7 @@
 				</p>
 				<p class="lifeTime">
 					<span class="subject">{{translateLanguage('approval_period')}}</span>
-					<span ng-if="approval.Period != 'Eternal'">{{(approvalDetail.Period | number) / 12}}{{translateLanguage('period_year')}}</span>
+					<span ng-if="approvalDetail.Period != 'Eternal'">{{(approvalDetail.Period | number) / 12}}{{translateLanguage('period_year')}}</span>
 				</p>
 				<p class="doc_category"><span class="subject">{{translateLanguage('approval_doc_class_name')}}</span>
 					<span>{{approvalDetail.DocClassName}}</span>
@@ -59,7 +59,7 @@
 		
 		<div class="viewContentsDetail" >
 			<img ng-src="{{approvalImageSrc}}"  id="tmpApprovalImage" style="display:none" ><!-- style="width:100%" --><!-- approvalDetail.BodyUrl -->
-			<div class="wrapBodyContents" >
+			<div class="wrapBodyContents">
 			</div>
 		</div>
 	</div>
@@ -68,7 +68,7 @@
 	<div class="approvalAttachBg" ng-show="isApprovalAttachDDShow == true" ng-click="toggleApprovalAttachDD()"></div>
 	<div class="approvalAttachDialog" ng-show="isApprovalAttachDDShow == true">
 		<ul>
-			<li ng-repeat="file in approval.Files">
+			<li ng-repeat="file in approvalDetail.Files">
 				<div class="file_ext">
 					<img ng-src="/resources/image/extension/ic_file_{{file.FileName.split('.').pop().toLowerCase()}}.png">
 				</div>

@@ -27,10 +27,10 @@ $(function(){
 	                 return navigator.userAgent.match(/IEMobile/i) == null ? false : true;
 	        },
 	        any: function () {
-	                 return (isMobile.Android() || isMobile.BlackBerry() || isMobile.IOS() || isMobile.Opera() || isMobile.Windows());
+	                 return (isMobile.Android() || isMobile.BlackBerry() || isMobile.IOS() || isMobile.Opera() || isMobile.Windows() || isMobile.Naver());
 	        },
 	        Naver : function() {
-	        		return navigator.userAgent.indexOf('NAVER(inapp') !== -1  ? true : false;
+	        		return navigator.userAgent.indexOf('NAVER(inapp') != -1  ? true : false;
 	        }
 	};
 	
@@ -70,11 +70,12 @@ $(function(){
 	
 	//download button
 	$('#download_btn_img').click(function(){
-		if(agent == 'android'){
-			$(location).attr('href', android_domain+'/hanmaru-release.apk');
+		//2020.05.27 수정 - ios 먼저 체크하도록
+		if(agent == 'ios'){
+			$(location).attr('href', 'itms-services://?action=download-manifest&url='+ios_domain+'/hanmaru.plist');
 			sendToDownloadLog(userLoginKey);
 		}else{
-			$(location).attr('href', 'itms-services://?action=download-manifest&url='+ios_domain+'/hanmaru.plist');
+			$(location).attr('href', android_domain+'/hanmaru-release.apk');
 			sendToDownloadLog(userLoginKey);
 		}
 	});

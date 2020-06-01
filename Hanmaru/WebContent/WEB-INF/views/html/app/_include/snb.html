@@ -90,24 +90,19 @@
 			
 			<!-- 2020.03.31 추가 - eac -->
 			<div class="slideMenuBox" ng-click="loadMenu('mando_eac')" 
-				ng-show="userInfo.UserKey == 'H0000089028' || 
-				userInfo.UserKey == 'H0000005925' || 
-				userInfo.UserKey == 'H0000005952' || 
-				userInfo.UserKey == 'H0000005906' ||
-				userInfo.UserKey == 'X0000E02847' ||
-				userInfo.UserKey == 'H0000089236'
-				" ><!-- EAC 테스트 ID -->
+				ng-show="checkEacUser() || userInfo.UserKey == 'H0000089028'" >
 				<img src="/resources/image/icon/ic_geac_normal.png" ng-if="subMenuType != 'mando_eac'">
 				<img src="/resources/image/icon/ic_geac_select.png" ng-if="subMenuType == 'mando_eac'">
 				<span ng-class="{'selected' : subMenuType == 'mando_eac'}">G-EAC</span>
 			</div>
 			
 			<!-- 한라튜브 테스트 -->
-			<!-- <div class="slideMenuBox" ng-click="loadMenu('hallaVideo')" >
-				<img src="/resources/image/icon/ic_midashelp_normal.png" ng-if="subMenuType != 'midashelp'">
-				<img src="/resources/image/icon/ic_midashelp_selected.png" ng-if="subMenuType == 'midashelp'">
-				<span ng-class="{'selected' : subMenuType == 'midashelp'}">HallaOn</span>
-			</div> -->
+			<div class="slideMenuBox" ng-click="loadMenu('hallaVideo')" >
+				<a href="#news">
+				<img src="/resources/image/icon/ic_side_menu_video.png" ng-if="subMenuType != 'midashelp'">
+				<img src="/resources/image/icon/ic_side_menu_video.png" ng-if="subMenuType == 'midashelp'">
+				<span ng-class="{'selected' : subMenuType == 'midashelp'}">Hallo</span>
+			</div>
 			
 		</div>
 		
@@ -257,6 +252,34 @@
 																			<span class="slideMenuInsaUnSelected"></span>
 																			{{fifth_depth.DeptName}}
 																		</a>
+																		
+																		<!-- 2020.05.25 추가 - 최대 depthlevel 7 -->
+																		<ul class="groupSubHoldings" ng-if="selected_fifthDepth_code == fifth_depth.DeptCode">
+																			<li ng-repeat="sixth_depth in sixth_depth_list">
+																				<a id="{{sixth_depth.DeptCode}}" ng-click="findChildDept(sixth_depth, 6)" ng-class="{'selected' : snbCurrSelectedDeptCode == sixth_depth.DeptCode}">
+																					<span class="slideMenuInsaUnSelected"></span>
+																					{{sixth_depth.DeptName}}
+																				</a>
+																				<ul class="groupSubHoldings" ng-if="selected_sixthDepth_code == sixth_depth.DeptCode">
+																					<li ng-repeat="seventh_depth in seventh_depth_list">
+																						<a id="{{seventh_depth.DeptCode}}" ng-click="findChildDept(seventh_depth, 7)" ng-class="{'selected' : snbCurrSelectedDeptCode == seventh_depth.DeptCode}">
+																							<span class="slideMenuInsaUnSelected"></span>
+																							{{seventh_depth.DeptName}}
+																						</a>
+																						<ul class="groupSubHoldings" ng-if="selected_seventhDepth_code == seventh_depth.DeptCode">
+																							<li ng-repeat="eighth_depth in eighth_depth_list">
+																								<a id="{{eighth_depth.DeptCode}}" ng-click="findChildDept(eighth_depth, 8)" ng-class="{'selected' : snbCurrSelectedDeptCode == eighth_depth.DeptCode}">
+																									<span class="slideMenuInsaUnSelected"></span>
+																									{{eighth_depth.DeptName}}
+																								</a>
+																							</li>
+																						</ul>
+																					</li>
+																				</ul>
+																			</li>
+																		</ul>
+																		
+																		
 																	</li>
 																</ul>
 															</li>

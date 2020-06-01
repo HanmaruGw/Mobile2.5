@@ -1,21 +1,25 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ko">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<title>Document</title>
-	<link rel="stylesheet" href="../inc/css/common.css">
-	<link rel="stylesheet" href="../inc/css/contents.css">
-	<script type="text/javascript" src="../inc/js/lib/jquery-3.4.1.min.js"></script>
-	<script type="text/javascript" src="../inc/js/lib/TweenMax.min.js"></script>
-	<script type="text/javascript" src="../inc/js/lib/slick.min.js"></script>
+	<link rel="stylesheet" href="/resources/video/css/common.css">
+	<link rel="stylesheet" href="/resources/video/css/contents.css">
+	<script type="text/javascript" src="/resources/video/js/lib/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="/resources/video/js/lib/TweenMax.min.js"></script>
+	<script type="text/javascript" src="/resources/video/js/lib/slick.min.js"></script>
+</head> -->
+<head>
+	<script type="text/javascript" src="/resources/video/js/ui.js"></script>
 </head>
-<body>
+<body >
+	<div ng-controller="videoNewsController">
 	<!-- wrap -->
 	<div id="wrap">
 		<!-- header -->
 		<div id="header">
-			<p class="tit"><a href="#none;">조직문화</a></p>
+			<p class="tit"><a href="#none;">한라뉴스</a></p>
 			<button type="button" class="btnNavOpen">메뉴 열기</button>
 			<button type="button" class="btnSearch">검색</button>
 		</div>
@@ -32,7 +36,7 @@
 					</ul>
 					<div class="memberInfo">
 						<div class="profileImg">
-							<p class="img"><img src="../inc/images/common/img_profile_default.png" alt=""></p>
+							<p class="img"><img src="/resources/video/images/common/img_profile_default.png" alt=""></p>
 						</div>
 						<div class="txtWrap">
 							<p class="name"><span>유현주</span> <em>프로</em></p>
@@ -45,44 +49,44 @@
 						<ul class="dep1">
 							<li class="menu01">
 								<a href="#none;">
-									<img src="../inc/images/common/icon_nav_menu01_off.png" alt="">
+									<img src="/resources/video/images/common/icon_nav_menu01_off.png" alt="">
 									<span>메인</span>
 								</a>
 							</li>
 							<li class="menu02">
 								<a href="#none;">
-									<img src="../inc/images/common/icon_nav_menu02_on.png" alt="">
+									<img src="/resources/video/images/common/icon_nav_menu02_on.png" alt="">
 									<span>뉴스 H</span>
 								</a>
 							</li>
 							<li class="menu03">
 								<a href="#none;">
-									<img src="../inc/images/common/icon_nav_menu03_off.png" alt="">
+									<img src="/resources/video/images/common/icon_nav_menu03_off.png" alt="">
 									<span>스토리 H</span>
 								</a>
 							</li>
 							<li class="menu04">
 								<a href="#none;">
-									<img src="../inc/images/common/icon_nav_menu04_off.png" alt="">
+									<img src="/resources/video/images/common/icon_nav_menu04_off.png" alt="">
 									<span>지식 H</span>
 								</a>
 							</li>
 							<li class="menu05">
 								<a href="#none;">
-									<img src="../inc/images/common/icon_nav_menu05_off.png" alt="">
+									<img src="/resources/video/images/common/icon_nav_menu05_off.png" alt="">
 									<span>공감 H</span>
 								</a>
 							</li>
 							<li class="menu06">
 								<a href="#none;">
-									<img src="../inc/images/common/icon_nav_menu06_off.png" alt="">
+									<img src="/resources/video/images/common/icon_nav_menu06_off.png" alt="">
 									<span>메뉴5</span>
 								</a>
 							</li>
 							<li class="menu07">
 								<a href="#none;">
-									<img src="../inc/images/common/icon_nav_menu07_off.png" alt="">
-									<span><img src="../inc/images/common/logo_hanmaru.png" alt=""></span>
+									<img src="/resources/video/images/common/icon_nav_menu07_off.png" alt="">
+									<span><img src="/resources/video/images/common/logo_hanmaru.png" alt=""></span>
 								</a>
 							</li>
 						</ul>
@@ -102,19 +106,19 @@
 					<ul>
 						<li class="menu01">
 							<a href="#none;">
-								<img src="../inc/images/common/icon_nav_quick01.png" alt="">
+								<img src="/resources/video/images/common/icon_nav_quick01.png" alt="">
 								<span>한라튜브 소개</span>
 							</a>
 						</li>
 						<li class="menu02">
 							<a href="#none;">
-								<img src="../inc/images/common/icon_nav_quick02.png" alt="">
+								<img src="/resources/video/images/common/icon_nav_quick02.png" alt="">
 								<span>콘텐츠 편성표</span>
 							</a>
 						</li>
 						<li class="menu03">
 							<a href="#none;">
-								<img src="../inc/images/common/icon_nav_quick03.png" alt="">
+								<img src="/resources/video/images/common/icon_nav_quick03.png" alt="">
 								<span>콘텐츠 제안</span>
 							</a>
 						</li>
@@ -141,7 +145,7 @@
 						<li>
 							<a href="#none;">
 								<div class="thumb">
-									<p class="img"><img src="../inc/images/temp/@img_thumb06.jpg" alt=""></p>
+									<p class="img"><img src="/resources/video/images/temp/@img_thumb06.jpg" alt=""></p>
 								</div>
 								<div class="txtWrap">
 									<p class="tit">2020년도 상반기 한라그룹(만도) 신입사원 입사 환영회 현장</p>
@@ -155,7 +159,7 @@
 						<li>
 							<a href="#none;">
 								<div class="thumb">
-									<p class="img"><img src="../inc/images/temp/@img_thumb06.jpg" alt=""></p>
+									<p class="img"><img src="/resources/video/images/temp/@img_thumb06.jpg" alt=""></p>
 								</div>
 								<div class="txtWrap">
 									<p class="tit">전문 프리젠터 채자영이 전하는 실전 프리젠테이션 노하우</p>
@@ -169,7 +173,7 @@
 						<li>
 							<a href="#none;">
 								<div class="thumb">
-									<p class="img"><img src="../inc/images/temp/@img_thumb06.jpg" alt=""></p>
+									<p class="img"><img src="/resources/video/images/temp/@img_thumb06.jpg" alt=""></p>
 								</div>
 								<div class="txtWrap">
 									<p class="tit">회사 이름이 어렵다고요? 만도 헬라일렉트로닉스입니다.</p>
@@ -183,7 +187,7 @@
 						<li>
 							<a href="#none;">
 								<div class="thumb">
-									<p class="img"><img src="../inc/images/temp/@img_thumb06.jpg" alt=""></p>
+									<p class="img"><img src="/resources/video/images/temp/@img_thumb06.jpg" alt=""></p>
 								</div>
 								<div class="txtWrap">
 									<p class="tit">한라의 찰나 - 한라건설 찾아가 한라인을 담는 이진환 포토그래퍼</p>
@@ -197,7 +201,7 @@
 						<li>
 							<a href="#none;">
 								<div class="thumb">
-									<p class="img"><img src="../inc/images/temp/@img_thumb06.jpg" alt=""></p>
+									<p class="img"><img src="/resources/video/images/temp/@img_thumb06.jpg" alt=""></p>
 								</div>
 								<div class="txtWrap">
 									<p class="tit">한터뷰, 은밀한 TMI가 시작됐다. 이번시간에는 인사 전문가를 모시고 인터뷰..</p>
@@ -211,7 +215,7 @@
 						<li>
 							<a href="#none;">
 								<div class="thumb">
-									<p class="img"><img src="../inc/images/temp/@img_thumb06.jpg" alt=""></p>
+									<p class="img"><img src="/resources/video/images/temp/@img_thumb06.jpg" alt=""></p>
 								</div>
 								<div class="txtWrap">
 									<p class="tit">한라인에게  새로운 상식과 계열사의 알찬 정보까지 드리는 한라 퀴즈쇼</p>
@@ -225,7 +229,7 @@
 						<li>
 							<a href="#none;">
 								<div class="thumb">
-									<p class="img"><img src="../inc/images/temp/@img_thumb06.jpg" alt=""></p>
+									<p class="img"><img src="/resources/video/images/temp/@img_thumb06.jpg" alt=""></p>
 								</div>
 								<div class="txtWrap">
 									<p class="tit">2020년도 상반기 한라그룹(만도) 신입사원 입사 환영회 현장</p>
@@ -239,7 +243,7 @@
 						<li>
 							<a href="#none;">
 								<div class="thumb">
-									<p class="img"><img src="../inc/images/temp/@img_thumb06.jpg" alt=""></p>
+									<p class="img"><img src="/resources/video/images/temp/@img_thumb06.jpg" alt=""></p>
 								</div>
 								<div class="txtWrap">
 									<p class="tit">전문 프리젠터 채자영이 전하는 실전 프리젠테이션 노하우</p>
@@ -253,7 +257,7 @@
 						<li>
 							<a href="#none;">
 								<div class="thumb">
-									<p class="img"><img src="../inc/images/temp/@img_thumb06.jpg" alt=""></p>
+									<p class="img"><img src="/resources/video/images/temp/@img_thumb06.jpg" alt=""></p>
 								</div>
 								<div class="txtWrap">
 									<p class="tit">회사 이름이 어렵다고요? 만도 헬라일렉트로닉스입니다.</p>
@@ -267,7 +271,7 @@
 						<li>
 							<a href="#none;">
 								<div class="thumb">
-									<p class="img"><img src="../inc/images/temp/@img_thumb06.jpg" alt=""></p>
+									<p class="img"><img src="/resources/video/images/temp/@img_thumb06.jpg" alt=""></p>
 								</div>
 								<div class="txtWrap">
 									<p class="tit">한라의 찰나 - 한라건설 찾아가 한라인을 담는 이진환 포토그래퍼</p>
@@ -318,7 +322,7 @@
 	<div id="searchAlert" class="layerpop alert">
 		<div class="inner">
 			<div class="txtWrap">
-				<img src="../inc/images/common/logo.png" alt="Halla Tube">
+				<img src="/resources/video/images/common/logo.png" alt="Halla Tube">
 				<p class="txt">검색어를 입력하세요</p>
 			</div>
 			<div class="btnWrap">
@@ -331,6 +335,7 @@
 
 	<div class="dim"></div>
 
-	<script type="text/javascript" src="../inc/js/ui.js"></script>
+	<!-- <script type="text/javascript" src="/resources/video/js/ui.js"></script> -->
+	</div>
 </body>
-</html>
+<!-- </html> -->

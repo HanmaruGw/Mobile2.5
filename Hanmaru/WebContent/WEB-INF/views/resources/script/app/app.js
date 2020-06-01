@@ -6,18 +6,18 @@ var androidWebView = window.AndroidBridge;
 //'slip' : 메일 스와이프 삭제
 //'angular-carousel' : 배너이미지 슬라이더
 //'angularLazyImg' : 이미지 로딩 처리
-var appHanmaru = angular.module('appHanmaru', ['ngSanitize','ngRoute','ngAnimate','oc.lazyLoad','slip','angular-carousel'])//,'angularLazyImg'
-.config(function($sceDelegateProvider, $compileProvider) {
+var appHanmaru = angular.module('appHanmaru', ['ngSanitize','ngRoute','ngAnimate','oc.lazyLoad','slip','angular-carousel',])//,'angularLazyImg'
+.config(function($sceDelegateProvider, $compileProvider,$routeProvider) {
 	$sceDelegateProvider.resourceUrlWhitelist(['self','http://play.smartucc.kr','http://m.mvod.gabia.com']);
 	$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel|sms):/);
+	
 });
 var globalTest;
 var mailBody='';
 ///TEST MODE on / off
-var isTest = true; 
+var isTest = false;
 var LoginCountID = '';
 var LoginLockCnt = 0;
-
 
 //2019.12.20 - 메인화면 가로 배너 스크롤시 스와이프 안되도록 체크하는 변수
 appHanmaru.value('shouldFire', function(element){
@@ -113,8 +113,8 @@ appHanmaru.controller('splashController', ['$scope', '$http', '$rootScope','$tim
 				}
 			}
 			
-			console.log('Response app version : ',resData.Version);
-			console.log('Current app version : ',$rs.appVersion);
+//			console.log('Response app version : ',resData.Version);
+//			console.log('Current app version : ',$rs.appVersion);
 			
 			if(resData.Version == $rs.appVersion){ // 최신버전
 				$s.isVersionUpdate = false;
@@ -149,12 +149,14 @@ appHanmaru.controller('splashController', ['$scope', '$http', '$rootScope','$tim
 		$s.updateMessageList = message.split(',')
 	}
 	
+	//2020.05.27 수정 - 앱 설치파일 다운로드에서 배포센터로 이동하도록.
 	$s.appDownloadBtn = function(){
-		if($rs.agent == 'android'){
-			window.open(getAndroidDownloadUrl(),'_blank');
-		}else{
-			webkit.messageHandlers.sendDownloadUrl.postMessage(getIosDownloadUrl());
-		}
+//		if(getOS() == 'ios'){
+//			webkit.messageHandlers.sendDownloadUrl.postMessage(getIosDownloadUrl());
+//		}else{
+//			window.open(getAndroidDownloadUrl(),'_blank');
+//		}
+		window.open('https://m.halla.com','_blank');
 	}
 	
 	// ios
@@ -181,7 +183,7 @@ appHanmaru.controller('splashController', ['$scope', '$http', '$rootScope','$tim
 					$s.versionCheck();
 				}
 			}
-		},1000);
+		},200);
 	});
 	
 }]);
@@ -226,13 +228,21 @@ appHanmaru.controller('loginController', ['$scope', '$http', '$rootScope', funct
 		callLoginImage();
 		callDomainList();
 		
+		//일반 로그인 도메인 팝업
 		$s.toggleDomainPopup = function(){
 			$s.isOpenDomainPopup = !$s.isOpenDomainPopup;
 		};
 		$s.applyDomain = function(idx){
 			$s.generalLogin_domain = $s.domainList[idx];
 			$s.isOpenDomainPopup = false;
+			$s.isOpenSimpleDomainPopup = false;
 			$s.curDomainIdx = idx;
+		};
+		
+		//2020.05.29 추가
+		//간편로그인 도메인 팝업
+		$s.toggleSimpleDomainPopup = function(){
+			$s.isOpenSimpleDomainPopup = !$s.isOpenSimpleDomainPopup;
 		};
 		
 		// 도메인 리스트 호출
@@ -504,7 +514,7 @@ appHanmaru.controller('loginController', ['$scope', '$http', '$rootScope', funct
 			if($s.isPinLogin){
 			// todo 핀번호 validation
 				
-			console.log('핀번호 로그인시 아이디 : ',$rs.appUserId);
+//			console.log('핀번호 로그인시 아이디 : ',$rs.appUserId);
 			
 			if($rs.appUserId == ''){
 				$rs.result_message = $rs.translateLanguageLoginPage('toast_setting_pin_number_warn');
@@ -600,7 +610,9 @@ appHanmaru.controller('loginController', ['$scope', '$http', '$rootScope', funct
 }]);
 
 // mainController
-appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce','$ocLazyLoad','shouldFire',function($s, $http, $rs, $sce,$ocLazyLoad,shouldFire) {
+appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce','$ocLazyLoad','shouldFire','$location','$window','$route',
+	function($s, $http, $rs, $sce,$ocLazyLoad,shouldFire,$location,$window,$route) {
+	
 	$rs.agent = getOS();
 	
 	$rs.isTamplateLoad = false;
@@ -724,28 +736,37 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 			var code = parseInt(data.Code, 10);
 			if(code == 1){
 //				lazy loading
-				$rs.isEditorLoaded = true;
+//				$rs.isEditorLoaded = true; 
 				$rs.userInfo = JSON.parse(data.value);
 				
-				console.log('유저정보 : ',$rs.userInfo );
+//				console.log('유저정보 : ',$rs.userInfo );
 				
 				//계열사별 메인화면 변경
-				if($rs.userInfo.CompCode === '00001'){
-					$rs.userCompMainView = 'halla';
-				}
-				else if($rs.userInfo.CompCode === '00002'){
-					$rs.userCompMainView = 'holdings';
-				}
-				else if($rs.userInfo.CompCode === '00005'){
-					$rs.userCompMainView = 'mando';
-				}
-				else{
-					$rs.userCompMainView = 'mando';
+//				if($rs.userInfo.CompCode === '00001'){
+//					$rs.userCompMainView = 'halla';
+//				}
+//				else if($rs.userInfo.CompCode === '00002'){
+//					$rs.userCompMainView = 'holdings';
+//				}
+//				else if($rs.userInfo.CompCode === '00005'){
+//					$rs.userCompMainView = 'mando';
+//				}
+//				else{
+//					$rs.userCompMainView = 'mando';
+//				}
+				
+				//2020.05.26 추가
+				//G-EAC 국내향 사용자 구분
+				//Dept Code : 00005.10 으로 시작하는 사용자
+				$rs.checkEacUser = function(){
+					var deptCode = $rs.userInfo.DeptCode;
+				    exp = /00005.10/; 
+				    return exp.test(deptCode);
 				}
 				
 				var userData = accessInfoData.isPinLogin ? $rs.appUserId : accessInfoData.userID;
 //				var param2 = callApiObjectGET('https://eptest.halla.com/mail/ApiPage.aspx',{param : userData}); //추후 변경해야됨(ep.halla)
-				var param2 = callApiObjectGET('https://eptest.halla.com/mail/api/GetMailBoxUrl',{LoginId : userData}); //추후 변경해야됨(ep.halla)
+				var param2 = callApiObjectGET('https://ep.halla.com/mail/api/GetMailBoxUrl',{LoginId : userData}); //추후 변경해야됨(ep.halla)
 //				console.log(param2);
 				
 				$http(param2).success(function(data) {
@@ -912,6 +933,10 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 			};
 			
 		}).then(function(){
+			$rs.isEditorLoaded = true; //2020.05.27 수정 - 에디터 로드 시점 수정.
+			
+			$rs.$broadcast('initSearchValue');//검색조건 초기화  - 첫화면을 메일로 했을때 검색조건 리스트 안보이는 현상으로 로드시점 변경함.
+			
 			if(androidWebView != undefined) {
 				androidWebView.focusToWebView();
 			}
@@ -933,7 +958,7 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 			$rs.dialog_progress = false;
 			$rs.$apply();
 			$rs.$broadcast('initLoginPage');
-		},2000);
+		},1000);
 	};
 	
 	//*******************챗봇***************************
@@ -1111,7 +1136,7 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 //		pushPage(pageName, 'pg_' + menuName + '_list');
 		$rs.subMenuType = menuName;
 		
-		$rs.$broadcast('initSearchValue');// 검색조건 초기화
+//		$rs.$broadcast('initSearchValue');//검색조건 초기화 //2020.05.28 주석처리 - 첫화면을 메일로 했을때 검색조건 리스트 안보이는 현상
 		if(menuName != 'insa'){
 			$rs.slideMenuShow = false;
 			$rs.currMenuSlide = false;
@@ -1158,7 +1183,6 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 			}
 		}
 		//2020.03.31 추가 - EAC 테스트
-		//나중에 한마루 국가코드도 넘겨야할듯...
 		else if(menuName === 'mando_eac'){
 //			console.log('유저정보 : ',$rs.userInfo);
 			if($rs.agent == 'android'){
@@ -1172,6 +1196,13 @@ appHanmaru.controller('mainController', ['$scope', '$http', '$rootScope', '$sce'
 				};
 				webkit.messageHandlers.deepLinkIosEACApp.postMessage(dic);
 			}
+		}
+		
+		else if(menuName === 'hallaVideo'){
+			//$location.path('/video_main');
+//			$window.location.href = '#video_main.html';
+			
+//			$location.path($window.location.origin +'/html/video/videoRouter.html');
 		}
 		else{
 			if(menuName === 'reserv'){
@@ -1587,7 +1618,42 @@ function getOS() {
 	}
 
     return "other";
+	
+//	if(isMobile.any()){
+//	    if(isMobile.IOS()){
+//	    	return "ios";
+//	    }else{
+//	    	return "android";
+//	    }
+//	}else{
+//		return "other";
+//	}
+	
 }
+
+var isMobile = {
+        Android: function () {
+                 return navigator.userAgent.match(/Android/i) == null ? false : true;
+        },
+        BlackBerry: function () {
+                 return navigator.userAgent.match(/BlackBerry/i) == null ? false : true;
+        },
+        IOS: function () {
+                 return navigator.userAgent.match(/iPhone|iPad|iPod/i) == null ? false : true;
+        },
+        Opera: function () {
+                 return navigator.userAgent.match(/Opera Mini/i) == null ? false : true;
+        },
+        Windows: function () {
+                 return navigator.userAgent.match(/IEMobile/i) == null ? false : true;
+        },
+        any: function () {
+                 return (isMobile.Android() || isMobile.BlackBerry() || isMobile.IOS() || isMobile.Opera() || isMobile.Windows() || isMobile.Naver());
+        },
+        Naver : function() {
+        		return navigator.userAgent.indexOf('NAVER(inapp') !== -1  ? true : false;
+        }
+};
 
 function _arrayBufferToBase64( buffer ) {
     var binary = '';

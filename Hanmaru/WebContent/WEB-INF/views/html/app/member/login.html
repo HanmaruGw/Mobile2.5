@@ -87,7 +87,17 @@
 				<div class="settings_contents_identify_box">
 					<input type="text" ng-model="pin_input_id" placeholder="Login ID" class="settings_contents_identify_write"
 						ng-focus="doFocusLayout()" ng-blur="doBlurLayout()">
-					<span class="settings_contents_email">@Halla.com</span>
+					<span class="settings_contents_email" ng-click="toggleSimpleDomainPopup()">@{{generalLogin_domain}}</span>
+					
+					<!-- <span class="settings_contents_email" ng-click="toggleDomainPopup()">@{{generalLogin_domain}}</span> -->
+ 					<ul class="selectSimpleDomain" ng-show="isOpenSimpleDomainPopup == true">
+						<li class="selectSimpleDomainList" ng-repeat="domain in domainList" ng-click="applyDomain($index)">
+							<span class="selectSimpleDomainListTxt" ng-class="{'selected' : curDomainIdx == $index}">{{domain}}</span>
+							<img src="/resources/image/ic_check_select.png" ng-show="curDomainIdx == $index">
+						</li>
+					</ul>
+					
+					
 				</div>
 				<div class="settings_contents_pw_box">
 					<input type="password" ng-model="pin_input_pwd" placeholder="Password" class="settings_contents_pw_write">

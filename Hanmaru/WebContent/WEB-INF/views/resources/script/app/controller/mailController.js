@@ -37,7 +37,7 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 			{'value':'sender','name':$rs.translateLanguage('sender')},
 			{'value':'receive','name':$rs.translateLanguage('receive')},
 			{'value':'subjectbody','name':$rs.translateLanguage('subjectbody')},
-		  ];
+			];
 	  	$s.SearchType = $s.SearchTypeOptions[0].value;
 	  	$s.SearchName = $s.SearchTypeOptions[0].name;
 	  	$s.curSearchType = 0;
@@ -86,7 +86,7 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 					$rs.dialog_toast = false;
 					$rs.dialog_progress = false;
 					$rs.$apply();
-				},500);
+				},50);
 			}
 		});
 	});
@@ -111,6 +111,8 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 		$s.mailListPage = 1;
 		//다른메뉴 이동시 xpull 초기화
 		angular.element('.mailListDiv').data("plugin_xpull").options.paused = false;
+		
+//		console.log('메일 리스트 초기화');
 		
 		// 메일 체크리스트 초기화
 		$s.mailEditList = new Array();
@@ -518,8 +520,7 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 			code = parseInt(data.Code);
 			if(code == 1){
 				var mailData = JSON.parse(data.value);
-				
-				console.log(mailData);
+//				console.log(mailData);
 				
 				$rs.mailData = mailData;
 				parseCIDAttachMailData($rs.mailData);
@@ -666,7 +667,8 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 	
 	$s.btnShowMailWrite = function() {
 		$rs.pushOnePage('pg_mail_write');
-		$rs.$broadcast('mailContentsReset');
+//		$rs.$broadcast('mailContentsReset');
+		$rs.$broadcast('initMailContents'); //2020.05.27 수정 - 새 메일 작성 
 	}
 	
 	$rs.pushOnePage = function(currPageName) {
@@ -718,15 +720,15 @@ appHanmaru.controller('mailController', ['$scope', '$http', '$rootScope', '$sce'
 					$rs.isMailBottomLoading = false;
 					//2019.10.22 추가 끝.
 				} else {
-					console.log('err : ',$s.mailListPage);
+//					console.log('err : ',$s.mailListPage);
 					$s.mailListPage--;
 				}
-			}, 50);
+			}, 10);
 		}).then(function(){
 			$timeout(function(){
 //				$rs.dialog_progress = false;
 				$rs.isMailBottomLoading = false;
-			}, 100);
+			}, 10);
 		});
 	};
 	
@@ -1650,7 +1652,6 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 		$rs.dialog_progress = true;
 		$s.isDlgMailMove = false;
 		
-		
 		// pinchzoom
 		/*
 		 * setTimeout(function(){ try { var elm =
@@ -2322,13 +2323,12 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 	
 	// (공통)첨부파일 다운로드
 	$s.btnDownloadAttachFile = function(index, fileURL, fileName) {
-		console.log($rs.agent);
+//		console.log($rs.agent);
 		// 여기에 하이브리드 기능 기술
 		if($rs.agent == 'android') {
 			if(androidWebView != undefined) {
 				androidWebView.downloadAttachFile(fileURL, fileName);
 			}
-			
 		}
 		//2020.04.16 수정 - ipad 프로 9.7 대응하기 위함.
 		else{ 
@@ -2500,8 +2500,7 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 			
 			if(approvalLinkIndex != -1) {
 				var docID = approvalLink.attr('href').split('?')[1].split('=')[1];
-				
-				console.log(docID);
+//				console.log(docID);
 				
 				setTimeout(function(){
 					var script = "javascript:btnToApprovalDetail('"+docID.trim()+"');";
@@ -2595,8 +2594,13 @@ appHanmaru.controller('hallaMailDetailCtrl', ['$scope', '$http', '$rootScope', '
 // 메일유형
 // 1 : 일반, 2 : 회신, 3 : 전체회신, 4 : 전달
 appHanmaru.controller('hallaMailWriteCtrl', ['$scope', '$http', '$rootScope','$sce', function($s, $http, $rs, $sce) {
+	
+	//2020.06.01 위치변경 - initMailContents 여기서 초기화 시점 잡으면 새로작성시만 초기화됨. 회신 및 전달 기능등 작동하기 위함.
+	//2020.03.03 추가
 	$s.hasMailData = false;
 	$s.isFlagMailMe = false;
+	$s.mailSubject = '';
+	$s.mailContents = '';
 	$s.attach_list = new Array();
 	//UI 상 표기되는 user list
 	$s.recipient_user_list = new Array(); 
@@ -2614,67 +2618,18 @@ appHanmaru.controller('hallaMailWriteCtrl', ['$scope', '$http', '$rootScope','$s
 	$s.txt_cc_name = '';
 	$s.txt_hcc_name = '';
 	
-//	var mailContents = angular.element('.wrap_contents');
-//	mailContents.on('click', function(){
-//		mailContents.find('iframe').focus();
-//	});
+	$s.showHide = false;
 	
-	
-	$rs.$on('mailContentsReset', function(event){
+	//2020.05.27 수정 - broadcast 명칭 변경
+	$rs.$on('initMailContents', function(event){
 		// 에디터 내용 리셋
 		var mailContents = angular.element('#mailContents');
 		var frameMailContents = angular.element(mailContents.contents());
 		frameMailContents.find('#btnResetBodyValue').trigger('click');
-		
-		//2020.03.03 추가
-		$s.hasMailData = false;
-		$s.isFlagMailMe = false;
-		$s.attach_list = new Array();
-		//UI 상 표기되는 user list
-		$s.recipient_user_list = new Array(); 
-		$s.cc_user_list= new Array();
-		$s.hcc_user_list = new Array();
-		//실제 data로 넘어가는 user list
-		$s.TOrecipient_user_list = new Array();
-		$s.CCrecipient_user_list = new Array();
-		$s.BCCrecipient_user_list = new Array();
-		$s.uploadFileList = new Array();
-		$s.deleteFileList = new Array();
-		$s.mailType = 1; // 기본 메일타입
-		$s.isMailSend = false;
-		$s.txt_rcv_name = '';
-		$s.txt_cc_name = '';
-		$s.txt_hcc_name = '';
-		
-		$s.showHide = false;
 	});
 	
 	$s.popPage = function(currPageName) {
-		$s.hasMailData = false;
-		$s.attach_list = new Array();
-		$s.isFlagMailMe = false;
-		$s.mailSubject = '';
-		$s.mailContents = '';
-		$s.recipient_user_list = new Array();
-		$s.cc_user_list= new Array();
-		$s.hcc_user_list = new Array();
-		$s.TOrecipient_user_list = new Array();
-		$s.CCrecipient_user_list = new Array();
-		$s.BCCrecipient_user_list = new Array();
-		$s.uploadFileList = new Array();
-		$s.deleteFileList = new Array();
-//		$s.mailType = 1; // 기본 메일타입 -  2020.01.07 주석처리. 
-		$s.txt_rcv_name = '';
-		$s.txt_cc_name = '';
-		$s.txt_hcc_name = '';
-		
-		$s.showHide = false;
-		
-//		var frameMailContents = angular.element(mailContents.contents());
-//		frameMailContents.find('#btnResetBodyValue').trigger('click');
-
 		//2019.01.06 수정 - 작성중 뒤로가기시 임시저장.
-		
 		var mailContents = angular.element('#mailContents');
 		var frameMailContents = angular.element(mailContents.contents());
 		frameMailContents.find('#btnGetBodyValue').trigger('click');
@@ -2718,12 +2673,14 @@ appHanmaru.controller('hallaMailWriteCtrl', ['$scope', '$http', '$rootScope','$s
 		$http(param1).success(function(data) {
 			//2020.02.24 추가
 			//뒤로가기 후 에디터 초기화
-			var mailContents = angular.element('#mailContents');
-			var frameMailContents = angular.element(mailContents.contents());
-			frameMailContents.find('#btnResetBodyValue').trigger('click');	
-			
-			popPage(currPageName);	
+			//2020.05.27 추가 - 에디터 초기화는 작성페이지 초기화 시점에 하도록.
+//			var mailContents = angular.element('#mailContents');
+//			var frameMailContents = angular.element(mailContents.contents());
+//			frameMailContents.find('#btnResetBodyValue').trigger('click');	
+			//popPage(currPageName);	
 		});
+		
+		popPage(currPageName);	
 	}
 	
 	$s.showHide = false;
@@ -2796,8 +2753,7 @@ appHanmaru.controller('hallaMailWriteCtrl', ['$scope', '$http', '$rootScope','$s
 			
 			if(approvalLinkIndex != -1) {
 				var docID = approvalLink.attr('href').split('?')[1].split('=')[1];
-				
-				console.log(docID);
+//				console.log(docID);
 				
 				setTimeout(function(){
 					var script = "javascript:btnToApprovalDetail('"+docID.trim()+"');";
@@ -3303,8 +3259,7 @@ appHanmaru.controller('hallaMailWriteCtrl', ['$scope', '$http', '$rootScope','$s
 		}
 		
 		var param = callApiObject('mail', 'mailDoSend', mailSendData);
-		console.log('보내는 mail param : ',param);
-		
+//		console.log('보내는 mail param : ',param);
 		$http(param).success(function(data) {
 			try {
 				var code = parseInt(data.Code, 10);
